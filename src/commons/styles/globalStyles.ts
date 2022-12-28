@@ -1,11 +1,12 @@
 import { css } from "@emotion/react";
 
 export const globalStyles = css`
+  @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
   * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: "NotoSansRegular";
+    font-family: "Noto Sans KR", "Poppins", "NewYork";
   }
 
   html,
@@ -136,34 +137,5 @@ export const globalStyles = css`
   @font-face {
     font-family: "NewYork";
     src: url("/font/NewYork_PERSONAL_USE.otf");
-  }
-
-  @font-face {
-    font-family: "NotoSansRegular";
-    src: url("/font/NotoSansKR-Regular.otf");
-  }
-
-  @font-face {
-    font-family: "NotoSansMedium";
-    src: url("/font/NotoSansKR-Medium.otf");
-  }
-
-  @font-face {
-    font-family: "NotoSansBold";
-    src: url("/font/NotoSansKR-Bold.otf");
-  }
-
-  @font-face {
-    font-family: "PoppinsRegular";
-    src: url("/font/Poppins-Regular.ttf");
-  }
-
-  @font-face {
-    font-family: "PoppinsLight";
-    src: url("/font/Poppins-Light.ttf");
-  }
-  @font-face {
-    font-family: "PoppinsBold";
-    src: url("/font/Poppins-Bold.ttf");
   }
 `;
