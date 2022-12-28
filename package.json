@@ -14,6 +14,8 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@material-ui/core": "^4.12.4",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.2",
     "antd": "^5.1.0",
     "aos": "^2.3.4",
     "apollo-upload-client": "^17.0.0",

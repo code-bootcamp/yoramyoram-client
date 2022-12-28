@@ -5,7 +5,7 @@ export const globalStyles = css`
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
-    font-family: "NotoSans";
+    font-family: "NotoSansRegular";
   }
 
   html,
@@ -146,6 +146,11 @@ export const globalStyles = css`
   @font-face {
     font-family: "NotoSansMedium";
     src: url("/font/NotoSansKR-Medium.otf");
+  }
+
+  @font-face {
+    font-family: "NotoSansBold";
+    src: url("/font/NotoSansKR-Bold.otf");
   }
 
   @font-face {
