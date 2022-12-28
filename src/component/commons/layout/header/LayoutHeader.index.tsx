@@ -8,13 +8,12 @@ export default function LayoutHeader() {
           <S.NavBtn>Our Story</S.NavBtn>
           <S.NavBtn>Shop</S.NavBtn>
           <S.NavBtn>Offline Shops</S.NavBtn>
-          <S.NavBtn>Reviews</S.NavBtn>
         </S.NavUl>
         <S.MiddleBox>
           <S.LogoImg src="/header/yoram_wh.png" />
         </S.MiddleBox>
         <S.NavRightUl>
-          <S.NavBtn>Notice</S.NavBtn>
+          <S.NavBtn>Community</S.NavBtn>
           <S.NavBtn>Login</S.NavBtn>
           <S.NavBtn>Cart</S.NavBtn>
         </S.NavRightUl>
