@@ -4,7 +4,7 @@ export const ReviewWrapper = styled.div`
   width: 67.7vw;
   margin: 34px auto;
 `;
-
+//
 export const ReviewHeader = styled.header`
   border-bottom: 1px solid rgb(170, 170, 170);
 `;

@@ -4,7 +4,7 @@ import { Rate } from "antd";
 import { CloseOutlined, FormOutlined } from "@ant-design/icons";
 export default function ProductReview() {
   const qqq = [1, 2, 3, 4, 5, 6];
-
+  //
   return (
     <S.ReviewWrapper>
       <S.ReviewHeader>

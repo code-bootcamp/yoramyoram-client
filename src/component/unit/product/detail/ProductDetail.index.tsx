@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
-
+//
 export default function ProductDetail() {
   const [count, setCount] = useState(0);
   const [isWishList, setIsWishList] = useState(false);

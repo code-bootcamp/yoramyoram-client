@@ -1,6 +1,6 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import * as S from "./ProductDetailInfo.styles";
-
+//
 export default function ProductDetailInfo() {
   return (
     <S.Wrapper>

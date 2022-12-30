@@ -240,7 +240,7 @@ export const WishListBtn = styled.div`
   align-items: center;
   gap: 10px;
 `;
-
+//
 export const BtnBox = styled.div`
   width: 1300px;
   margin: 0 auto;
