@@ -95,7 +95,7 @@ export const PhoneNumber = styled.div`
 `;
 
 export const PhoneNumber2 = styled.div`
-  padding-right: 328px;
+  width: 80%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -118,6 +118,38 @@ export const PhoneInput = styled.input`
 
 export const PhoneSlash = styled.p`
   padding-left: 9px;
+`;
+
+export const PhoneGoTextWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;
+
+export const PhoneGo = styled.button`
+  width: 147px;
+  height: 50px;
+  margin-left: 15px;
+  background-color: rgb(48 100 10);
+  color: #ffffff;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+`;
+
+export const PhoneCheck = styled.div`
+  width: 60%;
+`;
+
+export const PhoneCheckYo = styled.button`
+  width: 15%;
+  height: 50px;
+  background-color: rgb(48 100 10);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-left: 12px;
 `;
 
 // export const SuccessWrapper = styled.div`
@@ -177,6 +209,14 @@ export const SearchButton = styled.input`
   font-size: 18px;
   border: none;
   border-radius: 0 5px 5px 0;
+`;
+
+export const PhoneTextInput = styled.input`
+  width: 20%;
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid rgb(48 100 10);
+  padding: 18px;
 `;
 
 // export const SearchButtonWrapper = styled.div``;
