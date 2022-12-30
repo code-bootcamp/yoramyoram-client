@@ -25,7 +25,7 @@ const controlsProps = {
 };
 
 const slideDuration = {
-  duration: 1000,
+  duration: 1200,
 };
 
 const qqq = [1, 2, 3, 4, 5, 6, 7, 78, 8, 0];
