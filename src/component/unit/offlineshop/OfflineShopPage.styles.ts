@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 export const Background = styled.div`
   background-image: url("./ecob.png");
   background-repeat: no-repeat;
-  object-fit: cover;
+  background-size: cover;
   width: 100%;
-  height: 100vh;
+  height: auto;
   background-color: rgb(252 251 250);
   display: flex;
   flex-direction: column;
@@ -13,6 +13,7 @@ export const Background = styled.div`
 `;
 
 export const BigWrapper = styled.div`
+  padding: 150px 0 100px 0;
   max-width: 1300px;
   margin: 0 auto;
 `;
@@ -21,11 +22,14 @@ export const TitleWrapper = styled.div`
   text-align: center;
   color: rgb(48 100 10);
   & > h1 {
-    font-size: 70px;
+    font-family: "NewYork";
+    font-size: 60px;
   }
   & > h5 {
+    font-family: "Noto Sans KR";
     font-size: 18px;
     font-weight: 400;
+    margin-top: 15px;
   }
 `;
 

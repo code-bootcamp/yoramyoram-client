@@ -41,14 +41,20 @@ export default function JoinPageUI() {
               <S.PhoneInput /> <S.PhoneSlash>-</S.PhoneSlash> <S.PhoneInput />
             </S.PhoneNumber2>
           </S.PhoneNumber>
-          <S.InputWrapper>
+          <S.AddressWrapper2>
             <S.Label>주소</S.Label>
-            <S.NameInput type="text" placeholder="주소를 입력하세요." />
-            <S.SearchButton type="button" value="우편번호찾기" />
-          </S.InputWrapper>
-          <S.BirthWrapper>
-            <S.NameInput type="text" placeholder="상세주소를 입력하세요." />
-          </S.BirthWrapper>
+            <S.AddressWrapper>
+              <S.AddressWrapper3>
+                <S.NameInput type="text" placeholder="주소를 입력하세요." />
+                <S.SearchButton type="button" value="우편번호찾기" />
+              </S.AddressWrapper3>
+              <S.AddressInput
+                type="text"
+                placeholder="상세주소를 입력하세요."
+              />
+            </S.AddressWrapper>
+          </S.AddressWrapper2>
+
           {/* <S.SuccessWrapper>
             <S.SuccessInput type="radio" />{" "}
             <S.SuccessP>전체 약관 항목에 동의합니다.</S.SuccessP>
