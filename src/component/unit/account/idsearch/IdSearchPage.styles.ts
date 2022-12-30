@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Background = styled.div`
   width: 100%;
   height: 100vh;
+  padding-top: 130px;
   background-color: rgb(252 251 250);
   display: flex;
   flex-direction: column;
@@ -10,7 +11,7 @@ export const Background = styled.div`
 `;
 
 export const Box = styled.div`
-  width: 680px;
+  min-width: 680px;
   margin: 0 auto;
 `;
 
@@ -50,6 +51,7 @@ export const MainCon = styled.div`
 `;
 
 export const Name = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -60,6 +62,7 @@ export const Name = styled.div`
 `;
 
 export const Phone = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -69,7 +72,7 @@ export const Phone = styled.div`
 `;
 
 export const NameIn = styled.input`
-  width: 420px;
+  width: 75%;
   height: 63px;
   border: 1px solid rgb(183 183 183);
   background-color: none;
@@ -78,7 +81,7 @@ export const NameIn = styled.input`
 `;
 
 export const PhoneNumber = styled.select`
-  width: 113px;
+  width: 20%;
   height: 63px;
   background: transparent;
   border-radius: 4px;
@@ -87,7 +90,7 @@ export const PhoneNumber = styled.select`
 `;
 
 export const PhoneNumber2 = styled.input`
-  width: 130px;
+  width: 24%;
   height: 63px;
   background: transparent;
   border-radius: 4px;
@@ -138,3 +141,7 @@ export const Info2 = styled.div`
   flex-direction: row;
   /* justify-content: center; */
 `;
+
+// export const Label = styled.label`
+//   width: 20%;
+// `;

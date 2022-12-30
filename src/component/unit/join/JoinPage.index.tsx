@@ -39,8 +39,16 @@ export default function JoinPageUI() {
               </S.PhoneSelect>
               <S.PhoneSlash>-</S.PhoneSlash>
               <S.PhoneInput /> <S.PhoneSlash>-</S.PhoneSlash> <S.PhoneInput />
+              <S.PhoneGo>인증번호 전송</S.PhoneGo>
             </S.PhoneNumber2>
           </S.PhoneNumber>
+          <S.InputWrapper>
+            <S.Label>인증번호</S.Label>
+            <S.PhoneTextInput type="password" />
+            <S.PhoneCheck>
+              <S.PhoneCheckYo>인증확인</S.PhoneCheckYo>
+            </S.PhoneCheck>
+          </S.InputWrapper>
           <S.AddressWrapper2>
             <S.Label>주소</S.Label>
             <S.AddressWrapper>
