@@ -3,13 +3,13 @@ import styled from "@emotion/styled";
 export const Form = styled.form``;
 
 export const Label = styled.label`
-  color: #30640a;
   width: 20%;
 `;
 
 export const Background = styled.div`
   width: 100%;
-  height: auto;
+  padding: 10%;
+  background-color: rgb(252 251 250);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,8 +17,6 @@ export const Background = styled.div`
 
 export const Container = styled.div`
   margin: 0 auto;
-  padding: 130px 0;
-  min-width: 920px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -27,13 +25,12 @@ export const TitleWrapper = styled.div`
   border-bottom: 1px solid #30640a;
   line-height: 2;
   align-items: baseline;
-  /* min-width: 920px; */
 `;
 
 export const Title = styled.h1`
+  font-size: 35px;
   color: #30640a;
   font-family: "NewYork";
-  font-size: 35px;
 `;
 
 export const TitleCon = styled.p`
@@ -51,19 +48,11 @@ export const InputWrapper = styled.div`
 `;
 
 export const NameInput = styled.input`
-  width: 80%;
-  height: 50px;
-  border-radius: 5px 0 0 5px;
+  width: 31.9444vw;
+  height: 70px;
+  border-radius: 4px;
   border: 1px solid #30640a;
   padding: 18px;
-`;
-
-export const AddressInput = styled.input`
-  width: 100%;
-  height: 50px;
-  border: 1px solid #30640a;
-  padding: 15px;
-  border-radius: 5px;
 `;
 
 export const BirthWrapper = styled.div`
@@ -86,8 +75,10 @@ export const SellectWrapper = styled.div`
 `;
 
 export const PhoneNumber = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   color: #30640a;
   padding-top: 39px;
@@ -101,121 +92,125 @@ export const PhoneNumber2 = styled.div`
 `;
 
 export const PhoneSelect = styled.select`
-  height: 50px;
+  width: 15%;
   border: 1px solid #30640a;
   border-radius: 4px;
   padding: 15px;
 `;
 
 export const PhoneInput = styled.input`
-  width: 130px;
-  height: 50px;
   border: 1px solid #30640a;
   border-radius: 4px;
-  margin-left: 13px;
-`;
-
-export const PhoneSlash = styled.p`
-  padding-left: 9px;
-`;
-
-export const PhoneGoTextWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-
-export const PhoneGo = styled.button`
-  width: 147px;
-  height: 50px;
-  margin-left: 15px;
-  background-color: #30640a;
-  color: #ffffff;
-  font-size: 18px;
-  border-radius: 5px;
-  border: none;
-`;
-
-export const PhoneCheck = styled.div`
-  width: 60%;
-`;
-
-export const PhoneCheckYo = styled.button`
+  margin-left: 25px;
+  padding: 15px;
   width: 15%;
-  height: 50px;
-  background-color: #30640a;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 14px;
-  margin-left: 12px;
-`;
-
-// export const SuccessWrapper = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   padding-top: 75px;
-// `;
-
-// export const SuccessInput = styled.input`
-//   width: 19px;
-//   height: 19px;
-// `;
-
-// export const SuccessP = styled.p`
-//   padding-left: 17px;
-// `;
-
-export const AddressWrapper2 = styled.div`
-  display: flex;
-  margin-top: 30px;
-`;
-
-export const AddressWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 80%;
-`;
-
-export const AddressWrapper3 = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 10px;
 `;
 
 export const JoinButton = styled.button`
+  width: 931.5px;
+  height: 96.6px;
   background-color: #30640a;
   color: rgb(252 251 250);
-  font-size: 20px;
+  font-size: 25px;
   border: none;
   cursor: pointer;
-  width: 30%;
-  padding: 12px;
-  display: block;
-  margin: 0 auto;
 `;
 
 export const JoinButtonWrapper = styled.div`
   margin-top: 60px;
+  width: 100%;
 `;
 
 export const SearchButton = styled.input`
-  width: 20%;
-  height: 50px;
+  width: 148px;
+  height: 41px;
   background-color: #30640a;
-  color: #ffffff;
+  color: rgb(252 251 250);
   font-size: 18px;
   border: none;
-  border-radius: 0 5px 5px 0;
+  border-radius: 6px;
+  margin-left: -289px;
 `;
 
-export const PhoneTextInput = styled.input`
+export const CertNumber = styled.button`
   width: 20%;
-  height: 50px;
-  border-radius: 5px;
-  border: 1px solid #30640a;
-  padding: 18px;
+  padding: 15px;
+  margin-left: 25px;
+  border-radius: 4px;
+  border: none;
+  color: #fcfbfa;
+  font-size: 15px;
+  background-color: #30640a;
 `;
 
-// export const SearchButtonWrapper = styled.div``;
+export const CertNumberWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: #30640a;
+  margin-top: 37px;
+`;
+
+export const CertNumberInput = styled.input`
+  width: 30%;
+  padding: 15px;
+  border: 1px solid #30640a;
+  border-radius: 4px;
+`;
+
+export const CertNumberButton = styled.button`
+  width: 12%;
+  padding: 15px;
+  margin-left: 25px;
+  border-radius: 4px;
+  background-color: #30640a;
+  color: #ffff;
+  border: none;
+  color: #fcfbfa;
+  font-size: 15px;
+`;
+
+export const AddressNumberWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  color: #30640a;
+  margin-top: 37px;
+`;
+
+export const AddressNumberInput = styled.input`
+  width: 30%;
+  padding: 15px;
+  border: 1px solid #30640a;
+  border-radius: 4px;
+`;
+
+export const AddressNumberButton = styled.button`
+  width: 13%;
+  padding: 15px;
+  margin-left: 25px;
+  border-radius: 4px;
+  background-color: #30640a;
+  border: none;
+  color: #fcfbfa;
+  font-size: 15px;
+`;
+
+export const AddressInputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+`;
+
+export const AddressInput = styled.input`
+  width: 80%;
+  border-radius: 4px;
+  border: 1px solid #30640a;
+  padding: 15px;
+  font-size: 15px;
+`;

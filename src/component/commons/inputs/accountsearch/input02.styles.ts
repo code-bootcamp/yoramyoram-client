@@ -18,7 +18,7 @@ export const Label = styled.label`
 
 export const SearchInput = styled.input`
   width: 80%;
-  height: 63px;
+  padding: 20px;
   border: 1px solid #b7b7b7;
   border-radius: 4px;
   background-color: none;
