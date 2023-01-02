@@ -6,14 +6,19 @@ import {
   PlusOutlined,
   RightOutlined,
 } from "@ant-design/icons";
-import { useState } from "react";
 import { CloseOutlined } from "@ant-design/icons";
+import { useState } from "react";
+import SwiperImg from "./SwiperImg";
+import ProductReview from "./productReview/ProductReview.index";
+import ProductDetailInfo from "./productDetailInfo/ProductDetailInfo.index";
+
 //
 export default function ProductDetail() {
   const [count, setCount] = useState(0);
   const [isWishList, setIsWishList] = useState(false);
-  const [isActiveInfo, setIsActiveInfo] = useState(false);
-  const [isActiveReview, setIsActiveReview] = useState(false);
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [detailSelectBtn, setDetailSelectBtn] = useState(true);
+  const [selectBtn, setSelectBtn] = useState<string>("상세정보");
 
   const onClickWishList = () => {
     setIsWishList((prev) => !prev);
@@ -35,16 +40,6 @@ export default function ProductDetail() {
     console.log("search:", value);
   };
 
-  const onClickInfoActive = () => {
-    setIsActiveInfo(true);
-    setIsActiveReview(false);
-  };
-
-  const onClickReviewActive = () => {
-    setIsActiveInfo(false);
-    setIsActiveReview(true);
-  };
-
   return (
     <>
       <S.Wrapper>
@@ -55,24 +50,7 @@ export default function ProductDetail() {
         </S.CategoryWrapper>
         <S.DetailWrapper>
           <section>
-            <S.DetailMainImg
-              src="/productDetail/purchase.png"
-              alt="상품이미지"
-            />
-            <S.DetailSubImgWrapper>
-              <S.DetailSubImg
-                src="/productDetail/purchase.png"
-                alt="상품이미지"
-              />
-              <S.DetailSubImg
-                src="/productDetail/purchase.png"
-                alt="상품이미지"
-              />
-              <S.DetailSubImg
-                src="/productDetail/purchase.png"
-                alt="상품이미지"
-              />
-            </S.DetailSubImgWrapper>
+            <SwiperImg />
           </section>
           <S.DetailPurchaseInfoWrapper>
             <S.RightNameBox>
@@ -173,13 +151,20 @@ export default function ProductDetail() {
         </S.DetailWrapper>
       </S.Wrapper>
       <S.BtnBox>
-        <S.SelectBtn onClick={onClickInfoActive} isActiveInfo={isActiveInfo}>
+        <S.SelectBtn
+          detailSelectBtn={detailSelectBtn}
+          onClick={() => setDetailSelectBtn(true)}
+        >
           상세정보
         </S.SelectBtn>
-        <S.WWW onClick={onClickReviewActive} isActiveReview={isActiveReview}>
+        <S.SelectBtn
+          detailSelectBtn={detailSelectBtn}
+          onClick={() => setDetailSelectBtn(false)}
+        >
           구매평(41)
-        </S.WWW>
+        </S.SelectBtn>
       </S.BtnBox>
+      {detailSelectBtn ? <ProductDetailInfo /> : <ProductReview />}
     </>
   );
 }
