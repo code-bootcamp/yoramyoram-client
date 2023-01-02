@@ -138,4 +138,13 @@ export const globalStyles = css`
     font-family: "NewYork";
     src: url("/font/NewYork_PERSONAL_USE.otf");
   }
+
+  .quill .ql-toolbar.ql-snow,
+  .quill .ql-container.ql-snow {
+    border: 1px solid #306415;
+  }
+
+  .quill .ql-toolbar.ql-snow + .ql-container.ql-snow {
+    height: 400px;
+  }
 `;
