@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { Select } from "antd";
 
 export const Wrapper = styled.main`
-  width: 1300px;
+  max-width: 1300px;
   margin: 8% auto 6.5%;
 `;
 
@@ -26,35 +26,10 @@ export const DetailWrapper = styled.div`
   padding-top: 1.3%;
 `;
 
-export const DetailImg = styled.section``;
-
-export const DetailMainImg = styled.img`
-  width: 100%;
-  /* height: 640px; */
-  height: 33.3vw;
-  // px로 잡으면 고정, 안주면 사이즈 안맞음
-  cursor: pointer;
-`;
-
-export const DetailSubImgWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-`;
-export const DetailSubImg = styled.img`
-  width: 100%;
-  /* height: 169px; */
-  height: 17vh;
-  margin: 2% 2% 0 0;
-  &:last-child {
-    margin-right: 0;
-  }
-  object-fit: cover;
-  cursor: pointer;
-`;
 // 오른쪽 박스
 export const DetailPurchaseInfoWrapper = styled.div`
-  width: 44%;
+  max-width: 580px;
+  width: 100%;
 `;
 
 export const RightNameBox = styled.div`
@@ -263,17 +238,7 @@ export const BtnBox = styled.div`
 export const SelectBtn = styled.button`
   width: 50%;
   padding: 1.8% 0;
-  background: ${(props) => (props.isActiveInfo ? "#30640A" : "none")};
-  color: ${(props) => (props.isActiveInfo ? "#ffffff" : "none")};
+  background: none;
   border: 1px solid #b7b7b7;
   cursor: pointer;
-`;
-
-export const WWW = styled.button`
-  width: 50%;
-  padding: 1.8% 0;
-  border: 1px solid #b7b7b7;
-  cursor: pointer;
-  background: ${(props) => (props.isActiveReview ? "#30640A" : "none")};
-  color: ${(props) => (props.isActiveReview ? "#ffffff" : "none")};
 `;

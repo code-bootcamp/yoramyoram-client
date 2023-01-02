@@ -6,8 +6,6 @@ export default function ProductDetailPage() {
   return (
     <>
       <ProductDetail />
-      <ProductDetailInfo />
-      <ProductReview />
     </>
   );
 }
