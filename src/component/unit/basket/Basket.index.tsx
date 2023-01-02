@@ -27,7 +27,10 @@ export default function Basket() {
                 <S.Tr>
                   <S.PrdTd>
                     <S.ImgWrap>
+
                       <img src="/productDetail/purchase.png"></img>
+
+
                     </S.ImgWrap>
                     <S.PrdDetail>
                       <S.Name>천연소재 파우치</S.Name>

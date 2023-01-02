@@ -89,7 +89,8 @@ export default function ProductWrite() {
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
-              <Select
+              <S.SelectBox
+
                 defaultValue="옵션을 선택하세요"
                 style={{ width: "100%" }}
                 onChange={handleChange}
@@ -139,7 +140,7 @@ export default function ProductWrite() {
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
 
-              <Select
+              <S.SelectBox
                 defaultValue="옵션을 선택하세요"
                 style={{ width: "100%" }}
                 onChange={handleChange}
