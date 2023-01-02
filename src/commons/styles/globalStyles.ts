@@ -134,6 +134,11 @@ export const globalStyles = css`
     border-spacing: 0;
   }
 
+  button {
+    border: 0 none;
+    background-color: transparent;
+  }
+
   @font-face {
     font-family: "NewYork";
     src: url("/font/NewYork_PERSONAL_USE.otf");

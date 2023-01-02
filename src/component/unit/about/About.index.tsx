@@ -9,7 +9,8 @@ export default function About() {
 
           <S.Contents>
             <S.Left>
-              <S.Img src="/about/ab1.png"></S.Img>
+              <S.Img src="/about/ab1.png" />
+              <S.LeftImg src="/about/ab2.png" />
             </S.Left>
             <S.Right>
               <S.Text>
