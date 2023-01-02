@@ -5,6 +5,7 @@ import { url } from "inspector";
 import { Slide } from "react-full-page";
 import Slider from "react-slick";
 import { Swiper, SwiperSlide } from "swiper/react";
+import * as mq from "../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.div``;
 
@@ -39,15 +40,14 @@ export const Mouse = styled(DownOutlined)`
   margin-bottom: 10px;
   animation: ${SlideTop} 1.5s linear infinite both;
   & > svg {
-    font-size: 2rem;
+    font-size: 30px;
   }
 `;
 
 export const Stxt = styled.p`
-  font-size: 0.8rem;
+  font-size: 13px;
   font-family: "Poppins";
   color: #f2f2f2;
-  font-family: "NotoSans";
 `;
 
 export const SlideFirst = styled.div`
@@ -85,28 +85,56 @@ export const VideoPageTextBox = styled.div`
   left: 50%;
   z-index: 2;
   transform: translate(-50%, -50%);
+  ${mq.mobile} {
+    width: 80%;
+  }
+  ${mq.mobileL} {
+    width: 80%;
+  }
+  ${mq.tablet} {
+    width: 80%;
+  }
 `;
 
-export const VideoLargeText = styled.div`
-  font-size: 6.2rem;
+export const VideoLargeText = styled.h1`
+  font-size: 70px;
   font-family: "NewYork";
+  margin-bottom: 15px;
+  ${mq.tablet} {
+    font-size: 60px;
+  }
+  ${mq.mobileL} {
+    font-size: 45px;
+  }
+  ${mq.mobile} {
+    font-size: 38px;
+  }
 `;
 
-export const VideoSmallText = styled.div`
-  font-size: 1.1rem;
+export const VideoSmallText = styled.h5`
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.3;
   text-align: center;
-  margin: 2% 0 3%;
-  font-family: "NotoSans";
+  margin-bottom: 30px;
+  font-family: "Noto Sans KR";
+  ${mq.mobile} {
+    & > br {
+      display: none;
+    }
+  }
 `;
 
 export const MoreDetailBtn = styled.button`
   display: inline-block;
-  font-size: 1.2rem;
+  font-size: 14px;
+  font-weight: 300;
+  text-transform: uppercase;
   color: #ffffff;
   background: none;
   border: none;
   cursor: pointer;
-  font-family: "NotoSans";
+  font-family: "Poppins";
 `;
 
 export const WasteShopBox = styled.div`
@@ -114,55 +142,93 @@ export const WasteShopBox = styled.div`
   height: 100%;
   display: flex;
   flex-direction: row;
+  ${mq.mobile} {
+    display: block;
+  }
+  ${mq.mobileL} {
+    display: block;
+  }
 `;
 
 export const WasteShopImg = styled.img`
   width: 68%;
   object-fit: cover;
+  ${mq.mobile} {
+    width: 100%;
+    height: 70%;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    height: 65%;
+  }
 `;
 
 export const WasteShopTextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
-  padding: 0 0 6.8% 2.2%;
+  padding: 0 30px 100px 30px;
+  background-color: #fcfbfa;
+  width: 32%;
+  ${mq.mobile} {
+    width: 100%;
+    height: 35%;
+    justify-content: center;
+    padding: 0 18px;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    height: 35%;
+    justify-content: center;
+    padding: 0 18px;
+  }
 `;
 
 export const WasteShopText = styled.div`
-  font-size: 2.8rem;
+  font-size: 40px;
   color: #30640a;
   font-family: "NewYork";
 `;
 
 export const WasteShopTextSmall = styled.div`
-  /* height: 27px; */
-  padding: 3% 0 6%;
-  font-size: 1.1rem;
+  font-size: 16px;
   color: #30640a;
-  font-family: "NotoSans";
+  font-family: "Noto Sans KR";
+  margin: 15px 0 30px 0;
+  font-weight: 400;
+  line-height: 1.3;
 `;
 
 export const WasteShopBtn = styled.button`
-  width: 31%;
-  padding: 2% 0;
+  width: 150px;
+  padding: 10px;
   background: none;
-  border: 2px solid #30640a;
-  font-family: "NotoSans";
+  border: 1px solid #30640a;
+  font-family: "Noto Sans KR";
 
-  font-size: 1.1rem;
+  font-size: 16px;
   text-align: center;
   color: #30640a;
-
+  transition: all 0.3s;
   & > span {
-    padding-left: 4%;
+    padding-left: 5px;
+  }
+  &:hover {
+    background-color: #30640a;
+    color: #fcfbfa;
   }
   cursor: pointer;
 `;
 
 export const ProductBox = styled.div`
-  /* width: 1300px; */
-  width: 68.25%;
+  max-width: 100%;
   margin: 0 auto;
+  ${mq.mobile} {
+    padding: 0 18px;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+  }
 `;
 
 export const ProductText = styled.div`
@@ -170,26 +236,41 @@ export const ProductText = styled.div`
 `;
 
 export const ProductTitle = styled.div`
-  font-size: 2.8rem;
+  font-size: 40px;
   color: #222222;
   font-family: "NewYork";
+  margin-bottom: 15px;
 `;
 
 export const ProductSmall = styled.div`
-  font-size: 1rem;
+  font-size: 16px;
   color: #222222;
-  padding: 1% 0 2.4%;
-  font-family: "NotoSans";
+  font-family: "Noto Sans KR";
+  font-weight: 300;
+  margin-bottom: 30px;
+  line-height: 1.3;
+  & > br {
+    display: none;
+  }
+  ${mq.mobile} {
+    & > br {
+      display: block;
+    }
+  }
+  ${mq.mobileL} {
+    & > br {
+      display: block;
+    }
+  }
 `;
 export const MoreBtn = styled.div`
-  font-size: 1.2rem;
+  font-size: 15px;
   color: #222222;
-  text-align: end;
-  font-family: "NotoSans";
-
-  padding-bottom: 1.2%;
+  text-align: right;
+  font-family: "Noto Sans KR";
+  margin-bottom: 15px;
   & > span {
-    margin-left: 1%;
+    margin-left: 5px;
   }
   cursor: pointer;
 `;
@@ -198,54 +279,92 @@ export const SliderCustom = styled(Slider)`
   .slick-prev:before {
     color: black;
     opacity: 1;
-    font-size: 1rem;
     content: url("/landing/arrow-left.png");
+    transform: scale(0.5);
+    position: absolute;
+    ${mq.mobile} {
+      display: none;
+    }
   }
   .slick-next:before {
     color: black;
     opacity: 1;
-    font-size: 1rem;
-
+    transform: scale(0.5);
+    position: absolute;
     content: url("/landing/arrow-right.png");
+    ${mq.mobile} {
+      display: none;
+    }
   }
   .slick-prev {
-    left: -7%;
+    left: -3%;
     top: 30%;
     z-index: 9;
     font-size: 10px;
   }
   .slick-next {
-    right: -5%;
+    right: -1%;
     top: 30%;
     z-index: 9;
     font-size: 0.6rem;
   }
 `;
-
+export const SlideBox = styled.div``;
 export const ProductImg = styled.img`
-  width: 98%;
-  height: 34vh;
+  width: 90%;
+  height: auto;
   object-fit: cover;
+  border: 1px solid #707070;
+  margin: 0 auto;
 `;
+
+export const InfoBox = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 15px;
+`;
+
 export const ProductInfo = styled.div`
-  font-size: 1.2rem;
+  font-family: "Noto Sans KR";
+  margin: 15px 0;
+`;
+
+export const Name = styled.p`
+  font-size: 16px;
   color: #222222;
-  padding: 6% 0;
-  font-family: "NotoSans";
+  font-weight: 400;
+  margin-bottom: 8px;
+`;
+export const Price = styled.p`
+  font-size: 16px;
+  color: #222222;
+  font-weight: 500;
 `;
 
 export const BuyBtn = styled.button`
   width: 45%;
-  padding: 3% 0;
+  padding: 8px 10px;
   border: 1px solid #a0a0a0;
-  color: rgba(255 255 255, 0);
-  background: none;
-  font-family: "NotoSans";
-
-  & > span {
-    padding-left: 11%;
-  }
+  color: #222;
+  background-color: transparent;
+  font-family: "Noto Sans KR";
+  font-size: 14px;
   cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #30640a;
+    color: #fcfbfa;
+    border: none;
+  }
+  & > span {
+    padding-left: 10px;
+  }
+  ${mq.mobile} {
+    width: 100%;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+  }
 `;
 
 export const ReviewSlide = styled.div`
@@ -256,19 +375,31 @@ export const ReviewSlide = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  ${mq.mobile} {
+    padding: 0 18px;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+  }
 `;
 
 export const SwiperText = styled.div`
-  font-size: 2.8rem;
+  font-size: 40px;
   color: #222222;
   font-family: "NewYork";
 `;
 
 export const SwiperWrapper = styled.div`
   padding-left: 15%;
+  ${mq.mobile} {
+    padding-left: 0;
+  }
+  ${mq.mobileL} {
+    padding-left: 0;
+  }
 `;
 export const SwiperContents = styled.div`
-  padding-top: 2%;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
 `;
@@ -276,6 +407,12 @@ export const SwiperContents = styled.div`
 export const SwiperImg = styled.img`
   margin-right: 30px;
   object-fit: cover;
+  ${mq.mobile} {
+    display: none;
+  }
+  ${mq.mobileL} {
+    display: none;
+  }
 `;
 
 export const SwiperContentWrapper = styled(Swiper)`
@@ -297,13 +434,21 @@ export const SwiperContentWrapper = styled(Swiper)`
 export const Reviews = styled(SwiperSlide)`
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.51);
-  font-size: 1.6rem;
+  font-size: 20px;
+  line-height: 1.3;
   color: #222222;
-  padding: 4% 3% 3%;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  font-family: "NotoSans";
+  justify-content: center;
+  gap: 40px;
+  font-family: "Noto Sans KR";
+  ${mq.mobile} {
+    font-size: 18px;
+  }
+  ${mq.mobileL} {
+    font-size: 18px;
+  }
 `;
 
 export const BrushImg = styled.div`
@@ -329,29 +474,40 @@ export const BrushText = styled.div`
   flex-direction: column;
   align-items: center;
   position: absolute;
-  top: 35%;
-  left: 38%;
-  z-index: 1;
+  top: 42%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  ${mq.mobile} {
+    width: 80%;
+  }
 `;
 
 export const YoramMemeber = styled.div`
-  font-size: 2.8rem;
+  font-size: 45px;
   color: #222222;
   font-family: "NewYork";
 `;
-/* width: 276px; */
 
 export const BeginYoram = styled.div`
-  font-size: 1.2rem;
+  font-size: 16px;
   color: #222222;
-  padding: 2.5% 0 4%;
+  margin: 15px 0 30px 0;
+  line-height: 1.3;
 `;
 
 export const BeginZeroBtn = styled.button`
-  width: 62%;
-  padding: 2% 0;
-  background-color: rgba(255, 255, 255, 0);
+  padding: 8px 10px;
+  background-color: transparent;
   color: #222222;
-  font-size: 1.1rem;
+  font-size: 16px;
   cursor: pointer;
+  border: 1px solid #222;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #222;
+    color: #fcfbfa;
+  }
+  & > span {
+    margin-left: 10px;
+  }
 `;
