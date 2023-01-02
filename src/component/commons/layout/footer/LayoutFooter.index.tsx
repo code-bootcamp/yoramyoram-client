@@ -20,7 +20,6 @@ export default function LayoutFooter() {
             <li onClick={onClickMoveToPage("/about")}>Our Story</li>
             <li onClick={onClickMoveToPage("/products")}>Shop</li>
             <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shops</li>
-            <li>Reviews</li>
           </S.RightNavBox>
           <S.ZeroWasteInfo>
             (주)요람요람

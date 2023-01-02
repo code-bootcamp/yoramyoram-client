@@ -147,4 +147,8 @@ export const globalStyles = css`
   .quill .ql-toolbar.ql-snow + .ql-container.ql-snow {
     height: 400px;
   }
+
+  .footerSlide {
+    height: 32% !important;
+  }
 `;

@@ -62,7 +62,8 @@ export const NavBtn = styled.li`
   padding-right: 4.5%;
   font-size: 1rem;
   cursor: pointer;
-  font-family: "PoppinsLight";
+  font-family: "Poppins";
+  font-weight: 300;
   &:last-child {
     padding-right: 0;
   }
@@ -83,12 +84,16 @@ export const MobileHeader = styled.header`
     display: block;
   }
   background-color: #fcfbfa;
-  border-bottom: 1px solid #306415;
+  border-bottom: 1px solid #30640a;
   padding: 18px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 `;
 export const Hamburger = styled(MenuOutlined)`
   & > svg {
-    color: #306415;
+    color: #30640a;
     font-size: 18px;
   }
 `;
@@ -100,11 +105,12 @@ export const HeaderWrapper = styled.div`
 export const Sidebar = styled.div`
   width: 280px;
   height: 100vh;
-  position: absolute;
-  top: 67px;
-  background-color: #306415;
+  position: fixed;
+  top: 69px;
+  background-color: #30640a;
   left: ${(props) => (props.isOpen ? "0px" : "-376px")};
   transition: 1s;
+  z-index: 9;
 `;
 export const Nav = styled.nav`
   color: #fcfbfa;
@@ -136,13 +142,13 @@ export const MyMenu = styled.div``;
 export const User = styled(UserOutlined)`
   margin-right: 15px;
   & > svg {
-    color: #306415;
+    color: #30640a;
     font-size: 18px;
   }
 `;
 export const Cart = styled(ShoppingCartOutlined)`
   & > svg {
-    color: #306415;
+    color: #30640a;
     font-size: 18px;
   }
 `;

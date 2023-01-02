@@ -20,7 +20,7 @@ export function LayoutHeader() {
         <S.HeaderWrapper>
           <S.Hamburger onClick={toggleMenu} />
           <S.Logo>
-            <img src="/header/logo_gr.png"></img>
+            <img src="/header/logo_gr.png" onClick={onClickMoveToPage("/")} />
           </S.Logo>
           <S.MyMenu>
             <S.User />
@@ -30,12 +30,12 @@ export function LayoutHeader() {
         <S.Sidebar isOpen={isOpen}>
           <S.Nav>
             <ul>
-              <li>Our Story</li>
-              <li>Shop</li>
-              <li>Offline Shop</li>
-              <li>Community</li>
-              <li>Login</li>
-              <li>Cart</li>
+              <li onClick={onClickMoveToPage("/about")}>Our Story</li>
+              <li onClick={onClickMoveToPage("/products")}>Shop</li>
+              <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shop</li>
+
+              <li onClick={onClickMoveToPage("/join")}>Login</li>
+              <li onClick={onClickMoveToPage("/basket")}>Cart</li>
             </ul>
           </S.Nav>
         </S.Sidebar>
@@ -50,12 +50,14 @@ export function LayoutHeader() {
             </S.NavBtn>
           </S.NavUl>
           <S.MiddleBox>
-            <S.LogoImg src="/header/yoram_wh.png" />
+            <S.LogoImg
+              src="/header/yoram_wh.png"
+              onClick={onClickMoveToPage("/")}
+            />
           </S.MiddleBox>
           <S.NavRightUl>
-            <S.NavBtn>Community</S.NavBtn>
             <S.NavBtn onClick={onClickMoveToPage("/join")}>Login</S.NavBtn>
-            <S.NavBtn onClick={onClickMoveToPage("/")}>Cart</S.NavBtn>
+            <S.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</S.NavBtn>
           </S.NavRightUl>
         </S.TextBox>
       </S.HeaderBox>
@@ -80,7 +82,7 @@ export function LayoutHeaderMain() {
         <O.HeaderWrapper>
           <O.Hamburger onClick={toggleMenu} />
           <O.Logo>
-            <img src="/header/logo_gr.png"></img>
+            <img src="/header/logo_gr.png" onClick={onClickMoveToPage("/")} />
           </O.Logo>
           <O.MyMenu>
             <O.User />
@@ -90,12 +92,12 @@ export function LayoutHeaderMain() {
         <O.Sidebar isOpen={isOpen}>
           <O.Nav>
             <ul>
-              <li>Our Story</li>
-              <li>Shop</li>
-              <li>Offline Shop</li>
-              <li>Community</li>
-              <li>Login</li>
-              <li>Cart</li>
+              <li onClick={onClickMoveToPage("/about")}>Our Story</li>
+              <li onClick={onClickMoveToPage("/products")}>Shop</li>
+              <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shop</li>
+
+              <li onClick={onClickMoveToPage("/join")}>Login</li>
+              <li onClick={onClickMoveToPage("/basket")}>Cart</li>
             </ul>
           </O.Nav>
         </O.Sidebar>
@@ -113,9 +115,8 @@ export function LayoutHeaderMain() {
             <S.LogoImg src="/header/logo_gr.png" />
           </O.MiddleBox>
           <O.NavRightUl>
-            <O.NavBtn>Community</O.NavBtn>
             <O.NavBtn onClick={onClickMoveToPage("/join")}>Login</O.NavBtn>
-            <O.NavBtn onClick={onClickMoveToPage("/")}>Cart</O.NavBtn>
+            <O.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</O.NavBtn>
           </O.NavRightUl>
         </O.TextBox>
       </O.HeaderBox>
