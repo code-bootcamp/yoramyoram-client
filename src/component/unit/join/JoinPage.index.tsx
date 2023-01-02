@@ -1,3 +1,4 @@
+import Input01 from "../../commons/inputs/Join/Input01.index";
 import * as S from "./JoinPage.styles";
 
 export default function JoinPageUI() {
@@ -9,27 +10,22 @@ export default function JoinPageUI() {
           <S.TitleCon>Yoram Yoram 회원 가입</S.TitleCon>
         </S.TitleWrapper>
         <S.Form>
-          <S.InputWrapper>
-            <S.Label>이름</S.Label> <S.NameInput type="text" />
-          </S.InputWrapper>
-
-          <S.InputWrapper>
-            <S.Label>이메일</S.Label> <S.NameInput type="text" />
-          </S.InputWrapper>
-          <S.InputWrapper>
-            <S.Label>비밀번호</S.Label>
-            <S.NameInput
-              type="password"
-              placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10~16자"
-            />
-          </S.InputWrapper>
-          <S.InputWrapper>
-            <S.Label>비밀번호 확인</S.Label>
-            <S.NameInput
-              type="password"
-              placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합, 10~16자"
-            />
-          </S.InputWrapper>
+          <Input01 type="text" title="이름" placeholder="이름을 입력하세요." />
+          <Input01
+            type="text"
+            title="이메일"
+            placeholder="이메일을 입력하세요."
+          />
+          <Input01
+            type="password"
+            title="비밀번호"
+            placeholder="영문 대소문자/숫자/특수문자 중 2가지 이상 조합,10~16자"
+          />
+          <Input01
+            type="password"
+            title="비밀번호 확인"
+            placeholder="영문 대소문자/숫자/특수문자 중  2가지 이상 조합,10~16자"
+          />
           <S.PhoneNumber>
             <S.Label>휴대폰번호</S.Label>
             <S.PhoneNumber2>
@@ -37,36 +33,30 @@ export default function JoinPageUI() {
                 <option>010</option>
                 <option>011</option>
               </S.PhoneSelect>
-              <S.PhoneSlash>-</S.PhoneSlash>
-              <S.PhoneInput /> <S.PhoneSlash>-</S.PhoneSlash> <S.PhoneInput />
-              <S.PhoneGo>인증번호 전송</S.PhoneGo>
+              <S.PhoneInput type="text" /> <S.PhoneInput type="text" />
+              <S.CertNumber>인증번호 전송</S.CertNumber>
             </S.PhoneNumber2>
           </S.PhoneNumber>
-          <S.InputWrapper>
+          <S.CertNumberWrapper>
             <S.Label>인증번호</S.Label>
-            <S.PhoneTextInput type="password" />
-            <S.PhoneCheck>
-              <S.PhoneCheckYo>인증확인</S.PhoneCheckYo>
-            </S.PhoneCheck>
-          </S.InputWrapper>
-          <S.AddressWrapper2>
-            <S.Label>주소</S.Label>
-            <S.AddressWrapper>
-              <S.AddressWrapper3>
-                <S.NameInput type="text" placeholder="주소를 입력하세요." />
-                <S.SearchButton type="button" value="우편번호찾기" />
-              </S.AddressWrapper3>
-              <S.AddressInput
-                type="text"
-                placeholder="상세주소를 입력하세요."
-              />
-            </S.AddressWrapper>
-          </S.AddressWrapper2>
+            <S.CertNumberInput />
+            <S.CertNumberButton>인증확인</S.CertNumberButton>
+          </S.CertNumberWrapper>
 
-          {/* <S.SuccessWrapper>
-            <S.SuccessInput type="radio" />{" "}
-            <S.SuccessP>전체 약관 항목에 동의합니다.</S.SuccessP>
-          </S.SuccessWrapper> */}
+          <S.AddressNumberWrapper>
+            <S.Label>주소</S.Label>
+            <S.AddressNumberInput type="text" />
+            <S.AddressNumberButton>우편번호 찾기</S.AddressNumberButton>
+          </S.AddressNumberWrapper>
+          <S.AddressInputWrapper>
+            <S.Label></S.Label>
+            <S.AddressInput placeholder="주소를 입력하세요" />
+          </S.AddressInputWrapper>
+          <S.AddressInputWrapper>
+            <S.Label></S.Label>
+            <S.AddressInput placeholder="상세주소를 입력하세요" />
+          </S.AddressInputWrapper>
+
           <S.JoinButtonWrapper>
             <S.JoinButton>회원가입</S.JoinButton>
           </S.JoinButtonWrapper>

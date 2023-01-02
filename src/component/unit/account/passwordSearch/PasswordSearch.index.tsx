@@ -1,3 +1,4 @@
+import Input02 from "../../../commons/inputs/accountsearch/input02.index";
 import * as S from "./PasswordSearch.styles";
 
 export default function PaSearchPageUI() {
@@ -9,31 +10,23 @@ export default function PaSearchPageUI() {
           <S.SearchPa>비밀번호 찾기</S.SearchPa>
         </S.SearchTitle>
         <S.MainCon>
-          <S.Name>
-            이름 <S.NameIn type="text" />
-          </S.Name>
-          <S.Phone>
-            <S.PhoneInputWrapper>
-              <S.PhoneTitle>휴대폰 번호</S.PhoneTitle>
-              <S.PhoneNumber>
-                <S.PhoneSelect></S.PhoneSelect>
-                <span>-</span>
-                <S.PhoneNumber2 type="text" />
-                <span>-</span>
-                <S.PhoneNumber2 type="text" />
-              </S.PhoneNumber>
-            </S.PhoneInputWrapper>
-            <div>인증번호가 전송되었습니다.</div>
-          </S.Phone>
-          <S.Email>
-            이메일 <S.EmailIn type="text" />
-          </S.Email>
+          <Input02 title="이름" type="text" />
+          <Input02 title="이메일" type="text" />
+          <S.PhoneNumberWrapper>
+            <S.Label>휴대폰 번호</S.Label>
+            <S.PhoneNumber>
+              <option>010</option>
+              <option>011</option>
+            </S.PhoneNumber>
+            <S.PhoneNumber2 type="text" />
+            <S.PhoneNumber2 type="text" />
+            <S.CertNumber>인증번호 받기</S.CertNumber>
+          </S.PhoneNumberWrapper>
+          <Input02 type="text" title="인증하기" />
           <S.PhoneSearch>
-            휴대폰 인증을 통해 비밀번호를 찾을 수 있습니다.
+            이메일과 휴대폰 번호 인증을 통해 비밀번호를 찾을 수 있습니다.
           </S.PhoneSearch>
-          <div>
-            <S.PhoneOk>인증하기</S.PhoneOk>
-          </div>
+          <S.PhoneOk>인증하기</S.PhoneOk>
         </S.MainCon>
         <S.Info>
           <li>

@@ -12,10 +12,10 @@ export const InputWrapper = styled.div`
 
 export const NameInput = styled.input`
   width: 80%;
-  height: 70px;
   border-radius: 4px;
   border: 1px solid rgb(48 100 10);
-  padding: 18px;
+  padding: 15px;
+  font-size: 15px;
 `;
 
 export const Label = styled.label`

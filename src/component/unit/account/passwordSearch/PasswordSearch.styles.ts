@@ -2,11 +2,14 @@ import styled from "@emotion/styled";
 
 export const Background = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 10%;
 `;
 
 export const Box = styled.div`
-  max-width: 680px;
-  width: 100%;
+  width: 680px;
   margin: 0 auto;
 `;
 
@@ -15,18 +18,18 @@ export const SearchTitle = styled.div`
   flex-direction: row;
   justify-content: center;
   margin-bottom: 33px;
-  margin-right: 121px;
 `;
 
 export const SearchId = styled.p`
   font-size: 25px;
   font-weight: 700;
-  color: rgb(196 196 196);
+  color: #c4c4c4;
 `;
 
 export const SearchLine = styled.p`
-  color: rgb(196 196 196);
+  color: #c4c4c4;
   font-size: 25px;
+  font-weight: 300;
   margin-left: 29.5px;
   margin-right: 29.5px;
 `;
@@ -38,15 +41,12 @@ export const SearchPa = styled.p`
 `;
 
 export const MainCon = styled.div`
-  padding: 8.5%;
-  max-width: 680px;
-  width: 100%;
+  width: 680px;
   border: 1px solid #707070;
   display: flex;
   flex-direction: column;
   text-align: center;
-  margin: 5% 0 4.5%;
-  font-size: 1.4rem;
+  padding: 58px;
 `;
 
 export const Name = styled.div`
@@ -54,61 +54,18 @@ export const Name = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: 20px;
+  margin-bottom: 7px;
   color: #222222;
-`;
-
-export const NameIn = styled.input`
-  width: 75%;
-  padding: 3.8% 0;
-  border: 1px solid #b7b7b7;
-  background-color: none;
-  background: transparent;
-  border-radius: 4px;
 `;
 
 export const Phone = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-items: center;
-  text-align: center;
-  color: #222222;
-  padding: 3% 0 0;
-  & > span {
-    padding: 0 1.5%;
-  }
-`;
-
-export const PhoneInputWrapper = styled.div`
-  display: flex;
+  flex-direction: row;
   justify-content: space-between;
-`;
-
-export const PhoneTitle = styled.div`
-  width: 17.4%;
-  font-size: 1.25rem;
-`;
-
-export const PhoneNumber = styled.div`
-  width: 75%;
-
-  & > span {
-    padding: 0 2.87%;
-  }
-`;
-
-export const PhoneSelect = styled.select`
-  width: 22.8%;
-  padding: 4.75% 0;
-  border-radius: 4px;
-  background: none;
-  border: 1px solid #b7b7b7;
-`;
-
-export const PhoneNumber2 = styled.input`
-  width: 31%;
-  padding: 4.75% 0;
-  border-radius: 4px;
-  border: 1px solid #b7b7b7;
+  align-items: center;
+  font-size: 20px;
+  color: rgb(34 34 34);
 `;
 
 export const Email = styled.div`
@@ -121,28 +78,58 @@ export const Email = styled.div`
   margin-top: 18px;
 `;
 
-export const EmailIn = styled.input`
-  width: 420px;
-  height: 63px;
-  border: 1px solid rgb(183 183 183);
-  background-color: none;
+export const PhoneNumberWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 18px;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
+export const PhoneNumber = styled.select`
+  width: 15%;
+  padding: 19px;
   background: transparent;
   border-radius: 4px;
+  border: 1px solid #b7b7b7;
+  margin-left: 30px;
+`;
+
+export const PhoneNumber2 = styled.input`
+  width: 15%;
+  padding: 20px;
+  background: transparent;
+  border-radius: 4px;
+  border: 1px solid #b7b7b7;
+  margin-left: 15px;
+`;
+
+export const CertNumber = styled.button`
+  width: 26%;
+  padding: 18px;
+  border-radius: 4px;
+  margin-left: 20px;
+  background-color: #30640a;
+  font-size: 18px;
+  color: #fcfbfa;
+  border: none;
+  cursor: pointer;
 `;
 
 export const PhoneSearch = styled.p`
   font-size: 16px;
   color: rgb(34 34 34);
-  margin-top: 43px;
+  margin-top: 30px;
   font-weight: 600;
 `;
 
 export const PhoneOk = styled.button`
   margin-top: 27px;
-  width: 580.7px;
+  width: 100%;
   height: 67px;
   background-color: rgb(48 100 10);
-  color: rgb(252 251 250);
+  color: #fcfbfa;
   font-size: 18px;
   border: none;
 `;
@@ -160,7 +147,7 @@ export const LiCon = styled.li`
 export const Info = styled.div`
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
+
   padding: 37px 0px;
 `;
 
@@ -172,5 +159,20 @@ export const InfoComment1 = styled.p`
 export const Info2 = styled.div`
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
+`;
+
+export const Label = styled.label`
+  width: 15%;
+`;
+
+export const SendNumberWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const SendNumber = styled.p`
+  width: 70%;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px;
 `;
