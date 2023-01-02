@@ -13,16 +13,23 @@ export default function PaSearchPageUI() {
             이름 <S.NameIn type="text" />
           </S.Name>
           <S.Phone>
-            휴대폰 번호
-            <S.PhoneNumber></S.PhoneNumber>-
-            <S.PhoneNumber2 type="number" />-
-            <S.PhoneNumber2 type="number" />
+            <S.PhoneInputWrapper>
+              <S.PhoneTitle>휴대폰 번호</S.PhoneTitle>
+              <S.PhoneNumber>
+                <S.PhoneSelect></S.PhoneSelect>
+                <span>-</span>
+                <S.PhoneNumber2 type="text" />
+                <span>-</span>
+                <S.PhoneNumber2 type="text" />
+              </S.PhoneNumber>
+            </S.PhoneInputWrapper>
+            <div>인증번호가 전송되었습니다.</div>
           </S.Phone>
           <S.Email>
             이메일 <S.EmailIn type="text" />
           </S.Email>
           <S.PhoneSearch>
-            휴대폰 인증을 통해 아이디를 찾을 수 있습니다.
+            휴대폰 인증을 통해 비밀번호를 찾을 수 있습니다.
           </S.PhoneSearch>
           <div>
             <S.PhoneOk>인증하기</S.PhoneOk>

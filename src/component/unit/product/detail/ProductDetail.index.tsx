@@ -55,11 +55,23 @@ export default function ProductDetail() {
         </S.CategoryWrapper>
         <S.DetailWrapper>
           <section>
-            <S.DetailMainImg src="/purchase.png" alt="" />
+            <S.DetailMainImg
+              src="/productDetail/purchase.png"
+              alt="상품이미지"
+            />
             <S.DetailSubImgWrapper>
-              <S.DetailSubImg src="/purchase.png" alt="" />
-              <S.DetailSubImg src="/purchase.png" alt="" />
-              <S.DetailSubImg src="/purchase.png" alt="" />
+              <S.DetailSubImg
+                src="/productDetail/purchase.png"
+                alt="상품이미지"
+              />
+              <S.DetailSubImg
+                src="/productDetail/purchase.png"
+                alt="상품이미지"
+              />
+              <S.DetailSubImg
+                src="/productDetail/purchase.png"
+                alt="상품이미지"
+              />
             </S.DetailSubImgWrapper>
           </section>
           <S.DetailPurchaseInfoWrapper>

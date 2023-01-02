@@ -11,7 +11,7 @@ export const Wrapper = styled.div``;
 export const Scroll = styled.div`
   display: block;
   position: fixed;
-  bottom: 10px;
+  bottom: 3%;
   left: 50%;
   transform: translate(-50%, 0%);
   text-align: center;
@@ -88,24 +88,23 @@ export const VideoPageTextBox = styled.div`
 `;
 
 export const VideoLargeText = styled.div`
-  font-size: 99px;
+  font-size: 6.2rem;
   font-family: "NewYork";
 `;
 
 export const VideoSmallText = styled.div`
-  font-size: 18px;
+  font-size: 1.1rem;
   text-align: center;
-  margin-top: 13px;
+  margin: 2% 0 3%;
   font-family: "NotoSans";
 `;
 
 export const MoreDetailBtn = styled.button`
   display: inline-block;
-  font-size: 18px;
+  font-size: 1.2rem;
   color: #ffffff;
   background: none;
   border: none;
-  margin-top: 18px;
   cursor: pointer;
   font-family: "NotoSans";
 `;
@@ -118,8 +117,7 @@ export const WasteShopBox = styled.div`
 `;
 
 export const WasteShopImg = styled.img`
-  width: 67vw;
-  height: 100vh;
+  width: 68%;
   object-fit: cover;
 `;
 
@@ -127,45 +125,43 @@ export const WasteShopTextBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: end;
-  padding: 0 0 128px 41px;
+  padding: 0 0 6.8% 2.2%;
 `;
 
 export const WasteShopText = styled.div`
   font-size: 2.8rem;
-  color: rgb(48, 100, 10);
+  color: #30640a;
   font-family: "NewYork";
 `;
 
 export const WasteShopTextSmall = styled.div`
-  width: 425px;
-  height: 27px;
+  /* height: 27px; */
+  padding: 3% 0 6%;
   font-size: 1.1rem;
-  color: rgb(48, 100, 10);
-  margin-top: 10px;
+  color: #30640a;
   font-family: "NotoSans";
 `;
 
 export const WasteShopBtn = styled.button`
-  width: 130px;
-  height: 46px;
-  margin-top: 24px;
+  width: 31%;
+  padding: 2% 0;
   background: none;
-  border: 2px solid rgb(48, 100, 10);
+  border: 2px solid #30640a;
   font-family: "NotoSans";
 
   font-size: 1.1rem;
   text-align: center;
-  color: rgb(48, 100, 10);
+  color: #30640a;
 
   & > span {
-    padding-left: 5px;
+    padding-left: 4%;
   }
   cursor: pointer;
 `;
 
 export const ProductBox = styled.div`
-  width: 1300px;
-  height: 622px;
+  /* width: 1300px; */
+  width: 68.25%;
   margin: 0 auto;
 `;
 
@@ -174,27 +170,26 @@ export const ProductText = styled.div`
 `;
 
 export const ProductTitle = styled.div`
-  font-size: 45px;
-  color: rgb(34, 34, 34);
-  margin-bottom: 10px;
+  font-size: 2.8rem;
+  color: #222222;
   font-family: "NewYork";
 `;
 
 export const ProductSmall = styled.div`
   font-size: 1rem;
-  color: rgb(34, 34, 34);
-  margin-bottom: 31px;
+  color: #222222;
+  padding: 1% 0 2.4%;
   font-family: "NotoSans";
 `;
 export const MoreBtn = styled.div`
-  font-size: 18px;
-  color: rgb(34, 34, 34);
+  font-size: 1.2rem;
+  color: #222222;
   text-align: end;
   font-family: "NotoSans";
 
-  margin-bottom: 20px;
+  padding-bottom: 1.2%;
   & > span {
-    margin-left: 8px;
+    margin-left: 1%;
   }
   cursor: pointer;
 `;
@@ -203,53 +198,52 @@ export const SliderCustom = styled(Slider)`
   .slick-prev:before {
     color: black;
     opacity: 1;
-    font-size: 10px;
+    font-size: 1rem;
     content: url("/landing/arrow-left.png");
   }
   .slick-next:before {
     color: black;
     opacity: 1;
-    font-size: 10px;
+    font-size: 1rem;
 
     content: url("/landing/arrow-right.png");
   }
   .slick-prev {
-    left: -75px;
-    top: 130px;
+    left: -7%;
+    top: 30%;
     z-index: 9;
     font-size: 10px;
   }
   .slick-next {
-    right: -46px;
-    top: 130px;
+    right: -5%;
+    top: 30%;
     z-index: 9;
-    font-size: 10px;
+    font-size: 0.6rem;
   }
 `;
 
 export const ProductImg = styled.img`
-  width: 319px;
-  height: 319px;
+  width: 98%;
+  height: 34vh;
   object-fit: cover;
-  margin-bottom: 20px;
 `;
 export const ProductInfo = styled.div`
-  font-size: 18px;
-  color: rgb(34, 34, 34);
-  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #222222;
+  padding: 6% 0;
   font-family: "NotoSans";
 `;
 
 export const BuyBtn = styled.button`
-  width: 145px;
-  height: 40px;
-  border: 1px solid rgb(160, 160, 160);
+  width: 45%;
+  padding: 3% 0;
+  border: 1px solid #a0a0a0;
   color: rgba(255 255 255, 0);
   background: none;
   font-family: "NotoSans";
 
   & > span {
-    padding-left: 15px;
+    padding-left: 11%;
   }
   cursor: pointer;
 `;
@@ -265,16 +259,16 @@ export const ReviewSlide = styled.div`
 `;
 
 export const SwiperText = styled.div`
-  font-size: 45px;
-  color: rgb(34, 34, 34);
+  font-size: 2.8rem;
+  color: #222222;
   font-family: "NewYork";
 `;
 
 export const SwiperWrapper = styled.div`
-  margin-left: 278px;
+  padding-left: 15%;
 `;
 export const SwiperContents = styled.div`
-  margin-top: 32px;
+  padding-top: 2%;
   display: flex;
   flex-direction: row;
 `;
@@ -301,13 +295,11 @@ export const SwiperContentWrapper = styled(Swiper)`
 `;
 
 export const Reviews = styled(SwiperSlide)`
-  width: 669px;
-  height: 401px;
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.51);
-  font-size: 25px;
-  color: rgb(34, 34, 34);
-  padding: 50px 38px 39px;
+  font-size: 1.6rem;
+  color: #222222;
+  padding: 4% 3% 3%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -343,23 +335,23 @@ export const BrushText = styled.div`
 `;
 
 export const YoramMemeber = styled.div`
-  font-size: 45px;
-  color: rgb(34, 34, 34);
+  font-size: 2.8rem;
+  color: #222222;
   font-family: "NewYork";
 `;
+/* width: 276px; */
 
 export const BeginYoram = styled.div`
-  font-size: 18px;
-  color: rgb(34, 34, 34);
-  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #222222;
+  padding: 2.5% 0 4%;
 `;
 
 export const BeginZeroBtn = styled.button`
-  width: 276px;
-  height: 46px;
+  width: 62%;
+  padding: 2% 0;
   background-color: rgba(255, 255, 255, 0);
-  color: rgb(34, 34, 34);
-  font-size: 18px;
+  color: #222222;
+  font-size: 1.1rem;
   cursor: pointer;
-  margin-top: 17px;
 `;

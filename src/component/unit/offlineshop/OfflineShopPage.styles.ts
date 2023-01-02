@@ -6,42 +6,38 @@ export const Background = styled.div`
   background-size: cover;
   width: 100%;
   height: auto;
-  background-color: rgb(252 251 250);
   display: flex;
   flex-direction: column;
   justify-content: center;
 `;
 
 export const BigWrapper = styled.div`
-  padding: 150px 0 100px 0;
+  padding: 8.5% 0 5.5%;
   max-width: 1300px;
+  width: 100%;
   margin: 0 auto;
 `;
 
 export const TitleWrapper = styled.div`
   text-align: center;
-  color: rgb(48 100 10);
+  color: #30640a;
   & > h1 {
     font-family: "NewYork";
-    font-size: 60px;
+    font-size: 3.8rem;
   }
   & > h5 {
     font-family: "Noto Sans KR";
-    font-size: 18px;
+    font-size: 1.2rem;
     font-weight: 400;
-    margin-top: 15px;
+    padding: 1% 0 7.7%;
   }
 `;
 
 export const MapWrapper = styled.div`
   display: flex;
-  /* border: 1px solid red; */
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
   margin: 0 auto;
-  margin-top: 100px;
-  gap: 40px;
 `;
 
 export const SearchPart = styled.div`
@@ -49,61 +45,54 @@ export const SearchPart = styled.div`
   flex-direction: column;
   width: 35%;
 `;
-export const SerachMap = styled.div`
+export const SearchMap = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  gap: 15px;
+  gap: 3.5%;
   & > select {
     width: 20%;
-    height: 65px;
-    border: 1px solid rgb(48 100 10);
+    border: 1px solid #30640a;
     border-radius: 4px;
-    margin-right: 18px;
-    padding: 12px;
+    margin-right: 4%;
+    padding: 4.5% 2%;
   }
 
   & > input {
     width: 80%;
-    height: 65px;
-    border: 1px solid rgb(48 100 10);
+    border: 1px solid #30640a;
     border-radius: 4px;
-    font-size: 18px;
-    padding: 12px;
+    font-size: 1.2rem;
+    padding: 3%;
   }
 `;
 
 export const ShopList = styled.div`
-  border: 1px solid rgb(48 100 10);
-  background-color: rgb(252 251 250);
-  width: 100%;
-  height: 523px;
+  border: 1px solid #30640a;
+  background-color: #ffffff;
+  padding: 0 0 10%;
   border-radius: 4px;
-  margin-top: 23px;
+  margin-top: 5%;
   overflow-y: scroll;
 
   & > div {
-    border-bottom: 1px solid rgb(112 112 112);
+    border-bottom: 1px solid #707070;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px;
+    padding: 5%;
   }
 
   & > div > h5 {
-    font-size: 22px;
+    font-size: 1.4rem;
   }
 `;
 
-export const ShopListWrapper = styled.div`
-  /* overflow-y: scroll; */
-  width: 100%;
-`;
+export const ShopListWrapper = styled.div``;
 
 export const MapImg = styled.img`
   width: 100%;
   height: 100%;
-  /* height: 755px; */
-  border-radius: 4px;
-  border: 1px solid rgb(48 100 10);
+  border-radius: 1%;
+  border: 1px solid #30640a;
 `;

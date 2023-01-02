@@ -1,5 +1,5 @@
-import PurchaseHistory from "../../src/component/unit/mypage/purchaseHistory/PurchaseHistory.index";
+import Mypage from "../../src/component/unit/mypage";
 
 export default function MyPage() {
-  return <PurchaseHistory />;
+  return <Mypage />;
 }

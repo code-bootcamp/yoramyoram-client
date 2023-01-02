@@ -1,25 +1,26 @@
-import * as S from "./PurchaseHistory.styles";
+import * as S from "./WishList.styles";
 import { RightOutlined } from "@ant-design/icons";
+import { useState } from "react";
 
-export default function PurchaseHistory() {
-  const qqq = [1, 2, 3, 4, 5, 6];
+export default function WishList() {
+  const dummyData = new Array(6).fill(0);
 
   return (
-    <S.PurchaseHistoryBox>
-      <S.HistoryText>구매내역</S.HistoryText>
-      {qqq.map((el, idx) => (
+    <S.PurchaseHistoryBox title="위시리스트">
+      <S.HistoryText>위시리스트</S.HistoryText>
+      {dummyData.map((el, idx) => (
         <S.PurchasedItem key={idx}>
           <S.PurchasedItemInfo>
             <S.ProductImg src="/productDetail/purchase.png" />
             <S.PurchasedItemInfoText>
               <S.ItemName>구르미 텀블러</S.ItemName>
               <S.ItemPriceBox>
-                <span>6,510원</span> <span>2022-12-26</span>
+                <span>6,510원</span> <span>옵션: 화이트</span>
               </S.ItemPriceBox>
             </S.PurchasedItemInfoText>
           </S.PurchasedItemInfo>
           <S.RepurchaseDiv>
-            <S.RepurchaseBtn>재구매</S.RepurchaseBtn>
+            <S.RepurchaseBtn>구매</S.RepurchaseBtn>
           </S.RepurchaseDiv>
         </S.PurchasedItem>
       ))}

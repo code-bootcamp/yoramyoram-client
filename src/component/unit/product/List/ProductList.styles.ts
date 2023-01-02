@@ -5,9 +5,8 @@ import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-export const HeaderWrapper = styled.header`
-  margin-top: 80px;
-  position: relative;
+export const HeaderWrapper = styled.div`
+  padding-top: 80px;
 `;
 
 export const ListBanner = styled.div`
@@ -27,32 +26,51 @@ export const ListBanner = styled.div`
 
 export const CategoryBar = styled.div`
   width: 100%;
-  position: sticky;
-  top: 0px;
-  border-bottom: 1px solid rgb(183, 183, 183);
+  border-bottom: 1px solid #b7b7b7;
 `;
 
 export const CategoryBox = styled.div`
   max-width: 1300px;
   margin: 0 auto;
-  position: sticky;
-  top: 0px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 20px 0;
-  gap: 15px;
+  padding: 1% 0;
+  gap: 1%;
 `;
 
 export const CategoryBtn = styled.button`
   width: 16%;
   display: block;
-  height: 50px;
+  padding: 0.9% 0;
   border-radius: 25px;
-  border: 1px solid rgb(183, 183, 183);
+  border: 1px solid #b7b7b7;
   background: none;
-  font-size: 18px;
+  font-size: 1.1rem;
+  font-family: "NotoSansMedium";
+  cursor: pointer;
+`;
+
+export const CategoryStickyBtn = styled.button`
+  width: 100%;
+  border-bottom: 1px solid #b7b7b7;
+  background-color: red;
+  z-index: 5px;
+  position: fixed;
+  top: 200px;
+  left: 0;
+`;
+
+export const CategoryBtnActive = styled.button`
+  width: 16%;
+  display: block;
+  color: #ffffff;
+  padding: 0.9% 0;
+  border-radius: 25px;
+  border: none;
+  background: #30640a;
+  font-size: 1.1rem;
   font-family: "NotoSansMedium";
   cursor: pointer;
 `;
@@ -66,13 +84,12 @@ export const SearchBox = styled.div`
 
 export const SearchInput = styled.input`
   width: 100%;
-  height: 47px;
   border: none;
   display: block;
   background: none;
-  border-bottom: 1px solid rgb(183, 183, 183);
-  padding-left: 10px;
-  font-size: 16px;
+  border-bottom: 1px solid #b7b7b7;
+  padding: 5.1% 5%;
+  font-size: 1rem;
 `;
 
 export const SearchOutline = styled(SearchOutlined)`
@@ -82,105 +99,109 @@ export const SearchOutline = styled(SearchOutlined)`
 `;
 
 export const ListWrapper = styled.main`
-  width: 1300px;
-  margin: 77px auto;
+  width: 68.25%;
+  margin: 4.1% auto;
 `;
 export const ProductWriteBtn = styled.button`
-  width: 194px;
-  height: 51px;
+  width: 15%;
+  padding: 1% 0;
   color: #ffffff;
-  font-size: 18px;
-  background-color: rgb(48, 100, 10);
+  font-size: 1.1rem;
+  background-color: #30640a;
   border: none;
+  cursor: pointer;
 `;
 
 export const ListHeaderBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 21px;
+  /* padding-top: 21px; */
+  padding-top: 1%;
 `;
 
 export const ListCount = styled.div`
-  font-size: 14px;
-  color: rgb(131, 131, 131);
+  font-size: 0.9rem;
+  color: #838383;
 
   & > span {
-    font-size: 14px;
-    color: rgb(34, 34, 34);
+    font-size: 0.9rem;
+    color: #222222;
   }
 `;
 
 export const SelectBox = styled(Select)`
-  width: 105px;
-  height: 39px;
+  width: 8.1%;
+  margin-bottom: 0.5%;
 `;
 
-export const ListContentsBox = styled.div`
+export const ListContentsBox = styled.section`
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   cursor: pointer;
 `;
 
-export const ProductItemBox = styled.div`
-  width: 25%;
+export const ProductItemBox = styled.article`
+  width: 23.8%;
 `;
 
 export const ListImg = styled.img`
-  width: 95.5%;
-  height: 310px;
+  width: 100%;
 `;
 
 export const ListProductInfo = styled.div`
-  padding: 17px 0 70px;
-  font-size: 18px;
-  color: rgb(34, 34, 34);
+  padding: 7% 0 21%;
+  font-size: 1.1rem;
+  color: #222222;
 `;
 
-export const ListProductName = styled.div`
-  padding-bottom: 10px;
-`;
+export const ListProductName = styled.div``;
 
 export const ListProductPrice = styled.div`
-  padding-bottom: 16px;
+  padding: 3.3% 0 5.2%;
   font-family: "NotoSansBold";
 `;
 
 export const ListProductBtnBar = styled.div`
-  color: rgb(112, 112, 112);
+  color: #707070;
+  display: flex;
+  align-items: center;
   & > span {
-    padding-right: 14px;
+    padding-right: 5%;
+    display: flex;
+    align-items: center;
   }
 `;
 
+export const BtnBarText = styled.span`
+  padding-left: 5%;
+`;
+
 export const ListChatBtn = styled(ChatBubbleOutlineIcon)`
-  width: 16px;
-  height: 15px;
+  font-size: 1rem;
   cursor: pointer;
 `;
 
 export const ListWishBtn = styled(FavoriteBorderIcon)`
-  width: 17px;
-  height: 15px;
+  font-size: 1rem;
   cursor: pointer;
 `;
 
 export const ListBasketBtn = styled(AddShoppingCartIcon)`
-  width: 19px;
-  height: 18px;
+  font-size: 1.2rem;
   cursor: pointer;
 `;
 
 export const ListPagenation = styled.div`
   text-align: center;
-  gap: 28px;
 `;
 
 interface IPageProps {
   isActive?: boolean;
 }
 export const Page = styled.span`
-  margin: 0px 10px;
+  padding: 0 1%;
   /* color: ${(props: IPageProps) => (props.isActive ? "blue" : "black")}; */
   /* font-weight: ${(props: IPageProps) =>
     props.isActive ? "bold" : "normal"}; */
@@ -197,4 +218,4 @@ export const PageNationRightArrow = styled(RightOutlined)`
 `;
 
 // position: sticky 안됨
-// List가장 오른쪽 공간 수정.
+// 카테고리 버튼 색깔변경 map으로 뿌려서 index로 로직짜기

@@ -3,48 +3,34 @@ import styled from "@emotion/styled";
 export const Form = styled.form``;
 
 export const Background = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: rgb(252 251 250);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 10% 0;
 `;
 
 export const MainBox = styled.div`
-  width: 680px;
+  width: 100%;
+  max-width: 680px;
   margin: 0 auto;
 `;
 
 export const SearchBar = styled.div`
   display: flex;
-
-  /* flex-direction: row; */
-  /* text-align: center; */
   justify-content: center;
-  /* margin-left: 213px; */
-  margin-bottom: 30px;
+  align-items: center;
+  font-size: 1.7rem;
+  color: #c4c4c4;
 `;
 
 export const SearchId = styled.p`
-  font-size: 25px;
   font-weight: 600;
-  color: rgb(196 196 196);
-  margin-top: 6px;
 `;
 
 export const SearchLine = styled.p`
-  font-size: 35px;
-  color: rgb(196 196 196);
-  margin-left: 23px;
-  margin-right: 23px;
+  padding: 0 7%;
 `;
 
 export const SearchPassword = styled.p`
-  font-size: 25px;
-  margin-top: 6px;
   font-weight: 600;
-  color: rgb(48 100 21);
+  color: #30640a;
 `;
 
 export const ContentWrapper = styled.div`
@@ -53,60 +39,59 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 41px 0;
-  width: 100%;
-  margin: 0 auto;
+  padding: 7% 8.5% 8%;
+  margin: 4.5% auto 5.5%;
 `;
 
 export const JoinButton = styled.button`
-  min-width: 580px;
-  color: white;
-  background-color: rgb(48 100 10);
+  max-width: 580px;
+  width: 100%;
+  color: #ffffff;
+  background-color: #30640a;
   border: none;
-  padding: 20px 0;
-  font-size: 18px;
-  display: block;
-  margin: 0 auto;
-  margin-top: 33px;
+  padding: 3.7% 0;
+  font-size: 1.2rem;
+  margin-top: 6%;
+  cursor: pointer;
 `;
 
 export const Comment1 = styled.p`
-  font-size: 18px;
+  font-size: 1.2rem;
+  padding-bottom: 6%;
 `;
 
 export const Info = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
-  padding: 37px 0px;
   font-size: 1.1rem;
   & > li > p {
-    padding: 8px 22px;
+    padding: 1% 3.7%;
   }
 `;
 
 export const Info2 = styled.div`
   display: flex;
   flex-direction: row;
-  /* justify-content: center; */
 `;
 
 export const PasswordWrapper = styled.div`
+  max-width: 580px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 23px 51px;
-  font-size: 20px;
+  font-size: 1.3rem;
   align-items: inherit;
+  padding-bottom: 4%;
 `;
 
 export const PasswordInput = styled.input`
-  width: 420px;
-  height: 63px;
-  border: 1px solid rgb(183 183 183);
+  width: 75%;
+  padding: 2.3%;
+  border: 1px solid #b7b7b7;
   border-radius: 4px;
-  background-color: transparent;
+  font-size: 1.5rem;
 `;
 
 export const PasswordInputWrapper = styled.div`
@@ -114,24 +99,6 @@ export const PasswordInputWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const PasswordWrapper2 = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: 23px 51px;
-  font-size: 20px;
-  align-items: inherit;
-`;
-
-export const PasswordInput2 = styled.input`
-  width: 420px;
-  height: 63px;
-  border: 1px solid rgb(183 183 183);
-  border-radius: 4px;
-  background-color: transparent;
 `;
 
 export const PasswordInputWrapper2 = styled.div`

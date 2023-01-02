@@ -2,15 +2,11 @@ import styled from "@emotion/styled";
 
 export const Background = styled.div`
   width: 100%;
-  height: 100vh;
-  background-color: rgb(252 251 250);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 `;
 
 export const Box = styled.div`
-  width: 680px;
+  max-width: 680px;
+  width: 100%;
   margin: 0 auto;
 `;
 
@@ -42,12 +38,15 @@ export const SearchPa = styled.p`
 `;
 
 export const MainCon = styled.div`
-  width: 680px;
-  border: 1px solid rgb(112 112 112);
+  padding: 8.5%;
+  max-width: 680px;
+  width: 100%;
+  border: 1px solid #707070;
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 58px;
+  margin: 5% 0 4.5%;
+  font-size: 1.4rem;
 `;
 
 export const Name = styled.div`
@@ -55,18 +54,61 @@ export const Name = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  font-size: 20px;
-  margin-bottom: 7px;
-  color: rgb(34 34 34);
+  color: #222222;
+`;
+
+export const NameIn = styled.input`
+  width: 75%;
+  padding: 3.8% 0;
+  border: 1px solid #b7b7b7;
+  background-color: none;
+  background: transparent;
+  border-radius: 4px;
 `;
 
 export const Phone = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-items: center;
+  text-align: center;
+  color: #222222;
+  padding: 3% 0 0;
+  & > span {
+    padding: 0 1.5%;
+  }
+`;
+
+export const PhoneInputWrapper = styled.div`
+  display: flex;
   justify-content: space-between;
-  align-items: center;
-  font-size: 20px;
-  color: rgb(34 34 34);
+`;
+
+export const PhoneTitle = styled.div`
+  width: 17.4%;
+  font-size: 1.25rem;
+`;
+
+export const PhoneNumber = styled.div`
+  width: 75%;
+
+  & > span {
+    padding: 0 2.87%;
+  }
+`;
+
+export const PhoneSelect = styled.select`
+  width: 22.8%;
+  padding: 4.75% 0;
+  border-radius: 4px;
+  background: none;
+  border: 1px solid #b7b7b7;
+`;
+
+export const PhoneNumber2 = styled.input`
+  width: 31%;
+  padding: 4.75% 0;
+  border-radius: 4px;
+  border: 1px solid #b7b7b7;
 `;
 
 export const Email = styled.div`
@@ -86,32 +128,6 @@ export const EmailIn = styled.input`
   background-color: none;
   background: transparent;
   border-radius: 4px;
-`;
-
-export const NameIn = styled.input`
-  width: 420px;
-  height: 63px;
-  border: 1px solid rgb(183 183 183);
-  background-color: none;
-  background: transparent;
-  border-radius: 4px;
-`;
-
-export const PhoneNumber = styled.select`
-  width: 113px;
-  height: 63px;
-  background: transparent;
-  border-radius: 4px;
-  border: 1px solid rgb(183 183 183);
-  margin-left: 42px;
-`;
-
-export const PhoneNumber2 = styled.input`
-  width: 130px;
-  height: 63px;
-  background: transparent;
-  border-radius: 4px;
-  border: 1px solid rgb(183 183 183);
 `;
 
 export const PhoneSearch = styled.p`

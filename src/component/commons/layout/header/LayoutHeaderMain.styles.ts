@@ -9,8 +9,9 @@ export const HeaderBox = styled.header`
   position: fixed;
   top: 0;
   z-index: 4;
-  color: #ffffff;
-  background-color: rgba(0, 0, 0, 0.16);
+  color: #30640a;
+  background-color: #ffffff;
+  border-bottom: 1px solid #30640a;
 `;
 export const TextBox = styled.div`
   display: flex;

@@ -3,45 +3,49 @@ import { Select } from "antd";
 
 export const Wrapper = styled.main`
   width: 1300px;
-  margin: 72px auto 124px;
+  margin: 8% auto 6.5%;
 `;
 
 export const CategoryWrapper = styled.div`
   font-size: 0.9rem;
-  color: rgb(196, 196, 196);
+  color: #c4c4c4;
   /* font-family: NotoSansKR-Medium; */
-  & > span:last-child {
-    color: rgb(34, 34, 34);
-  }
 
-  * > svg {
-    margin: 0px 13px;
+  & > span {
+    padding: 0 1% 0 0;
+  }
+  & > span:last-child {
+    color: #222222;
   }
 `;
 
 export const DetailWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  padding-top: 17px;
+  justify-content: space-between;
+  padding-top: 1.3%;
 `;
 
 export const DetailImg = styled.section``;
 
 export const DetailMainImg = styled.img`
   width: 100%;
-  height: 640px;
-  /* height: 34.6vw; */
+  /* height: 640px; */
+  height: 33.3vw;
+  // px로 잡으면 고정, 안주면 사이즈 안맞음
   cursor: pointer;
 `;
 
 export const DetailSubImgWrapper = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: row;
 `;
 export const DetailSubImg = styled.img`
   width: 100%;
-  height: 169px;
-  margin: 14px 14px 0 0;
+  /* height: 169px; */
+  height: 17vh;
+  margin: 2% 2% 0 0;
   &:last-child {
     margin-right: 0;
   }
@@ -50,35 +54,36 @@ export const DetailSubImg = styled.img`
 `;
 // 오른쪽 박스
 export const DetailPurchaseInfoWrapper = styled.div`
-  width: 42%;
-  margin-left: 49px;
+  width: 44%;
 `;
 
 export const RightNameBox = styled.div`
   font-size: 1.9rem;
-  border-bottom: 1px solid rgb(196, 196, 196);
+  border-bottom: 1px solid #c4c4c4;
 `;
 
 export const ProductName = styled.div`
-  color: rgb(34, 34, 34);
+  color: #222222;
   /* font-family: NotoSansKR-Regular; */
 `;
 
 export const ProductPrice = styled.div`
-  color: rgb(48, 100, 10);
-  padding: 6px 0 34px;
+  color: #30640a;
+  /* padding: 6px 0 34px; */
+  padding: 2% 0 7%;
   /* font-family: NotoSansKR-Bold; */
 `;
 
 // 옵션박스
 export const ProductOptionBox = styled.div`
-  padding: 44px 0 26px;
-  border-bottom: 1px solid rgb(196, 196, 196);
+  /* padding: 44px 0 26px; */
+  padding: 7.7% 0 4.7%;
+  border-bottom: 1px solid #c4c4c4;
 `;
 
 export const ProductOptionText = styled.div`
   font-size: 1.1rem;
-  color: rgb(34, 34, 34);
+  color: #222222;
 
   /* font-family: NotoSansKR-Regular; */
 `;
@@ -88,20 +93,21 @@ export const OptionBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: 35px;
+  /* padding-top: 35px; */
+  padding-top: 6.2%;
   font-size: 1.1rem;
-  color: rgb(34, 34, 34);
+  color: #222222;
   /* font-family: NotoSansKR-Medium; */
 `;
 
 export const OptionText = styled.div`
   font-size: 1.1rem;
-  color: rgb(34, 34, 34);
+  color: #222222;
   /* font-family: NotoSansKR-Medium; */
 `;
 
 export const SelectOption = styled(Select)`
-  width: 23vw;
+  width: 77.2%;
   :where(.css-dev-only-do-not-override-acm2ia).ant-select-single:not(
       .ant-select-customize-input
     )
@@ -129,16 +135,18 @@ export const SelectOption = styled(Select)`
 
 // 수량박스
 export const BuyAmount = styled.div`
-  padding: 21px 0 17px;
+  /* padding: 21px 0 17px; */
+  padding: 3.8% 0 3%;
   /* font-family: NotoSansKR-Regular; */
-  border-bottom: 1px solid rgb(196, 196, 196);
+  border-bottom: 1px solid #c4c4c4;
 `;
 
 export const SeletedOption = styled.div`
   font-size: 1.1rem;
-  color: rgb(112, 112, 112);
+  color: #707070;
   /* font-family: NotoSansKR-Regular; */
-  padding: 4px 0 28px;
+  /* padding: 4px 0 28px; */
+  padding: 1.5% 0 5%;
 `;
 
 export const SeletedAmountBox = styled.div`
@@ -150,7 +158,7 @@ export const SeletedAmountBox = styled.div`
 export const Qqq = styled.div`
   display: flex;
   align-items: center;
-  color: rgb(139, 139, 139);
+  color: #8b8b8b;
 `;
 
 export const SeletedAmount = styled.div`
@@ -158,10 +166,11 @@ export const SeletedAmount = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  border-bottom: 1px solid rgb(34, 34, 34);
+  border-bottom: 1px solid #222222;
   width: 8.6vw;
   height: 4vh;
-  margin-right: 27px;
+  /* margin-right: 27px; */
+  margin-right: 15%;
   & > button {
     background: none;
     border: none;
@@ -181,14 +190,15 @@ export const TotalPrice = styled.div`
 
   & > span {
     font-size: 1rem;
-    color: rgb(112, 112, 112);
+    color: #707070;
     /* font-family: NotoSansKR-Medium; */
   }
 `;
 
 //총 가격 박스
 export const TotalPriceBox = styled.div`
-  padding: 28px 0 60px;
+  /* padding: 28px 0 60px; */
+  padding: 5% 0 10.6%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -203,9 +213,10 @@ export const TotalText = styled.div`
 // 구매,장바구니,위시리스트
 export const NowBuyBtn = styled.button`
   width: 100%;
-  height: 69px;
+  /* height: 69px; */
+  padding: 3.6% 0;
   color: #ffffff;
-  background-color: rgb(48, 100, 10);
+  background-color: #30640a;
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
@@ -217,19 +228,19 @@ export const BasketBtnBox = styled.div`
   flex-direction: row;
   & > button {
     width: 49%;
-    height: 69px;
+    padding: 3.3% 0;
     background: none;
-    border: 1px solid rgb(183, 183, 183);
-    margin: 15px 15px 0 0;
+    border: 1px solid #b7b7b7;
+    margin: 2.7% 2.7% 0 0;
     cursor: pointer;
   }
 
   & > button:last-child {
-    margin: 15px 0 0 0;
+    margin: 2.7% 0 0 0;
   }
 
   & > button > div {
-    font-size: 20px;
+    font-size: 1.2rem;
   }
 `;
 
@@ -238,7 +249,8 @@ export const WishListBtn = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  /* gap: 10px; */
+  gap: 4%;
 `;
 //
 export const BtnBox = styled.div`
@@ -250,18 +262,18 @@ export const BtnBox = styled.div`
 
 export const SelectBtn = styled.button`
   width: 50%;
-  height: 69px;
-  background: ${(props) => (props.isActiveInfo ? "rgb(48,100,10)" : "none")};
+  padding: 1.8% 0;
+  background: ${(props) => (props.isActiveInfo ? "#30640A" : "none")};
   color: ${(props) => (props.isActiveInfo ? "#ffffff" : "none")};
-  border: 1px solid rgb(183, 183, 183);
+  border: 1px solid #b7b7b7;
   cursor: pointer;
 `;
 
 export const WWW = styled.button`
   width: 50%;
-  height: 69px;
-  border: 1px solid rgb(183, 183, 183);
+  padding: 1.8% 0;
+  border: 1px solid #b7b7b7;
   cursor: pointer;
-  background: ${(props) => (props.isActiveReview ? "rgb(48,100,10)" : "none")};
+  background: ${(props) => (props.isActiveReview ? "#30640A" : "none")};
   color: ${(props) => (props.isActiveReview ? "#ffffff" : "none")};
 `;
