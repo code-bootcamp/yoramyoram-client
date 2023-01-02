@@ -29,6 +29,15 @@ export const CategoryBar = styled.div`
   border-bottom: 1px solid #b7b7b7;
 `;
 
+export const CategoryBarSticky = styled.div`
+  width: 100%;
+  border-bottom: 1px solid #b7b7b7;
+  position: fixed;
+  top: 8%;
+  background-color: #ffffff;
+  z-index: 3;
+`;
+
 export const CategoryBox = styled.div`
   max-width: 1300px;
   margin: 0 auto;
@@ -50,16 +59,6 @@ export const CategoryBtn = styled.button`
   font-size: 1.1rem;
   font-family: "NotoSansMedium";
   cursor: pointer;
-`;
-
-export const CategoryStickyBtn = styled.button`
-  width: 100%;
-  border-bottom: 1px solid #b7b7b7;
-  background-color: red;
-  z-index: 5px;
-  position: fixed;
-  top: 200px;
-  left: 0;
 `;
 
 export const CategoryBtnActive = styled.button`
