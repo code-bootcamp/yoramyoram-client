@@ -1,11 +1,6 @@
-import {
-  HeartOutlined,
-  LeftOutlined,
-  RightOutlined,
-  SearchOutlined,
-} from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import CategoryBar from "./CategoryBar";
+import CategoryBarSticky from "./CategoryBarSticky";
 import * as S from "./ProductList.styles";
 export default function ProductList() {
   const [scroll, setScroll] = useState(false);
@@ -26,11 +21,9 @@ export default function ProductList() {
   }, []);
 
   const handleScroll = () => {
-    // 스크롤이 Top에서 80px 이상 내려오면 true값을 useState에 넣어줌
-    if (window.scrollY >= 80) {
+    if (window.scrollY >= 226) {
       setScroll(true);
     } else {
-      // 스크롤이 80px 미만일경우 false를 넣어줌
       setScroll(false);
     }
   };
@@ -43,7 +36,7 @@ export default function ProductList() {
       <S.HeaderWrapper>
         <S.ListBanner>Yoram Yoram Shop</S.ListBanner>
         {scroll ? (
-          <S.CategoryStickyBtn
+          <CategoryBarSticky
             category={category}
             setCategory={(item: string) => setCategory(item)}
           />
