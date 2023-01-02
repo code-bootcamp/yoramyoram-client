@@ -11,12 +11,12 @@ export default function OfflineShopPageUI() {
         </S.TitleWrapper>
         <S.MapWrapper>
           <S.SearchPart>
-            <S.SerachMap>
+            <S.SearchMap>
               <select>
                 <option>강남구</option>
               </select>
               <input type="text" placeholder="검색어를 입력하세요" />
-            </S.SerachMap>
+            </S.SearchMap>
             <S.ShopListWrapper>
               <S.ShopList>
                 <div>

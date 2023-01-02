@@ -4,7 +4,7 @@ import * as S from "./ProductDetailInfo.styles";
 export default function ProductDetailInfo() {
   return (
     <S.Wrapper>
-      <S.ProductImg src="/purchase.png" alt="" />
+      <S.ProductImg src="/productDetail/purchase.png" alt="상품이미지" />
       <S.ProductInfoBox>
         <S.ProductInfo>
           패키지 FREE! 100% 천연 소재로 만든 파우치 입니다. 생분해 되어 흙으로

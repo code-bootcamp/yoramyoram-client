@@ -2,7 +2,7 @@ import React, { useEffect, useState, Component } from "react";
 import { FullPage, Slide } from "react-full-page";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
-import AOS from "aos";
+// import AOS from "aos";
 import "aos/dist/aos.css";
 import * as S from "./Landing.styles";
 import Slider from "react-slick";
@@ -14,6 +14,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import LayoutFooter from "../../commons/layout/footer/LayoutFooter.index";
+import { useMoveToPage } from "../../commons/custom/useMoveToPage";
 
 const controlsProps = {
   style: {
@@ -28,13 +29,32 @@ const slideDuration = {
   duration: 1200,
 };
 
-const qqq = [1, 2, 3, 4, 5, 6, 7, 78, 8, 0];
+const dummyData = new Array(10).fill(10);
 // 임시용
 
 export default function Landing() {
+  const { onClickMoveToPage } = useMoveToPage();
+  const [scroll, setScroll] = useState(false);
   useEffect(() => {
-    AOS.init();
+    // AOS.init();
   });
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll); //clean up
+    };
+  }, []);
+
+  const handleScroll = () => {
+    // 스크롤이 Top에서 80px 이상 내려오면 true값을 useState에 넣어줌
+    if (window.scrollY >= 80) {
+      setScroll(true);
+    } else {
+      // 스크롤이 80px 미만일경우 false를 넣어줌
+      setScroll(false);
+    }
+  };
   const settings = {
     dots: false,
     infinite: true,
@@ -99,12 +119,12 @@ export default function Landing() {
                 </S.ProductSmall>
               </S.ProductText>
               <div>
-                <S.MoreBtn>
+                <S.MoreBtn onClick={onClickMoveToPage("/products")}>
                   더보기
                   <RightOutlined />
                 </S.MoreBtn>
                 <S.SliderCustom {...settings}>
-                  {qqq.map((el, index) => (
+                  {dummyData.map((el, index) => (
                     <div key={index}>
                       <S.ProductImg src="https://image.kmib.co.kr/online_image/2018/0511/611819110012348069_1.jpg" />
                       <S.ProductInfo>
@@ -186,6 +206,9 @@ export default function Landing() {
                 </S.BeginZeroBtn>
               </S.BrushText>
             </S.BrushBox>
+          </Slide>
+          <Slide>
+            <LayoutFooter />
           </Slide>
         </FullPage>
       </S.Wrapper>

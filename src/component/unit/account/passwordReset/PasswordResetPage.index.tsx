@@ -13,14 +13,14 @@ export default function PasswordResetPageUI() {
             <S.Comment1>비밀번호를 재설정해주세요.</S.Comment1>
             <S.PasswordWrapper>
               <S.PasswordInputWrapper>
-                비밀번호 <S.PasswordInput />
+                비밀번호 <S.PasswordInput type="password" />
               </S.PasswordInputWrapper>
             </S.PasswordWrapper>
-            <S.PasswordWrapper2>
-              <S.PasswordInputWrapper2>
-                비밀번호 확인 <S.PasswordInput />
-              </S.PasswordInputWrapper2>
-            </S.PasswordWrapper2>
+            <S.PasswordWrapper>
+              <S.PasswordInputWrapper>
+                비밀번호 확인 <S.PasswordInput type="password" />
+              </S.PasswordInputWrapper>
+            </S.PasswordWrapper>
             <S.JoinButton>비밀번호 재설정하기</S.JoinButton>
           </S.ContentWrapper>
           <S.Info>

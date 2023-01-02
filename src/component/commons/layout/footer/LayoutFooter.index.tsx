@@ -1,6 +1,9 @@
+import { useMoveToPage } from "../../custom/useMoveToPage";
 import * as S from "./LayoutFooter.styles";
 
 export default function LayoutFooter() {
+  const { onClickMoveToPage } = useMoveToPage();
+
   return (
     <S.FooterBox>
       <S.FooterInnerBox>
@@ -13,10 +16,10 @@ export default function LayoutFooter() {
         </S.LeftBox>
         <div>
           <S.RightNavBox>
-            <li>Home</li>
-            <li>Our Story</li>
-            <li>Shop</li>
-            <li>Offline Shops</li>
+            <li onClick={onClickMoveToPage("/")}>Home</li>
+            <li onClick={onClickMoveToPage("/about")}>Our Story</li>
+            <li onClick={onClickMoveToPage("/products")}>Shop</li>
+            <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shops</li>
             <li>Reviews</li>
           </S.RightNavBox>
           <S.ZeroWasteInfo>

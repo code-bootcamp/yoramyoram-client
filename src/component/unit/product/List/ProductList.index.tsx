@@ -4,8 +4,12 @@ import {
   RightOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import CategoryBar from "./CategoryBar";
 import * as S from "./ProductList.styles";
 export default function ProductList() {
+  const [scroll, setScroll] = useState(false);
+  const [category, setCategory] = useState<string>("주방");
   const onChange = (value: string) => {
     console.log(`selected ${value}`);
   };
@@ -14,28 +18,41 @@ export default function ProductList() {
     console.log("search:", value);
   };
 
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll); //clean up
+    };
+  }, []);
+
+  const handleScroll = () => {
+    // 스크롤이 Top에서 80px 이상 내려오면 true값을 useState에 넣어줌
+    if (window.scrollY >= 80) {
+      setScroll(true);
+    } else {
+      // 스크롤이 80px 미만일경우 false를 넣어줌
+      setScroll(false);
+    }
+  };
+
   // 임시용
-  const qqq = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ];
+  const dummyData = new Array(20).fill(0);
 
   return (
     <>
       <S.HeaderWrapper>
         <S.ListBanner>Yoram Yoram Shop</S.ListBanner>
-        <S.CategoryBar>
-          <S.CategoryBox>
-            <S.CategoryBtn>주방</S.CategoryBtn>
-            <S.CategoryBtn>생활</S.CategoryBtn>
-            <S.CategoryBtn>욕실</S.CategoryBtn>
-            <S.CategoryBtn>여성용품</S.CategoryBtn>
-            <S.CategoryBtn>반려동물</S.CategoryBtn>
-            <S.SearchBox>
-              <S.SearchInput type="text" placeholder="검색" />
-              <S.SearchOutline />
-            </S.SearchBox>
-          </S.CategoryBox>
-        </S.CategoryBar>
+        {scroll ? (
+          <S.CategoryStickyBtn
+            category={category}
+            setCategory={(item: string) => setCategory(item)}
+          />
+        ) : (
+          <CategoryBar
+            category={category}
+            setCategory={(item: string) => setCategory(item)}
+          />
+        )}
       </S.HeaderWrapper>
       <S.ListWrapper>
         <S.ProductWriteBtn>상품등록</S.ProductWriteBtn>
@@ -73,7 +90,7 @@ export default function ProductList() {
           />
         </S.ListHeaderBox>
         <S.ListContentsBox>
-          {qqq.map((el, idx) => (
+          {dummyData.map((el, idx) => (
             <S.ProductItemBox key={idx}>
               <S.ListImg src="/landing/recycle.png" alt="상품이미지" />
               <S.ListProductInfo>
@@ -81,10 +98,10 @@ export default function ProductList() {
                 <S.ListProductPrice>9,900원</S.ListProductPrice>
                 <S.ListProductBtnBar>
                   <span>
-                    <S.ListChatBtn /> 45
+                    <S.ListChatBtn /> <S.BtnBarText>45</S.BtnBarText>
                   </span>
                   <span>
-                    <S.ListWishBtn /> 28{" "}
+                    <S.ListWishBtn /> <S.BtnBarText>28</S.BtnBarText>
                   </span>
                   <span>
                     <S.ListBasketBtn />

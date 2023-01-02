@@ -3,8 +3,8 @@ import React from "react";
 import { Rate } from "antd";
 import { CloseOutlined, FormOutlined } from "@ant-design/icons";
 export default function ProductReview() {
-  const qqq = [1, 2, 3, 4, 5, 6];
-  //
+  const dummyData = new Array(6).fill(0);
+
   return (
     <S.ReviewWrapper>
       <S.ReviewHeader>
@@ -13,7 +13,7 @@ export default function ProductReview() {
           <S.ReviewWriteBtn>구매평 작성</S.ReviewWriteBtn>
         </div>
       </S.ReviewHeader>
-      {qqq.map((el, idx) => (
+      {dummyData.map((el, idx) => (
         <S.ReviewInnerWrapper key={idx}>
           <div>
             <Rate />
@@ -38,6 +38,15 @@ export default function ProductReview() {
           </div>
         </S.ReviewInnerWrapper>
       ))}
+      <S.ListPagenation>
+        <S.PageNationLeftArrow />
+        <S.Page>1</S.Page>
+        <S.Page>2</S.Page>
+        <S.Page>3</S.Page>
+        <S.Page>4</S.Page>
+        <S.Page>5</S.Page>
+        <S.PageNationRightArrow />
+      </S.ListPagenation>
     </S.ReviewWrapper>
   );
 }
