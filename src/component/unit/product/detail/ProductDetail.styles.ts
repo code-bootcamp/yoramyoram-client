@@ -30,34 +30,38 @@ export const DetailWrapper = styled.div`
 export const DetailPurchaseInfoWrapper = styled.div`
   max-width: 580px;
   width: 100%;
+  font-family: "Noto Sans KR";
 `;
 
 export const RightNameBox = styled.div`
-  font-size: 1.9rem;
-  border-bottom: 1px solid #c4c4c4;
+  border-bottom: 1px solid #e8e8e8;
 `;
 
-export const ProductName = styled.div`
+export const ProductName = styled.h5`
   color: #222222;
-  /* font-family: NotoSansKR-Regular; */
+  font-size: 20px;
+  font-family: "Noto Sans KR";
+  font-weight: 400;
 `;
 
-export const ProductPrice = styled.div`
+export const ProductPrice = styled.p`
   color: #30640a;
-  /* padding: 6px 0 34px; */
-  padding: 2% 0 7%;
-  /* font-family: NotoSansKR-Bold; */
+  padding: 15px 0 30px 0;
+  font-size: 20px;
+  font-family: "Noto Sans KR";
+  font-weight: 400;
 `;
 
 // 옵션박스
 export const ProductOptionBox = styled.div`
   /* padding: 44px 0 26px; */
   padding: 7.7% 0 4.7%;
-  border-bottom: 1px solid #c4c4c4;
+  border-bottom: 1px solid #e8e8e8;
 `;
 
-export const ProductOptionText = styled.div`
-  font-size: 1.1rem;
+export const ProductOptionText = styled.p`
+  font-size: 15px;
+
   color: #222222;
 
   /* font-family: NotoSansKR-Regular; */
@@ -75,36 +79,30 @@ export const OptionBox = styled.div`
   /* font-family: NotoSansKR-Medium; */
 `;
 
-export const OptionText = styled.div`
-  font-size: 1.1rem;
+export const OptionText = styled.p`
+  font-size: 15px;
   color: #222222;
   /* font-family: NotoSansKR-Medium; */
 `;
 
 export const SelectOption = styled(Select)`
-  width: 77.2%;
-  :where(.css-dev-only-do-not-override-acm2ia).ant-select-single:not(
+  width: 80%;
+  :where(.css-dev-only-do-not-override-9ntgx0).ant-select-single:not(
       .ant-select-customize-input
     )
     .ant-select-selector {
-    height: 6vh;
-    color: transparent;
-    text-shadow: 0 0 0 #2196f3;
+    height: 50px !important;
   }
-
-  :where(
-      .css-dev-only-do-not-override-acm2ia
-    ).ant-select-single.ant-select-show-arrow
-    .ant-select-selection-item,
-  :where(
-      .css-dev-only-do-not-override-acm2ia
-    ).ant-select-single.ant-select-show-arrow
+  :where(.css-dev-only-do-not-override-9ntgx0).ant-select-single
+    .ant-select-selector
     .ant-select-selection-placeholder {
-    display: flex;
-    color: black;
-    font-size: 1.1rem;
-    padding: 13px 16px 0 0;
-    /* font-family: NotoSansKR-Medium; */
+    line-height: 50px !important;
+  }
+  :where(
+      .css-dev-only-do-not-override-9ntgx0
+    ).ant-select-single.ant-select-show-arrow
+    .ant-select-selection-item {
+    line-height: 50px !important;
   }
 `;
 
@@ -113,11 +111,11 @@ export const BuyAmount = styled.div`
   /* padding: 21px 0 17px; */
   padding: 3.8% 0 3%;
   /* font-family: NotoSansKR-Regular; */
-  border-bottom: 1px solid #c4c4c4;
+  border-bottom: 1px solid #e8e8e8;
 `;
 
-export const SeletedOption = styled.div`
-  font-size: 1.1rem;
+export const SeletedOption = styled.p`
+  font-size: 15px;
   color: #707070;
   /* font-family: NotoSansKR-Regular; */
   /* padding: 4px 0 28px; */
@@ -154,7 +152,7 @@ export const SeletedAmount = styled.div`
   }
 
   & > div {
-    font-size: 1.2rem;
+    font-size: 16px;
     /* font-family: NotoSansKR-Medium; */
   }
 `;

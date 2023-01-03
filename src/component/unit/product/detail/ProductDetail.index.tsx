@@ -49,9 +49,7 @@ export default function ProductDetail() {
           <span>주방</span>
         </S.CategoryWrapper>
         <S.DetailWrapper>
-          <section>
-            <SwiperImg />
-          </section>
+          <SwiperImg />
           <S.DetailPurchaseInfoWrapper>
             <S.RightNameBox>
               <S.ProductName>천연 소재 파우치</S.ProductName>
@@ -113,7 +111,7 @@ export default function ProductDetail() {
                       <PlusOutlined style={{ cursor: "pointer" }} />
                     </button>
                   </S.SeletedAmount>
-                  <CloseOutlined style={{ cursor: "pointer" }} />
+                  {/* <CloseOutlined style={{ cursor: "pointer" }} /> */}
                 </S.Qqq>
                 <S.TotalPrice>8,500원</S.TotalPrice>
               </S.SeletedAmountBox>
@@ -127,7 +125,7 @@ export default function ProductDetail() {
             <div>
               <S.NowBuyBtn>바로구매</S.NowBuyBtn>
               <S.BasketBtnBox>
-                <button>장바구니</button>
+                <button style={{ fontSize: "16px" }}>장바구니</button>
                 <button onClick={onClickWishList}>
                   {isWishList ? (
                     <S.WishListBtn>
