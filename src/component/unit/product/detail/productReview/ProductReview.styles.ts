@@ -3,8 +3,7 @@ import styled from "@emotion/styled";
 
 export const ReviewWrapper = styled.div`
   max-width: 1300px;
-  margin: 2% auto;
-  /* margin: 0 auto; */
+  margin: 34px auto;
 `;
 
 export const ReviewHeader = styled.header`
@@ -12,59 +11,55 @@ export const ReviewHeader = styled.header`
 `;
 
 export const HeaderText = styled.div`
-  /* font-family:NotoSansKR-Regular */
-  font-size: 1rem;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
   color: #727272;
-  padding-bottom: 1%;
+  padding-bottom: 14px;
 `;
 
 export const ReviewWriteBtn = styled.button`
-  width: 11.3%;
-  padding: 1% 0;
+  width: 146px;
+  padding: 14px 0;
   background-color: #30640a;
   color: #ffffff;
-  font-size: 1.1rem;
+  font-size: 18px;
+  font-weight: 500;
   border: none;
-  /* font-family:NotoSansKR-Medium */
+  font-family: "Noto Sans KR";
   cursor: pointer;
 `;
 
 export const ReviewInnerWrapper = styled.article`
-  padding: 1.7% 0 1.6%;
+  padding: 22px 0 20px;
   border-bottom: 1px solid #aaaaaa;
   display: flex;
   flex-direction: row;
+  font-family: "Noto Sans KR";
   justify-content: space-between;
 `;
 
 export const OptionText = styled.div`
-  font-size: 1rem;
   color: #707070;
-  padding: 0.5% 0 1.7%;
-  /* font-family:  NotoSansKR-Regular */
+  padding: 4px 0 14px;
 `;
 
 export const ReviewText = styled.div`
-  font-size: 1rem;
   color: #222222;
-  padding-bottom: 1.4%;
-  /* font-family:  NotoSansKR-Regular */
+  padding-bottom: 12px;
 `;
 
 export const ReviewCommentBtn = styled.div`
-  font-size: 1rem;
   color: #30640a;
   & > button {
     background: none;
     border: none;
-    /* font-family: "NotoSansKR-Bold"; */
+    font-family: "Noto Sans KR";
     cursor: pointer;
   }
 `;
 
 export const ReviewBtnWrapper = styled.div`
-  /* padding-bottom: 57px; */
-  padding-bottom: 70%;
+  padding-bottom: 57px;
   display: flex;
   justify-content: end;
   color: #8b8b8b;
@@ -75,13 +70,10 @@ export const ReviewBtnWrapper = styled.div`
 `;
 
 export const ReviewRelatedWrpper = styled.div`
-  font-size: 1rem;
   color: #222222;
-  /* font-family: NotoSansKR-Regular */
 
   & > div:first-child {
-    /* padding-bottom: 6px; */
-    padding-bottom: 10%;
+    padding-bottom: 7px;
   }
 `;
 

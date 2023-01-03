@@ -3,16 +3,17 @@ import { Select } from "antd";
 
 export const Wrapper = styled.main`
   max-width: 1300px;
-  margin: 8% auto 6.5%;
+  padding: 153px 0;
+  margin: 0 auto;
 `;
 
 export const CategoryWrapper = styled.div`
   font-size: 0.9rem;
   color: #c4c4c4;
-  /* font-family: NotoSansKR-Medium; */
+  font-family: "Noto Sans KR";
 
   & > span {
-    padding: 0 1% 0 0;
+    padding: 0 13px 0 0;
   }
   & > span:last-child {
     color: #222222;
@@ -23,7 +24,7 @@ export const DetailWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  padding-top: 1.3%;
+  padding-top: 16px;
 `;
 
 // 오른쪽 박스
@@ -40,7 +41,6 @@ export const RightNameBox = styled.div`
 export const ProductName = styled.h5`
   color: #222222;
   font-size: 20px;
-  font-family: "Noto Sans KR";
   font-weight: 400;
 `;
 
@@ -48,14 +48,12 @@ export const ProductPrice = styled.p`
   color: #30640a;
   padding: 15px 0 30px 0;
   font-size: 20px;
-  font-family: "Noto Sans KR";
   font-weight: 400;
 `;
 
 // 옵션박스
 export const ProductOptionBox = styled.div`
-  /* padding: 44px 0 26px; */
-  padding: 7.7% 0 4.7%;
+  padding: 44px 0 27px;
   border-bottom: 1px solid #e8e8e8;
 `;
 
@@ -63,8 +61,6 @@ export const ProductOptionText = styled.p`
   font-size: 15px;
 
   color: #222222;
-
-  /* font-family: NotoSansKR-Regular; */
 `;
 
 export const OptionBox = styled.div`
@@ -72,17 +68,15 @@ export const OptionBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  /* padding-top: 35px; */
-  padding-top: 6.2%;
-  font-size: 1.1rem;
+  padding-top: 35px;
+  font-size: 18px;
   color: #222222;
-  /* font-family: NotoSansKR-Medium; */
 `;
 
 export const OptionText = styled.p`
   font-size: 15px;
   color: #222222;
-  /* font-family: NotoSansKR-Medium; */
+  font-weight: 500;
 `;
 
 export const SelectOption = styled(Select)`
@@ -108,18 +102,15 @@ export const SelectOption = styled(Select)`
 
 // 수량박스
 export const BuyAmount = styled.div`
-  /* padding: 21px 0 17px; */
-  padding: 3.8% 0 3%;
-  /* font-family: NotoSansKR-Regular; */
+  padding: 21px 0 17px;
+  font-family: "Noto Sans KR";
   border-bottom: 1px solid #e8e8e8;
 `;
 
 export const SeletedOption = styled.p`
   font-size: 15px;
   color: #707070;
-  /* font-family: NotoSansKR-Regular; */
-  /* padding: 4px 0 28px; */
-  padding: 1.5% 0 5%;
+  padding: 4px 0 28px;
 `;
 
 export const SeletedAmountBox = styled.div`
@@ -127,8 +118,8 @@ export const SeletedAmountBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
 `;
-// 리펙토링하자
-export const Qqq = styled.div`
+
+export const SeletedAmount1 = styled.div`
   display: flex;
   align-items: center;
   color: #8b8b8b;
@@ -140,31 +131,25 @@ export const SeletedAmount = styled.div`
   align-items: center;
 
   border-bottom: 1px solid #222222;
-  width: 8.6vw;
-  height: 4vh;
-  /* margin-right: 27px; */
-  margin-right: 15%;
+  width: 175px;
+  height: 38px;
+  margin-right: 27px;
+  font-family: "Noto Sans KR";
+  font-size: 16px;
   & > button {
     background: none;
     border: none;
-    font-size: 1rem;
-    /* font-family: NotoSansKR-Light; */
-  }
-
-  & > div {
-    font-size: 16px;
-    /* font-family: NotoSansKR-Medium; */
   }
 `;
 
 export const TotalPrice = styled.div`
-  font-size: 1.3rem;
-  /* font-family: NotoSansKR-Bold; */
+  font-size: 22px;
+  font-weight: 700;
+  font-family: "Noto Sans KR";
 
   & > span {
-    font-size: 1rem;
+    font-size: 16px;
     color: #707070;
-    /* font-family: NotoSansKR-Medium; */
   }
 `;
 
@@ -179,41 +164,42 @@ export const TotalPriceBox = styled.div`
 
 export const TotalText = styled.div`
   font-size: 1.2rem;
-
-  /* font-family: NotoSansKR-Medium; */
 `;
 
 // 구매,장바구니,위시리스트
 export const NowBuyBtn = styled.button`
   width: 100%;
-  /* height: 69px; */
-  padding: 3.6% 0;
+  padding: 20px 0;
   color: #ffffff;
   background-color: #30640a;
   border: none;
-  font-size: 1.2rem;
+  font-size: 20px;
   cursor: pointer;
-  /* font-family: NotoSansKR-Medium; */
+  font-weight: 500;
+  font-family: "Noto Sans KR";
 `;
 
 export const BasketBtnBox = styled.div`
   display: flex;
   flex-direction: row;
   & > button {
-    width: 49%;
-    padding: 3.3% 0;
+    width: 283px;
+    padding: 19px 0;
     background: none;
     border: 1px solid #b7b7b7;
-    margin: 2.7% 2.7% 0 0;
+    margin: 15px 15px 0 0;
     cursor: pointer;
+    font-family: "Noto Sans KR";
+    font-weight: 500;
+    font-size: 16px;
   }
 
   & > button:last-child {
-    margin: 2.7% 0 0 0;
+    margin: 15px 0 0 0;
   }
 
   & > button > div {
-    font-size: 1.2rem;
+    font-size: 20px;
   }
 `;
 
@@ -222,12 +208,11 @@ export const WishListBtn = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* gap: 10px; */
-  gap: 4%;
+  gap: 10px;
 `;
-//
+
 export const BtnBox = styled.div`
-  width: 1300px;
+  max-width: 1300px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -235,8 +220,12 @@ export const BtnBox = styled.div`
 
 export const SelectBtn = styled.button`
   width: 50%;
-  padding: 1.8% 0;
+  /* padding: 1.8% 0; */
+  padding: 23px;
   background: none;
   border: 1px solid #b7b7b7;
   cursor: pointer;
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-weight: 500;
 `;

@@ -2,26 +2,26 @@ import styled from "@emotion/styled";
 //
 export const Wrapper = styled.div`
   width: 716px;
-  margin: 86px auto 0;
+  margin: 86px auto 174px;
 `;
 
 export const ProductImg = styled.img`
   width: 100%;
-  height: 81.3vh;
+  height: 640px;
   object-fit: cover;
 `;
 export const ProductInfoBox = styled.div`
-  width: 31vw;
+  max-width: 576px;
   word-break: keep-all;
   text-align: center;
   margin: 45px auto 0;
-  /* font-family: NotoSansKR-Regular */
+  font-family: "Noto Sans KR";
 `;
 
 export const ProductInfo = styled.div``;
 
 export const CautionText = styled.div`
-  width: 24vw;
+  max-width: 444px;
   margin: 45px auto 0;
   word-break: keep-all;
   & > div {
