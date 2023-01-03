@@ -6,7 +6,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import styled from "@emotion/styled";
-// import from "@tyles/react/index"
+import SwiperCore, { FreeMode, Navigation, Thumbs, Controller } from "swiper";
 
 const SwiperWrapper = styled(Swiper)`
   .swiper-button-prev,
@@ -22,20 +22,19 @@ const SwiperWrapper = styled(Swiper)`
   }
 `;
 
-import SwiperCore, { FreeMode, Navigation, Thumbs, Controller } from "swiper";
-
 const ShowedSwiperWrapper = styled.div`
   max-width: 644px;
 `;
 
 const MainImg = styled.img`
   width: 100%;
+  height: 640px;
 `;
 
 const DetailSubImg = styled.img`
   width: 100%;
-  height: 17vh;
-  margin: 6.5% 0 0;
+  height: 165px;
+  margin: 16px 0 0;
   &:last-child {
     margin-right: 0;
   }
