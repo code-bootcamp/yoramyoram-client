@@ -61,7 +61,6 @@ export default function ProductList() {
             showSearch
             placeholder="선택"
             optionFilterProp="children"
-            onChange={onChange}
             onSearch={onSearch}
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())

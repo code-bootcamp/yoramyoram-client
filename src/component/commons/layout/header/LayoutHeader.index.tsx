@@ -8,7 +8,7 @@ export function LayoutHeader() {
 
   // 반응형 메뉴
 
-  const [isOpen, setIsOpen] = useState(false); // 메뉴의 초기값을 false로 설정
+  const [isOpen, setIsOpen] = useState<boolean>(false); // 메뉴의 초기값을 false로 설정
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev); // on,off 개념 boolean

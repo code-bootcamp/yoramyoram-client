@@ -103,7 +103,7 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-export const Sidebar = styled.div`
+export const Sidebar = styled.div<{ isOpen: boolean }>`
   width: 280px;
   height: 100vh;
   position: fixed;
