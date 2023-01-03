@@ -49,6 +49,10 @@ export default function ProductList() {
       </S.HeaderWrapper>
       <S.ListWrapper>
         <S.ProductWriteBtn>상품등록</S.ProductWriteBtn>
+        <S.SearchBoxMobile>
+          <S.SearchInput type="text" placeholder="검색" />
+          <S.SearchOutline />
+        </S.SearchBoxMobile>
         <S.ListHeaderBox>
           <S.ListCount>
             총 <span>20</span>개의 상품이 있습니다.
@@ -104,7 +108,7 @@ export default function ProductList() {
             </S.ProductItemBox>
           ))}
         </S.ListContentsBox>
-        <S.ListPagenation>
+        <S.ListPagination>
           <S.PageNationLeftArrow />
           <S.Page>1</S.Page>
           <S.Page>2</S.Page>
@@ -112,7 +116,7 @@ export default function ProductList() {
           <S.Page>4</S.Page>
           <S.Page>5</S.Page>
           <S.PageNationRightArrow />
-        </S.ListPagenation>
+        </S.ListPagination>
       </S.ListWrapper>
     </>
   );
