@@ -27,10 +27,7 @@ export default function Basket() {
                 <S.Tr>
                   <S.PrdTd>
                     <S.ImgWrap>
-
-                      <img src="/productDetail/purchase.png"></img>
-
-
+                      <img src="/productDetail/purchase.png" />
                     </S.ImgWrap>
                     <S.PrdDetail>
                       <S.Name>천연소재 파우치</S.Name>
@@ -45,6 +42,24 @@ export default function Basket() {
                 </S.Tr>
               </S.Tbody>
             </S.Table>
+
+            <S.MobileList>
+              <S.PrdImg>
+                <img src="productDetail/purchase.png" />
+              </S.PrdImg>
+              <S.PrdInfoWrap>
+                <S.PrdInfo>
+                  <S.PrdName>천연소재 파우치</S.PrdName>
+                  <S.PrdOption>옵션: White</S.PrdOption>
+                  <S.Quantity>수량: 1</S.Quantity>
+                  <S.Price>
+                    8,500<span>원</span>
+                  </S.Price>
+                </S.PrdInfo>
+                <S.Delete>✕</S.Delete>
+              </S.PrdInfoWrap>
+            </S.MobileList>
+
             <S.GoShop>쇼핑 계속하기</S.GoShop>
           </S.Left>
           <S.Right>
@@ -62,6 +77,10 @@ export default function Basket() {
               </S.PointBox>
             </S.PriceWrap>
             <S.PayButton>결제하기</S.PayButton>
+            <S.MobileBtnWrap>
+              <S.GoShopMob>쇼핑 계속하기</S.GoShopMob>
+              <S.PayButtonMob>결제하기</S.PayButtonMob>
+            </S.MobileBtnWrap>
           </S.Right>
         </S.FlexBoxWrap>
       </S.Wrapper>
