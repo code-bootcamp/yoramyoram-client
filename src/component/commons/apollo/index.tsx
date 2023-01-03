@@ -49,8 +49,8 @@ export default function ApolloSetting(props: IApolloSetting) {
 
   const uploadLink = createUploadLink({
     uri: "https://yoramyoram-backend.shop/graphql",
-    //   headers: {Authorization: `Bearer ${accessToken}`},
-    // credentials: "include",
+    // headers: {Authorization: `Bearer ${accessToken}`},
+    credentials: "include",
   });
 
   const client = new ApolloClient({
