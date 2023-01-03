@@ -141,6 +141,7 @@ export const CertNumber = styled.button`
   color: #fcfbfa;
   font-size: 15px;
   background-color: #30640a;
+  cursor: pointer;
 `;
 
 export const CertNumberWrapper = styled.div`
@@ -170,6 +171,7 @@ export const CertNumberButton = styled.button`
   border: none;
   color: #fcfbfa;
   font-size: 15px;
+  cursor: pointer;
 `;
 
 export const AddressNumberWrapper = styled.div`
