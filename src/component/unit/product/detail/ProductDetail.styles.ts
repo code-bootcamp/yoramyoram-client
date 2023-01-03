@@ -1,14 +1,27 @@
 import styled from "@emotion/styled";
 import { Select } from "antd";
+import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.main`
   max-width: 1300px;
   padding: 153px 0;
   margin: 0 auto;
+  ${mq.mobile} {
+    padding: 120px 18px 60px 18px;
+  }
+  ${mq.mobileL} {
+    padding: 120px 18px 60px 18px;
+  }
+  ${mq.tablet} {
+    padding: 153px 18px 153px 18px;
+  }
+  ${mq.laptop} {
+    padding: 153px 18px 153px 18px;
+  }
 `;
 
 export const CategoryWrapper = styled.div`
-  font-size: 0.9rem;
+  font-size: 16px;
   color: #c4c4c4;
   font-family: "Noto Sans KR";
 
@@ -25,13 +38,30 @@ export const DetailWrapper = styled.div`
   flex-direction: row;
   justify-content: space-between;
   padding-top: 16px;
+  gap: 60px;
+  ${mq.tablet} {
+    gap: 40px;
+  }
+  ${mq.mobile} {
+    gap: 40px;
+    display: block;
+  }
+  ${mq.mobileL} {
+    gap: 40px;
+    display: block;
+  }
 `;
 
 // 오른쪽 박스
 export const DetailPurchaseInfoWrapper = styled.div`
-  max-width: 580px;
-  width: 100%;
+  width: 50%;
   font-family: "Noto Sans KR";
+  ${mq.mobile} {
+    width: 100%;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+  }
 `;
 
 export const RightNameBox = styled.div`
@@ -144,8 +174,9 @@ export const SeletedAmount = styled.div`
 
 export const TotalPrice = styled.div`
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 500;
   font-family: "Noto Sans KR";
+  color: #30640a;
 
   & > span {
     font-size: 16px;
@@ -177,25 +208,38 @@ export const NowBuyBtn = styled.button`
   cursor: pointer;
   font-weight: 500;
   font-family: "Noto Sans KR";
+  ${mq.mobile} {
+    padding: 15px 0;
+    font-size: 16px;
+  }
+  ${mq.mobileL} {
+    padding: 15px 0;
+    font-size: 16px;
+  }
 `;
 
 export const BasketBtnBox = styled.div`
   display: flex;
   flex-direction: row;
+  gap: 15px;
+  margin-top: 15px;
   & > button {
-    width: 283px;
-    padding: 19px 0;
+    width: 50%;
     background: none;
     border: 1px solid #b7b7b7;
-    margin: 15px 15px 0 0;
     cursor: pointer;
     font-family: "Noto Sans KR";
     font-weight: 500;
-    font-size: 16px;
-  }
-
-  & > button:last-child {
-    margin: 15px 0 0 0;
+    font-size: 18px;
+    padding: 15px 0;
+    ${mq.mobile} {
+      padding: 11px 0;
+      font-size: 16px;
+    }
+    ${mq.mobileL} {
+      padding: 11px 0;
+      font-size: 16px;
+    }
   }
 
   & > button > div {
@@ -208,7 +252,9 @@ export const WishListBtn = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  & > span {
+    margin-right: 5px;
+  }
 `;
 
 export const BtnBox = styled.div`
@@ -216,6 +262,15 @@ export const BtnBox = styled.div`
   margin: 0 auto;
   display: flex;
   justify-content: center;
+  ${mq.mobile} {
+    padding: 0 18px;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+  }
+  ${mq.tablet} {
+    padding: 0 18px;
+  }
 `;
 
 export const SelectBtn = styled.button`
@@ -228,4 +283,16 @@ export const SelectBtn = styled.button`
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-weight: 500;
+  ${mq.mobile} {
+    font-size: 16px;
+    padding: 10px;
+  }
+  ${mq.mobileL} {
+    font-size: 16px;
+    padding: 10px;
+  }
+  ${mq.tablet} {
+    font-size: 16px;
+    padding: 10px;
+  }
 `;

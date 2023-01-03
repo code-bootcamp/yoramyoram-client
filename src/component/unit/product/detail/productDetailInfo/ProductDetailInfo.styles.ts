@@ -1,13 +1,26 @@
 import styled from "@emotion/styled";
+import * as mq from "../../../../../commons/styles/mediaQueries";
 //
 export const Wrapper = styled.div`
-  width: 716px;
-  margin: 86px auto 174px;
+  max-width: 700px;
+  margin: 86px auto;
+  ${mq.mobile} {
+    padding: 0 18px;
+    margin: 30px auto;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+    margin: 30px auto;
+  }
+  ${mq.tablet} {
+    padding: 0 18px;
+    margin: 30px auto;
+  }
 `;
 
 export const ProductImg = styled.img`
   width: 100%;
-  height: 640px;
+  height: auto;
   object-fit: cover;
 `;
 export const ProductInfoBox = styled.div`
