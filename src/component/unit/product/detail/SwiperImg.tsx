@@ -10,7 +10,6 @@ import styled from "@emotion/styled";
 
 const ShowedSwiperWrapper = styled.div`
   max-width: 644px;
-  width: 100%;
 `;
 
 const MainImg = styled.img`
@@ -49,7 +48,7 @@ export default function SwiperImg() {
           <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
         </SwiperSlide>
         <SwiperSlide>
-          <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
+          <MainImg src="/productList/purchase.png" alt="상품이미지" />
         </SwiperSlide>
         <SwiperSlide>
           <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
@@ -69,7 +68,7 @@ export default function SwiperImg() {
           <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
         </SwiperSlide>
         <SwiperSlide>
-          <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
+          <DetailSubImg src="/productList/purchase.png" alt="상품이미지" />
         </SwiperSlide>
         <SwiperSlide>
           <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
