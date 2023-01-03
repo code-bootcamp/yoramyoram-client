@@ -1,16 +1,17 @@
 import * as S from "./PurchaseHistory.styles";
-import { RightOutlined } from "@ant-design/icons";
 
 export default function PurchaseHistory() {
-  const qqq = [1, 2, 3, 4, 5, 6];
+  const dummyData = new Array(6).fill(0);
 
   return (
     <S.PurchaseHistoryBox>
       <S.HistoryText>구매내역</S.HistoryText>
-      {qqq.map((el, idx) => (
+      {dummyData.map((el, idx) => (
         <S.PurchasedItem key={idx}>
           <S.PurchasedItemInfo>
-            <S.ProductImg src="/productDetail/purchase.png" />
+            <div>
+              <S.ProductImg src="/productDetail/purchase.png" />
+            </div>
             <S.PurchasedItemInfoText>
               <S.ItemName>구르미 텀블러</S.ItemName>
               <S.ItemPriceBox>
