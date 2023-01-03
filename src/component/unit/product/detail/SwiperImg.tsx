@@ -7,11 +7,13 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import styled from "@emotion/styled";
 import SwiperCore, { FreeMode, Navigation, Thumbs, Controller } from "swiper";
+import * as mq from "../../../../commons/styles/mediaQueries";
 
 const SwiperWrapper = styled(Swiper)`
   .swiper-button-prev,
   .swiper-rtl .swiper-button-next {
     color: white;
+    transform: scale(0.5);
   }
 
   .swiper-button-next,
@@ -19,21 +21,48 @@ const SwiperWrapper = styled(Swiper)`
     right: 10px;
     left: auto;
     color: white;
+    transform: scale(0.5);
+  }
+  .swiper-slide,
+  .swiper-slide.swiper-slide-thumb-active.swiper-slide-visible.swiper-slide-active {
+    height: auto;
   }
 `;
 
 const ShowedSwiperWrapper = styled.div`
-  max-width: 644px;
+  width: 50%;
+  .swiper-slide {
+    height: auto;
+  }
+  ${mq.mobile} {
+    width: 100%;
+    margin-bottom: 15px;
+    .mySwiper {
+      display: none;
+    }
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    .mySwiper {
+      display: none;
+    }
+  }
+  ${mq.tablet} {
+    width: 45%;
+  }
+  ${mq.laptop} {
+    width: 45%;
+  }
 `;
 
 const MainImg = styled.img`
   width: 100%;
-  height: 640px;
+  height: 100%;
 `;
 
 const DetailSubImg = styled.img`
   width: 100%;
-  height: 165px;
+  height: 100%;
   margin: 16px 0 0;
   &:last-child {
     margin-right: 0;
