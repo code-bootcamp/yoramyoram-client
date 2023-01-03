@@ -266,15 +266,37 @@ export const ListProductInfo = styled.div`
   color: #222222;
 `;
 
-export const ListProductName = styled.div`
+export const ListProductName = styled.h5`
   line-height: 1.5;
   word-break: keep-all;
+  ${mq.mobile} {
+    font-size: 15px;
+    width: 152px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  ${mq.mobileL} {
+    font-size: 15px;
+    width: 152px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 `;
 
-export const ListProductPrice = styled.div`
+export const ListProductPrice = styled.p`
   margin: 10px 0 20px;
   font-family: "Noto Sans KR";
   font-weight: bold;
+  ${mq.mobile} {
+    font-size: 15px;
+    margin-top: 6px;
+  }
+  ${mq.mobileL} {
+    font-size: 15px;
+    margin-top: 6px;
+  }
 `;
 
 export const ListProductBtnBar = styled.div`
