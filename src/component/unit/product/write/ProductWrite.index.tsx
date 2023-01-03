@@ -1,29 +1,36 @@
 import * as S from "./ProductWrite.styles";
-import { useEffect, useState } from "react";
+import {
+  KeyboardEvent,
+  MouseEvent,
+  MouseEventHandler,
+  useEffect,
+  useState,
+} from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Select } from "antd";
+import { RawValueType } from "rc-select/lib/Select";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
 
-const handleChange = (value: string) => {
-  console.log(`selected ${value}`);
-};
-
 export default function ProductWrite() {
-  const [tagItem, setTagItem] = useState("");
-  const [tagList, setTagList] = useState([]);
-  const [tagItemTwo, setTagItemTwo] = useState("");
-  const [tagListTwo, setTagListTwo] = useState([]);
+  const [tagItem, setTagItem] = useState<string>("");
+  const [tagList, setTagList] = useState<string[]>([]);
+  const [tagItemTwo, setTagItemTwo] = useState<string>("");
+  const [tagListTwo, setTagListTwo] = useState<string[]>([]);
 
-  const onKeyPress = (e) => {
-    if (e.target.value.length !== 0 && e.key === "Enter") {
+  const handleChange = (value: any) => {
+    console.log(`selected ${value}`);
+  };
+
+  const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.currentTarget.value.length !== 0 && e.key === "Enter") {
       submitTagItem();
     }
   };
-  const onKeyPressTwo = (e) => {
-    if (e.target.value.length !== 0 && e.key === "Enter") {
+  const onKeyPressTwo = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.currentTarget.value.length !== 0 && e.key === "Enter") {
       submitTagItemTwo();
     }
   };
@@ -41,14 +48,15 @@ export default function ProductWrite() {
     setTagItemTwo("");
   };
 
-  const deleteTagItem = (e) => {
+  const deleteTagItem = (e: any) => {
     const deleteTagItem = e.currentTarget.parentElement.firstChild.innerText;
     const filteredTagList = tagList.filter(
       (tagItem) => tagItem !== deleteTagItem
     );
     setTagList(filteredTagList);
+    // target객체 의 유형이 이고 TypeScript에서 허용되지 않는( 활성화된 EventTarget | null경우) nullable 유형의 속성에 액세스하려고 하기 때문에 발생합니다. 유형 가드를 통해서만 strictNullChecks유형을 좁혀서 이 오류를 수정할 수 있습니다
   };
-  const deleteTagItemTwo = (e) => {
+  const deleteTagItemTwo = (e: any) => {
     const deleteTagItemTwo = e.currentTarget.parentElement.firstChild.innerText;
     const filteredTagList = tagListTwo.filter(
       (tagItemTwo) => tagItemTwo !== deleteTagItemTwo
@@ -90,7 +98,6 @@ export default function ProductWrite() {
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
               <S.SelectBox
-
                 defaultValue="옵션을 선택하세요"
                 style={{ width: "100%" }}
                 onChange={handleChange}

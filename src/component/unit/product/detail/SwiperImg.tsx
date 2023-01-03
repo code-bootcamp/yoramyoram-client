@@ -1,12 +1,28 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Dispatch, Fragment, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { FreeMode, Navigation, Thumbs } from "swiper";
 import styled from "@emotion/styled";
+// import from "@tyles/react/index"
+
+const SwiperWrapper = styled(Swiper)`
+  .swiper-button-prev,
+  .swiper-rtl .swiper-button-next {
+    color: white;
+  }
+
+  .swiper-button-next,
+  .swiper-rtl .swiper-button-prev {
+    right: 10px;
+    left: auto;
+    color: white;
+  }
+`;
+
+import SwiperCore, { FreeMode, Navigation, Thumbs, Controller } from "swiper";
 
 const ShowedSwiperWrapper = styled.div`
   max-width: 644px;
@@ -29,15 +45,11 @@ const DetailSubImg = styled.img`
 `;
 
 export default function SwiperImg() {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
 
   return (
     <ShowedSwiperWrapper>
-      <Swiper
-        style={{
-          "--swiper-navigation-color": "white",
-          "--swiper-pagination-color": "white",
-        }}
+      <SwiperWrapper
         loop={true}
         spaceBetween={10}
         navigation={true}
@@ -54,9 +66,10 @@ export default function SwiperImg() {
         <SwiperSlide>
           <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
         </SwiperSlide>
-      </Swiper>
+      </SwiperWrapper>
       <Swiper
-        onSwiper={setThumbsSwiper}
+        // onSwiper={(swiper) => console.log(swiper)}
+        onSwiper={(swiper) => setThumbsSwiper(swiper)}
         loop={true}
         spaceBetween={15}
         slidesPerView={3}
