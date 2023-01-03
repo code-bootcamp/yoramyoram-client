@@ -4,9 +4,19 @@ import { Divider, Select } from "antd";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const HeaderWrapper = styled.div`
   padding-top: 80px;
+  ${mq.mobile} {
+    padding-top: 70px;
+  }
+  ${mq.mobileL} {
+    padding-top: 70px;
+  }
+  ${mq.tablet} {
+    padding-top: 70px;
+  }
 `;
 
 export const ListBanner = styled.div`
@@ -19,9 +29,13 @@ export const ListBanner = styled.div`
   align-items: center;
   justify-content: center;
 
-  background-image: url("/productList/shopbanner.jpg");
-  background-repeat: no-repeat;
+  background: url("/productList/shopbanner.jpg") no-repeat center;
   background-size: cover;
+  ${mq.mobile} {
+    padding: 0 18px;
+    font-size: 35px;
+    height: 200px;
+  }
 `;
 
 export const CategoryBar = styled.div`
@@ -33,9 +47,18 @@ export const CategoryBarSticky = styled.div`
   width: 100%;
   border-bottom: 1px solid #b7b7b7;
   position: fixed;
-  top: 8%;
+  top: 80px;
   background-color: #ffffff;
   z-index: 3;
+  ${mq.mobile} {
+    top: 70px;
+  }
+  ${mq.mobileL} {
+    top: 70px;
+  }
+  ${mq.tablet} {
+    top: 70px;
+  }
 `;
 
 export const CategoryBox = styled.div`
@@ -45,33 +68,77 @@ export const CategoryBox = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 1% 0;
-  gap: 1%;
+  padding: 15px 0;
+  gap: 15px;
+  ${mq.mobile} {
+    padding: 0;
+    gap: 0;
+  }
+  ${mq.mobileL} {
+    padding: 0;
+    gap: 0;
+  }
+  ${mq.tablet} {
+    padding: 15px 18px;
+  }
 `;
 
 export const CategoryBtn = styled.button`
   width: 16%;
   display: block;
-  padding: 0.9% 0;
+  padding: 8px 0;
   border-radius: 25px;
   border: 1px solid #b7b7b7;
   background: none;
-  font-size: 1.1rem;
-  font-family: "NotoSansMedium";
+  font-size: 16px;
+  font-family: "Noto Sans KR";
+  font-weight: 400;
   cursor: pointer;
+  word-break: keep-all;
+  &:last-of-type {
+    ${mq.mobile} {
+      border-right: none;
+    }
+    ${mq.mobileL} {
+      border-right: none;
+    }
+  }
+  ${mq.mobile} {
+    width: 20%;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid #b7b7b7;
+  }
+  ${mq.mobileL} {
+    width: 20%;
+    border-radius: 0;
+    border: none;
+    border-right: 1px solid #b7b7b7;
+  }
 `;
 
 export const CategoryBtnActive = styled.button`
   width: 16%;
   display: block;
   color: #ffffff;
-  padding: 0.9% 0;
+  padding: 8px 0;
   border-radius: 25px;
   border: none;
   background: #30640a;
-  font-size: 1.1rem;
-  font-family: "NotoSansMedium";
+  font-size: 16px;
+  font-family: "Noto Sans KR";
+  font-weight: 500;
   cursor: pointer;
+  ${mq.mobile} {
+    width: 20%;
+    border-radius: 0;
+    border-right: 1px solid #b7b7b7;
+  }
+  ${mq.mobileL} {
+    width: 20%;
+    border-radius: 0;
+    border-right: 1px solid #b7b7b7;
+  }
 `;
 
 export const SearchBox = styled.div`
@@ -79,6 +146,28 @@ export const SearchBox = styled.div`
   flex-direction: row;
   width: 20%;
   position: relative;
+  ${mq.mobile} {
+    display: none;
+  }
+  ${mq.mobileL} {
+    display: none;
+  }
+`;
+export const SearchBoxMobile = styled.div`
+  display: none;
+
+  ${mq.mobile} {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;
+  }
+  ${mq.mobileL} {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    position: relative;
+  }
 `;
 
 export const SearchInput = styled.input`
@@ -87,7 +176,7 @@ export const SearchInput = styled.input`
   display: block;
   background: none;
   border-bottom: 1px solid #b7b7b7;
-  padding: 5.1% 5%;
+  padding: 10px;
   font-size: 1rem;
 `;
 
@@ -98,17 +187,34 @@ export const SearchOutline = styled(SearchOutlined)`
 `;
 
 export const ListWrapper = styled.main`
-  width: 68.25%;
-  margin: 4.1% auto;
+  max-width: 1300px;
+  margin: 0 auto;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  ${mq.mobile} {
+    padding: 0 18px;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+  }
+  ${mq.tablet} {
+    padding: 0 18px;
+  }
 `;
 export const ProductWriteBtn = styled.button`
   width: 15%;
-  padding: 1% 0;
+  padding: 10px 0;
   color: #ffffff;
-  font-size: 1.1rem;
+  font-size: 16px;
   background-color: #30640a;
   border: none;
   cursor: pointer;
+  ${mq.mobile} {
+    width: 100%;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+  }
 `;
 
 export const ListHeaderBox = styled.div`
@@ -116,33 +222,38 @@ export const ListHeaderBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   /* padding-top: 21px; */
-  padding-top: 1%;
+
+  align-items: center;
+  margin: 15px 0;
 `;
 
 export const ListCount = styled.div`
-  font-size: 0.9rem;
+  font-size: 15px;
   color: #838383;
 
   & > span {
-    font-size: 0.9rem;
+    font-size: 15px;
     color: #222222;
   }
 `;
 
 export const SelectBox = styled(Select)`
-  width: 8.1%;
-  margin-bottom: 0.5%;
+  width: 100px;
 `;
 
 export const ListContentsBox = styled.section`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  gap: 1em;
   cursor: pointer;
 `;
 
-export const ProductItemBox = styled.article`
-  width: 23.8%;
+export const ProductItemBox = styled.div`
+  flex-basis: 313px;
+  flex-grow: 0;
+  ${mq.mobile} {
+    flex: 0 0 47.5%;
+  }
 `;
 
 export const ListImg = styled.img`
@@ -150,16 +261,20 @@ export const ListImg = styled.img`
 `;
 
 export const ListProductInfo = styled.div`
-  padding: 7% 0 21%;
-  font-size: 1.1rem;
+  padding: 15px 0;
+  font-size: 16px;
   color: #222222;
 `;
 
-export const ListProductName = styled.div``;
+export const ListProductName = styled.div`
+  line-height: 1.5;
+  word-break: keep-all;
+`;
 
 export const ListProductPrice = styled.div`
-  padding: 3.3% 0 5.2%;
-  font-family: "NotoSansBold";
+  margin: 10px 0 20px;
+  font-family: "Noto Sans KR";
+  font-weight: bold;
 `;
 
 export const ListProductBtnBar = styled.div`
@@ -167,33 +282,35 @@ export const ListProductBtnBar = styled.div`
   display: flex;
   align-items: center;
   & > span {
-    padding-right: 5%;
+    padding-right: 15px;
     display: flex;
     align-items: center;
+    font-size: 15px;
   }
 `;
 
 export const BtnBarText = styled.span`
-  padding-left: 5%;
+  padding-left: 3px;
 `;
 
 export const ListChatBtn = styled(ChatBubbleOutlineIcon)`
-  font-size: 1rem;
+  font-size: 18px;
   cursor: pointer;
 `;
 
 export const ListWishBtn = styled(FavoriteBorderIcon)`
-  font-size: 1rem;
+  font-size: 18px;
   cursor: pointer;
 `;
 
 export const ListBasketBtn = styled(AddShoppingCartIcon)`
-  font-size: 1.2rem;
+  font-size: 18px;
   cursor: pointer;
 `;
 
-export const ListPagenation = styled.div`
+export const ListPagination = styled.div`
   text-align: center;
+  margin-top: 50px;
 `;
 
 interface IPageProps {
