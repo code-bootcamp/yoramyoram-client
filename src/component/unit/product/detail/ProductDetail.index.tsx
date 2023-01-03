@@ -65,7 +65,6 @@ export default function ProductDetail() {
                   showSearch
                   placeholder="- [필수] 옵션을 선택해 주세요 -"
                   optionFilterProp="children"
-                  onChange={onChange}
                   onSearch={onSearch}
                   filterOption={(input, option) =>
                     (option?.label ?? "")
@@ -150,13 +149,13 @@ export default function ProductDetail() {
       </S.Wrapper>
       <S.BtnBox>
         <S.SelectBtn
-          detailSelectBtn={detailSelectBtn}
+          // detailSelectBtn={detailSelectBtn}
           onClick={() => setDetailSelectBtn(true)}
         >
           상세정보
         </S.SelectBtn>
         <S.SelectBtn
-          detailSelectBtn={detailSelectBtn}
+          // detailSelectBtn={detailSelectBtn}
           onClick={() => setDetailSelectBtn(false)}
         >
           구매평(41)
