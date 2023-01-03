@@ -32,7 +32,7 @@ export default function Mypage() {
             </S.UserBox>
             <S.RightTextBox>
               <S.RightPointText>YORAM POINT</S.RightPointText>
-              <div style={{ fontSize: "1.2rem" }}>
+              <div>
                 <S.AccumulatePoint>3,862</S.AccumulatePoint>p
               </div>
             </S.RightTextBox>
