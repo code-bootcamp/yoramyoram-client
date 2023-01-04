@@ -1,6 +1,9 @@
 import * as S from "./SignInPage.styles";
+import { useMoveToPage } from "../../commons/custom/useMoveToPage";
 
 export default function SignInPageUI() {
+  const { onClickMoveToPage } = useMoveToPage();
+
   return (
     <S.Background>
       <S.SignBoxWrapper>
@@ -26,7 +29,9 @@ export default function SignInPageUI() {
             Yoram Yoram 멤버가 되어 <br />
             제로 웨이스트 라이프를 경험해 보세요.
           </S.JoinContent>
-          <S.JoinButton>회원가입</S.JoinButton>
+          <S.JoinButton onClick={onClickMoveToPage("/join")}>
+            회원가입
+          </S.JoinButton>
         </S.JoinBox>
       </S.SignBoxWrapper>
     </S.Background>
