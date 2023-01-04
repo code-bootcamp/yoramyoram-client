@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const Background = styled.div`
-  padding: 257px 0 195px;
+  padding: 170px 0 140px;
   ${mq.laptop} {
     padding: 200px 18px 180px 18px;
   }

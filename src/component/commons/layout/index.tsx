@@ -29,7 +29,16 @@ export default function Layout(props: ILayoutProps) {
     }
   };
 
-  const HIDDEN_FOOTER = ["/", "/account", "/sign_in", "/join"];
+  const HIDDEN_FOOTER = [
+    "/",
+    "/account/id_search",
+    "/account/password_search",
+    "/account/id_search_success",
+    "/account/password_reset",
+    "/account/search_result",
+    "/sign_in",
+    "/join",
+  ];
   const isHiddenFooter = HIDDEN_FOOTER.includes(router.asPath);
 
   return (
