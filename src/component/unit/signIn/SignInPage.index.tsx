@@ -1,4 +1,4 @@
-import * as S from "./signInPage.styles";
+import * as S from "./SignInPage.styles";
 
 export default function SignInPageUI() {
   return (

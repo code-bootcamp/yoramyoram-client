@@ -1,26 +1,60 @@
 import styled from "@emotion/styled";
+import * as mq from "../../../commons/styles/mediaQueries";
 
 export const Background = styled.div`
-  background-color: rgb(252 251 250);
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 300px 0 300px;
+  max-width: 920px;
+  margin: 0 auto;
+
+  ${mq.laptop} {
+    padding: 0 50px;
+    padding: 250px 0 250px;
+  }
+  ${mq.tablet} {
+    padding: 0 50px;
+    padding: 250px 0 150px;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    padding: 100px 18px 60px;
+  }
+  ${mq.mobile} {
+    width: 100%;
+    padding: 100px 18px 60px;
+  }
 `;
 
 export const SignBoxWrapper = styled.div`
-  width: 920px;
-  height: 460px;
   display: flex;
-  margin: 0 auto;
+  ${mq.mobileL} {
+    display: block;
+  }
+  ${mq.mobile} {
+    display: block;
+  }
 `;
 
 export const SignBox = styled.div`
-  border: 1px solid rgb(112 112 112);
+  border: 1px solid #707070;
   width: 50%;
   height: 460px;
-  background-color: rgb(48 100 10);
+  background-color: #30640a;
+  ${mq.mobileL} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+  ${mq.mobile} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
 `;
 
 export const SignWrapper = styled.div`
@@ -30,11 +64,14 @@ export const SignWrapper = styled.div`
   flex-direction: column;
   text-align: center;
   padding-top: 78px;
+  max-width: 337px;
+  margin: 0 auto;
 `;
 
 export const SignTitle = styled.h1`
   font-size: 30px;
-  color: rgb(252 251 250);
+  color: #ffffff;
+  font-family: "NewYork";
 `;
 
 export const InputWrapper = styled.div`
@@ -43,44 +80,77 @@ export const InputWrapper = styled.div`
 
 export const IdInput = styled.input`
   width: 337px;
+
   height: 40px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border: none;
   border-bottom: 1px white solid;
   background-color: transparent;
+  padding: 8px;
   ::placeholder {
     color: white;
+  }
+  font-family: "Noto Sans KR";
+
+  ${mq.mobileL} {
+    max-width: 301px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  ${mq.mobile} {
+    max-width: 301px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
   }
 `;
 
 export const PaInput = styled.input`
   width: 337px;
   height: 30px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border: none;
   border-bottom: 1px white solid;
   background-color: transparent;
-  margin-top: 17px;
+  padding: 8px;
+  margin: 17px 0 22px;
+  font-family: "Noto Sans KR";
+
   ::placeholder {
     color: white;
+  }
+  ${mq.mobileL} {
+    max-width: 301px;
+    width: 100%;
+    display: block;
+  }
+  ${mq.mobile} {
+    max-width: 301px;
+    width: 100%;
+    display: block;
   }
 `;
 
 export const SearchWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   width: 100%;
-  justify-content: flex-end;
-  padding-right: 52px;
-  padding-top: 25px;
+  & > button:last-child {
+    margin-left: 6px;
+  }
 `;
 
 export const SearchButton = styled.button`
   border: none;
   background: transparent;
-  color: rgb(255 255 255);
+  color: #ffffff;
+  font-family: "Noto Sans KR";
+
+  ${mq.mobileL} {
+    display: block;
+  }
+  ${mq.mobile} {
+    display: block;
+  }
 `;
 
 export const ButtonWrapper = styled.div`
@@ -93,38 +163,63 @@ export const LoginButton = styled.button`
   font-size: 16px;
   background-color: white;
   border: none;
-  color: rgb(48 100 10);
+  color: #30640a;
+  cursor: pointer;
+  font-weight: 500;
+  font-family: "Noto Sans KR";
+  ${mq.mobileL} {
+    max-width: 301px;
+    width: 100%;
+  }
+  ${mq.mobile} {
+    max-width: 301px;
+    width: 100%;
+  }
 `;
 
 export const JoinBox = styled.div`
-  border: 1px solid rgb(112 112 112);
+  border: 1px solid #707070;
   width: 50%;
   padding-top: 60px;
-  /* height: 460px; */
-  background-color: rgb(255 255 255);
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center; */
   text-align: center;
-  align-items: center;
+
+  ${mq.mobileL} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+  }
+  ${mq.mobile} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+  }
 `;
 
 export const JoinTitle = styled.h1`
   font-size: 30px;
   padding: 20px 0;
+  font-family: "NewYork";
 `;
 
 export const JoinContent = styled.p`
   text-align: center;
-  padding: 60px 0 84px;
+  padding: 60px 0 72px;
   line-height: 26px;
+  font-family: "Noto Sans KR";
 `;
 
 export const JoinButton = styled.button`
   width: 337px;
   height: 58px;
-  color: rgb(252 251 250);
+  color: #ffffff;
   border: none;
-  background-color: rgb(48 100 10);
+  background-color: #30640a;
   font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: "Noto Sans KR";
 `;
