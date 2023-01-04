@@ -1,15 +1,24 @@
 import styled from "@emotion/styled";
+import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const Background = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 10%;
+  padding: 257px 0 195px;
+  ${mq.laptop} {
+    padding: 200px 18px 180px 18px;
+  }
+  ${mq.tablet} {
+    padding: 200px 18px 180px 18px;
+  }
+  ${mq.mobileL} {
+    padding: 150px 18px 120px 18px;
+  }
+  ${mq.mobile} {
+    padding: 150px 18px 120px 18px;
+  }
 `;
 
 export const Box = styled.div`
-  width: 680px;
+  max-width: 680px;
   margin: 0 auto;
 `;
 
@@ -17,36 +26,48 @@ export const SearchTitle = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-bottom: 33px;
+  font-size: 25px;
+  font-family: "Noto Sans KR";
+  ${mq.mobileL} {
+    font-size: 20px;
+  }
+  ${mq.mobile} {
+    font-size: 20px;
+  }
 `;
 
 export const SearchId = styled.p`
-  font-size: 25px;
-  font-weight: 700;
   color: #c4c4c4;
+  cursor: pointer;
 `;
 
 export const SearchLine = styled.p`
   color: #c4c4c4;
-  font-size: 25px;
-  font-weight: 300;
-  margin-left: 29.5px;
-  margin-right: 29.5px;
+  padding: 0 30px;
 `;
 
 export const SearchPa = styled.p`
-  color: rgb(48 100 10);
+  color: #30640a;
   font-weight: 700;
-  font-size: 25px;
+  cursor: pointer;
 `;
 
 export const MainCon = styled.div`
-  width: 680px;
+  max-width: 680px;
+  padding: 40px 50px;
   border: 1px solid #707070;
   display: flex;
   flex-direction: column;
   text-align: center;
-  padding: 58px;
+  margin: 35px 0 28px;
+  font-size: 20px;
+  font-family: "Noto Sans KR";
+  ${mq.mobileL} {
+    padding: 18px;
+  }
+  ${mq.mobile} {
+    padding: 18px;
+  }
 `;
 
 export const Name = styled.div`
@@ -57,6 +78,22 @@ export const Name = styled.div`
   font-size: 20px;
   margin-bottom: 7px;
   color: #222222;
+  ${mq.mobileL} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 16px;
+    font-weight: 500;
+  }
+  ${mq.mobile} {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 16px;
+    font-weight: 500;
+  }
 `;
 
 export const Phone = styled.div`
@@ -81,47 +118,117 @@ export const Email = styled.div`
 export const PhoneNumberWrapper = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
   font-size: 18px;
   align-items: center;
   margin-bottom: 15px;
+  ${mq.mobileL} {
+    display: flex;
+    flex-direction: column;
+  }
+  ${mq.mobile} {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
+export const NumberBox = styled.div`
+  ${mq.mobileL} {
+    width: 100%;
+    display: block;
+    margin-top: 10px;
+  }
+  ${mq.mobile} {
+    width: 100%;
+    display: block;
+    margin-top: 10px;
+  }
+`;
+
+export const PhoneNumberBtnInputBox = styled.div`
+  width: 80%;
+  display: flex;
+  ${mq.mobile} {
+    width: 100%;
+    display: block;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    display: block;
+  }
+`;
+export const PhoneNumberInputBox = styled.div``;
+
 export const PhoneNumber = styled.select`
-  width: 15%;
+  width: 20%;
   padding: 19px;
   background: transparent;
   border-radius: 4px;
   border: 1px solid #b7b7b7;
-  margin-left: 30px;
+  ${mq.mobileL} {
+    width: 29%;
+    padding: 10px;
+  }
+  ${mq.mobile} {
+    width: 29%;
+    padding: 10px;
+  }
 `;
 
 export const PhoneNumber2 = styled.input`
-  width: 15%;
+  width: 20%;
   padding: 20px;
   background: transparent;
   border-radius: 4px;
   border: 1px solid #b7b7b7;
   margin-left: 15px;
+  ${mq.mobileL} {
+    width: 30%;
+    padding: 10px;
+  }
+  ${mq.mobile} {
+    width: 30%;
+    padding: 10px;
+  }
 `;
 
 export const CertNumber = styled.button`
-  width: 26%;
-  padding: 18px;
+  padding: 0 12px;
   border-radius: 4px;
-  margin-left: 20px;
   background-color: #30640a;
   font-size: 18px;
   color: #fcfbfa;
   border: none;
   cursor: pointer;
+  width: 139px;
+  margin-left: 10px;
+  ${mq.mobileL} {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0;
+    padding: 10px 0;
+  }
+  ${mq.mobile} {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-left: 0;
+    padding: 10px 0;
+  }
 `;
 
 export const PhoneSearch = styled.p`
   font-size: 16px;
-  color: rgb(34 34 34);
+  color: #222222;
   margin-top: 30px;
   font-weight: 600;
+  line-height: 1.3;
+  ${mq.mobileL} {
+    font-size: 15px;
+  }
+  ${mq.mobile} {
+    font-size: 15px;
+  }
 `;
 
 export const PhoneOk = styled.button`
@@ -147,22 +254,48 @@ export const LiCon = styled.li`
 export const Info = styled.div`
   display: flex;
   flex-direction: row;
-
-  padding: 37px 0px;
+  font-size: 18px;
+  font-family: "Noto Sans KR";
+  ${mq.mobileL} {
+    font-size: 15px;
+  }
+  ${mq.mobile} {
+    font-size: 15px;
+  }
 `;
 
-export const InfoComment1 = styled.p`
-  margin-left: 22px;
-  margin-top: 8px;
-`;
+export const NoticeText = styled.li`
+  max-width: 610px;
+  padding-bottom: 21px;
+  text-indent: -30px;
+  padding-left: 29px;
+  line-height: 1.5;
 
-export const Info2 = styled.div`
-  display: flex;
-  flex-direction: row;
+  ${mq.mobileL} {
+    font-size: 15px;
+    text-indent: -24px;
+    padding-left: 24px;
+    line-height: 1.5;
+  }
+  ${mq.mobile} {
+    font-size: 15px;
+    text-indent: -24px;
+    padding-left: 24px;
+    line-height: 1.5;
+  }
 `;
 
 export const Label = styled.label`
-  width: 15%;
+  width: 20%;
+  text-align: left;
+  ${mq.mobileL} {
+    font-size: 16px;
+    width: 100%;
+  }
+  ${mq.mobile} {
+    font-size: 16px;
+    width: 100%;
+  }
 `;
 
 export const SendNumberWrapper = styled.div`
