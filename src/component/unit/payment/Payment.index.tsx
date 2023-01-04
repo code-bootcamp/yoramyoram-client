@@ -1,5 +1,3 @@
-import { CheckCircleOutlined } from "@ant-design/icons";
-import Button01 from "../../commons/buttons/01/button01.index";
 import * as S from "./Payment.styles";
 
 export default function Payment() {
@@ -18,13 +16,15 @@ export default function Payment() {
                 </S.RecipientBox>
                 <S.RecipientBox>
                   <S.ShippingInfoTitle>휴대폰 번호</S.ShippingInfoTitle>
-                  <S.PhoneNumberSelect>
-                    <option value="010">010</option>
-                    <option value="011">011</option>
-                    <option value="016">016</option>
-                  </S.PhoneNumberSelect>
-                  <S.PhoneNumberInput type="text" />
-                  <S.PhoneNumberInput type="text" />
+                  <S.PhoneNumberBox>
+                    <S.PhoneNumberSelect>
+                      <option value="010">010</option>
+                      <option value="011">011</option>
+                      <option value="016">016</option>
+                    </S.PhoneNumberSelect>
+                    <S.PhoneNumberInput type="text" />
+                    <S.PhoneNumberInput type="text" />
+                  </S.PhoneNumberBox>
                 </S.RecipientBox>
                 <S.RecipientBox>
                   <S.ShippingInfoTitle>배송 주소</S.ShippingInfoTitle>
@@ -83,22 +83,43 @@ export default function Payment() {
                   </S.Tr>
                 </S.Tbody>
               </S.Table>
+
+              <S.MobileList>
+                <S.PrdImg>
+                  <img src="productDetail/purchase.png" />
+                </S.PrdImg>
+                <S.PrdInfoWrap>
+                  <S.PrdInfo>
+                    <S.PrdName>천연소재 파우치</S.PrdName>
+                    <S.PrdOption>옵션: White</S.PrdOption>
+                    <S.Quantity>수량: 1</S.Quantity>
+                    <S.Price>
+                      8,500<span>원</span>
+                    </S.Price>
+                  </S.PrdInfo>
+                  <S.Delete>✕</S.Delete>
+                </S.PrdInfoWrap>
+              </S.MobileList>
             </S.ProductWapper>
             <S.Bargan>
               <S.SubTitle>할인받기</S.SubTitle>
               <S.ShippingInfoBox>
-                <S.RecipientBox>
-                  <S.ShippingInfoTitle>결제 예정금액</S.ShippingInfoTitle>
+                <S.DiscountBox>
+                  <S.DiscountInfoTitle>결제 예정금액</S.DiscountInfoTitle>
                   <S.ExpectedPrice>18,400</S.ExpectedPrice>원
-                </S.RecipientBox>
-                <S.RecipientBox>
-                  <S.ShippingInfoTitle>YORAM POINT</S.ShippingInfoTitle>
-                  <S.YoramPointInput type="text" placeholder="0" />{" "}
-                  <S.YoramPointUnit>P</S.YoramPointUnit>{" "}
-                  <S.UsePointCheck type="checkbox" />
-                  모두 사용하기
-                  <S.RestPoint>잔여포인트: 2,850P</S.RestPoint>
-                </S.RecipientBox>
+                </S.DiscountBox>
+                <S.DiscountMobileBox>
+                  <S.DiscountPointBox>
+                    <S.DiscountInfoTitle>YORAM POINT</S.DiscountInfoTitle>
+                    <S.YoramPointInput type="text" placeholder="0" />{" "}
+                    <S.YoramPointUnit>P</S.YoramPointUnit>{" "}
+                  </S.DiscountPointBox>
+                  <div>
+                    <S.UsePointCheck type="checkbox" />
+                    모두 사용하기
+                    <S.RestPoint>잔여포인트: 2,850P</S.RestPoint>
+                  </div>
+                </S.DiscountMobileBox>
               </S.ShippingInfoBox>
             </S.Bargan>
           </S.Left>
@@ -136,7 +157,6 @@ export default function Payment() {
           </S.Right>
         </S.FlexBoxWrap>
       </S.Wrapper>
-      {/* <Button01 title="우편찾기" radius="50%" /> */}
     </div>
   );
 }
