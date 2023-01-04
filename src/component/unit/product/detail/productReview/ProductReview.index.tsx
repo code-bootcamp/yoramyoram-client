@@ -15,27 +15,35 @@ export default function ProductReview() {
       </S.ReviewHeader>
       {dummyData.map((el, idx) => (
         <S.ReviewInnerWrapper key={idx}>
-          <div>
-            <Rate />
-            <S.OptionText>[옵션] 색상: 화이트</S.OptionText>
-            <S.ReviewText>
-              죄책감 없이 쓸 수 있어서 좋네요! ㅠㅠ 수납력도 좋아요~~ 화이트
-              버전 말고 다양한 컬러가 더 많았으면 좋겠어요! 재구매 할게요!
-            </S.ReviewText>
-            <S.ReviewCommentBtn>
+          <S.ReviewInner>
+            <S.ReviewTop>
+              <S.ReviewTopLeft>
+                <Rate />
+                <S.OptionText>[옵션] 색상: 화이트</S.OptionText>
+              </S.ReviewTopLeft>
+              <S.ReviewTopRight>
+                <S.ReviewBtnWrapper>
+                  <FormOutlined />
+                  <CloseOutlined style={{ paddingLeft: "27px" }} />
+                </S.ReviewBtnWrapper>
+              </S.ReviewTopRight>
+            </S.ReviewTop>
+
+            <S.ReviewDateWrapper>
+              <S.ReviewText>
+                죄책감 없이 쓸 수 있어서 좋네요! ㅠㅠ 수납력도 좋아요~~ 화이트
+                버전 말고 다양한 컬러가 더 많았으면 좋겠어요! 재구매 할게요!
+              </S.ReviewText>
+              <S.ReviewRelatedWrapper>
+                <div>yoram****</div>
+                <div>2022-12-26</div>
+              </S.ReviewRelatedWrapper>
+            </S.ReviewDateWrapper>
+
+            {/* <S.ReviewCommentBtn>
               <button>댓글</button>1
-            </S.ReviewCommentBtn>
-          </div>
-          <div>
-            <S.ReviewBtnWrapper>
-              <FormOutlined />
-              <CloseOutlined style={{ paddingLeft: "27px" }} />
-            </S.ReviewBtnWrapper>
-            <S.ReviewRelatedWrpper>
-              <div>yoram****</div>
-              <div>2022-12-26</div>
-            </S.ReviewRelatedWrpper>
-          </div>
+            </S.ReviewCommentBtn> */}
+          </S.ReviewInner>
         </S.ReviewInnerWrapper>
       ))}
       <S.ListPagenation>
