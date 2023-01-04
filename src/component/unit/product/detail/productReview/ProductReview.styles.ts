@@ -1,9 +1,22 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
+import * as mq from "../../../../../commons/styles/mediaQueries";
 
 export const ReviewWrapper = styled.div`
   max-width: 1300px;
   margin: 34px auto;
+  ${mq.mobile} {
+    padding: 0 18px;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+  }
+  ${mq.tablet} {
+    padding: 0 18px;
+  }
+  ${mq.laptop} {
+    padding: 0 18px;
+  }
 `;
 
 export const ReviewHeader = styled.header`
@@ -29,7 +42,7 @@ export const ReviewWriteBtn = styled.button`
   cursor: pointer;
 `;
 
-export const ReviewInnerWrapper = styled.article`
+export const ReviewInnerWrapper = styled.div`
   padding: 22px 0 20px;
   border-bottom: 1px solid #aaaaaa;
   display: flex;
@@ -37,6 +50,17 @@ export const ReviewInnerWrapper = styled.article`
   font-family: "Noto Sans KR";
   justify-content: space-between;
 `;
+
+export const ReviewInner = styled.div`
+  width: 100%;
+`;
+
+export const ReviewTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+export const ReviewTopLeft = styled.div``;
+export const ReviewTopRight = styled.div``;
 
 export const OptionText = styled.div`
   color: #707070;
@@ -46,6 +70,15 @@ export const OptionText = styled.div`
 export const ReviewText = styled.div`
   color: #222222;
   padding-bottom: 12px;
+  width: 90%;
+  line-height: 1.3;
+  word-break: keep-all;
+  ${mq.mobile} {
+    width: 100%;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+  }
 `;
 
 export const ReviewCommentBtn = styled.div`
@@ -67,9 +100,25 @@ export const ReviewBtnWrapper = styled.div`
     font-size: 1.3rem;
     cursor: pointer;
   }
+  ${mq.mobile} {
+    padding-bottom: 30px;
+  }
+  ${mq.mobileL} {
+    padding-bottom: 30px;
+  }
 `;
-
-export const ReviewRelatedWrpper = styled.div`
+export const ReviewDateWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  ${mq.mobile} {
+    display: block;
+  }
+  ${mq.mobileL} {
+    display: block;
+  }
+`;
+export const ReviewRelatedWrapper = styled.div`
   color: #222222;
 
   & > div:first-child {
