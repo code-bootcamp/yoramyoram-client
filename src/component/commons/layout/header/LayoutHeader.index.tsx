@@ -28,13 +28,26 @@ export function LayoutHeader() {
           </S.MyMenu>
         </S.HeaderWrapper>
         <S.Sidebar isOpen={isOpen}>
+          <S.GoLoginWrapper>
+            <S.GoLoginTxt>로그인이 필요합니다.</S.GoLoginTxt>
+            <S.GoLogin>Login</S.GoLogin>
+          </S.GoLoginWrapper>
+          {/* <S.UserInfoWrapper>
+            <S.UserHi>김요람님, 안녕하세요.</S.UserHi>
+            <S.PointBox>
+              <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
+              <S.UserPoint>
+                2,100<span>P</span>
+              </S.UserPoint>
+            </S.PointBox>
+          </S.UserInfoWrapper> */}
           <S.Nav>
             <ul>
               <li onClick={onClickMoveToPage("/about")}>Our Story</li>
               <li onClick={onClickMoveToPage("/products")}>Shop</li>
               <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shop</li>
 
-              <li onClick={onClickMoveToPage("/join")}>Login</li>
+              <li onClick={onClickMoveToPage("/mypage")}>My Page</li>
               <li onClick={onClickMoveToPage("/basket")}>Cart</li>
             </ul>
           </S.Nav>
@@ -90,13 +103,26 @@ export function LayoutHeaderMain() {
           </O.MyMenu>
         </O.HeaderWrapper>
         <O.Sidebar isOpen={isOpen}>
+          <S.GoLoginWrapper>
+            <S.GoLoginTxt>로그인이 필요합니다.</S.GoLoginTxt>
+            <S.GoLogin onClick={onClickMoveToPage("/login")}>Login</S.GoLogin>
+          </S.GoLoginWrapper>
+          {/* <S.UserInfoWrapper>
+            <S.UserHi>김요람님, 안녕하세요.</S.UserHi>
+            <S.PointBox>
+              <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
+              <S.UserPoint>
+                2,100<span>P</span>
+              </S.UserPoint>
+            </S.PointBox>
+          </S.UserInfoWrapper> */}
           <O.Nav>
             <ul>
               <li onClick={onClickMoveToPage("/about")}>Our Story</li>
               <li onClick={onClickMoveToPage("/products")}>Shop</li>
               <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shop</li>
 
-              <li onClick={onClickMoveToPage("/join")}>Login</li>
+              <li onClick={onClickMoveToPage("/mypage")}>My Page</li>
               <li onClick={onClickMoveToPage("/basket")}>Cart</li>
             </ul>
           </O.Nav>
@@ -112,7 +138,10 @@ export function LayoutHeaderMain() {
             </O.NavBtn>
           </O.NavUl>
           <O.MiddleBox>
-            <S.LogoImg src="/header/logo_gr.png" />
+            <S.LogoImg
+              src="/header/logo_gr.png"
+              onClick={onClickMoveToPage("/")}
+            />
           </O.MiddleBox>
           <O.NavRightUl>
             <O.NavBtn onClick={onClickMoveToPage("/join")}>Login</O.NavBtn>
