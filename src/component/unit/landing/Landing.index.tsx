@@ -198,6 +198,7 @@ export default function Landing() {
                     <S.SwiperImg src="/landing/swiper.png" />
                   </div>
                   <S.SwiperContentWrapper
+                    loop={true}
                     spaceBetween={40}
                     slidesPerView={1.8}
                     modules={[Autoplay]}

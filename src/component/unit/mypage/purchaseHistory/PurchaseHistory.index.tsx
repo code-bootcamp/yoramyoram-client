@@ -17,6 +17,7 @@ export default function PurchaseHistory() {
               <S.ItemPriceBox>
                 <span>6,510원</span> <span>2022-12-26</span>
               </S.ItemPriceBox>
+              <S.RepurchaseBtnMob>재구매</S.RepurchaseBtnMob>
             </S.PurchasedItemInfoText>
           </S.PurchasedItemInfo>
           <S.RepurchaseDiv>
