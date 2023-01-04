@@ -1,10 +1,17 @@
 import styled from "@emotion/styled";
 import { Select } from "antd";
+import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.section`
   max-width: 1300px;
   padding: 150px 0;
   margin: 0 auto;
+  ${mq.mobile} {
+    padding: 120px 18px 80px 18px;
+  }
+  ${mq.mobileL} {
+    padding: 120px 18px 80px 18px;
+  }
 `;
 export const Title = styled.h3`
   font-size: 35px;
@@ -12,24 +19,54 @@ export const Title = styled.h3`
   font-family: "Noto Sans KR";
   font-weight: 500;
   margin-bottom: 50px;
+  ${mq.mobile} {
+    font-size: 25px;
+  }
+  ${mq.mobileL} {
+    font-size: 25px;
+  }
 `;
 export const Form = styled.form``;
 export const HalfWrapper = styled.div`
   display: flex;
   margin-bottom: 40px;
   gap: 50px;
+  ${mq.mobile} {
+    gap: 20px;
+    display: block;
+  }
+  ${mq.mobileL} {
+    gap: 20px;
+    display: block;
+  }
 `;
 
 export const HalfBox = styled.div`
   width: 50%;
   display: flex;
   flex-direction: column;
+  ${mq.mobile} {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    margin-bottom: 40px;
+  }
 `;
 
 export const SelectWrap = styled.div`
   width: 30%;
   display: flex;
   flex-direction: column;
+  ${mq.mobile} {
+    margin-bottom: 40px;
+    width: 100%;
+  }
+  ${mq.mobileL} {
+    margin-bottom: 40px;
+    width: 100%;
+  }
 `;
 
 export const SelectBox = styled(Select)`
@@ -52,6 +89,12 @@ export const OptionBox = styled.div`
   width: 70%;
   display: flex;
   flex-direction: column;
+  ${mq.mobile} {
+    width: 100%;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+  }
 `;
 export const Label = styled.label`
   font-size: 16px;
@@ -92,6 +135,12 @@ export const Cancel = styled.button`
   border: 1px solid #b7b7b7;
   background-color: transparent;
   cursor: pointer;
+  ${mq.mobile} {
+    width: 30%;
+  }
+  ${mq.mobileL} {
+    width: 30%;
+  }
 `;
 export const Submit = styled.button`
   width: 10%;
@@ -101,6 +150,12 @@ export const Submit = styled.button`
   color: #fcfbfa;
   padding: 10px 0;
   cursor: pointer;
+  ${mq.mobile} {
+    width: 30%;
+  }
+  ${mq.mobileL} {
+    width: 30%;
+  }
 `;
 
 /// TAG ///
