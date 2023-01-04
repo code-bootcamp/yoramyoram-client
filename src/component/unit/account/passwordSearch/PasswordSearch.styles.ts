@@ -132,6 +132,7 @@ export const PhoneNumberWrapper = styled.div`
 `;
 
 export const NumberBox = styled.div`
+  width: calc(100% - 134px);
   ${mq.mobileL} {
     width: 100%;
     display: block;
@@ -159,7 +160,7 @@ export const PhoneNumberBtnInputBox = styled.div`
 export const PhoneNumberInputBox = styled.div``;
 
 export const PhoneNumber = styled.select`
-  width: 20%;
+  width: 29%;
   padding: 19px;
   background: transparent;
   border-radius: 4px;
@@ -175,7 +176,7 @@ export const PhoneNumber = styled.select`
 `;
 
 export const PhoneNumber2 = styled.input`
-  width: 20%;
+  width: 30%;
   padding: 20px;
   background: transparent;
   border-radius: 4px;
