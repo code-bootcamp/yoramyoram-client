@@ -69,7 +69,7 @@ export function LayoutHeader() {
             />
           </S.MiddleBox>
           <S.NavRightUl>
-            <S.NavBtn onClick={onClickMoveToPage("/join")}>Login</S.NavBtn>
+            <S.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</S.NavBtn>
             <S.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</S.NavBtn>
           </S.NavRightUl>
         </S.TextBox>
@@ -144,7 +144,7 @@ export function LayoutHeaderMain() {
             />
           </O.MiddleBox>
           <O.NavRightUl>
-            <O.NavBtn onClick={onClickMoveToPage("/join")}>Login</O.NavBtn>
+            <O.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</O.NavBtn>
             <O.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</O.NavBtn>
           </O.NavRightUl>
         </O.TextBox>
