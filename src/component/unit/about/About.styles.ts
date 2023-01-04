@@ -110,11 +110,14 @@ export const RImgBox = styled.div`
 `;
 export const LeftImg = styled.img`
   width: 30%;
+  display: none;
   ${mq.mobile} {
     width: 45%;
+    display: block;
   }
   ${mq.mobileL} {
     width: 45%;
+    display: block;
   }
 `;
 export const RImg = styled.img`
