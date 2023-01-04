@@ -2,9 +2,13 @@ import styled from "@emotion/styled";
 import * as mq from "../../../commons/styles/mediaQueries";
 
 export const Background = styled.div`
-  padding: 300px 0 300px;
+  justify-content: center;
   max-width: 920px;
+  height: 100vh;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 
   ${mq.laptop} {
     padding: 0 50px;
@@ -17,10 +21,12 @@ export const Background = styled.div`
   ${mq.mobileL} {
     width: 100%;
     padding: 100px 18px 60px;
+    height: auto;
   }
   ${mq.mobile} {
     width: 100%;
     padding: 100px 18px 60px;
+    height: auto;
   }
 `;
 
