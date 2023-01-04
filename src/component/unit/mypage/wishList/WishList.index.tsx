@@ -17,6 +17,7 @@ export default function WishList() {
               <S.ItemPriceBox>
                 <span>6,510원</span> <span>옵션: 화이트</span>
               </S.ItemPriceBox>
+              <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
             </S.PurchasedItemInfoText>
           </S.PurchasedItemInfo>
           <S.RepurchaseDiv>

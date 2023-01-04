@@ -1,8 +1,12 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
+import * as mq from "../../../commons/styles/mediaQueries";
 
 export const Wrapper = styled.div`
-  padding: 247px 0 170px;
+  padding: 170px 0 170px;
+  ${mq.mobile} {
+    padding: 120px 18px;
+  }
 `;
 
 export const innerWrapper = styled.div`
@@ -24,15 +28,25 @@ export const MypageBox = styled.div`
   justify-content: space-between;
   padding: 26px;
   border-bottom: 1px solid #30640a;
+  ${mq.mobile} {
+    display: block;
+    padding: 20px;
+  }
+  ${mq.mobileL} {
+    display: block;
+    padding: 20px;
+  }
 `;
 export const UserBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
-/// ///
+export const UserImgBox = styled.div`
+  width: 20%;
+`;
 export const MypageImg = styled.img`
-  width: 100px;
+  width: 100%;
 `;
 
 export const UserInfoBox = styled.div`
@@ -41,6 +55,12 @@ export const UserInfoBox = styled.div`
   padding-left: 49px;
   justify-content: center;
   font-family: "Noto Sans KR";
+  ${mq.mobile} {
+    padding-left: 20px;
+  }
+  ${mq.mobileL} {
+    padding-left: 20px;
+  }
 `;
 
 export const WelcomeText = styled.div`
@@ -50,11 +70,25 @@ export const WelcomeText = styled.div`
   & > span {
     font-weight: 600;
   }
+  ${mq.mobile} {
+    font-size: 18px;
+  }
+  ${mq.mobileL} {
+    font-size: 18px;
+  }
 `;
 
 export const RatingText = styled.div`
-  & > div:first-child {
+  & > p {
     margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  ${mq.mobile} {
+    font-size: 15px;
+    & > p:nth-child(2) {
+      display: none;
+    }
   }
 `;
 
@@ -69,11 +103,37 @@ export const RightTextBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  & > p {
+    display: none;
+  }
+`;
+
+export const MobileDiv = styled.div`
+  ${mq.mobile} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
 `;
 
 export const RightPointText = styled.div`
   font-family: "Poppins";
   padding-bottom: 10px;
+  ${mq.mobile} {
+    padding-bottom: 0;
+  }
+  ${mq.mobileL} {
+    padding-bottom: 0;
+  }
 `;
 
 export const AccumulatePoint = styled.span`
@@ -81,6 +141,12 @@ export const AccumulatePoint = styled.span`
   font-size: 25px;
   font-weight: 500;
   margin-right: 5px;
+  ${mq.mobile} {
+    font-size: 18px;
+  }
+  ${mq.mobileL} {
+    font-size: 18px;
+  }
 `;
 
 export const ContentsBox = styled.div`
@@ -88,6 +154,15 @@ export const ContentsBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 30px;
+  ${mq.mobile} {
+    display: block;
+    padding-top: 0px;
+  }
+  ${mq.mobileL} {
+    display: block;
+    padding-top: 0px;
+  }
 `;
 
 export const MyShopingSelectBox = styled.div`
@@ -95,6 +170,18 @@ export const MyShopingSelectBox = styled.div`
   background-color: #30640a;
   height: fit-content;
   padding: 20px;
+  position: sticky;
+  top: 100px;
+  ${mq.mobile} {
+    width: 100%;
+    padding: 10px;
+    position: inherit;
+  }
+  ${mq.mobileL} {
+    width: 100%;
+    padding: 10px;
+    position: inherit;
+  }
 `;
 
 export const SelectBoxText = styled.div`
@@ -103,10 +190,22 @@ export const SelectBoxText = styled.div`
   color: #edebe7;
   padding-bottom: 20px;
   font-family: "Noto Sans KR";
+  ${mq.mobile} {
+    display: none;
+  }
+  ${mq.mobileL} {
+    display: none;
+  }
 `;
 export const BtnBox = styled.div`
   display: flex;
   flex-direction: column;
+  ${mq.mobile} {
+    flex-direction: row;
+  }
+  ${mq.mobileL} {
+    flex-direction: row;
+  }
 `;
 export const SelectBtn = styled.button`
   display: block;
@@ -119,4 +218,28 @@ export const SelectBtn = styled.button`
   cursor: pointer;
   margin-bottom: 5px;
   font-family: "Noto Sans KR";
+  ${mq.mobile} {
+    justify-content: center;
+    border-right: 1px solid #fcfbfa;
+    font-size: 16px;
+    &:last-child {
+      border-right: none;
+    }
+  }
+  ${mq.mobileL} {
+    justify-content: center;
+    border-right: 1px solid #fcfbfa;
+    font-size: 16px;
+    &:last-child {
+      border-right: none;
+    }
+  }
+  & > span {
+    ${mq.mobile} {
+      display: none;
+    }
+    ${mq.mobileL} {
+      display: none;
+    }
+  }
 `;

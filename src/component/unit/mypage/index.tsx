@@ -14,27 +14,32 @@ export default function Mypage() {
           <S.MypageTitle>My page</S.MypageTitle>
           <S.MypageBox>
             <S.UserBox>
-              <S.MypageImg src="/favicon.ico" />
+              <S.UserImgBox>
+                <S.MypageImg src="/favicon.ico" />
+              </S.UserImgBox>
+
               <S.UserInfoBox>
                 <S.WelcomeText>
-                  <span>김요람</span>님 안녕하세요
+                  <span>김요람</span>님 안녕하세요.
                 </S.WelcomeText>
                 <S.RatingText>
-                  <div>
+                  <p>
                     김요람님은 현재 <S.Rating>씨앗</S.Rating>등급 입니다.
-                  </div>
-                  <div>
+                  </p>
+                  <p>
                     <S.PurposePoint>5,000</S.PurposePoint>p 달성하면{" "}
                     <S.Rating>새싹</S.Rating>등급으로 승급됩니다.
-                  </div>
+                  </p>
                 </S.RatingText>
               </S.UserInfoBox>
             </S.UserBox>
             <S.RightTextBox>
-              <S.RightPointText>YORAM POINT</S.RightPointText>
-              <div>
-                <S.AccumulatePoint>3,862</S.AccumulatePoint>p
-              </div>
+              <S.MobileDiv>
+                <S.RightPointText>YORAM POINT</S.RightPointText>
+                <div>
+                  <S.AccumulatePoint>3,862</S.AccumulatePoint>p
+                </div>
+              </S.MobileDiv>
             </S.RightTextBox>
           </S.MypageBox>
           <S.ContentsBox>
