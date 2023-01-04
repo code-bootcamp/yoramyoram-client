@@ -16,7 +16,7 @@ export const SEND_TOKEN = gql`
 `;
 
 export const CHECK_TOKEN = gql`
-  mutation checkTokenPhone($phone: String, $phoneToken: String!) {
+  mutation checkTokenPhone($phone: String!, $phoneToken: String!) {
     checkTokenPhone(phone: $phone, phoneToken: $phoneToken)
   }
 `;

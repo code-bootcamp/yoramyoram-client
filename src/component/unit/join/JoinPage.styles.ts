@@ -70,7 +70,12 @@ export const PhoneNumber = styled.div`
 `;
 export const PhoneWrap = styled.div`
   display: flex;
-  margin-bottom: 10px;
+  ${mq.mobile} {
+    margin-bottom: 10px;
+  }
+  ${mq.mobileL} {
+    margin-bottom: 10px;
+  }
 `;
 export const PhoneNumber2 = styled.div`
   width: 85%;
@@ -88,7 +93,7 @@ export const PhoneNumber2 = styled.div`
 `;
 
 export const PhoneSelect = styled.select`
-  width: 15%;
+  width: 30%;
   border: 1px solid #30640a;
   border-radius: 4px;
   padding: 15px 10px;
@@ -105,7 +110,7 @@ export const PhoneInput = styled.input`
   border-radius: 4px;
   margin-left: 10px;
   padding: 15px 10px;
-  width: 15%;
+  width: 33%;
   ${mq.mobile} {
     width: 33%;
   }
