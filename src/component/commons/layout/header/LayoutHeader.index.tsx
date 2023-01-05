@@ -99,7 +99,17 @@ export function LayoutHeader() {
             />
           </S.MiddleBox>
           <S.NavRightUl>
-            <S.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</S.NavBtn>
+            {data?.fetchLoginUser.name ? (
+              <S.NavBtn
+                onClick={onClickMoveToPage("/mypage")}
+                style={{ fontWeight: "500" }}
+              >
+                {data?.fetchLoginUser.name}
+                <span style={{ fontWeight: "400" }}>님</span>
+              </S.NavBtn>
+            ) : (
+              <S.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</S.NavBtn>
+            )}
             <S.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</S.NavBtn>
           </S.NavRightUl>
         </S.TextBox>
@@ -180,7 +190,17 @@ export function LayoutHeaderMain() {
             />
           </O.MiddleBox>
           <O.NavRightUl>
-            <O.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</O.NavBtn>
+            {data?.fetchLoginUser.name ? (
+              <O.NavBtn
+                onClick={onClickMoveToPage("/mypage")}
+                style={{ fontWeight: "500" }}
+              >
+                {data?.fetchLoginUser.name}
+                <span style={{ fontWeight: "400" }}>님</span>
+              </O.NavBtn>
+            ) : (
+              <O.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</O.NavBtn>
+            )}
             <O.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</O.NavBtn>
           </O.NavRightUl>
         </O.TextBox>
