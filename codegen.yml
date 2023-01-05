@@ -1,0 +1,8 @@
+schema: https://yoramyoram-backend.shop/graphql
+
+generates:
+  ./src/commons/types/generated/types.ts:
+    plugins:
+      - typescript
+    config:
+      typesPrefix: I
