@@ -13,14 +13,11 @@ import { string } from "yup";
 import { makeMap } from "../../commons/kakaomap/kakaoMap.index";
 // import KaKaoMap from "../../commons/kakaomap/kakaoMap.index";
 import * as S from "./OfflineShopPage.styles";
-interface IProps {
-  isVisible: boolean;
-}
 
 declare const window: typeof globalThis & {
   kakao: any;
 };
-export default function OfflineShopPageUI(props: IProps) {
+export default function OfflineShopPageUI() {
   const [shopList, setShopList] = useState([]);
   const [isVisible, setIsVisible] = useState(false);
   const [x, setX] = useState("37.562910000");

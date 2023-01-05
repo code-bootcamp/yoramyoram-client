@@ -106,7 +106,7 @@ export default function Landing() {
   return (
     <>
       <S.Wrapper>
-        <FullPage controlsProps={controlsProps} {...slideDuration}>
+        <FullPage controlProps={controlsProps} {...slideDuration}>
           <S.Scroll>
             <S.Mouse></S.Mouse>
             <S.Stxt>SCROLL</S.Stxt>

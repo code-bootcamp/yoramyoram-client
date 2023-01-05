@@ -2,7 +2,7 @@ declare const window: typeof globalThis & {
   kakao: any;
 };
 
-export const makeMap = (x, y) => {
+export const makeMap = (x: any, y: any) => {
   const container = document.getElementById("map");
 
   const options = {
@@ -20,7 +20,7 @@ export const makeMap = (x, y) => {
 
   marker.setMap(map);
 
-  geocoder.coord2RegionCode(x, y, function (result, status) {
+  geocoder.coord2RegionCode(x, y, function (result: any, status: any) {
     // 정상적으로 검색이 완료됐으면
     if (status === window.kakao.maps.services.Status.OK) {
       const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);
