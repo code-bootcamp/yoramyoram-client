@@ -18,17 +18,16 @@ export default function IdSearchSuccessPageUI() {
             <S.JoinButton>로그인</S.JoinButton>
           </S.ContentWrapper>
           <S.Info>
-            <li>
+            <S.NoticeText>
               입력한 정보는 본인확인을 위해서 나이스평가정보에
-              제공되며,본인확인용도 외에
-              <p>사용하거나 저장되지 않습니다.</p>
-            </li>
-            <br></br>
-            <li>
+              제공되며,본인확인용도 외에 사용하거나 저장되지 않습니다.
+            </S.NoticeText>
+          </S.Info>
+          <S.Info>
+            <S.NoticeText>
               위 방법으로 아이디/비밀번호를 찾으실 수 없는 경우 고객상담센터
-              1234-5678로
-              <p>문의바랍니다.</p>
-            </li>
+              1234-5678로 문의바랍니다.
+            </S.NoticeText>
           </S.Info>
         </S.MainBox>
       </S.Background>
