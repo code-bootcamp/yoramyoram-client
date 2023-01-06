@@ -1,7 +1,13 @@
 import styled from "@emotion/styled";
 import * as mq from "../../../../commons/styles/mediaQueries";
 
-export const Form = styled.form``;
+export const Form = styled.div`
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Background = styled.div`
   padding: 170px 140px;
@@ -12,10 +18,10 @@ export const Background = styled.div`
     padding: 200px 18px 180px 18px;
   }
   ${mq.mobileL} {
-    padding: 150px 18px 120px 18px;
+    padding: 200px 18px 120px 18px;
   }
   ${mq.mobile} {
-    padding: 150px 18px 120px 18px;
+    padding: 200px 18px 120px 18px;
   }
 `;
 
@@ -51,7 +57,9 @@ export const SearchLine = styled.p`
   padding: 0 30px;
 `;
 
-export const SearchPassword = styled.p``;
+export const SearchPassword = styled.p`
+  cursor: pointer;
+`;
 
 export const ContentWrapper = styled.div`
   border: 1px solid;
@@ -59,7 +67,7 @@ export const ContentWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  padding: 93px 49px 40px;
+  padding: 50px 49px 40px;
   width: 100%;
   margin: 30px auto 37px;
   ${mq.mobileL} {
@@ -89,11 +97,14 @@ export const JoinButton = styled.button`
   }
 `;
 
-export const Comment1 = styled.span`
-  padding-bottom: 5px;
+export const Comment1 = styled.p`
+  padding-bottom: 10px;
+  font-size: 20px;
 `;
 
-export const Comment2Wrapper = styled.div``;
+export const Comment2Wrapper = styled.div`
+  font-size: 20px;
+`;
 
 export const Comment2 = styled.span`
   font-weight: 700;

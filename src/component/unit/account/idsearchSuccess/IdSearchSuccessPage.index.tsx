@@ -1,18 +1,28 @@
+import { useRecoilState } from "recoil";
+import { findUserEmailState } from "../../../../commons/stores";
+import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
 import * as S from "./IdSearchSuccessPage.styles";
 
 export default function IdSearchSuccessPageUI() {
+  const { onClickMoveToPage } = useMoveToPage();
+  const [UserEmailState, setUserEmailState] =
+    useRecoilState(findUserEmailState);
   return (
     <S.Form>
       <S.Background>
         <S.MainBox>
           <S.SearchBar>
             <S.SearchId>아이디 찾기</S.SearchId> <S.SearchLine>|</S.SearchLine>{" "}
-            <S.SearchPassword>비밀번호 찾기</S.SearchPassword>
+            <S.SearchPassword
+              onClick={onClickMoveToPage("/account/password_search")}
+            >
+              비밀번호 찾기
+            </S.SearchPassword>
           </S.SearchBar>
           <S.ContentWrapper>
             <S.Comment1>회원님의 아이디는</S.Comment1>
             <S.Comment2Wrapper>
-              <S.Comment2>yoram1234</S.Comment2>
+              <S.Comment2>{UserEmailState}</S.Comment2>
               <S.Comment21>입니다.</S.Comment21>
             </S.Comment2Wrapper>
             <S.JoinButton>로그인</S.JoinButton>
