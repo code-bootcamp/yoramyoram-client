@@ -7,6 +7,7 @@ import { signInSchema } from "./SignIn.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSignIn } from "../../commons/hooks/mutation/useSignIn";
 import { IFormSignInData } from "./SignIn.types";
+
 import styled from "@emotion/styled";
 
 export default function SignInPageUI() {
@@ -45,8 +46,11 @@ export default function SignInPageUI() {
                 type="password"
                 placeholder="비밀번호"
                 {...register("password")}
+                style={{ marginBottom: "0px" }}
               />
-              {/* <Error>{formState.errors.password?.message}</Error> */}
+              <Error style={{ marginBottom: "20px" }}>
+                {formState.errors.password?.message}
+              </Error>
             </S.InputWrapper>
             <S.SearchWrapper>
               <S.SearchButton>아이디 찾기 |</S.SearchButton>
