@@ -37,7 +37,7 @@ const SlideTop = keyframes`
 export const Mouse = styled(DownOutlined)`
   filter: invert(0.8);
 
-  margin-bottom: 10px;
+  margin-bottom: 9.8px;
   animation: ${SlideTop} 1.5s linear infinite both;
   & > svg {
     font-size: 30px;
