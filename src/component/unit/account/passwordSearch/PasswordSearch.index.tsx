@@ -1,12 +1,17 @@
+import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
 import Input02 from "../../../commons/inputs/accountsearch/input02.index";
 import * as S from "./PasswordSearch.styles";
 
 export default function PaSearchPageUI() {
+  const { onClickMoveToPage } = useMoveToPage();
   return (
     <S.Background>
       <S.Box>
         <S.SearchTitle>
-          <S.SearchId>아이디 찾기 </S.SearchId> <S.SearchLine>|</S.SearchLine>
+          <S.SearchId onClick={onClickMoveToPage("/account/id_search")}>
+            아이디 찾기{" "}
+          </S.SearchId>{" "}
+          <S.SearchLine>|</S.SearchLine>
           <S.SearchPa>비밀번호 찾기</S.SearchPa>
         </S.SearchTitle>
         <S.MainCon>

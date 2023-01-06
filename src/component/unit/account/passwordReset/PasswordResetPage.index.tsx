@@ -1,13 +1,23 @@
+import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
 import * as S from "./PasswordResetPage.styles";
 
 export default function PasswordResetPageUI() {
+  const { onClickMoveToPage } = useMoveToPage();
+
   return (
     <S.Form>
       <S.Background>
         <S.MainBox>
           <S.SearchBar>
-            <S.SearchId>아이디 찾기</S.SearchId> <S.SearchLine>|</S.SearchLine>{" "}
-            <S.SearchPassword>비밀번호 찾기</S.SearchPassword>
+            <S.SearchId onClick={onClickMoveToPage("/account/id_search")}>
+              아이디 찾기
+            </S.SearchId>{" "}
+            <S.SearchLine>|</S.SearchLine>{" "}
+            <S.SearchPassword
+              onClick={onClickMoveToPage("/account/password_search")}
+            >
+              비밀번호 찾기
+            </S.SearchPassword>
           </S.SearchBar>
           <S.ContentWrapper>
             <S.Comment1>비밀번호를 재설정해주세요.</S.Comment1>

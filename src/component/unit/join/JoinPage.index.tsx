@@ -218,8 +218,8 @@ export default function JoinPageUI() {
                   <option value="010">010</option>
                   <option value="011">011</option>
                 </S.PhoneSelect>
-                <S.PhoneInput {...register("phoneSecond")} />
-                <S.PhoneInput {...register("phoneThird")} />
+                <S.PhoneInput {...register("phoneSecond")} maxLength={4} />
+                <S.PhoneInput {...register("phoneThird")} maxLength={4} />
               </S.PhoneWrap>
               <S.CertNumber onClick={sendNumBtn} type="button">
                 인증번호 전송

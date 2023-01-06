@@ -52,7 +52,7 @@ export const SearchPa = styled.p`
   cursor: pointer;
 `;
 
-export const MainCon = styled.div`
+export const MainCon = styled.form`
   max-width: 680px;
   padding: 40px 50px;
   border: 1px solid #707070;

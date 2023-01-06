@@ -1,10 +1,15 @@
 import styled from "@emotion/styled";
 import * as mq from "../../../../commons/styles/mediaQueries";
 
-export const Form = styled.form``;
+export const Form = styled.div`
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const Background = styled.div`
-  padding: 170px 140px;
   ${mq.laptop} {
     padding: 200px 18px 180px 18px;
   }
@@ -20,9 +25,15 @@ export const Background = styled.div`
 `;
 
 export const MainBox = styled.div`
-  max-width: 680px;
+  width: 680px;
   margin: 0 auto;
   font-family: "Noto Sans KR";
+  ${mq.mobileL} {
+    width: 100%;
+  }
+  ${mq.mobile} {
+    width: 100%;
+  }
 `;
 
 export const SearchBar = styled.div`
