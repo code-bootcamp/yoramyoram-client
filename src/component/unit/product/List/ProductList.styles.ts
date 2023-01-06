@@ -244,14 +244,23 @@ export const SelectBox = styled(Select)`
 export const ListContentsBox = styled.section`
   display: flex;
   flex-wrap: wrap;
-  gap: 1em;
+  gap: 2.7em;
   cursor: pointer;
+  ${mq.mobile} {
+    gap: 1em;
+  }
+  ${mq.mobileL} {
+    gap: 1em;
+  }
 `;
 
 export const ProductItemBox = styled.div`
-  flex-basis: 313px;
+  flex-basis: 292px;
   flex-grow: 0;
   ${mq.mobile} {
+    flex: 0 0 47.5%;
+  }
+  ${mq.mobileL} {
     flex: 0 0 47.5%;
   }
 `;

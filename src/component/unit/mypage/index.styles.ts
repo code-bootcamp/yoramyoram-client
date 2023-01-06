@@ -44,6 +44,9 @@ export const UserBox = styled.div`
 
 export const UserImgBox = styled.div`
   width: 20%;
+  border: 1px solid #30640a;
+  border-radius: 50%;
+  padding: 10px;
 `;
 export const MypageImg = styled.img`
   width: 100%;
