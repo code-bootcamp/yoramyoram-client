@@ -18,3 +18,8 @@ export const findUserEmailState = atom({
   key: "findUserEmailState",
   default: "",
 });
+
+export const updataPasswordPhoneState = atom({
+  key: "updataPasswordPhoneState",
+  default: "",
+});

@@ -1,18 +1,65 @@
+import { useMutation } from "@apollo/client";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Modal } from "antd";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { useRecoilState } from "recoil";
+import { updataPasswordPhoneState } from "../../../../commons/stores";
 import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
+import { UPDATE_PASSWORD } from "./PasswordResetPage.query";
 import * as S from "./PasswordResetPage.styles";
 
+interface IData {
+  password: string;
+  passwordCheck: string;
+  phone: string;
+}
+
 export default function PasswordResetPageUI() {
+  const router = useRouter();
   const { onClickMoveToPage } = useMoveToPage();
+  const [updatePassword] = useMutation(UPDATE_PASSWORD);
+  const [UpdataPasswordPhoneState] = useRecoilState(updataPasswordPhoneState);
+  console.log(UpdataPasswordPhoneState);
+
+  const { register, handleSubmit, watch } = useForm<IData>({
+    // resolver: yupResolver(),
+    mode: "onChange",
+  });
+
+  const watchAll = Object.values(watch());
+
+  useEffect(() => {
+    if (watchAll.every((el) => el)) {
+    } else {
+    }
+  }, [watchAll]);
+  console.log(watchAll);
+
+  const onClickPasswordReset = async (data: IData) => {
+    try {
+      await updatePassword({
+        variables: {
+          password: data.password,
+          phone: UpdataPasswordPhoneState,
+        },
+      });
+      void router.push("/sign_in");
+    } catch (error) {
+      Modal.warning({ content: "형식에 맞춰주세요." });
+    }
+  };
 
   return (
-    <S.Form>
+    <S.Form onSubmit={handleSubmit(onClickPasswordReset)}>
       <S.Background>
         <S.MainBox>
           <S.SearchBar>
             <S.SearchId onClick={onClickMoveToPage("/account/id_search")}>
               아이디 찾기
-            </S.SearchId>{" "}
-            <S.SearchLine>|</S.SearchLine>{" "}
+            </S.SearchId>
+            <S.SearchLine>|</S.SearchLine>
             <S.SearchPassword
               onClick={onClickMoveToPage("/account/password_search")}
             >
@@ -24,13 +71,16 @@ export default function PasswordResetPageUI() {
             <S.PasswordWrapper>
               <S.PasswordInputWrapper>
                 <S.PasswordInputText>비밀번호</S.PasswordInputText>{" "}
-                <S.PasswordInput type="password" />
+                <S.PasswordInput {...register("password")} type="password" />
               </S.PasswordInputWrapper>
             </S.PasswordWrapper>
             <S.PasswordWrapper>
               <S.PasswordInputWrapper>
                 <S.PasswordInputText>비밀번호 확인</S.PasswordInputText>{" "}
-                <S.PasswordInput type="password" />
+                <S.PasswordInput
+                  {...register("passwordCheck")}
+                  type="password"
+                />
               </S.PasswordInputWrapper>
             </S.PasswordWrapper>
             <S.JoinButton>비밀번호 재설정하기</S.JoinButton>

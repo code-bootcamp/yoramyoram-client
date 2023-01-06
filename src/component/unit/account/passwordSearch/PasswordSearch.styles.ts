@@ -52,7 +52,7 @@ export const SearchPa = styled.p`
   cursor: pointer;
 `;
 
-export const MainCon = styled.div`
+export const MainCon = styled.form`
   max-width: 680px;
   padding: 40px 50px;
   border: 1px solid #707070;
@@ -240,6 +240,7 @@ export const PhoneOk = styled.button`
   color: #fcfbfa;
   font-size: 18px;
   border: none;
+  cursor: pointer;
 `;
 
 export const Content = styled.div`
@@ -309,4 +310,25 @@ export const SendNumber = styled.p`
   font-size: 16px;
   font-weight: 500;
   padding: 15px;
+`;
+
+export const CertificationBox = styled.div`
+  position: relative;
+`;
+
+export const CountDown = styled.p`
+  position: absolute;
+  top: 38%;
+  right: 20px;
+  transform: translate(0, -50%);
+  color: #707070;
+  font-size: 16px;
+  ${mq.mobile} {
+    top: 53%;
+    right: 15px;
+  }
+  ${mq.mobile} {
+    top: 53%;
+    right: 15px;
+  }
 `;
