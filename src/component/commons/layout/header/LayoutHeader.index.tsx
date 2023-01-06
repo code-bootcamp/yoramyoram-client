@@ -1,15 +1,56 @@
+import { useMutation, useQuery } from "@apollo/client";
+import { Modal } from "antd";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { useMoveToPage } from "../../custom/useMoveToPage";
+import { LOGOUT } from "../../hooks/mutation/useLogout";
+import { FETCH_LOGIN_USER } from "../../hooks/queries/useFetchLoginUser";
 import * as S from "./LayoutHeader.styles";
 import * as O from "./LayoutHeaderMain.styles";
 
+const menuList = [
+  {
+    name: "Our Story",
+    url: "/about",
+  },
+  {
+    name: "Shop",
+    url: "/products",
+  },
+  {
+    name: "Offline Shops",
+    url: "/offline_shop",
+  },
+  {
+    name: "My Page",
+    url: "/mypage",
+  },
+  {
+    name: "Cart",
+    url: "/basket",
+  },
+];
 export function LayoutHeader() {
+  const router = useRouter();
+  const [logout] = useMutation(LOGOUT);
+  const onClickLogout = async () => {
+    try {
+      const result = await logout();
+      router.push("/");
+      location.reload();
+      Modal.success({ content: "로그아웃 되었습니다." });
+    } catch (error) {
+      Modal.error({ content: "로그아웃에 실패했습니다." });
+    }
+  };
   const { onClickMoveToPage } = useMoveToPage();
 
+  const { data } = useQuery(FETCH_LOGIN_USER);
+  console.log(data);
   // 반응형 메뉴
 
   const [isOpen, setIsOpen] = useState<boolean>(false); // 메뉴의 초기값을 false로 설정
-
+  // console.log(isOpen);
   const toggleMenu = () => {
     setIsOpen((prev) => !prev); // on,off 개념 boolean
   };
@@ -28,27 +69,31 @@ export function LayoutHeader() {
           </S.MyMenu>
         </S.HeaderWrapper>
         <S.Sidebar isOpen={isOpen}>
-          <S.GoLoginWrapper>
-            <S.GoLoginTxt>로그인이 필요합니다.</S.GoLoginTxt>
-            <S.GoLogin>Login</S.GoLogin>
-          </S.GoLoginWrapper>
-          {/* <S.UserInfoWrapper>
-            <S.UserHi>김요람님, 안녕하세요.</S.UserHi>
-            <S.PointBox>
-              <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
-              <S.UserPoint>
-                2,100<span>P</span>
-              </S.UserPoint>
-            </S.PointBox>
-          </S.UserInfoWrapper> */}
+          {data?.fetchLoginUser.name ? (
+            <S.UserInfoWrapper>
+              <S.UserHi>{data?.fetchLoginUser.name}님, 안녕하세요.</S.UserHi>
+              <S.PointBox>
+                <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
+                <S.UserPoint>
+                  {data?.fetchLoginUser.point}
+                  <span>P</span>
+                </S.UserPoint>
+              </S.PointBox>
+            </S.UserInfoWrapper>
+          ) : (
+            <S.GoLoginWrapper>
+              <S.GoLoginTxt>로그인이 필요합니다.</S.GoLoginTxt>
+              <S.GoLogin onClick={onClickMoveToPage("/sign_in")}>
+                Login
+              </S.GoLogin>
+            </S.GoLoginWrapper>
+          )}
+
           <S.Nav>
             <ul>
-              <li onClick={onClickMoveToPage("/about")}>Our Story</li>
-              <li onClick={onClickMoveToPage("/products")}>Shop</li>
-              <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shop</li>
-
-              <li onClick={onClickMoveToPage("/mypage")}>My Page</li>
-              <li onClick={onClickMoveToPage("/basket")}>Cart</li>
+              {menuList.map((el) => (
+                <li onClick={onClickMoveToPage(el.url)}>{el.name}</li>
+              ))}
             </ul>
           </S.Nav>
         </S.Sidebar>
@@ -69,7 +114,25 @@ export function LayoutHeader() {
             />
           </S.MiddleBox>
           <S.NavRightUl>
-            <S.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</S.NavBtn>
+            {data?.fetchLoginUser.name ? (
+              <>
+                <S.NavBtn
+                  onClick={onClickMoveToPage("/mypage")}
+                  style={{ fontWeight: "500" }}
+                >
+                  {data?.fetchLoginUser.name}
+                  <span style={{ fontWeight: "400" }}>님</span>
+                </S.NavBtn>
+                <S.NavBtn onClick={onClickLogout}>Logout</S.NavBtn>
+              </>
+            ) : (
+              <>
+                <S.NavBtn onClick={onClickMoveToPage("/sign_in")}>
+                  Login
+                </S.NavBtn>
+                <S.NavBtn onClick={onClickMoveToPage("/join")}>Join</S.NavBtn>
+              </>
+            )}
             <S.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</S.NavBtn>
           </S.NavRightUl>
         </S.TextBox>
@@ -79,7 +142,19 @@ export function LayoutHeader() {
 }
 
 export function LayoutHeaderMain() {
+  const router = useRouter();
+  const [logout] = useMutation(LOGOUT);
+  const onClickLogout = async () => {
+    try {
+      const result = await logout();
+      router.push("/");
+      location.reload();
+    } catch (error) {
+      Modal.error({ content: "로그아웃에 실패했습니다." });
+    }
+  };
   const { onClickMoveToPage } = useMoveToPage();
+  const { data } = useQuery(FETCH_LOGIN_USER);
 
   // 반응형 메뉴
 
@@ -103,27 +178,32 @@ export function LayoutHeaderMain() {
           </O.MyMenu>
         </O.HeaderWrapper>
         <O.Sidebar isOpen={isOpen}>
-          <S.GoLoginWrapper>
-            <S.GoLoginTxt>로그인이 필요합니다.</S.GoLoginTxt>
-            <S.GoLogin onClick={onClickMoveToPage("/login")}>Login</S.GoLogin>
-          </S.GoLoginWrapper>
-          {/* <S.UserInfoWrapper>
-            <S.UserHi>김요람님, 안녕하세요.</S.UserHi>
-            <S.PointBox>
-              <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
-              <S.UserPoint>
-                2,100<span>P</span>
-              </S.UserPoint>
-            </S.PointBox>
-          </S.UserInfoWrapper> */}
+          {data?.fetchLoginUser.name ? (
+            <S.UserInfoWrapper>
+              <S.UserHi>{data?.fetchLoginUser.name}님, 안녕하세요.</S.UserHi>
+              <S.PointBox>
+                <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
+                <S.UserPoint>
+                  {data?.fetchLoginUser.point}
+                  <span>P</span>
+                </S.UserPoint>
+              </S.PointBox>
+            </S.UserInfoWrapper>
+          ) : (
+            <S.GoLoginWrapper>
+              <S.GoLoginTxt>로그인이 필요합니다.</S.GoLoginTxt>
+              <S.GoLogin onClick={onClickMoveToPage("/sign_in")}>
+                Login
+              </S.GoLogin>
+            </S.GoLoginWrapper>
+          )}
           <O.Nav>
             <ul>
-              <li onClick={onClickMoveToPage("/about")}>Our Story</li>
-              <li onClick={onClickMoveToPage("/products")}>Shop</li>
-              <li onClick={onClickMoveToPage("/offline_shop")}>Offline Shop</li>
-
-              <li onClick={onClickMoveToPage("/mypage")}>My Page</li>
-              <li onClick={onClickMoveToPage("/basket")}>Cart</li>
+              <ul>
+                {menuList.map((el) => (
+                  <li onClick={onClickMoveToPage(el.url)}>{el.name}</li>
+                ))}
+              </ul>
             </ul>
           </O.Nav>
         </O.Sidebar>
@@ -144,7 +224,25 @@ export function LayoutHeaderMain() {
             />
           </O.MiddleBox>
           <O.NavRightUl>
-            <O.NavBtn onClick={onClickMoveToPage("/sign_in")}>Login</O.NavBtn>
+            {data?.fetchLoginUser.name ? (
+              <>
+                <O.NavBtn
+                  onClick={onClickMoveToPage("/mypage")}
+                  style={{ fontWeight: "500" }}
+                >
+                  {data?.fetchLoginUser.name}
+                  <span style={{ fontWeight: "400" }}>님</span>
+                </O.NavBtn>
+                <O.NavBtn onClick={onClickLogout}>Logout</O.NavBtn>
+              </>
+            ) : (
+              <>
+                <O.NavBtn onClick={onClickMoveToPage("/sign_in")}>
+                  Login
+                </O.NavBtn>
+                <O.NavBtn onClick={onClickMoveToPage("/join")}>Join</O.NavBtn>
+              </>
+            )}
             <O.NavBtn onClick={onClickMoveToPage("/basket")}>Cart</O.NavBtn>
           </O.NavRightUl>
         </O.TextBox>

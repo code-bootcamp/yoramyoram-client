@@ -17,6 +17,11 @@ import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import LayoutFooter from "../../commons/layout/footer/LayoutFooter.index";
 import { useMoveToPage } from "../../commons/custom/useMoveToPage";
+import {
+  FETCH_PRODUCTS,
+  useFetchProducts,
+} from "../../commons/hooks/queries/useFetchProducts";
+import { useQuery } from "@apollo/client";
 
 const controlsProps = {
   style: {
@@ -35,6 +40,8 @@ const dummyData = new Array(10).fill(10);
 // 임시용
 
 export default function Landing() {
+  const { data } = useQuery(FETCH_PRODUCTS);
+
   const { onClickMoveToPage } = useMoveToPage();
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
@@ -169,13 +176,13 @@ export default function Landing() {
                   <RightOutlined />
                 </S.MoreBtn>
                 <S.SliderCustom {...settings}>
-                  {dummyData.map((el, index) => (
-                    <S.SlideBox key={index}>
+                  {data?.fetchProducts.map((el, index) => (
+                    <S.SlideBox key={el.product_id}>
                       <S.ProductImg src="/productDetail/purchase.png" />
                       <S.InfoBox>
                         <S.ProductInfo>
-                          <S.Name>천연 소재 텀블러</S.Name>
-                          <S.Price>20000원</S.Price>
+                          <S.Name>{el.name}</S.Name>
+                          <S.Price>{el.price}</S.Price>
                         </S.ProductInfo>
 
                         <S.BuyBtn>
@@ -202,8 +209,8 @@ export default function Landing() {
                     spaceBetween={40}
                     slidesPerView={1.8}
                     modules={[Autoplay]}
-                    onSlideChange={() => console.log("slide change")}
-                    onSwiper={(swiper) => console.log(swiper)}
+                    // onSlideChange={() => console.log("slide change")}
+                    // onSwiper={(swiper) => console.log(swiper)}
                     autoplay
                     breakpoints={{
                       0: {

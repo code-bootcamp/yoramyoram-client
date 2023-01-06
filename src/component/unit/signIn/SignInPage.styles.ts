@@ -40,7 +40,7 @@ export const SignBoxWrapper = styled.div`
   }
 `;
 
-export const SignBox = styled.div`
+export const SignBox = styled.form`
   border: 1px solid #707070;
   width: 50%;
   height: 460px;
@@ -86,9 +86,11 @@ export const InputWrapper = styled.div`
 
 export const IdInput = styled.input`
   width: 337px;
-
+  color: #fcfbfa;
   height: 40px;
+  font-size: 15px;
   border: none;
+  outline: none;
   border-bottom: 1px white solid;
   background-color: transparent;
   padding: 8px;
@@ -115,9 +117,12 @@ export const PaInput = styled.input`
   width: 337px;
   height: 30px;
   border: none;
+  font-size: 15px;
+  color: #fcfbfa;
   border-bottom: 1px white solid;
   background-color: transparent;
   padding: 8px;
+  outline: none;
   margin: 17px 0 22px;
   font-family: "Noto Sans KR";
 

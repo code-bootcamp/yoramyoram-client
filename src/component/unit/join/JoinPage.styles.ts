@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import * as mq from "../../../commons/styles/mediaQueries";
+import DaumPostcode from "react-daum-postcode";
+import { Modal } from "antd";
 
 export const Form = styled.form`
   width: 100%;
@@ -23,7 +25,7 @@ export const Label = styled.label`
 
 export const Container = styled.div`
   width: 100%;
-  padding: 10%;
+  padding: 10% 20%;
   background-color: #fcfbfa;
   display: flex;
   flex-direction: column;
@@ -60,7 +62,7 @@ export const PhoneNumber = styled.div`
   justify-content: space-between;
   align-items: center;
   color: #30640a;
-  padding-top: 39px;
+  padding-top: 20px;
   ${mq.mobile} {
     display: block;
   }
@@ -97,6 +99,7 @@ export const PhoneSelect = styled.select`
   border: 1px solid #30640a;
   border-radius: 4px;
   padding: 15px 10px;
+  background: transparent;
   ${mq.mobile} {
     width: 30%;
   }
@@ -177,7 +180,7 @@ export const InputWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   color: #30640a;
-  margin-top: 37px;
+  margin-top: 20px;
   ${mq.mobile} {
     display: block;
   }
@@ -261,8 +264,18 @@ export const AddressInputWrapper = styled.div`
   }
 `;
 
-export const AddressInput = styled.input`
+export const AddressInputBox = styled.div`
   width: 80%;
+  ${mq.mobile} {
+    width: 100%;
+  }
+  ${mq.mobile} {
+    width: 100%;
+  }
+`;
+
+export const AddressInput = styled.input`
+  width: 100%;
   border-radius: 4px;
   border: 1px solid #30640a;
   padding: 15px;
@@ -272,5 +285,21 @@ export const AddressInput = styled.input`
   }
   ${mq.mobile} {
     width: 100%;
+  }
+`;
+export const AddressModal = styled(Modal)``;
+
+export const AddressSearchInput = styled(DaumPostcode)``;
+
+export const CountDown = styled.div`
+  padding-left: 10px;
+
+  ${mq.mobile} {
+    padding-top: 10px;
+    margin-left: -10px;
+  }
+  ${mq.mobile} {
+    padding-top: 10px;
+    margin-left: -10px;
   }
 `;
