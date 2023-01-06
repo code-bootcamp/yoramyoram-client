@@ -62,7 +62,7 @@ export const PhoneNumber = styled.div`
   justify-content: space-between;
   align-items: center;
   color: #30640a;
-  padding-top: 39px;
+  padding-top: 20px;
   ${mq.mobile} {
     display: block;
   }
@@ -180,7 +180,7 @@ export const InputWrapper = styled.div`
   justify-content: flex-start;
   align-items: center;
   color: #30640a;
-  margin-top: 37px;
+  margin-top: 20px;
   ${mq.mobile} {
     display: block;
   }

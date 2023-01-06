@@ -7,7 +7,7 @@ export const InputWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   color: rgb(48 100 10);
-  margin-top: 37px;
+  margin-top: 20px;
   ${mq.mobile} {
     display: block;
   }
@@ -55,6 +55,15 @@ export const InputBox = styled.div`
 
 export const ErrorMessage = styled.div`
   color: red;
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.3;
+  ${mq.mobile} {
+    margin-top: 1px;
+  }
+  ${mq.mobileL} {
+    margin-top: 1px;
+  }
 `;
 
 export const Label = styled.label`
