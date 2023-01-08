@@ -2,7 +2,12 @@ import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Input01 from "../../commons/inputs/Join/Input01.index";
-import { CHECK_TOKEN, CREATE_USER, SEND_TOKEN } from "./JoinPage.query";
+import {
+  CHECK_TOKEN,
+  CREATE_ADMIN_USER,
+  CREATE_USER,
+  SEND_TOKEN,
+} from "./JoinPage.query";
 import * as S from "./JoinPage.styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { joinSchema } from "./JoinPage.validation";
@@ -10,6 +15,12 @@ import { useEffect, useState } from "react";
 import { Address } from "react-daum-postcode";
 import { ErrorMessage } from "../../commons/inputs/Join/Input01.styles";
 import { Modal } from "antd";
+import {
+  IMutation,
+  IMutationCheckTokenPhoneArgs,
+  IMutationCreateUserArgs,
+  IMutationSendTokentoPhoneArgs,
+} from "../../../commons/types/generated/types";
 
 interface IData {
   name: string;
@@ -25,11 +36,25 @@ interface IData {
   phoneToken: string;
 }
 
-export default function JoinPageUI() {
+interface IProps {
+  isJoin: boolean;
+}
+
+export default function JoinPageUI(props: IProps) {
   const router = useRouter();
-  const [createUser] = useMutation(CREATE_USER);
-  const [sendTokentoPhone] = useMutation(SEND_TOKEN);
-  const [checkTokenPhone] = useMutation(CHECK_TOKEN);
+  const [createUser] = useMutation<
+    Pick<IMutation, "createUser">,
+    IMutationCreateUserArgs
+  >(CREATE_USER);
+  const [sendTokentoPhone] = useMutation<
+    Pick<IMutation, "sendTokentoPhone">,
+    IMutationSendTokentoPhoneArgs
+  >(SEND_TOKEN);
+  const [checkTokenPhone] = useMutation<
+    Pick<IMutation, "checkTokenPhone">,
+    IMutationCheckTokenPhoneArgs
+  >(CHECK_TOKEN);
+  const [createAdminUser] = useMutation(CREATE_ADMIN_USER); // 타입 다운받아야됨
   const [isOpen, setIsOpen] = useState(false);
   const [zipcode, setZipcode] = useState("");
   const [addressName, setAddressName] = useState("");
@@ -55,7 +80,8 @@ export default function JoinPageUI() {
 
   const phoneToken = getValues("phoneToken");
 
-  const onCompleteAddressSearch = (address: Address) => {
+  // 타입 Address and??
+  const onCompleteAddressSearch = (address: any) => {
     setAddressName(address.address);
     setZipcode(address.zonecode);
     setIsOpen((prev) => !prev);
@@ -157,7 +183,37 @@ export default function JoinPageUI() {
       Modal.success({
         content: "회원가입을 해주셔서 감사합니다.",
         afterClose() {
-          void router.push("/");
+          void router.push("/sign_in");
+        },
+      });
+    } catch (error) {
+      Modal.warning({ content: "이미 등록하신 회원입니다." });
+    }
+  };
+
+  // 타입 and MouseEvent
+  const createAdminUserSubmit = async (data: any) => {
+    const {
+      passwordCheck,
+      phoneFirst,
+      phoneSecond,
+      phoneThird,
+      phoneToken,
+      ...value
+    } = data;
+    try {
+      await createAdminUser({
+        variables: {
+          adminCreateUserInput: {
+            ...value,
+            phone: phone,
+          },
+        },
+      });
+      Modal.success({
+        content: "회원가입을 해주셔서 감사합니다.",
+        afterClose() {
+          void router.push("/sign_in");
         },
       });
     } catch (error) {
@@ -181,7 +237,13 @@ export default function JoinPageUI() {
           <S.Title>Join Us</S.Title>
           <S.TitleCon>Yoram Yoram 회원 가입</S.TitleCon>
         </S.TitleWrapper>
-        <S.Form onSubmit={handleSubmit(createUserSubmit)}>
+        <S.Form
+          onSubmit={
+            props.isJoin
+              ? handleSubmit(createUserSubmit)
+              : handleSubmit(createAdminUserSubmit)
+          }
+        >
           <Input01
             type="text"
             title="이름"
@@ -273,7 +335,9 @@ export default function JoinPageUI() {
           </S.AddressInputWrapper>
 
           <S.JoinButtonWrapper>
-            <S.JoinButton>회원가입</S.JoinButton>
+            <S.JoinButton>
+              {props.isJoin ? "일반회원 회원가입" : "관리자 회원가입"}
+            </S.JoinButton>
           </S.JoinButtonWrapper>
         </S.Form>
       </S.Container>

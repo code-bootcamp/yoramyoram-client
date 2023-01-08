@@ -23,3 +23,8 @@ export const updataPasswordPhoneState = atom({
   key: "updataPasswordPhoneState",
   default: "",
 });
+
+export const isAdminState = atom({
+  key: "isAdminState",
+  default: false,
+});
