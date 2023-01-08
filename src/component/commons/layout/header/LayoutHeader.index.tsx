@@ -2,9 +2,13 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { accessTokenState, isAdminState } from "../../../../commons/stores";
 import { useMoveToPage } from "../../custom/useMoveToPage";
 import { LOGOUT } from "../../hooks/mutation/useLogout";
+import { FETCH_LOGIN_ADMIN } from "../../hooks/queries/useFetchLoginAdmin";
 import { FETCH_LOGIN_USER } from "../../hooks/queries/useFetchLoginUser";
+import Name from "./LayoutHeader";
 import * as S from "./LayoutHeader.styles";
 import * as O from "./LayoutHeaderMain.styles";
 
@@ -33,6 +37,9 @@ const menuList = [
 export function LayoutHeader() {
   const router = useRouter();
   const [logout] = useMutation(LOGOUT);
+  const [AccessTokenState, setAccessToken] = useRecoilState(accessTokenState);
+  const [IsAdminState, setIsAdminState] = useRecoilState(isAdminState);
+
   const onClickLogout = async () => {
     try {
       const result = await logout();
@@ -45,8 +52,10 @@ export function LayoutHeader() {
   };
   const { onClickMoveToPage } = useMoveToPage();
 
-  const { data } = useQuery(FETCH_LOGIN_USER);
-  console.log(data);
+  const { data: user } = useQuery(FETCH_LOGIN_USER);
+  const { data: admin } = useQuery(FETCH_LOGIN_ADMIN);
+  console.log(user);
+  console.log(admin?.fetchLoginAdminUser.name);
   // 반응형 메뉴
 
   const [isOpen, setIsOpen] = useState<boolean>(false); // 메뉴의 초기값을 false로 설정
@@ -54,6 +63,8 @@ export function LayoutHeader() {
   const toggleMenu = () => {
     setIsOpen((prev) => !prev); // on,off 개념 boolean
   };
+  console.log(user);
+  console.log(admin);
 
   return (
     <>
@@ -69,13 +80,14 @@ export function LayoutHeader() {
           </S.MyMenu>
         </S.HeaderWrapper>
         <S.Sidebar isOpen={isOpen}>
-          {data?.fetchLoginUser.name ? (
+          <Name />
+          {/* {user ? (
             <S.UserInfoWrapper>
-              <S.UserHi>{data?.fetchLoginUser.name}님, 안녕하세요.</S.UserHi>
+              <S.UserHi>{user?.fetchLoginUser.name}님, 안녕하세요.</S.UserHi>
               <S.PointBox>
                 <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
                 <S.UserPoint>
-                  {data?.fetchLoginUser.point}
+                  {user?.fetchLoginUser.point}
                   <span>P</span>
                 </S.UserPoint>
               </S.PointBox>
@@ -87,7 +99,7 @@ export function LayoutHeader() {
                 Login
               </S.GoLogin>
             </S.GoLoginWrapper>
-          )}
+          )} */}
 
           <S.Nav>
             <ul>
@@ -114,13 +126,13 @@ export function LayoutHeader() {
             />
           </S.MiddleBox>
           <S.NavRightUl>
-            {data?.fetchLoginUser.name ? (
+            {user?.fetchLoginUser.name ? (
               <>
                 <S.NavBtn
                   onClick={onClickMoveToPage("/mypage")}
                   style={{ fontWeight: "500" }}
                 >
-                  {data?.fetchLoginUser.name}
+                  {user?.fetchLoginUser.name}
                   <span style={{ fontWeight: "400" }}>님</span>
                 </S.NavBtn>
                 <S.NavBtn onClick={onClickLogout}>Logout</S.NavBtn>

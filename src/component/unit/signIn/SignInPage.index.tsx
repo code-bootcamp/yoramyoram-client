@@ -1,22 +1,29 @@
 import * as S from "./SignInPage.styles";
 import { useMoveToPage } from "../../commons/custom/useMoveToPage";
 import { useRecoilState } from "recoil";
-import { accessTokenState } from "../../../commons/stores";
+import { accessTokenState, isAdminState } from "../../../commons/stores";
 import { useForm } from "react-hook-form";
 import { signInSchema } from "./SignIn.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSignIn } from "../../commons/hooks/mutation/useSignIn";
-import { IFormSignInData } from "./SignIn.types";
+import { IFormSignInData, IProps } from "./SignIn.types";
 
 import styled from "@emotion/styled";
+import { useAdminSignIn } from "../../commons/hooks/mutation/useAdminSignIn";
 
-export default function SignInPageUI() {
+export default function SignInPageUI(props: IProps) {
   const { onClickMoveToPage } = useMoveToPage();
   const [accessToken] = useRecoilState(accessTokenState);
 
   const { register, handleSubmit, formState } = useForm<IFormSignInData>({
     resolver: yupResolver(signInSchema),
   });
+
+  const { AdminSignInSubmit } = useAdminSignIn();
+  const onSubmitAdmin = (data: IFormSignInData) => {
+    console.log(data);
+    void AdminSignInSubmit(data);
+  };
 
   const { signInSubmit } = useSignIn();
   const onSubmitForm = (data: IFormSignInData) => {
@@ -32,7 +39,13 @@ export default function SignInPageUI() {
   return (
     <S.Background>
       <S.SignBoxWrapper>
-        <S.SignBox onSubmit={handleSubmit(onSubmitForm)}>
+        <S.SignBox
+          onSubmit={
+            props.isAdmin
+              ? handleSubmit(onSubmitAdmin)
+              : handleSubmit(onSubmitForm)
+          }
+        >
           <S.SignWrapper>
             <S.SignTitle>Sign In</S.SignTitle>
             <S.InputWrapper>
@@ -53,8 +66,18 @@ export default function SignInPageUI() {
               </Error>
             </S.InputWrapper>
             <S.SearchWrapper>
-              <S.SearchButton>아이디 찾기 |</S.SearchButton>
-              <S.SearchButton>비밀번호 찾기</S.SearchButton>
+              <S.SearchButton
+                type="button"
+                onClick={onClickMoveToPage("/account/id_search")}
+              >
+                아이디 찾기 |
+              </S.SearchButton>
+              <S.SearchButton
+                type="button"
+                onClick={onClickMoveToPage("/account/password_search")}
+              >
+                비밀번호 찾기
+              </S.SearchButton>
             </S.SearchWrapper>
             <S.ButtonWrapper>
               <S.LoginButton>로그인</S.LoginButton>

@@ -141,6 +141,7 @@ export const JoinButton = styled.button`
 export const JoinButtonWrapper = styled.div`
   margin-top: 60px;
   width: 100%;
+  /* display: flex; */
 `;
 
 export const SearchButton = styled.input`
