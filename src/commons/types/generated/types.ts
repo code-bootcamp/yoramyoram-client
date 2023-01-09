@@ -57,13 +57,14 @@ export type ICreateCommentInput = {
 export type ICreateProductInput = {
   description: Scalars['String'];
   detailContent: Scalars['String'];
-  etc1Name: Scalars['String'];
-  etc1Value: Scalars['String'];
-  etc2Name: Scalars['String'];
-  etc2Value: Scalars['String'];
+  etc1Name?: InputMaybe<Scalars['String']>;
+  etc1Value?: InputMaybe<Scalars['String']>;
+  etc2Name?: InputMaybe<Scalars['String']>;
+  etc2Value?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   price: Scalars['Int'];
   productCategoryId: Scalars['String'];
+  productImages: Array<Scalars['String']>;
 };
 
 export type ICreateProductWishInput = {
@@ -108,6 +109,7 @@ export type IMutation = {
   updateAdminPassword: Scalars['String'];
   updatePassword: Scalars['String'];
   updateProduct: IProduct;
+  uploadDetailImage: Array<Scalars['String']>;
   uploadImage: Array<Scalars['String']>;
 };
 
@@ -237,6 +239,11 @@ export type IMutationUpdateProductArgs = {
 };
 
 
+export type IMutationUploadDetailImageArgs = {
+  images: Array<Scalars['Upload']>;
+};
+
+
 export type IMutationUploadImageArgs = {
   images: Array<Scalars['Upload']>;
 };
@@ -264,14 +271,15 @@ export type IProduct = {
   commentCount: Scalars['Int'];
   description: Scalars['String'];
   detailContent: Scalars['String'];
-  etc1Name: Scalars['String'];
-  etc1Value: Scalars['String'];
-  etc2Name: Scalars['String'];
-  etc2Value: Scalars['String'];
+  etc1Name?: Maybe<Scalars['String']>;
+  etc1Value?: Maybe<Scalars['String']>;
+  etc2Name?: Maybe<Scalars['String']>;
+  etc2Value?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   payment: IPayment;
   price: Scalars['Int'];
   productCategory: IProductCategory;
+  productImages: Array<IProductImage>;
   product_id: Scalars['String'];
   wishListCount: Scalars['Int'];
 };
@@ -289,6 +297,14 @@ export type IProductCategory = {
   __typename?: 'ProductCategory';
   category: Scalars['String'];
   category_id: Scalars['String'];
+};
+
+export type IProductImage = {
+  __typename?: 'ProductImage';
+  isMain: Scalars['Boolean'];
+  product: IProduct;
+  productImage_id: Scalars['String'];
+  url: Scalars['String'];
 };
 
 export type IProductWishlist = {
@@ -402,6 +418,7 @@ export type IUpdateProductInput = {
   name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Int']>;
   productCategoryId?: InputMaybe<Scalars['String']>;
+  productImages?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type IUser = {
