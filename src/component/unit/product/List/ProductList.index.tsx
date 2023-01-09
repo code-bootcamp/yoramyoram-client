@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useFetchProducts } from "../../../commons/hooks/queries/useFetchProducts";
 import CategoryBar from "./CategoryBar";
 import CategoryBarSticky from "./CategoryBarSticky";
+import { PriceReg } from "../../../../commons/library/util";
 
 import * as S from "./ProductList.styles";
 export default function ProductList() {
@@ -104,7 +105,7 @@ export default function ProductList() {
               <S.ListImg src="/landing/recycle.png" alt="상품이미지" />
               <S.ListProductInfo>
                 <S.ListProductName>{el.name}</S.ListProductName>
-                <S.ListProductPrice>{el.price}</S.ListProductPrice>
+                <S.ListProductPrice>{PriceReg(el.price)}원</S.ListProductPrice>
                 <S.ListProductBtnBar>
                   <span>
                     <S.ListChatBtn />{" "}
