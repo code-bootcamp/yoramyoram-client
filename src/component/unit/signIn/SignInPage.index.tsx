@@ -27,6 +27,7 @@ export default function SignInPageUI(props: IProps) {
 
   const { signInSubmit } = useSignIn();
   const onSubmitForm = (data: IFormSignInData) => {
+    console.log(data);
     void signInSubmit(data);
   };
 

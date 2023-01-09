@@ -22,6 +22,11 @@ import {
   useFetchProducts,
 } from "../../commons/hooks/queries/useFetchProducts";
 import { useQuery } from "@apollo/client";
+import {
+  IQuery,
+  IQueryFetchProductsArgs,
+} from "../../../commons/types/generated/types";
+import { PriceReg } from "../../../commons/library/util";
 
 const controlsProps = {
   style: {
@@ -40,7 +45,12 @@ const dummyData = new Array(10).fill(10);
 // 임시용
 
 export default function Landing() {
-  const { data } = useQuery(FETCH_PRODUCTS);
+  // const { data } = useQuery<
+  //   Pick<IQuery, "fetchProducts">,
+  //   IQueryFetchProductsArgs
+  // >(FETCH_PRODUCTS);
+
+  const { data } = useFetchProducts();
 
   const { onClickMoveToPage } = useMoveToPage();
   const [scroll, setScroll] = useState(false);
@@ -182,7 +192,7 @@ export default function Landing() {
                       <S.InfoBox>
                         <S.ProductInfo>
                           <S.Name>{el.name}</S.Name>
-                          <S.Price>{el.price}</S.Price>
+                          <S.Price>{PriceReg(String(el.price))}원</S.Price>
                         </S.ProductInfo>
 
                         <S.BuyBtn>

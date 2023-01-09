@@ -69,20 +69,24 @@ export const SelectWrap = styled.div`
   }
 `;
 
-export const SelectBox = styled(Select)`
-  :where(.css-dev-only-do-not-override-9ntgx0).ant-select-single:not(
-      .ant-select-customize-input
-    )
-    .ant-select-selector {
-    height: 40px !important;
-    border: 1px solid #306415 !important;
-    background-color: transparent !important;
-  }
-  :where(.css-dev-only-do-not-override-9ntgx0).ant-select-single
-    .ant-select-selector
-    .ant-select-selection-item {
-    line-height: 40px;
-  }
+// export const SelectBox = styled(Select)`
+//   :where(.css-dev-only-do-not-override-9ntgx0).ant-select-single:not(
+//       .ant-select-customize-input
+//     )
+//     .ant-select-selector {
+//     height: 40px !important;
+//     border: 1px solid #306415 !important;
+//     background-color: transparent !important;
+//   }
+//   :where(.css-dev-only-do-not-override-9ntgx0).ant-select-single
+//     .ant-select-selector
+//     .ant-select-selection-item {
+//     line-height: 40px;
+//   }
+// `;
+
+export const SelectBox = styled.select`
+  height: 40px;
 `;
 
 export const OptionBox = styled.div`
@@ -120,9 +124,49 @@ export const InputWrapper = styled.div`
 `;
 
 export const Option = styled.option``;
-export const PhotoWrapper = styled.div``;
-export const PhotoBox = styled.div``;
-export const Upload = styled.input``;
+export const PhotoWrapper = styled.div`
+  display: flex;
+  gap: 15px;
+`;
+export const PhotoBox = styled.div`
+  position: relative;
+`;
+export const Upload = styled.input`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+`;
+export const UploadImage = styled.img`
+  width: 140px;
+  height: 140px;
+  cursor: pointer;
+  object-fit: cover;
+  ${mq.mobile} {
+    width: 80px;
+    height: 80px;
+  }
+  ${mq.mobileL} {
+    width: 80px;
+    height: 80px;
+  }
+`;
+
+export const GbButton = styled.button`
+  color: #4f4f4f;
+  font-size: 25px;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #30640a;
+  cursor: pointer;
+  color: #fcfbfa;
+  width: 140px;
+  height: 140px;
+  outline: none;
+  border: none;
+`;
+
 export const ButtonBox = styled.div`
   display: flex;
   justify-content: center;
@@ -213,4 +257,9 @@ export const TagInput = styled.input`
     color: #a2a2a2;
     font-weight: 400;
   }
+`;
+
+export const Error = styled.div`
+  color: red;
+  font-size: 14px;
 `;
