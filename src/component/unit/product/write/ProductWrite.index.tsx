@@ -1,5 +1,6 @@
 import * as S from "./ProductWrite.styles";
 import {
+  ChangeEvent,
   KeyboardEvent,
   MouseEvent,
   MouseEventHandler,
@@ -8,12 +9,30 @@ import {
 } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
-import { Select } from "antd";
+import { Modal, Select } from "antd";
+import {
+  CREATE_PRODUCT,
+  UPLOAD_IMAGE,
+  UPDATE_PRODUCT,
+} from "../../../commons/hooks/mutation/useCreateProduct";
+import { useRouter } from "next/router";
+import { useMutation } from "@apollo/client";
+import {
+  IMutation,
+  IMutationCreateProductArgs,
+  IMutationUploadImageArgs,
+} from "../../../../commons/types/generated/types";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { schema } from "./product-validation";
+import { v4 as uuidv4 } from "uuid";
+import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
 
-export default function ProductWrite() {
+export default function ProductWrite(props: any) {
+  // TAG //
   const [tagItem, setTagItem] = useState<string>("");
   const [tagList, setTagList] = useState<string[]>([]);
   const [tagItemTwo, setTagItemTwo] = useState<string>("");
@@ -71,52 +90,159 @@ export default function ProductWrite() {
     });
   }, []);
 
+  // TAG END //
+
+  const router = useRouter();
+  const [imageUrls, setImageUrls] = useState(["", "", ""]);
+  const [files, setFiles] = useState<File[]>([]);
+  const [fileUrls, setFileUrls] = useState(["", "", ""]);
+  const [uploadImage] = useMutation<
+    Pick<IMutation, "uploadImage">,
+    IMutationUploadImageArgs
+  >(UPLOAD_IMAGE);
+
+  const [createProduct] = useMutation<
+    Pick<IMutation, "createProduct">,
+    IMutationCreateProductArgs
+  >(CREATE_PRODUCT);
+  const { register, handleSubmit, setValue, trigger, getValues, formState } =
+    useForm({
+      resolver: yupResolver(schema),
+      mode: "onChange",
+    });
+
+  const onChangeContents = (value: string) => {
+    console.log(value);
+
+    setValue("detailContent", value === "<p><br></p>" ? "" : value);
+    void trigger("detailContent");
+  };
+
+  const onClickSubmit = async (data: any) => {
+    const result = await Promise.all(
+      files.map(async (el) =>
+        el !== undefined
+          ? await uploadImage({ variables: { images: data.images } })
+          : undefined
+      )
+    );
+    console.log(result);
+    const resultUrls = result.map((el) =>
+      el !== undefined ? el.data?.uploadImage : ""
+    );
+    console.log(resultUrls);
+    console.log(data);
+    setValue("productImages", resultUrls);
+
+    try {
+      const result = await createProduct({
+        variables: {
+          createProductInput: {
+            name: data.name,
+            price: data.price,
+            description: data.description,
+            etc1Name: data.etc1Name,
+            etc1Value: String(tagList),
+            etc2Name: data.etc1Name,
+            etc2Value: String(tagListTwo),
+            detailContent: data.detailContent,
+            productImages: [...fileUrls],
+            productCategoryId: data.productCategoryId,
+          },
+        },
+      });
+      console.log(result);
+      Modal.success({ content: "상품이 등록되었습니다." });
+      void router.push(`/products/${result.data?.createProduct.product_id}`);
+    } catch (error) {
+      Modal.error({ content: "상품등록에 실패했습니다." });
+    }
+  };
+
+  // const onChangeFile =
+  //   (index: number) => async (event: ChangeEvent<HTMLInputElement>) => {
+  //     const file = event.target.files?.[0];
+  //     if (file === undefined) return;
+  //     const fileReader = new FileReader();
+  //     fileReader.readAsDataURL(file);
+  //     fileReader.onload = (event) => {
+  //       if (typeof event.target?.result == "string") {
+  //         console.log(event.target?.result);
+  //         const tempUrls = [...imageUrls];
+  //         tempUrls[index] = event.target?.result;
+  //         setImageUrls(tempUrls);
+
+  //         const tempFiles = [...files];
+  //         tempFiles[index] = file;
+  //         setFiles(tempFiles);
+  //       }
+  //     };
+  //   };
+
+  const onChangeFileUrls = (fileUrl: string, index: number) => {
+    const newFileUrls = [...fileUrls];
+    newFileUrls[index] = fileUrl;
+    setFileUrls(newFileUrls);
+  };
+
   return (
     <div style={{ backgroundColor: "#fcfbfa" }}>
       <S.Wrapper>
-        <S.Title>상품 등록</S.Title>
-        <S.Form>
+        <S.Title>{props.isEdit ? "상품 수정" : "상품 등록"}</S.Title>
+        <S.Form onSubmit={handleSubmit(onClickSubmit)}>
           <S.HalfWrapper>
             <S.HalfBox>
               <S.Label>상품명</S.Label>
-              <S.Input type="text" placeholder="상품명을 입력하세요."></S.Input>
+              <S.Input
+                type="text"
+                placeholder="상품명을 입력하세요."
+                {...register("name")}
+              ></S.Input>
+              <S.Error>{formState.errors.name?.message}</S.Error>
             </S.HalfBox>
             <S.HalfBox>
               <S.Label>가격</S.Label>
-              <S.Input type="text" placeholder="가격을 입력하세요."></S.Input>
+              <S.Input
+                type="text"
+                placeholder="가격을 입력하세요."
+                {...register("price")}
+              ></S.Input>
+              <S.Error>{formState.errors.price?.message}</S.Error>
             </S.HalfBox>
           </S.HalfWrapper>
-          <S.InputWrapper>
-            <S.Label>상품 요약</S.Label>
-            <S.Input
-              type="text"
-              placeholder="상품 요약을 입력하세요."
-            ></S.Input>
-          </S.InputWrapper>
+          <S.HalfWrapper>
+            <S.SelectWrap>
+              <S.Label>상품 카테고리</S.Label>
+              <S.SelectBox {...register("productCategoryId")}>
+                <option value="카테고리를 선택하세요." disabled selected>
+                  카테고리를 선택하세요.
+                </option>
+                <option value="컬러">주방</option>
+                <option value="생활">생활</option>
+                <option value="욕실">욕실</option>
+                <option value="여성용품">여성용품</option>
+                <option value="반려동물">반려동물</option>
+              </S.SelectBox>
+            </S.SelectWrap>
+            <S.OptionBox>
+              <S.Label>상품 요약</S.Label>
+              <S.Input
+                type="text"
+                placeholder="상품 요약을 입력하세요."
+                {...register("description")}
+              ></S.Input>
+            </S.OptionBox>
+          </S.HalfWrapper>
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
-              <S.SelectBox
-                defaultValue="옵션을 선택하세요"
-                style={{ width: "100%" }}
-                onChange={handleChange}
-                className="product-write-select"
-                options={[
-                  {
-                    value: "옵션을 선택하세요",
-                    disabled: true,
-                    label: "옵션을 선택하세요",
-                  },
-                  {
-                    value: "컬러",
-                    label: "컬러",
-                  },
-                  {
-                    value: "사이즈",
-                    label: "사이즈",
-                  },
-                ]}
-              />
+              <S.SelectBox {...register("etc1Name")}>
+                <option value="옵션을 선택하세요." disabled selected>
+                  옵션을 선택하세요.
+                </option>
+                <option value="컬러">컬러</option>
+                <option value="사이즈">사이즈</option>
+              </S.SelectBox>
             </S.SelectWrap>
             <S.OptionBox>
               <S.Label>옵션값</S.Label>
@@ -126,7 +252,9 @@ export default function ProductWrite() {
                     return (
                       <S.TagItem key={index}>
                         <S.Text>{tagItem}</S.Text>
-                        <S.Button onClick={deleteTagItem}>✕</S.Button>
+                        <S.Button onClick={deleteTagItem} type="button">
+                          ✕
+                        </S.Button>
                       </S.TagItem>
                     );
                   })}
@@ -146,27 +274,13 @@ export default function ProductWrite() {
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
 
-              <S.SelectBox
-                defaultValue="옵션을 선택하세요"
-                style={{ width: "100%" }}
-                onChange={handleChange}
-                className="product-write-select"
-                options={[
-                  {
-                    value: "옵션을 선택하세요",
-                    disabled: true,
-                    label: "옵션을 선택하세요",
-                  },
-                  {
-                    value: "컬러",
-                    label: "컬러",
-                  },
-                  {
-                    value: "사이즈",
-                    label: "사이즈",
-                  },
-                ]}
-              />
+              <S.SelectBox {...register("etc2Name")}>
+                <option value="옵션을 선택하세요." disabled selected>
+                  옵션을 선택하세요.
+                </option>
+                <option value="컬러">컬러</option>
+                <option value="사이즈">사이즈</option>
+              </S.SelectBox>
             </S.SelectWrap>
             <S.OptionBox>
               <S.Label>옵션값</S.Label>
@@ -176,7 +290,9 @@ export default function ProductWrite() {
                     return (
                       <S.TagItem key={index}>
                         <S.Text>{tagItemTwo}</S.Text>
-                        <S.Button onClick={deleteTagItemTwo}>✕</S.Button>
+                        <S.Button onClick={deleteTagItemTwo} type="button">
+                          ✕
+                        </S.Button>
                       </S.TagItem>
                     );
                   })}
@@ -195,28 +311,67 @@ export default function ProductWrite() {
           <S.InputWrapper>
             <S.Label>상품 정보</S.Label>
             <ReactQuill
+              onChange={onChangeContents}
               style={{
                 fontSize: "15px",
               }}
               className="quill"
             />
+            <S.Error>{formState.errors.contents?.message}</S.Error>
           </S.InputWrapper>
           <S.InputWrapper>
             <S.Label>상품 사진</S.Label>
             <S.PhotoWrapper>
-              <S.PhotoBox>
-                <S.Upload type="file" id="upload"></S.Upload>
+              {/* <S.PhotoBox>
+                <S.Upload
+                  type="file"
+                  id="upload"
+                  onChange={onChangeFile(0)}
+                ></S.Upload>
+                {imageUrls[0] ? (
+                  <S.UploadImage src={imageUrls[0]} />
+                ) : (
+                  <S.GbButton type="button">+</S.GbButton>
+                )}
               </S.PhotoBox>
               <S.PhotoBox>
-                <S.Upload type="file" id="upload"></S.Upload>
+                <S.Upload
+                  type="file"
+                  id="upload"
+                  onChange={onChangeFile(1)}
+                ></S.Upload>
+                {imageUrls[1] ? (
+                  <S.UploadImage src={imageUrls[1]} />
+                ) : (
+                  <S.GbButton type="button">+</S.GbButton>
+                )}
               </S.PhotoBox>
               <S.PhotoBox>
-                <S.Upload type="file" id="upload"></S.Upload>
-              </S.PhotoBox>
+                <S.Upload
+                  type="file"
+                  id="upload"
+                  onChange={onChangeFile(2)}
+                ></S.Upload>
+                {imageUrls[2] ? (
+                  <S.UploadImage src={imageUrls[2]} />
+                ) : (
+                  <S.GbButton type="button">+</S.GbButton>
+                )}
+              </S.PhotoBox> */}
+              {fileUrls.map((el, index) => (
+                <S.PhotoBox>
+                  <Uploads01
+                    key={uuidv4()}
+                    index={index}
+                    fileUrl={el}
+                    onChangeFileUrls={onChangeFileUrls}
+                  />
+                </S.PhotoBox>
+              ))}
             </S.PhotoWrapper>
           </S.InputWrapper>
           <S.ButtonBox>
-            <S.Cancel>취소</S.Cancel>
+            <S.Cancel type="button">취소</S.Cancel>
             <S.Submit>등록</S.Submit>
           </S.ButtonBox>
         </S.Form>

@@ -14,6 +14,26 @@ export type Scalars = {
   Upload: any;
 };
 
+export type IAdminCreateUserInput = {
+  add_detail: Scalars['String'];
+  address: Scalars['String'];
+  email: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  phone: Scalars['String'];
+};
+
+export type IAdminUser = {
+  __typename?: 'AdminUser';
+  add_detail: Scalars['String'];
+  address: Scalars['String'];
+  email: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+  phone: Scalars['String'];
+  point: Scalars['Int'];
+};
+
 export type IComment = {
   __typename?: 'Comment';
   comment_id: Scalars['String'];
@@ -32,15 +52,19 @@ export type ICreateCommentInput = {
   productId: Scalars['String'];
   star: Scalars['Int'];
   title: Scalars['String'];
-  userId: Scalars['String'];
 };
 
 export type ICreateProductInput = {
   description: Scalars['String'];
+  detailContent: Scalars['String'];
+  etc1Name?: InputMaybe<Scalars['String']>;
+  etc1Value?: InputMaybe<Scalars['String']>;
+  etc2Name?: InputMaybe<Scalars['String']>;
+  etc2Value?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
   price: Scalars['Int'];
   productCategoryId: Scalars['String'];
-  productTags: Array<Scalars['String']>;
+  productImages: Array<Scalars['String']>;
 };
 
 export type ICreateProductWishInput = {
@@ -60,32 +84,44 @@ export type ICreateUserInput = {
 export type IMutation = {
   __typename?: 'Mutation';
   addWishlist: Scalars['Boolean'];
+  adminLogin: Scalars['String'];
   canclePayment: IPayment;
   checkTokenPhone: Scalars['String'];
+  createAdminUser: IAdminUser;
   createComment: IComment;
   createPayment: IPayment;
   createProduct: IProduct;
   createProductCart: IProductCart;
   createProductCategory: IProductCategory;
   createUser: IUser;
+  deleteAdminUser: Scalars['Boolean'];
   deleteComment: Scalars['Boolean'];
   deleteProduct: Scalars['Boolean'];
   deleteProductCart: IProductCart;
   deleteUser: Scalars['Boolean'];
+  findAdminUserPassword: Scalars['String'];
   findUserPassword: Scalars['String'];
   login: Scalars['String'];
   logout: Scalars['String'];
   restoreAccessToken: Scalars['String'];
   sendTokentoPhone: Scalars['String'];
   udpateComment: IComment;
+  updateAdminPassword: Scalars['String'];
   updatePassword: Scalars['String'];
   updateProduct: IProduct;
+  uploadDetailImage: Array<Scalars['String']>;
   uploadImage: Array<Scalars['String']>;
 };
 
 
 export type IMutationAddWishlistArgs = {
   createProductWishInput: ICreateProductWishInput;
+};
+
+
+export type IMutationAdminLoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 
@@ -98,6 +134,11 @@ export type IMutationCanclePaymentArgs = {
 export type IMutationCheckTokenPhoneArgs = {
   phone: Scalars['String'];
   phoneToken: Scalars['String'];
+};
+
+
+export type IMutationCreateAdminUserArgs = {
+  adminCreateUserInput: IAdminCreateUserInput;
 };
 
 
@@ -147,8 +188,11 @@ export type IMutationDeleteProductCartArgs = {
 };
 
 
-export type IMutationDeleteUserArgs = {
-  userId: Scalars['String'];
+export type IMutationFindAdminUserPasswordArgs = {
+  email: Scalars['String'];
+  name: Scalars['String'];
+  phone: Scalars['String'];
+  token: Scalars['String'];
 };
 
 
@@ -177,6 +221,12 @@ export type IMutationUdpateCommentArgs = {
 };
 
 
+export type IMutationUpdateAdminPasswordArgs = {
+  password: Scalars['String'];
+  phone: Scalars['String'];
+};
+
+
 export type IMutationUpdatePasswordArgs = {
   password: Scalars['String'];
   phone: Scalars['String'];
@@ -186,6 +236,11 @@ export type IMutationUpdatePasswordArgs = {
 export type IMutationUpdateProductArgs = {
   productId: Scalars['String'];
   updateProductInput: IUpdateProductInput;
+};
+
+
+export type IMutationUploadDetailImageArgs = {
+  images: Array<Scalars['Upload']>;
 };
 
 
@@ -216,11 +271,16 @@ export type IProduct = {
   commentCount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
   description: Scalars['String'];
-  isDeleted: Scalars['Boolean'];
+  detailContent: Scalars['String'];
+  etc1Name?: Maybe<Scalars['String']>;
+  etc1Value?: Maybe<Scalars['String']>;
+  etc2Name?: Maybe<Scalars['String']>;
+  etc2Value?: Maybe<Scalars['String']>;
   name: Scalars['String'];
   payment: IPayment;
   price: Scalars['Int'];
   productCategory: IProductCategory;
+  productImages: Array<IProductImage>;
   product_id: Scalars['String'];
   wishListCount: Scalars['Int'];
 };
@@ -240,6 +300,14 @@ export type IProductCategory = {
   category_id: Scalars['String'];
 };
 
+export type IProductImage = {
+  __typename?: 'ProductImage';
+  isMain: Scalars['Boolean'];
+  product: IProduct;
+  productImage_id: Scalars['String'];
+  url: Scalars['String'];
+};
+
 export type IProductWishlist = {
   __typename?: 'ProductWishlist';
   isDib: Scalars['Boolean'];
@@ -253,15 +321,20 @@ export type IQuery = {
   fetchComment: IComment;
   fetchComments: Array<IComment>;
   fetchCommentsWithDeleted: Array<IComment>;
+  fetchLoginAdminUser: IAdminUser;
+  fetchLoginUser: IUser;
   fetchProduct: IProduct;
   fetchProductCart: Array<IProductCart>;
   fetchProducts: Array<IProduct>;
   fetchProductsWithDeleted: Array<IProduct>;
   fetchmyWishlist: Array<IProductWishlist>;
+  findAdminUserEmail: Scalars['String'];
   findUserEmail: Scalars['String'];
   searchProducts: Array<IProduct>;
   sortByCommentsASC: Array<IProduct>;
   sortByCommentsDESC: Array<IProduct>;
+  sortByCreatedAtASC: Array<IProduct>;
+  sortByCreatedAtDESC: Array<IProduct>;
   sortByPriceASC: Array<IProduct>;
   sortByPriceDESC: Array<IProduct>;
 };
@@ -277,6 +350,17 @@ export type IQueryFetchProductArgs = {
 };
 
 
+export type IQueryFetchProductsArgs = {
+  page: Scalars['Float'];
+};
+
+
+export type IQueryFindAdminUserEmailArgs = {
+  name: Scalars['String'];
+  phone: Scalars['String'];
+};
+
+
 export type IQueryFindUserEmailArgs = {
   name: Scalars['String'];
   phone: Scalars['String'];
@@ -284,7 +368,38 @@ export type IQueryFindUserEmailArgs = {
 
 
 export type IQuerySearchProductsArgs = {
+  page: Scalars['Float'];
   word: Scalars['String'];
+};
+
+
+export type IQuerySortByCommentsAscArgs = {
+  page: Scalars['Float'];
+};
+
+
+export type IQuerySortByCommentsDescArgs = {
+  page: Scalars['Float'];
+};
+
+
+export type IQuerySortByCreatedAtAscArgs = {
+  page: Scalars['Float'];
+};
+
+
+export type IQuerySortByCreatedAtDescArgs = {
+  page: Scalars['Float'];
+};
+
+
+export type IQuerySortByPriceAscArgs = {
+  page: Scalars['Float'];
+};
+
+
+export type IQuerySortByPriceDescArgs = {
+  page: Scalars['Float'];
 };
 
 export type IUpdateCommentInput = {
@@ -292,15 +407,19 @@ export type IUpdateCommentInput = {
   productId?: InputMaybe<Scalars['String']>;
   star?: InputMaybe<Scalars['Int']>;
   title?: InputMaybe<Scalars['String']>;
-  userId?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateProductInput = {
   description?: InputMaybe<Scalars['String']>;
+  detailContent?: InputMaybe<Scalars['String']>;
+  etc1Name?: InputMaybe<Scalars['String']>;
+  etc1Value?: InputMaybe<Scalars['String']>;
+  etc2Name?: InputMaybe<Scalars['String']>;
+  etc2Value?: InputMaybe<Scalars['String']>;
   name?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['Int']>;
   productCategoryId?: InputMaybe<Scalars['String']>;
-  productTags?: InputMaybe<Array<Scalars['String']>>;
+  productImages?: InputMaybe<Array<Scalars['String']>>;
 };
 
 export type IUser = {
