@@ -37,7 +37,7 @@ export default function ProductList() {
   // 임시용
   const dummyData = new Array(20).fill(0);
   const onClickMoveToDetail = (event) => {
-    void router.push(`/product/${event.currentTarget.id}`);
+    void router.push(`/products/${event.currentTarget.id}`);
     console.log(event.currentTarget.id);
   };
 

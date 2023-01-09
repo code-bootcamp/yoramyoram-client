@@ -8,7 +8,13 @@ import "swiper/css/thumbs";
 import styled from "@emotion/styled";
 import SwiperCore, { FreeMode, Navigation, Thumbs, Controller } from "swiper";
 import * as mq from "../../../../commons/styles/mediaQueries";
-
+import { FETCH_PRODUCT } from "../../../../component/commons/hooks/queries/useFetchProduct";
+import { useQuery } from "@apollo/client";
+import {
+  IQuery,
+  IQueryFetchProductArgs,
+} from "../../../../commons/types/generated/types";
+import { useRouter } from "next/router";
 const SwiperWrapper = styled(Swiper)`
   .swiper-button-prev,
   .swiper-rtl .swiper-button-next {
@@ -72,8 +78,16 @@ const DetailSubImg = styled.img`
 `;
 
 export default function SwiperImg() {
+  const router = useRouter();
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
-
+  const { data } = useQuery<
+    Pick<IQuery, "fetchProduct">,
+    IQueryFetchProductArgs
+  >(FETCH_PRODUCT, {
+    variables: {
+      productId: String(router.query.productId),
+    },
+  });
   return (
     <ShowedSwiperWrapper>
       <SwiperWrapper
@@ -84,7 +98,24 @@ export default function SwiperImg() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        <SwiperSlide>
+        {data?.fetchProduct?.productImages &&
+          data?.fetchProduct?.productImages?.url
+            ?.filter((el: string) => el)
+            .map((el: string) => (
+              <SwiperSlide>
+                <MainImg
+                  key={el}
+                  src={`https://storage.googleapis.com/${el}`}
+                />
+              </SwiperSlide>
+            ))}
+        {/* {data?.fetchProduct.productImages.url?.filter((el: string) => el)
+          .map((el: string) => (
+            <SwiperSlide>
+              <MainImg key={el} src={`https://storage.googleapis.com/${el}`} />
+            </SwiperSlide>
+          ))} */}
+        {/* <SwiperSlide>
           <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
         </SwiperSlide>
         <SwiperSlide>
@@ -92,7 +123,7 @@ export default function SwiperImg() {
         </SwiperSlide>
         <SwiperSlide>
           <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
+        </SwiperSlide> */}
       </SwiperWrapper>
       <Swiper
         // onSwiper={(swiper) => console.log(swiper)}
@@ -105,7 +136,18 @@ export default function SwiperImg() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        <SwiperSlide>
+        {data?.fetchProduct?.productImages &&
+          data?.fetchProduct?.productImages[0].url
+            ?.filter((el: string) => el)
+            .map((el: string) => (
+              <SwiperSlide>
+                <MainImg
+                  key={el}
+                  src={`https://storage.googleapis.com/${el}`}
+                />
+              </SwiperSlide>
+            ))}
+        {/* <SwiperSlide>
           <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
         </SwiperSlide>
         <SwiperSlide>
@@ -113,7 +155,7 @@ export default function SwiperImg() {
         </SwiperSlide>
         <SwiperSlide>
           <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </ShowedSwiperWrapper>
   );

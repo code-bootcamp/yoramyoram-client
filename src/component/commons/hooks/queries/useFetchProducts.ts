@@ -1,26 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 
-// export const FETCH_PRODUCTS = gql`
-//   query fetchProducts {
-//     fetchProducts {
-//       product_id
-//       name
-//       price
-//       description
-//       etc1Name
-//       etc1Value
-//       etc2Name
-//       etc1Value
-//       detailContent
-//       productCategory {
-//         category_id
-//         category
-//       }
-//     }
-//   }
-// `;   // 일단 주석하고 저장
-
 export const FETCH_PRODUCTS = gql`
   query fetchProducts($page: Float!) {
     fetchProducts(page: $page) {
