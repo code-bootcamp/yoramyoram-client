@@ -80,8 +80,7 @@ export default function JoinPageUI(props: IProps) {
 
   const phoneToken = getValues("phoneToken");
 
-  // 타입 Address and??
-  const onCompleteAddressSearch = (address: any) => {
+  const onCompleteAddressSearch = (address: Address) => {
     setAddressName(address.address);
     setZipcode(address.zonecode);
     setIsOpen((prev) => !prev);
@@ -226,8 +225,8 @@ export default function JoinPageUI(props: IProps) {
       {isOpen && (
         <S.AddressModal
           visible={true}
-          onCancel={onCompleteAddressSearch}
-          onOk={onCompleteAddressSearch}
+          onCancel={() => setIsOpen(false)}
+          onOk={() => setIsOpen(false)}
         >
           <S.AddressSearchInput onComplete={onCompleteAddressSearch} />
         </S.AddressModal>
