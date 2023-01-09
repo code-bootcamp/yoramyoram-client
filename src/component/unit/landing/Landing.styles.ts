@@ -1,8 +1,6 @@
 import { DownOutlined, LeftOutlined } from "@ant-design/icons";
 import { keyframes } from "@emotion/react";
 import styled from "@emotion/styled";
-import { url } from "inspector";
-import { Slide } from "react-full-page";
 import Slider from "react-slick";
 import { Swiper, SwiperSlide } from "swiper/react";
 import * as mq from "../../../commons/styles/mediaQueries";
