@@ -12,7 +12,9 @@ export const JoinTypeBox = styled.div`
   margin-top: 20px;
 `;
 
-export const JoinTypeInputBox = styled.div``;
+export const JoinTypeInput = styled.input`
+  margin-right: 20px;
+`;
 
 export const Label = styled.label`
   width: 15%;

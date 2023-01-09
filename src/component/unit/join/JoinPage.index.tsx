@@ -6,7 +6,7 @@ import { CHECK_TOKEN, CREATE_USER, SEND_TOKEN } from "./JoinPage.query";
 import * as S from "./JoinPage.styles";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { joinSchema } from "./JoinPage.validation";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Address } from "react-daum-postcode";
 import { ErrorMessage } from "../../commons/inputs/Join/Input01.styles";
 import { Modal } from "antd";
@@ -34,12 +34,14 @@ export default function JoinPageUI() {
   const [isOpen, setIsOpen] = useState(false);
   const [zipcode, setZipcode] = useState("");
   const [addressName, setAddressName] = useState("");
+  const [type, setType] = useState<string>("");
   const { register, handleSubmit, formState, getValues, watch, setValue } =
     useForm<IData>({
       resolver: yupResolver(joinSchema),
       mode: "onChange",
     });
 
+  //=================================
   const watchAll = Object.values(watch());
 
   useEffect(() => {
@@ -48,6 +50,15 @@ export default function JoinPageUI() {
     }
   }, [watchAll]);
   console.log(watchAll);
+  //===================================
+
+  const onClickUSERType = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue("role", e.currentTarget.value);
+  };
+
+  const onClickADMINType = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue("role", e.currentTarget.value);
+  };
 
   const PhoneFirst = getValues("phoneFirst");
   const PhoneSecond = getValues("phoneSecond");
@@ -183,13 +194,23 @@ export default function JoinPageUI() {
           <S.TitleCon>Yoram Yoram 회원 가입</S.TitleCon>
         </S.TitleWrapper>
         <S.Form onSubmit={handleSubmit(createUserSubmit)}>
-          <S.JoinTypeBox>
+          {/* <S.JoinTypeBox>
             <S.Label>가입유형</S.Label>
-            <S.JoinTypeInputBox {...register("role")}>
-              관리자 <input type="radio" title="관리자" value="USER" />
-              일반회원 <input type="radio" title="일반회원" value="ADMIN" />
-            </S.JoinTypeInputBox>
-          </S.JoinTypeBox>
+            <span> 관리자 </span>
+            <S.JoinTypeInput
+              type="radio"
+              value="ADMIN"
+              name="type"
+              onChange={onClickADMINType}
+            />
+            <span>일반회원</span>
+            <S.JoinTypeInput
+              type="radio"
+              value="USER"
+              name="type"
+              onChange={onClickUSERType}
+            />
+          </S.JoinTypeBox> */}
           <Input01
             type="text"
             title="이름"
