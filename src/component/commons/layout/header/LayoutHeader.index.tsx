@@ -36,9 +36,13 @@ export function LayoutHeader() {
   const onClickLogout = async () => {
     try {
       const result = await logout();
-      router.push("/");
       location.reload();
-      Modal.success({ content: "로그아웃 되었습니다." });
+      Modal.success({
+        content: "로그아웃 되었습니다.",
+        afterClose() {
+          router.push("/");
+        },
+      });
     } catch (error) {
       Modal.error({ content: "로그아웃에 실패했습니다." });
     }
