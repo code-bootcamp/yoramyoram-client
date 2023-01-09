@@ -1,8 +1,26 @@
 import { gql, useQuery } from "@apollo/client";
-import {
-  IQuery,
-  IQueryFetchProductsArgs,
-} from "../../../../commons/types/generated/types";
+import { useRouter } from "next/router";
+
+// export const FETCH_PRODUCTS = gql`
+//   query fetchProducts {
+//     fetchProducts {
+//       product_id
+//       name
+//       price
+//       description
+//       etc1Name
+//       etc1Value
+//       etc2Name
+//       etc1Value
+//       detailContent
+//       productCategory {
+//         category_id
+//         category
+//       }
+//     }
+//   }
+// `;   // 일단 주석하고 저장
+
 export const FETCH_PRODUCTS = gql`
   query fetchProducts($page: Float!) {
     fetchProducts(page: $page) {
@@ -10,15 +28,13 @@ export const FETCH_PRODUCTS = gql`
       name
       price
       description
+      commentCount
+      wishListCount
       etc1Name
       etc1Value
       etc2Name
-      etc1Value
+      etc2Value
       detailContent
-      productImages {
-        productImage_id
-        url
-      }
       productCategory {
         category_id
         category
@@ -28,15 +44,13 @@ export const FETCH_PRODUCTS = gql`
 `;
 
 export const useFetchProducts = () => {
-  const { data } = useQuery<
-    Pick<IQuery, "fetchProducts">,
-    IQueryFetchProductsArgs
-  >(FETCH_PRODUCTS, {
+  const router = useRouter;
+  // 코드젠 업데이트 되면 타입추가s
+  const { data } = useQuery(FETCH_PRODUCTS, {
     variables: {
       page: 1,
     },
   });
-
   return {
     data,
   };

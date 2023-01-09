@@ -1,13 +1,14 @@
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useFetchProducts } from "../../../commons/hooks/queries/useFetchProducts";
 import CategoryBar from "./CategoryBar";
 import CategoryBarSticky from "./CategoryBarSticky";
+
 import * as S from "./ProductList.styles";
 export default function ProductList() {
+  const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [category, setCategory] = useState<string>("주방");
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
 
   const onSearch = (value: string) => {
     console.log("search:", value);
@@ -28,8 +29,16 @@ export default function ProductList() {
     }
   };
 
+  const { data } = useFetchProducts();
+
+  // console.log(data.fetchProducts.product_id); // 데이터 잘 불러옴
+
   // 임시용
   const dummyData = new Array(20).fill(0);
+  const onClickMoveToDetail = (event) => {
+    void router.push(`/product/${event.currentTarget.id}`);
+    console.log(event.currentTarget.id);
+  };
 
   return (
     <>
@@ -86,18 +95,24 @@ export default function ProductList() {
           />
         </S.ListHeaderBox>
         <S.ListContentsBox>
-          {dummyData.map((el, idx) => (
-            <S.ProductItemBox key={idx}>
+          {data?.fetchProducts.map((el, idx) => (
+            <S.ProductItemBox
+              id={el.product_id}
+              onClick={onClickMoveToDetail}
+              key={idx}
+            >
               <S.ListImg src="/landing/recycle.png" alt="상품이미지" />
               <S.ListProductInfo>
-                <S.ListProductName>천연물방울 수세미(3개입)</S.ListProductName>
-                <S.ListProductPrice>9,900원</S.ListProductPrice>
+                <S.ListProductName>{el.name}</S.ListProductName>
+                <S.ListProductPrice>{el.price}</S.ListProductPrice>
                 <S.ListProductBtnBar>
                   <span>
-                    <S.ListChatBtn /> <S.BtnBarText>45</S.BtnBarText>
+                    <S.ListChatBtn />{" "}
+                    <S.BtnBarText>{el.commentCount}</S.BtnBarText>
                   </span>
                   <span>
-                    <S.ListWishBtn /> <S.BtnBarText>28</S.BtnBarText>
+                    <S.ListWishBtn />{" "}
+                    <S.BtnBarText>{el.wishListCount}</S.BtnBarText>
                   </span>
                   <span>
                     <S.ListBasketBtn />
