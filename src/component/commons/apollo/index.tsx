@@ -28,7 +28,7 @@ export default function ApolloSetting(props: IApolloSetting) {
     void ValueLoadable.toPromise().then((newAccessToken) => {
       setAccessToken(newAccessToken);
     });
-    console.log(accessToken);
+    // console.log(accessToken);
   }, []);
 
   // fromPromise;

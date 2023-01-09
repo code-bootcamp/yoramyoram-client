@@ -269,7 +269,6 @@ export type IPayment = {
 export type IProduct = {
   __typename?: 'Product';
   commentCount: Scalars['Int'];
-  createdAt: Scalars['DateTime'];
   description: Scalars['String'];
   detailContent: Scalars['String'];
   etc1Name?: Maybe<Scalars['String']>;

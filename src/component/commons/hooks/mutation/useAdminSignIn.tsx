@@ -5,6 +5,7 @@ import { useRecoilState } from "recoil";
 import { accessTokenState, isAdminState } from "../../../../commons/stores";
 import {
   IMutation,
+  IMutationAdminLoginArgs,
   IMutationLoginArgs,
 } from "../../../../commons/types/generated/types";
 
@@ -21,11 +22,13 @@ interface IFormData {
 
 export const useAdminSignIn = () => {
   const router = useRouter();
-  const [, setAccessToken] = useRecoilState(accessTokenState);
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState);
   const [, setIsAdminState] = useRecoilState(isAdminState);
 
-  const [adminLogin] = useMutation(ADMIN_LOGIN);
-  // 아직 타입이 없다.
+  const [adminLogin] = useMutation<
+    Pick<IMutation, "adminLogin">,
+    IMutationAdminLoginArgs
+  >(ADMIN_LOGIN);
 
   const AdminSignInSubmit = async (data: IFormData) => {
     try {
@@ -36,12 +39,17 @@ export const useAdminSignIn = () => {
       });
       // console.log(result);
       const accessToken = result.data?.adminLogin;
+      // console.log(accessToken);
+      console.log("useAdmionSignIn리코일 :", accessToken);
       if (accessToken === undefined) {
         Modal.error({ content: "로그인에 실패했습니다." });
         return;
       }
       setAccessToken(accessToken);
-      setIsAdminState(true);
+      // console.log(accessToken);
+      // setAccessToken(accessToken);
+      // console.log("useAdmionSignIn리코일 :", accessToken);
+      // setIsAdminState(true);
       //   localStorage.setItem("accessToken", accessToken);
       Modal.success({ content: "환영합니다!" });
       void router.push("/");
