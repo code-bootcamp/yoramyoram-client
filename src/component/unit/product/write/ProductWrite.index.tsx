@@ -26,7 +26,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./product-validation";
 import { v4 as uuidv4 } from "uuid";
-import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
+import Uploads01 from "../../../commons/uploads/01/Uploads01.index";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
@@ -131,6 +131,7 @@ export default function ProductWrite(props: any) {
       el !== undefined ? el.data?.uploadImage : ""
     );
     console.log(resultUrls);
+    console.log("??");
     console.log(data);
     setValue("productImages", resultUrls);
 
@@ -159,29 +160,11 @@ export default function ProductWrite(props: any) {
     }
   };
 
-  // const onChangeFile =
-  //   (index: number) => async (event: ChangeEvent<HTMLInputElement>) => {
-  //     const file = event.target.files?.[0];
-  //     if (file === undefined) return;
-  //     const fileReader = new FileReader();
-  //     fileReader.readAsDataURL(file);
-  //     fileReader.onload = (event) => {
-  //       if (typeof event.target?.result == "string") {
-  //         console.log(event.target?.result);
-  //         const tempUrls = [...imageUrls];
-  //         tempUrls[index] = event.target?.result;
-  //         setImageUrls(tempUrls);
-
-  //         const tempFiles = [...files];
-  //         tempFiles[index] = file;
-  //         setFiles(tempFiles);
-  //       }
-  //     };
-  //   };
-
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
-    newFileUrls[index] = fileUrl;
+    newFileUrls[index] = fileUrl[0];
+    // console.log(newFileUrls);
+    // console.log(newFileUrls[0]);
     setFileUrls(newFileUrls);
   };
 
@@ -322,42 +305,6 @@ export default function ProductWrite(props: any) {
           <S.InputWrapper>
             <S.Label>상품 사진</S.Label>
             <S.PhotoWrapper>
-              {/* <S.PhotoBox>
-                <S.Upload
-                  type="file"
-                  id="upload"
-                  onChange={onChangeFile(0)}
-                ></S.Upload>
-                {imageUrls[0] ? (
-                  <S.UploadImage src={imageUrls[0]} />
-                ) : (
-                  <S.GbButton type="button">+</S.GbButton>
-                )}
-              </S.PhotoBox>
-              <S.PhotoBox>
-                <S.Upload
-                  type="file"
-                  id="upload"
-                  onChange={onChangeFile(1)}
-                ></S.Upload>
-                {imageUrls[1] ? (
-                  <S.UploadImage src={imageUrls[1]} />
-                ) : (
-                  <S.GbButton type="button">+</S.GbButton>
-                )}
-              </S.PhotoBox>
-              <S.PhotoBox>
-                <S.Upload
-                  type="file"
-                  id="upload"
-                  onChange={onChangeFile(2)}
-                ></S.Upload>
-                {imageUrls[2] ? (
-                  <S.UploadImage src={imageUrls[2]} />
-                ) : (
-                  <S.GbButton type="button">+</S.GbButton>
-                )}
-              </S.PhotoBox> */}
               {fileUrls.map((el, index) => (
                 <S.PhotoBox>
                   <Uploads01
