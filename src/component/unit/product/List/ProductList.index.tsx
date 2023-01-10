@@ -7,7 +7,7 @@ import { PriceReg } from "../../../../commons/library/util";
 
 import * as S from "./ProductList.styles";
 import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
-import _ from "lodash";
+import _, { isArray } from "lodash";
 import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
 import { IProductListUIProps } from "./ProductList.types";
 
@@ -24,13 +24,17 @@ export default function ProductList(props: IProductListUIProps) {
   const onClickProductSubmit = () => {
     router.push("/products/new");
   };
+  const { data } = useFetchProducts();
+  const { data: Search } = useSearchProducts();
+  const { onClickPage } = useFetchProducts();
+  const { refetch } = useFetchProducts();
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll); //clean up
     };
-  }, []);
+  }, [data]);
 
   const handleScroll = () => {
     if (window.scrollY >= 226) {
@@ -39,17 +43,6 @@ export default function ProductList(props: IProductListUIProps) {
       setScroll(false);
     }
   };
-
-  const { data } = useFetchProducts();
-  const { data: Search } = useSearchProducts();
-
-  // const { onChangeSearch } = useSearchProducts();
-  const { mySecretCode } = useSearchProducts();
-  // const { keyword } = useSearchProducts();
-  const { onClickPage } = useFetchProducts();
-  const { refetch } = useFetchProducts();
-
-  console.log(data);
 
   const onClickPrevPage = () => {
     setStartPage(startPage - 5);
@@ -64,7 +57,7 @@ export default function ProductList(props: IProductListUIProps) {
   // 임시용
   const dummyData = new Array(20).fill(0);
   const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
-    void router.push(`/product/${event.currentTarget.id}`);
+    void router.push(`/products/${event.currentTarget.id}`);
 
     console.log(event.currentTarget.id);
   };
@@ -89,11 +82,15 @@ export default function ProductList(props: IProductListUIProps) {
         <S.ProductWriteBtn onClick={onClickProductSubmit}>
           상품등록
         </S.ProductWriteBtn>
-        <S.SearchBoxMobile>
+        {/* <S.SearchBoxMobile>
           <S.SearchInput type="text" placeholder="검색" />
           <S.SearchOutline />
-        </S.SearchBoxMobile>
+        </S.SearchBoxMobile> */}
 
+        <Searchbars01
+          refetch={props.refetch}
+          onChangeKeyword={props.onChangeKeyword}
+        />
         <S.ListHeaderBox>
           <S.ListCount>
             총 <span>20</span>개의 상품이 있습니다.
@@ -127,13 +124,17 @@ export default function ProductList(props: IProductListUIProps) {
           />
         </S.ListHeaderBox>
         <S.ListContentsBox>
-          {data?.fetchProducts.map((el, idx) => (
+          {data?.fetchProducts?.map((el, idx) => (
             <S.ProductItemBox
               id={el.product_id}
               onClick={onClickMoveToDetail}
               key={idx}
             >
-              <S.ListImg src="/landing/recycle.png" alt="상품이미지" />
+              <S.ListImg
+                src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
+                alt="상품이미지"
+              />
+
               <S.ListProductInfo>
                 <S.ListProductName>{el.name}</S.ListProductName>
                 <S.ListProductPrice>{PriceReg(el.price)}원</S.ListProductPrice>

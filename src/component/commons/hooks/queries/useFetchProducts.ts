@@ -6,7 +6,6 @@ import {
   IQueryFetchProductsArgs,
 } from "../../../../commons/types/generated/types";
 
-
 export const FETCH_PRODUCTS = gql`
   query fetchProducts($page: Float!) {
     fetchProducts(page: $page) {
