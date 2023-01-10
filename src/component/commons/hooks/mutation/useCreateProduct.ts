@@ -14,9 +14,6 @@ export const CREATE_PRODUCT = gql`
       etc1Value
       etc2Value
       detailContent
-      productImages {
-        url
-      }
     }
   }
 `;
