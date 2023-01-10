@@ -1,17 +1,16 @@
 import * as S from "./SignInPage.styles";
 import { useMoveToPage } from "../../commons/custom/useMoveToPage";
 import { useRecoilState } from "recoil";
-import { accessTokenState, isAdminState } from "../../../commons/stores";
+import { accessTokenState } from "../../../commons/stores";
 import { useForm } from "react-hook-form";
 import { signInSchema } from "./SignIn.validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSignIn } from "../../commons/hooks/mutation/useSignIn";
-import { IFormSignInData, IProps } from "./SignIn.types";
+import { IFormSignInData } from "./SignIn.types";
 
 import styled from "@emotion/styled";
-import { useAdminSignIn } from "../../commons/hooks/mutation/useAdminSignIn";
 
-export default function SignInPageUI(props: IProps) {
+export default function SignInPageUI() {
   const { onClickMoveToPage } = useMoveToPage();
   const [accessToken] = useRecoilState(accessTokenState);
 
@@ -19,15 +18,8 @@ export default function SignInPageUI(props: IProps) {
     resolver: yupResolver(signInSchema),
   });
 
-  const { AdminSignInSubmit } = useAdminSignIn();
-  const onSubmitAdmin = (data: IFormSignInData) => {
-    console.log(data);
-    void AdminSignInSubmit(data);
-  };
-
   const { signInSubmit } = useSignIn();
   const onSubmitForm = (data: IFormSignInData) => {
-    console.log(data);
     void signInSubmit(data);
   };
 
@@ -40,13 +32,7 @@ export default function SignInPageUI(props: IProps) {
   return (
     <S.Background>
       <S.SignBoxWrapper>
-        <S.SignBox
-          onSubmit={
-            props.isAdmin
-              ? handleSubmit(onSubmitAdmin)
-              : handleSubmit(onSubmitForm)
-          }
-        >
+        <S.SignBox onSubmit={handleSubmit(onSubmitForm)}>
           <S.SignWrapper>
             <S.SignTitle>Sign In</S.SignTitle>
             <S.InputWrapper>

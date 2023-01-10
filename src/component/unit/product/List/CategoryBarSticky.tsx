@@ -1,4 +1,5 @@
 import React from "react";
+import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
 import * as S from "./ProductList.styles";
 
 export default function CategoryBarSticky({
@@ -11,6 +12,7 @@ export default function CategoryBarSticky({
   return (
     <S.CategoryBarSticky>
       <S.CategoryBox>
+        <CategoryItem title="전체" />
         <CategoryItem title="주방" />
         <CategoryItem title="생활" />
         <CategoryItem title="욕실" />

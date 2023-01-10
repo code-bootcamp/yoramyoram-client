@@ -15,8 +15,8 @@ export default function Uploads01(props: IUploads01Props) {
   };
 
   const onChangeFile = async (event: ChangeEvent<HTMLInputElement>) => {
-    const file = checkValidationImage(event.target.files?.[0]);
-    if (!file) return;
+    const images = checkValidationImage(event.target.files?.[0]);
+    if (!images) return;
 
     try {
       const result = await uploadImage({ variables: { images } });
@@ -36,7 +36,6 @@ export default function Uploads01(props: IUploads01Props) {
       ) : (
         <S.UploadButton onClick={onClickUpload} type="button">
           <>+</>
-          <>Upload</>
         </S.UploadButton>
       )}
       <S.UploadFileHidden type="file" ref={fileRef} onChange={onChangeFile} />

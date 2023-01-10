@@ -63,6 +63,7 @@ export const CategoryBarSticky = styled.div`
 
 export const CategoryBox = styled.div`
   max-width: 1300px;
+
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -265,8 +266,13 @@ export const ProductItemBox = styled.div`
   }
 `;
 
+export const ListImgWrap = styled.div`
+  height: 70%;
+`;
 export const ListImg = styled.img`
   width: 100%;
+  object-fit: cover;
+  height: 100%;
 `;
 
 export const ListProductInfo = styled.div`
@@ -349,10 +355,9 @@ interface IPageProps {
 }
 export const Page = styled.span`
   padding: 0 1%;
-  /* color: ${(props: IPageProps) => (props.isActive ? "blue" : "black")}; */
-  /* font-weight: ${(props: IPageProps) =>
-    props.isActive ? "bold" : "normal"}; */
-  /* cursor: ${(props: IPageProps) => (props.isActive ? "none" : "pointer")}; */
+  color: ${(props: IPageProps) => (props.isActive ? "#000000" : "#30640a")};
+  font-weight: ${(props: IPageProps) => (props.isActive ? "bold" : "normal")};
+  cursor: ${(props: IPageProps) => (props.isActive ? "none" : "pointer")};
   cursor: pointer;
 `;
 

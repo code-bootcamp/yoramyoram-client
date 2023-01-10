@@ -1,4 +1,5 @@
 import React from "react";
+import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.presenter";
 import * as S from "./ProductList.styles";
 
 export default function CategoryBar({
@@ -11,6 +12,7 @@ export default function CategoryBar({
   return (
     <S.CategoryBar>
       <S.CategoryBox>
+        <CategoryItem title="전체" />
         <CategoryItem title="주방" />
         <CategoryItem title="생활" />
         <CategoryItem title="욕실" />

@@ -1,8 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
+import { MouseEvent } from "react";
 import {
   IQuery,
   IQueryFetchProductsArgs,
 } from "../../../../commons/types/generated/types";
+
 export const FETCH_PRODUCTS = gql`
   query fetchProducts($page: Float!) {
     fetchProducts(page: $page) {
@@ -10,10 +13,12 @@ export const FETCH_PRODUCTS = gql`
       name
       price
       description
+      commentCount
+      wishListCount
       etc1Name
       etc1Value
       etc2Name
-      etc1Value
+      etc2Value
       detailContent
       productImages {
         productImage_id
@@ -28,7 +33,7 @@ export const FETCH_PRODUCTS = gql`
 `;
 
 export const useFetchProducts = () => {
-  const { data } = useQuery<
+  const { data, refetch } = useQuery<
     Pick<IQuery, "fetchProducts">,
     IQueryFetchProductsArgs
   >(FETCH_PRODUCTS, {
@@ -37,7 +42,13 @@ export const useFetchProducts = () => {
     },
   });
 
+  const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
+    void refetch({ page: Number(event.currentTarget.id) });
+    // console.log(event.currentTarget.id);
+  };
   return {
     data,
+    refetch,
+    onClickPage,
   };
 };
