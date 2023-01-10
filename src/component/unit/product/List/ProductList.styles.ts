@@ -266,8 +266,13 @@ export const ProductItemBox = styled.div`
   }
 `;
 
+export const ListImgWrap = styled.div`
+  height: 70%;
+`;
 export const ListImg = styled.img`
   width: 100%;
+  object-fit: cover;
+  height: 100%;
 `;
 
 export const ListProductInfo = styled.div`
