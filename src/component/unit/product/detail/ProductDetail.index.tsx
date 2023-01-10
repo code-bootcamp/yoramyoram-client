@@ -12,16 +12,21 @@ import { useEffect, useState } from "react";
 import SwiperImg from "./SwiperImg";
 import ProductReview from "./productReview/ProductReview.index";
 import ProductDetailInfo from "./productDetailInfo/ProductDetailInfo.index";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
+  IMutation,
+  IMutationAddWishlistArgs,
+  IMutationCreateProductCartArgs,
   IQuery,
   IQueryFetchProductArgs,
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
 import { PriceReg } from "../../../../commons/library/util";
-import { map } from "jquery";
 import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUser";
 import { FormOutlined } from "@ant-design/icons";
+import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
+import { CREATE_PRODUCT_CART } from "../../../commons/hooks/mutation/useCreateProductCart";
+import { Modal } from "antd";
 //
 export default function ProductDetail() {
   const [isSelected, setIsSelected] = useState("");
@@ -43,12 +48,53 @@ export default function ProductDetail() {
       productId: String(router.query.productId),
     },
   });
+
+  const [addWishlist] = useMutation<
+    Pick<IMutation, "addWishlist">,
+    IMutationAddWishlistArgs
+  >(ADD_WISHLIST);
+
+  const [createProductCart] = useMutation<
+    Pick<IMutation, "createProductCart">,
+    IMutationCreateProductCartArgs
+  >(CREATE_PRODUCT_CART);
+
+  const onClickCart = async () => {
+    try {
+      await createProductCart({
+        variables: {
+          productId: String(router.query.productId),
+        },
+      });
+      Modal.success({ content: "장바구니에 상품을 담았습니다!" });
+    } catch (error) {
+      Modal.error({ content: "장바구니에 상품을 담지 못했습니다." });
+    }
+  };
+
+  const onClickAddWishlist = async () => {
+    setIsWishList((prev) => !prev);
+    await addWishlist({
+      variables: {
+        createProductWishInput: {
+          productId: String(router.query.productId),
+        },
+      },
+      refetchQueries: [
+        {
+          query: FETCH_PRODUCT,
+          variables: {
+            productId: router.query.productId,
+          },
+        },
+      ],
+    });
+  };
   console.log(router.query.productId);
   console.log(data);
 
   const [count, setCount] = useState(1);
-  const [isWishList, setIsWishList] = useState(false);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [isWishList, setIsWishList] = useState();
   const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
   const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
   const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
@@ -71,10 +117,6 @@ export default function ProductDetail() {
     setSelectInfoBtn(false);
   };
 
-  const onClickWishList = () => {
-    setIsWishList((prev) => !prev);
-  };
-
   const onClickPlus = () => {
     setCount((prev) => prev + 1);
     if (productPrice !== undefined) {
@@ -89,14 +131,6 @@ export default function ProductDetail() {
         prev > productPrice ? prev - productPrice : productPrice
       );
     }
-  };
-
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
-  const onSearch = (value: string) => {
-    console.log("search:", value);
   };
 
   const etcValue = data?.fetchProduct.etc1Value;
@@ -174,23 +208,26 @@ export default function ProductDetail() {
             <div>
               <S.NowBuyBtn>바로구매</S.NowBuyBtn>
               <S.BasketBtnBox>
-                <button>장바구니</button>
-                <button onClick={onClickWishList}>
-                  {isWishList ? (
-                    <S.WishListBtn>
+                <button onClick={onClickCart}>장바구니</button>
+                <button onClick={onClickAddWishlist}>
+                  <S.WishListBtn>
+                    {isWishList ? (
                       <HeartFilled
                         style={{ fontSize: "26px", color: " #30640a" }}
                       />
-                      <div>16</div>
-                    </S.WishListBtn>
-                  ) : (
-                    <S.WishListBtn>
-                      <HeartOutlined
-                        style={{ fontSize: "26px", color: " #30640a" }}
+                    ) : (
+                      <HeartFilled
+                        style={{
+                          fontSize: "26px",
+                          color: " #2f640a79",
+                        }}
                       />
-                      <div>16</div>
-                    </S.WishListBtn>
-                  )}
+                    )}
+                    {/* <HeartFilled
+                      style={{ fontSize: "26px", color: " #30640a" }}
+                    /> */}
+                    <div>{data?.fetchProduct.wishListCount}</div>
+                  </S.WishListBtn>
                 </button>
               </S.BasketBtnBox>
             </div>
