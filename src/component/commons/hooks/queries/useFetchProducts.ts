@@ -6,6 +6,7 @@ import {
   IQueryFetchProductsArgs,
 } from "../../../../commons/types/generated/types";
 
+
 export const FETCH_PRODUCTS = gql`
   query fetchProducts($page: Float!) {
     fetchProducts(page: $page) {
@@ -20,6 +21,10 @@ export const FETCH_PRODUCTS = gql`
       etc2Name
       etc2Value
       detailContent
+      productImages {
+        productImage_id
+        url
+      }
       productCategory {
         category_id
         category

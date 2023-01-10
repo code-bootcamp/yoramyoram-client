@@ -9,14 +9,6 @@ export const CREATE_USER = gql`
   }
 `;
 
-export const CREATE_ADMIN_USER = gql`
-  mutation createAdminUser($adminCreateUserInput: AdminCreateUserInput!) {
-    createAdminUser(adminCreateUserInput: $adminCreateUserInput) {
-      id
-    }
-  }
-`;
-
 export const SEND_TOKEN = gql`
   mutation sendTokentoPhone($phone: String!) {
     sendTokentoPhone(phone: $phone)

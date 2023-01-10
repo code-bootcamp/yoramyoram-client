@@ -200,11 +200,21 @@ export default function ProductWrite(props: any) {
                 <option value="카테고리를 선택하세요." disabled selected>
                   카테고리를 선택하세요.
                 </option>
-                <option value="컬러">주방</option>
-                <option value="생활">생활</option>
-                <option value="욕실">욕실</option>
-                <option value="여성용품">여성용품</option>
-                <option value="반려동물">반려동물</option>
+                <option value="70710037-9402-4665-aff0-ad3f0c68f364">
+                  주방
+                </option>
+                <option value="fd798d30-4809-4dfa-961f-9ef7620826f4">
+                  생활
+                </option>
+                <option value="6a7c5ceb-3440-4878-ac26-d1e8f69c94cc">
+                  욕실
+                </option>
+                <option value="e1b97aef-5520-4d41-9363-4bf250ddf98a">
+                  여성용품
+                </option>
+                <option value="a0087668-4deb-4393-ba3c-53064c6908b3">
+                  반려동물
+                </option>
               </S.SelectBox>
             </S.SelectWrap>
             <S.OptionBox>

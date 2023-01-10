@@ -7,9 +7,19 @@ export const Form = styled.form`
   width: 100%;
 `;
 
+export const JoinTypeBox = styled.div`
+  display: flex;
+  margin-top: 20px;
+`;
+
+export const JoinTypeInput = styled.input`
+  margin-right: 20px;
+`;
+
 export const Label = styled.label`
   width: 15%;
   font-weight: 500;
+  color: #30640a;
   font-size: 16px;
   ${mq.mobile} {
     width: 100%;
@@ -141,7 +151,6 @@ export const JoinButton = styled.button`
 export const JoinButtonWrapper = styled.div`
   margin-top: 60px;
   width: 100%;
-  /* display: flex; */
 `;
 
 export const SearchButton = styled.input`

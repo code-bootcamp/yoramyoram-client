@@ -65,6 +65,7 @@ export default function ProductList(props: IProductListUIProps) {
   const dummyData = new Array(20).fill(0);
   const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
     void router.push(`/product/${event.currentTarget.id}`);
+
     console.log(event.currentTarget.id);
   };
 

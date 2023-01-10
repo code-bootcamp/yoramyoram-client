@@ -1,4 +1,4 @@
-import React, { Dispatch, Fragment, useRef, useState } from "react";
+import React, { Dispatch, Fragment, useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -8,6 +8,13 @@ import "swiper/css/thumbs";
 import styled from "@emotion/styled";
 import SwiperCore, { FreeMode, Navigation, Thumbs, Controller } from "swiper";
 import * as mq from "../../../../commons/styles/mediaQueries";
+import { FETCH_PRODUCT } from "../../../../component/commons/hooks/queries/useFetchProduct";
+import { useQuery } from "@apollo/client";
+import {
+  IQuery,
+  IQueryFetchProductArgs,
+} from "../../../../commons/types/generated/types";
+import { useRouter } from "next/router";
 
 const SwiperWrapper = styled(Swiper)`
   .swiper-button-prev,
@@ -33,6 +40,8 @@ const ShowedSwiperWrapper = styled.div`
   width: 50%;
   .swiper-slide {
     height: auto;
+    margin-bottom: 15px;
+    cursor: pointer;
   }
   ${mq.mobile} {
     width: 100%;
@@ -72,8 +81,18 @@ const DetailSubImg = styled.img`
 `;
 
 export default function SwiperImg() {
+  const router = useRouter();
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
 
+  const { data } = useQuery<
+    Pick<IQuery, "fetchProduct">,
+    IQueryFetchProductArgs
+  >(FETCH_PRODUCT, {
+    variables: {
+      productId: String(router.query.productId),
+    },
+  });
+  const ProductImages = data?.fetchProduct.productImages;
   return (
     <ShowedSwiperWrapper>
       <SwiperWrapper
@@ -84,15 +103,14 @@ export default function SwiperImg() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        <SwiperSlide>
-          <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <MainImg src="/productList/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
+        {ProductImages?.map((el, idx) => (
+          <SwiperSlide>
+            <MainImg
+              key={idx}
+              src={`https://storage.googleapis.com/${el.url}`}
+            />
+          </SwiperSlide>
+        ))}
       </SwiperWrapper>
       <Swiper
         // onSwiper={(swiper) => console.log(swiper)}
@@ -105,15 +123,14 @@ export default function SwiperImg() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        <SwiperSlide>
-          <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <DetailSubImg src="/productList/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
+        {ProductImages?.map((el, idx) => (
+          <SwiperSlide>
+            <MainImg
+              key={idx}
+              src={`https://storage.googleapis.com/${el.url}`}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </ShowedSwiperWrapper>
   );

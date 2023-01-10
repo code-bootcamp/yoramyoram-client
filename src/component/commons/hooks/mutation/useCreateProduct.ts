@@ -14,33 +14,6 @@ export const CREATE_PRODUCT = gql`
       etc1Value
       etc2Value
       detailContent
-      productImages {
-        productImage_id
-        url
-      }
-      productCategory {
-        category_id
-        category
-      }
-      payment {
-        id
-        impUid
-        status
-        point
-        amount
-        etc1
-        etc2
-        user {
-          id
-          name
-          email
-          phone
-          address
-          add_detail
-          point
-        }
-        createdAt
-      }
     }
   }
 `;
