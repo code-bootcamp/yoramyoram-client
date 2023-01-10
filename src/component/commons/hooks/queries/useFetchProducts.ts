@@ -15,6 +15,10 @@ export const FETCH_PRODUCTS = gql`
       etc2Name
       etc2Value
       detailContent
+      productImages {
+        productImage_id
+        url
+      }
       productCategory {
         category_id
         category

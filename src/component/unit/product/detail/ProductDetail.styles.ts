@@ -87,6 +87,16 @@ export const ProductOptionBox = styled.div`
   border-bottom: 1px solid #e8e8e8;
 `;
 
+export const SelectBox = styled.select`
+  width: 80%;
+  height: 50px;
+  outline: none;
+  font-size: 15px;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #b7b7b7;
+`;
+
 export const ProductOptionText = styled.p`
   font-size: 15px;
 
@@ -329,4 +339,22 @@ export const Select2Btn = styled.button<IProps>`
     font-size: 16px;
     padding: 10px;
   }
+`;
+
+interface IAdmin {
+  admin: string;
+}
+
+export const ModifyBtnBox = styled.div<IAdmin>`
+  color: #8b8b8b;
+  font-size: 20px;
+  display: ${(props) => (props.admin === "ADMIN" ? "" : "none")};
+  * > svg {
+    cursor: pointer;
+  }
+`;
+
+export const NameBtnBox = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
