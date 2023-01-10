@@ -1,4 +1,4 @@
-import React, { Dispatch, Fragment, useRef, useState } from "react";
+import React, { Dispatch, Fragment, useEffect, useRef, useState } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -15,6 +15,7 @@ import {
   IQueryFetchProductArgs,
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
+
 const SwiperWrapper = styled(Swiper)`
   .swiper-button-prev,
   .swiper-rtl .swiper-button-next {
@@ -39,6 +40,8 @@ const ShowedSwiperWrapper = styled.div`
   width: 50%;
   .swiper-slide {
     height: auto;
+    margin-bottom: 15px;
+    cursor: pointer;
   }
   ${mq.mobile} {
     width: 100%;
@@ -80,6 +83,7 @@ const DetailSubImg = styled.img`
 export default function SwiperImg() {
   const router = useRouter();
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperCore>();
+
   const { data } = useQuery<
     Pick<IQuery, "fetchProduct">,
     IQueryFetchProductArgs
@@ -88,6 +92,7 @@ export default function SwiperImg() {
       productId: String(router.query.productId),
     },
   });
+  const ProductImages = data?.fetchProduct.productImages;
   return (
     <ShowedSwiperWrapper>
       <SwiperWrapper
@@ -98,32 +103,14 @@ export default function SwiperImg() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {data?.fetchProduct?.productImages &&
-          data?.fetchProduct?.productImages?.url
-            ?.filter((el: string) => el)
-            .map((el: string) => (
-              <SwiperSlide>
-                <MainImg
-                  key={el}
-                  src={`https://storage.googleapis.com/${el}`}
-                />
-              </SwiperSlide>
-            ))}
-        {/* {data?.fetchProduct.productImages.url?.filter((el: string) => el)
-          .map((el: string) => (
-            <SwiperSlide>
-              <MainImg key={el} src={`https://storage.googleapis.com/${el}`} />
-            </SwiperSlide>
-          ))} */}
-        {/* <SwiperSlide>
-          <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <MainImg src="/productList/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <MainImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide> */}
+        {ProductImages?.map((el, idx) => (
+          <SwiperSlide>
+            <MainImg
+              key={idx}
+              src={`https://storage.googleapis.com/${el.url}`}
+            />
+          </SwiperSlide>
+        ))}
       </SwiperWrapper>
       <Swiper
         // onSwiper={(swiper) => console.log(swiper)}
@@ -136,26 +123,14 @@ export default function SwiperImg() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        {data?.fetchProduct?.productImages &&
-          data?.fetchProduct?.productImages[0].url
-            ?.filter((el: string) => el)
-            .map((el: string) => (
-              <SwiperSlide>
-                <MainImg
-                  key={el}
-                  src={`https://storage.googleapis.com/${el}`}
-                />
-              </SwiperSlide>
-            ))}
-        {/* <SwiperSlide>
-          <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <DetailSubImg src="/productList/purchase.png" alt="상품이미지" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <DetailSubImg src="/productDetail/purchase.png" alt="상품이미지" />
-        </SwiperSlide> */}
+        {ProductImages?.map((el, idx) => (
+          <SwiperSlide>
+            <MainImg
+              key={idx}
+              src={`https://storage.googleapis.com/${el.url}`}
+            />
+          </SwiperSlide>
+        ))}
       </Swiper>
     </ShowedSwiperWrapper>
   );
