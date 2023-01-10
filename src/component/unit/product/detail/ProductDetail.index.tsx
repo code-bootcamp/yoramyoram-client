@@ -8,7 +8,7 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { CloseOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SwiperImg from "./SwiperImg";
 import ProductReview from "./productReview/ProductReview.index";
 import ProductDetailInfo from "./productDetailInfo/ProductDetailInfo.index";
@@ -19,10 +19,17 @@ import {
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
 import { PriceReg } from "../../../../commons/library/util";
-
+import { map } from "jquery";
+import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUser";
+import { FormOutlined } from "@ant-design/icons";
 //
 export default function ProductDetail() {
   const router = useRouter();
+  const [admin, setAdmin] = useState<string>("");
+  const { data: user } = useQuery(FETCH_LOGIN_USER); // role이 관리자일때만 버튼보이게 ㄱㄱ
+  useEffect(() => {
+    setAdmin(user?.fetchLoginUser?.role);
+  }, []);
   const { data } = useQuery<
     Pick<IQuery, "fetchProduct">,
     IQueryFetchProductArgs
@@ -37,8 +44,22 @@ export default function ProductDetail() {
   const [count, setCount] = useState(0);
   const [isWishList, setIsWishList] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [detailSelectBtn, setDetailSelectBtn] = useState(true);
-  const [selectBtn, setSelectBtn] = useState<string>("상세정보");
+  const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
+  const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
+  const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
+  // const isActive = selectBtn === value;
+
+  const onClickInfoBtn = () => {
+    setDetailSelectBtn(true);
+    setSelectInfoBtn(true);
+    setSelectReviewBtn(false);
+  };
+
+  const onClickReviewBtn = () => {
+    setDetailSelectBtn(false);
+    setSelectReviewBtn(true);
+    setSelectInfoBtn(false);
+  };
 
   const onClickWishList = () => {
     setIsWishList((prev) => !prev);
@@ -60,6 +81,8 @@ export default function ProductDetail() {
     console.log("search:", value);
   };
 
+  const etcValue = data?.fetchProduct.etc1Value;
+  const etcValueList = etcValue?.split(",");
   return (
     <>
       <S.Wrapper>
@@ -72,44 +95,34 @@ export default function ProductDetail() {
           <SwiperImg />
           <S.DetailPurchaseInfoWrapper>
             <S.RightNameBox>
-              <S.ProductName>{data?.fetchProduct.name}</S.ProductName>
-              <S.ProductPrice>{data?.fetchProduct.price}원</S.ProductPrice>
+              <S.NameBtnBox>
+                <S.ProductName>{data?.fetchProduct.name}</S.ProductName>
+
+                <S.ModifyBtnBox admin={admin}>
+                  <FormOutlined />
+                  <CloseOutlined style={{ paddingLeft: "27px" }} />
+                </S.ModifyBtnBox>
+              </S.NameBtnBox>
+
+              <S.ProductPrice>
+                {PriceReg(String(data?.fetchProduct.price))}원
+              </S.ProductPrice>
             </S.RightNameBox>
             <S.ProductOptionBox>
               <S.ProductOptionText>
                 {data?.fetchProduct.description}
               </S.ProductOptionText>
               <S.OptionBox>
-                <S.OptionText>필수</S.OptionText>
-                <S.SelectOption
-                  showSearch
-                  placeholder="- [필수] 옵션을 선택해 주세요 -"
-                  optionFilterProp="children"
-                  onSearch={onSearch}
-                  filterOption={(input, option) =>
-                    (option?.label ?? "")
-                      .toLowerCase()
-                      .includes(input.toLowerCase())
-                  }
-                  options={[
-                    {
-                      value: "jack",
-                      label: "화이트: 천연 소재 파우치 ",
-                    },
-                    {
-                      value: "lucy",
-                      label: "블랙: 천연 소재 파우치",
-                    },
-                    {
-                      value: "tom",
-                      label: "버건디: 천연 소재 파우치",
-                    },
-                    {
-                      value: "tom",
-                      label: "라이트블루: 천연 소재 파우치",
-                    },
-                  ]}
-                />
+                <S.OptionText>{data?.fetchProduct.etc1Name}</S.OptionText>
+
+                <S.SelectBox>
+                  <option value="옵션을 선택하세요." disabled selected>
+                    옵션을 선택하세요.
+                  </option>
+                  {etcValueList?.map((el) => (
+                    <option value={el}>{el}</option>
+                  ))}
+                </S.SelectBox>
               </S.OptionBox>
             </S.ProductOptionBox>
 
@@ -131,13 +144,15 @@ export default function ProductDetail() {
                     </button>
                   </S.SeletedAmount>
                 </S.SeletedAmount1>
-                <S.TotalPrice>{data?.fetchProduct.price}원</S.TotalPrice>
+                <S.TotalPrice>
+                  {PriceReg(String(data?.fetchProduct.price))}원
+                </S.TotalPrice>
               </S.SeletedAmountBox>
             </S.BuyAmount>
             <S.TotalPriceBox>
               <S.TotalText>TOTAL</S.TotalText>
               <S.TotalPrice>
-                {data?.fetchProduct.price}원<span>(1개)</span>
+                {PriceReg(String(data?.fetchProduct.price))}원<span>(1개)</span>
               </S.TotalPrice>
             </S.TotalPriceBox>
             <div>
@@ -148,14 +163,14 @@ export default function ProductDetail() {
                   {isWishList ? (
                     <S.WishListBtn>
                       <HeartFilled
-                        style={{ fontSize: "26px", color: "rgb(48, 100, 21)" }}
+                        style={{ fontSize: "26px", color: " #30640a" }}
                       />
                       <div>16</div>
                     </S.WishListBtn>
                   ) : (
                     <S.WishListBtn>
                       <HeartOutlined
-                        style={{ fontSize: "26px", color: "rgb(48, 100, 21)" }}
+                        style={{ fontSize: "26px", color: " #30640a" }}
                       />
                       <div>16</div>
                     </S.WishListBtn>
@@ -167,18 +182,16 @@ export default function ProductDetail() {
         </S.DetailWrapper>
       </S.Wrapper>
       <S.BtnBox>
-        <S.SelectBtn
-          // detailSelectBtn={detailSelectBtn}
-          onClick={() => setDetailSelectBtn(true)}
-        >
+        <S.SelectBtn selectInfoBtn={selectInfoBtn} onClick={onClickInfoBtn}>
           상세정보
         </S.SelectBtn>
-        <S.SelectBtn
-          // detailSelectBtn={detailSelectBtn}
-          onClick={() => setDetailSelectBtn(false)}
+        <S.Select2Btn
+          selectReviewBtn={selectReviewBtn}
+          value="구매평"
+          onClick={onClickReviewBtn}
         >
           구매평(41)
-        </S.SelectBtn>
+        </S.Select2Btn>
       </S.BtnBox>
       {detailSelectBtn ? <ProductDetailInfo /> : <ProductReview />}
     </>

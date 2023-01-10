@@ -16,7 +16,8 @@ export const FETCH_PRODUCT = gql`
       detailContent
       createdAt
       productImages {
-        product_id
+        productImage_id
+        url
       }
       productCategory {
         category_id
