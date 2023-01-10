@@ -273,13 +273,47 @@ export const BtnBox = styled.div`
   }
 `;
 
-export const SelectBtn = styled.button`
+interface IProps {
+  selectInfoBtn?: boolean;
+  selectReviewBtn?: boolean;
+}
+
+export const SelectBtn = styled.button<IProps>`
   width: 50%;
-  /* padding: 1.8% 0; */
+
   padding: 23px;
   background: none;
   border: 1px solid #b7b7b7;
   cursor: pointer;
+  background-color: ${(props) => (props.selectInfoBtn ? "#30640a" : "none")};
+  color: ${(props) => (props.selectInfoBtn ? "#ffffff" : "none")};
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-weight: 500;
+  ${mq.mobile} {
+    font-size: 16px;
+    padding: 10px;
+  }
+  ${mq.mobileL} {
+    font-size: 16px;
+    padding: 10px;
+  }
+  ${mq.tablet} {
+    font-size: 16px;
+    padding: 10px;
+  }
+`;
+
+export const Select2Btn = styled.button<IProps>`
+  width: 50%;
+
+  padding: 23px;
+  background: none;
+  border: 1px solid #b7b7b7;
+  cursor: pointer;
+  background-color: ${(props) => (props.selectReviewBtn ? "#30640a" : "none")};
+  color: ${(props) => (props.selectReviewBtn ? "#ffffff" : "none")};
+
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-weight: 500;

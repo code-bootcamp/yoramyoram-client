@@ -40,7 +40,7 @@ export function LayoutHeader() {
       Modal.success({
         content: "로그아웃 되었습니다.",
         afterClose() {
-          router.push("/");
+          router.push("/sign_in");
         },
       });
     } catch (error) {
