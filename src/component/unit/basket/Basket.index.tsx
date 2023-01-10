@@ -1,6 +1,16 @@
+import { useRouter } from "next/router";
+import { useFetchProductCart } from "../../commons/hooks/queries/useFetchProductCart";
 import * as S from "./Basket.styles";
 
 export default function Basket() {
+  const { data } = useFetchProductCart();
+  const router = useRouter();
+
+  const onClickMoveShopPage = () => {
+    router.push("./");
+  };
+
+  console.log(data);
   return (
     <div style={{ backgroundColor: "#FCFBFA" }}>
       <S.Wrapper>
@@ -24,25 +34,29 @@ export default function Basket() {
                 </S.Tr>
               </S.Thead>
               <S.Tbody>
-                <S.Tr>
-                  <S.PrdTd>
-                    <S.ImgWrap>
-                      <img src="/productDetail/purchase.png" />
-                    </S.ImgWrap>
-                    <S.PrdDetail>
-                      <S.Name>천연소재 파우치</S.Name>
-                      <S.Option>옵션: White</S.Option>
-                    </S.PrdDetail>
-                  </S.PrdTd>
-                  <S.Td>1</S.Td>
-                  <S.Td>8,500 원</S.Td>
-                  <S.Td>
-                    <S.Button>삭제 ✕</S.Button>
-                  </S.Td>
-                </S.Tr>
+                {data?.fetchProductCart?.map((el, idx) => (
+                  <S.Tr id={el.id} key={idx}>
+                    <S.PrdTd>
+                      <S.ImgWrap>
+                        <img src="/productDetail/purchase.png" />
+                      </S.ImgWrap>
+                      <S.PrdDetail>
+                        <S.Name>{el.product.name}</S.Name>
+                        <S.Option>
+                          {el.product.etc1Name}
+                          {el.product.etc1Value}
+                        </S.Option>
+                      </S.PrdDetail>
+                    </S.PrdTd>
+                    <S.Td>{el.quantity}</S.Td>
+                    <S.Td>{el.product.price}</S.Td>
+                    <S.Td>
+                      <S.Button>삭제 ✕</S.Button>
+                    </S.Td>
+                  </S.Tr>
+                ))}
               </S.Tbody>
             </S.Table>
-
             <S.MobileList>
               <S.PrdImg>
                 <img src="productDetail/purchase.png" />
