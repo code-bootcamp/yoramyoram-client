@@ -25,7 +25,7 @@ export default function ProductList(props: IProductListUIProps) {
     router.push("/products/new");
   };
   const { data } = useFetchProducts();
-  const { data: Search } = useSearchProducts();
+  // const { data: Search } = useSearchProducts();
   const { onClickPage } = useFetchProducts();
   const { refetch } = useFetchProducts();
 

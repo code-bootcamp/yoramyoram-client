@@ -248,7 +248,7 @@ export type IProductImage = {
   isMain: Scalars["Boolean"];
   product: IProduct;
   productImage_id: Scalars["String"];
-  url?: Scalars["String"];
+  url: Scalars["String"];
 };
 
 export type IProductWishlist = {
