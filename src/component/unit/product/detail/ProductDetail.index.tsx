@@ -37,8 +37,22 @@ export default function ProductDetail() {
   const [count, setCount] = useState(0);
   const [isWishList, setIsWishList] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-  const [detailSelectBtn, setDetailSelectBtn] = useState(true);
-  const [selectBtn, setSelectBtn] = useState<string>("상세정보");
+  const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
+  const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
+  const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
+  // const isActive = selectBtn === value;
+
+  const onClickInfoBtn = () => {
+    setDetailSelectBtn(true);
+    setSelectInfoBtn(true);
+    setSelectReviewBtn(false);
+  };
+
+  const onClickReviewBtn = () => {
+    setDetailSelectBtn(false);
+    setSelectReviewBtn(true);
+    setSelectInfoBtn(false);
+  };
 
   const onClickWishList = () => {
     setIsWishList((prev) => !prev);
@@ -148,14 +162,14 @@ export default function ProductDetail() {
                   {isWishList ? (
                     <S.WishListBtn>
                       <HeartFilled
-                        style={{ fontSize: "26px", color: "rgb(48, 100, 21)" }}
+                        style={{ fontSize: "26px", color: " #30640a" }}
                       />
                       <div>16</div>
                     </S.WishListBtn>
                   ) : (
                     <S.WishListBtn>
                       <HeartOutlined
-                        style={{ fontSize: "26px", color: "rgb(48, 100, 21)" }}
+                        style={{ fontSize: "26px", color: " #30640a" }}
                       />
                       <div>16</div>
                     </S.WishListBtn>
@@ -167,18 +181,16 @@ export default function ProductDetail() {
         </S.DetailWrapper>
       </S.Wrapper>
       <S.BtnBox>
-        <S.SelectBtn
-          // detailSelectBtn={detailSelectBtn}
-          onClick={() => setDetailSelectBtn(true)}
-        >
+        <S.SelectBtn selectInfoBtn={selectInfoBtn} onClick={onClickInfoBtn}>
           상세정보
         </S.SelectBtn>
-        <S.SelectBtn
-          // detailSelectBtn={detailSelectBtn}
-          onClick={() => setDetailSelectBtn(false)}
+        <S.Select2Btn
+          selectReviewBtn={selectReviewBtn}
+          value="구매평"
+          onClick={onClickReviewBtn}
         >
           구매평(41)
-        </S.SelectBtn>
+        </S.Select2Btn>
       </S.BtnBox>
       {detailSelectBtn ? <ProductDetailInfo /> : <ProductReview />}
     </>
