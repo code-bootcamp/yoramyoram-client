@@ -1,18 +1,28 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useFetchProducts } from "../../../commons/hooks/queries/useFetchProducts";
 import CategoryBar from "./CategoryBar";
 import CategoryBarSticky from "./CategoryBarSticky";
 import { PriceReg } from "../../../../commons/library/util";
 
 import * as S from "./ProductList.styles";
-export default function ProductList() {
+import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
+import _ from "lodash";
+import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
+import { IProductListUIProps } from "./ProductList.types";
+
+export default function ProductList(props: IProductListUIProps) {
+  const [startPage, setStartPage] = useState(1);
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [category, setCategory] = useState<string>("주방");
 
   const onSearch = (value: string) => {
     console.log("search:", value);
+  };
+
+  const onClickProductSubmit = () => {
+    router.push("/products/new");
   };
 
   useEffect(() => {
@@ -31,12 +41,29 @@ export default function ProductList() {
   };
 
   const { data } = useFetchProducts();
+  const { data: Search } = useSearchProducts();
 
-  // console.log(data.fetchProducts.product_id); // 데이터 잘 불러옴
+  // const { onChangeSearch } = useSearchProducts();
+  const { mySecretCode } = useSearchProducts();
+  // const { keyword } = useSearchProducts();
+  const { onClickPage } = useFetchProducts();
+  const { refetch } = useFetchProducts();
+
+  console.log(data);
+
+  const onClickPrevPage = () => {
+    setStartPage(startPage - 5);
+    void refetch({ page: startPage - 5 });
+  };
+
+  const onClickNextPage = () => {
+    setStartPage(startPage + 5);
+    void refetch({ page: startPage + 5 });
+  };
 
   // 임시용
   const dummyData = new Array(20).fill(0);
-  const onClickMoveToDetail = (event) => {
+  const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
     void router.push(`/product/${event.currentTarget.id}`);
     console.log(event.currentTarget.id);
   };
@@ -58,11 +85,14 @@ export default function ProductList() {
         )}
       </S.HeaderWrapper>
       <S.ListWrapper>
-        <S.ProductWriteBtn>상품등록</S.ProductWriteBtn>
+        <S.ProductWriteBtn onClick={onClickProductSubmit}>
+          상품등록
+        </S.ProductWriteBtn>
         <S.SearchBoxMobile>
           <S.SearchInput type="text" placeholder="검색" />
           <S.SearchOutline />
         </S.SearchBoxMobile>
+
         <S.ListHeaderBox>
           <S.ListCount>
             총 <span>20</span>개의 상품이 있습니다.
@@ -123,14 +153,23 @@ export default function ProductList() {
             </S.ProductItemBox>
           ))}
         </S.ListContentsBox>
+
         <S.ListPagination>
-          <S.PageNationLeftArrow />
-          <S.Page>1</S.Page>
-          <S.Page>2</S.Page>
+          <S.PageNationLeftArrow onClick={onClickPrevPage} />
+          {new Array(5).fill(1).map((_, index) => (
+            <S.Page
+              key={index + startPage}
+              id={String(index + startPage)}
+              onClick={onClickPage}
+            >
+              {index + startPage}
+            </S.Page>
+          ))}
+          {/* <S.Page>2</S.Page>
           <S.Page>3</S.Page>
           <S.Page>4</S.Page>
-          <S.Page>5</S.Page>
-          <S.PageNationRightArrow />
+          <S.Page>5</S.Page> */}
+          <S.PageNationRightArrow onClick={onClickNextPage} />
         </S.ListPagination>
       </S.ListWrapper>
     </>

@@ -1,4 +1,5 @@
 import React from "react";
+import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.presenter";
 import * as S from "./ProductList.styles";
 
 export default function CategoryBar({
