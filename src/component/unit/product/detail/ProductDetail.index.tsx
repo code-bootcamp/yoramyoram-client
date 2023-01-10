@@ -24,6 +24,11 @@ import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUs
 import { FormOutlined } from "@ant-design/icons";
 //
 export default function ProductDetail() {
+  const [isSelected, setIsSelected] = useState("");
+
+  const handleSelect = (e: any) => {
+    setIsSelected(e.target.value);
+  };
   const router = useRouter();
   const [admin, setAdmin] = useState<string>("");
   const { data: user } = useQuery(FETCH_LOGIN_USER); // role이 관리자일때만 버튼보이게 ㄱㄱ
@@ -41,13 +46,18 @@ export default function ProductDetail() {
   console.log(router.query.productId);
   console.log(data);
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const [isWishList, setIsWishList] = useState(false);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
   const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
   const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
-  // const isActive = selectBtn === value;
+  const productPrice = data?.fetchProduct.price;
+  const [price, setPrice] = useState(0);
+  useEffect(() => {
+    if (data === undefined) return;
+    setPrice(data?.fetchProduct?.price);
+  }, [data]);
 
   const onClickInfoBtn = () => {
     setDetailSelectBtn(true);
@@ -67,10 +77,18 @@ export default function ProductDetail() {
 
   const onClickPlus = () => {
     setCount((prev) => prev + 1);
+    if (productPrice !== undefined) {
+      setPrice((prev) => prev + productPrice);
+    }
   };
 
   const onClickMinus = () => {
-    setCount((prev) => prev - 1);
+    setCount((prev) => (prev > 1 ? prev - 1 : 1));
+    if (productPrice !== undefined) {
+      setPrice((prev) =>
+        prev > productPrice ? prev - productPrice : productPrice
+      );
+    }
   };
 
   const onChange = (value: string) => {
@@ -115,8 +133,8 @@ export default function ProductDetail() {
               <S.OptionBox>
                 <S.OptionText>{data?.fetchProduct.etc1Name}</S.OptionText>
 
-                <S.SelectBox>
-                  <option value="옵션을 선택하세요." disabled selected>
+                <S.SelectBox onChange={handleSelect} value={isSelected}>
+                  <option selected hidden>
                     옵션을 선택하세요.
                   </option>
                   {etcValueList?.map((el) => (
@@ -128,7 +146,7 @@ export default function ProductDetail() {
 
             <S.BuyAmount>
               <S.OptionText>{data?.fetchProduct.name}</S.OptionText>
-              <S.SeletedOption>- 화이트</S.SeletedOption>
+              <S.SeletedOption>- {isSelected}</S.SeletedOption>
               <S.SeletedAmountBox>
                 <S.SeletedAmount1>
                   <S.SeletedAmount>
@@ -144,15 +162,13 @@ export default function ProductDetail() {
                     </button>
                   </S.SeletedAmount>
                 </S.SeletedAmount1>
-                <S.TotalPrice>
-                  {PriceReg(String(data?.fetchProduct.price))}원
-                </S.TotalPrice>
+                <S.TotalPrice>{PriceReg(String(price))}원</S.TotalPrice>
               </S.SeletedAmountBox>
             </S.BuyAmount>
             <S.TotalPriceBox>
               <S.TotalText>TOTAL</S.TotalText>
               <S.TotalPrice>
-                {PriceReg(String(data?.fetchProduct.price))}원<span>(1개)</span>
+                {PriceReg(String(price))}원 <span>({count}개)</span>
               </S.TotalPrice>
             </S.TotalPriceBox>
             <div>
