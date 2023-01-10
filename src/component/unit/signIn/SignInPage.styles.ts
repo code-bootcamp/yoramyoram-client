@@ -155,6 +155,7 @@ export const SearchButton = styled.button`
   background: transparent;
   color: #ffffff;
   font-family: "Noto Sans KR";
+  cursor: pointer;
 
   ${mq.mobileL} {
     display: block;

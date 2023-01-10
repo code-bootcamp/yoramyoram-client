@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import * as mq from "../../../commons/styles/mediaQueries";
 
 export const Background = styled.div`
-  background-image: url("./ecob.png");
+  background-image: url("/ecob.png");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100%;

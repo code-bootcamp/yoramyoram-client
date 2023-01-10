@@ -26,7 +26,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./product-validation";
 import { v4 as uuidv4 } from "uuid";
-import Uploads01 from "../../../commons/uploads/01/Uploads01.container";
+import Uploads01 from "../../../commons/uploads/01/Uploads01.index";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
@@ -131,6 +131,7 @@ export default function ProductWrite(props: any) {
       el !== undefined ? el.data?.uploadImage : ""
     );
     console.log(resultUrls);
+    console.log("??");
     console.log(data);
     setValue("productImages", resultUrls);
 
@@ -159,29 +160,11 @@ export default function ProductWrite(props: any) {
     }
   };
 
-  // const onChangeFile =
-  //   (index: number) => async (event: ChangeEvent<HTMLInputElement>) => {
-  //     const file = event.target.files?.[0];
-  //     if (file === undefined) return;
-  //     const fileReader = new FileReader();
-  //     fileReader.readAsDataURL(file);
-  //     fileReader.onload = (event) => {
-  //       if (typeof event.target?.result == "string") {
-  //         console.log(event.target?.result);
-  //         const tempUrls = [...imageUrls];
-  //         tempUrls[index] = event.target?.result;
-  //         setImageUrls(tempUrls);
-
-  //         const tempFiles = [...files];
-  //         tempFiles[index] = file;
-  //         setFiles(tempFiles);
-  //       }
-  //     };
-  //   };
-
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
-    newFileUrls[index] = fileUrl;
+    newFileUrls[index] = fileUrl[0];
+    // console.log(newFileUrls);
+    // console.log(newFileUrls[0]);
     setFileUrls(newFileUrls);
   };
 
@@ -217,11 +200,21 @@ export default function ProductWrite(props: any) {
                 <option value="카테고리를 선택하세요." disabled selected>
                   카테고리를 선택하세요.
                 </option>
-                <option value="컬러">주방</option>
-                <option value="생활">생활</option>
-                <option value="욕실">욕실</option>
-                <option value="여성용품">여성용품</option>
-                <option value="반려동물">반려동물</option>
+                <option value="70710037-9402-4665-aff0-ad3f0c68f364">
+                  주방
+                </option>
+                <option value="fd798d30-4809-4dfa-961f-9ef7620826f4">
+                  생활
+                </option>
+                <option value="6a7c5ceb-3440-4878-ac26-d1e8f69c94cc">
+                  욕실
+                </option>
+                <option value="e1b97aef-5520-4d41-9363-4bf250ddf98a">
+                  여성용품
+                </option>
+                <option value="a0087668-4deb-4393-ba3c-53064c6908b3">
+                  반려동물
+                </option>
               </S.SelectBox>
             </S.SelectWrap>
             <S.OptionBox>
@@ -322,42 +315,6 @@ export default function ProductWrite(props: any) {
           <S.InputWrapper>
             <S.Label>상품 사진</S.Label>
             <S.PhotoWrapper>
-              {/* <S.PhotoBox>
-                <S.Upload
-                  type="file"
-                  id="upload"
-                  onChange={onChangeFile(0)}
-                ></S.Upload>
-                {imageUrls[0] ? (
-                  <S.UploadImage src={imageUrls[0]} />
-                ) : (
-                  <S.GbButton type="button">+</S.GbButton>
-                )}
-              </S.PhotoBox>
-              <S.PhotoBox>
-                <S.Upload
-                  type="file"
-                  id="upload"
-                  onChange={onChangeFile(1)}
-                ></S.Upload>
-                {imageUrls[1] ? (
-                  <S.UploadImage src={imageUrls[1]} />
-                ) : (
-                  <S.GbButton type="button">+</S.GbButton>
-                )}
-              </S.PhotoBox>
-              <S.PhotoBox>
-                <S.Upload
-                  type="file"
-                  id="upload"
-                  onChange={onChangeFile(2)}
-                ></S.Upload>
-                {imageUrls[2] ? (
-                  <S.UploadImage src={imageUrls[2]} />
-                ) : (
-                  <S.GbButton type="button">+</S.GbButton>
-                )}
-              </S.PhotoBox> */}
               {fileUrls.map((el, index) => (
                 <S.PhotoBox>
                   <Uploads01
