@@ -9,7 +9,7 @@ import {
 export interface ISearchbars01Props {
   refetch: (
     variables: Partial<IQueryFetchProductsArgs>
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts">>>;
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "searchProducts">>>;
   onChangeKeyword: (value: string) => void;
 }
 

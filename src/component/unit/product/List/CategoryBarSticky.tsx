@@ -1,14 +1,37 @@
 import React from "react";
-import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import * as S from "./ProductList.styles";
+import _, { isArray } from "lodash";
+import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
 
 export default function CategoryBarSticky({
   setCategory,
   category,
+  parentFunction
 }: {
   setCategory: (item: string) => void;
   category: string;
+  parentFunction: string[];
 }) {
+  const [keyword, setKeyword] = useState('');
+  const { data: searchResult } = useSearchProducts(keyword);
+
+  const onChangeKeyword = (event:ChangeEvent<HTMLInputElement>) => {
+      getDBounce(event.currentTarget.value);
+    };
+
+    const getDBounce = _.debounce((value)=>{
+      // void data({search: value, page:1});
+      setKeyword(value);
+    })
+
+    const handleOnKeyPress = (e:any) => {
+    if (e.key === 'Enter') {
+      parentFunction(searchResult);
+    }
+
+  };
+
   return (
     <S.CategoryBarSticky>
       <S.CategoryBox>

@@ -13,6 +13,9 @@ export const SEARCH_PRODUCTS = gql`
       product_id
       name
       price
+      productImages{
+        url
+      }
     }
   }
 `;

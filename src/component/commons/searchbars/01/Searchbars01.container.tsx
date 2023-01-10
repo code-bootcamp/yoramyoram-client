@@ -11,6 +11,7 @@ export default function Searchbars01(props: ISearchbars01Props) {
   }, 1000);
 
   const onChangeSearchbar = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value);
     getDebounce(event.target.value);
   };
 

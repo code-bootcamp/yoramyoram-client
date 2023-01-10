@@ -1,14 +1,38 @@
 import React from "react";
-import Searchbars01UI from "../../../commons/searchbars/01/Searchbars01.presenter";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import * as S from "./ProductList.styles";
+import _, { isArray } from "lodash";
+import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
 
 export default function CategoryBar({
   setCategory,
   category,
+  parentFunction
 }: {
-  setCategory: (item: string) => void;
-  category: string;
-}) {
+    setCategory: (item: string) => void;
+    category: string;
+    parentFunction: string[];
+  }) {
+    const [keyword, setKeyword] = useState('');
+    const { data: searchResult } = useSearchProducts(keyword);
+    
+
+    const onChangeKeyword = (event:ChangeEvent<HTMLInputElement>) => {
+      getDBounce(event.currentTarget.value);
+    };
+
+    const getDBounce = _.debounce((value)=>{
+      // void data({search: value, page:1});
+      setKeyword(value);
+    })
+
+    const handleOnKeyPress = (e:any) => {
+    if (e.key === 'Enter') {
+      parentFunction(searchResult);
+    }
+
+  };
+
   return (
     <S.CategoryBar>
       <S.CategoryBox>
@@ -19,7 +43,7 @@ export default function CategoryBar({
         <CategoryItem title="여성용품" />
         <CategoryItem title="반려동물" />
         <S.SearchBox>
-          <S.SearchInput type="text" placeholder="검색" />
+          <S.SearchInput type="text" placeholder="검색" onChange={onChangeKeyword} onKeyPress={handleOnKeyPress} />
           <S.SearchOutline />
         </S.SearchBox>
       </S.CategoryBox>

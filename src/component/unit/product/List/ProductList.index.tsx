@@ -16,7 +16,11 @@ export default function ProductList(props: IProductListUIProps) {
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [category, setCategory] = useState<string>("주방");
-
+  const [list, setList] = useState([]);
+  const { data } = useFetchProducts();
+  const { onClickPage } = useFetchProducts();
+  const { refetch } = useFetchProducts();
+  
   const onSearch = (value: string) => {
     console.log("search:", value);
   };
@@ -24,18 +28,20 @@ export default function ProductList(props: IProductListUIProps) {
   const onClickProductSubmit = () => {
     router.push("/products/new");
   };
-  const { data } = useFetchProducts();
-  const { data: Search } = useSearchProducts();
-  const { onClickPage } = useFetchProducts();
-  const { refetch } = useFetchProducts();
-
+  
+  
   useEffect(() => {
+    onLoadList(data?.fetchProducts);
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll); //clean up
     };
+    
   }, [data]);
 
+  const onLoadList = (data:any) =>{
+    setList(data);
+  }
   const handleScroll = () => {
     if (window.scrollY >= 226) {
       setScroll(true);
@@ -58,8 +64,13 @@ export default function ProductList(props: IProductListUIProps) {
   const dummyData = new Array(20).fill(0);
   const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
     void router.push(`/products/${event.currentTarget.id}`);
+  };
 
-    console.log(event.currentTarget.id);
+  
+  const parentFunction = (x:any) => {
+    let temp: any = [...list];
+    temp = x?.searchProducts
+    setList(temp);
   };
 
   return (
@@ -70,11 +81,13 @@ export default function ProductList(props: IProductListUIProps) {
           <CategoryBarSticky
             category={category}
             setCategory={(item: string) => setCategory(item)}
+            parentFunction={parentFunction}
           />
         ) : (
           <CategoryBar
             category={category}
             setCategory={(item: string) => setCategory(item)}
+            parentFunction={parentFunction}
           />
         )}
       </S.HeaderWrapper>
@@ -83,17 +96,17 @@ export default function ProductList(props: IProductListUIProps) {
           상품등록
         </S.ProductWriteBtn>
         {/* <S.SearchBoxMobile>
-          <S.SearchInput type="text" placeholder="검색" />
+          <S.SearchInput type="text" placeholder="검색" onChange={onChangeKeyword}/>
           <S.SearchOutline />
         </S.SearchBoxMobile> */}
 
-        <Searchbars01
+        {/* <Searchbars01
           refetch={props.refetch}
           onChangeKeyword={props.onChangeKeyword}
-        />
+        /> */}
         <S.ListHeaderBox>
           <S.ListCount>
-            총 <span>20</span>개의 상품이 있습니다.
+            총 <span>{list?.length}</span>개의 상품이 있습니다.
           </S.ListCount>
           <S.SelectBox
             showSearch
@@ -105,26 +118,30 @@ export default function ProductList(props: IProductListUIProps) {
             }
             options={[
               {
-                value: "jack",
-                label: "등록일",
+                value: "sortByPriceASC",
+                label: "낮은가격순",
               },
               {
-                value: "lucy",
-                label: "낮은가격",
+                value: "sortByPriceDESC",
+                label: "높은가격순",
               },
               {
-                value: "tom",
-                label: "높은가격",
+                value: "sortByCreatedAtASC",
+                label: "최신순",
               },
               {
-                value: "tom",
-                label: "사용후기",
+                value: "sortByCreatedAtDESC",
+                label: "오래된순",
+              },
+              {
+                value: "sortByCommentsDESC",
+                label: "후기많은순",
               },
             ]}
           />
         </S.ListHeaderBox>
         <S.ListContentsBox>
-          {data?.fetchProducts?.map((el, idx) => (
+          {list?.map((el, idx) => (
             <S.ProductItemBox
               id={el.product_id}
               onClick={onClickMoveToDetail}
