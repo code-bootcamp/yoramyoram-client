@@ -1,5 +1,11 @@
 import { gql, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import { MouseEvent } from "react";
+import {
+  IQuery,
+  IQueryFetchProductsArgs,
+} from "../../../../commons/types/generated/types";
+
 
 export const FETCH_PRODUCTS = gql`
   query fetchProducts($page: Float!) {
@@ -28,14 +34,22 @@ export const FETCH_PRODUCTS = gql`
 `;
 
 export const useFetchProducts = () => {
-  const router = useRouter;
-  // 코드젠 업데이트 되면 타입추가s
-  const { data } = useQuery(FETCH_PRODUCTS, {
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchProducts">,
+    IQueryFetchProductsArgs
+  >(FETCH_PRODUCTS, {
     variables: {
       page: 1,
     },
   });
+
+  const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
+    void refetch({ page: Number(event.currentTarget.id) });
+    // console.log(event.currentTarget.id);
+  };
   return {
     data,
+    refetch,
+    onClickPage,
   };
 };
