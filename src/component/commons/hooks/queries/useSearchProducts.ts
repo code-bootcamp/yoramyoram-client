@@ -17,7 +17,7 @@ export const SEARCH_PRODUCTS = gql`
   }
 `;
 
-export const useSearchProducts = () => {
+export const useSearchProducts = (word: string) => {
   const [startPage, setStartPage] = useState(1);
   const { data } = useQuery<
     Pick<IQuery, "searchProducts">,
@@ -25,7 +25,7 @@ export const useSearchProducts = () => {
   >(SEARCH_PRODUCTS, {
     variables: {
       page: 1,
-      word: "",
+      word: word,
     },
   });
 

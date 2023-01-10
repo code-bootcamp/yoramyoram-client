@@ -12,6 +12,7 @@ export default function CategoryBar({
   return (
     <S.CategoryBar>
       <S.CategoryBox>
+        <CategoryItem title="전체" />
         <CategoryItem title="주방" />
         <CategoryItem title="생활" />
         <CategoryItem title="욕실" />
