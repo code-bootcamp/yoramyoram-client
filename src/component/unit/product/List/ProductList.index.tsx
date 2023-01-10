@@ -130,11 +130,12 @@ export default function ProductList(props: IProductListUIProps) {
               onClick={onClickMoveToDetail}
               key={idx}
             >
-              <S.ListImg
-                src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
-                alt="상품이미지"
-              />
-
+              <S.ListImgWrap>
+                <S.ListImg
+                  src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
+                  alt="상품이미지"
+                />
+              </S.ListImgWrap>
               <S.ListProductInfo>
                 <S.ListProductName>{el.name}</S.ListProductName>
                 <S.ListProductPrice>{PriceReg(el.price)}원</S.ListProductPrice>
