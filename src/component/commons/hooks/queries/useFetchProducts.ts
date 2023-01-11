@@ -23,33 +23,7 @@ export const FETCH_PRODUCTS = gql`
 `;
 
 export const FETCH_PRODUCTS_COUNT = gql`
-  query {
-    fetchProductsCount
+  query fetchProductsCount($cateId: String) {
+    fetchProductsCount(cateId: $cateId)
   }
 `;
-export const useFetchProducts = () => {
-  const { data, refetch } = useQuery<
-    Pick<IQuery, "fetchProducts">,
-    IQueryFetchProductsArgs
-  >(FETCH_PRODUCTS, {
-    variables: {
-      page: 1,
-      cateId:''
-    },
-  });
-
-  const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
-    void refetch({ page: Number(event.currentTarget.id) });
-  };
-
-  const refetchCategory = (cateId : string) => {
-    void refetch({ page: 1 , cateId: cateId });
-  };
-
-  return {
-    data,
-    refetch,
-    onClickPage,
-    refetchCategory
-  };
-};

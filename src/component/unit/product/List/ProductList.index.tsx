@@ -19,6 +19,7 @@ import {
   IQueryFetchProductsCountArgs,
 } from "../../../../commons/types/generated/types";
 import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUser";
+import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
 
 export default function ProductList(props: IProductListUIProps) {
   const router = useRouter();
@@ -27,8 +28,8 @@ export default function ProductList(props: IProductListUIProps) {
   const [list, setList] = useState([]);
   const [admin, setAdmin] = useState<string>("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
-  const { data , refetchCategory, onClickPage, refetch } = useFetchProducts();
-  const { data:Search ,refetchSearch } = useSearchProducts();
+  const { data: Search, refetchSearch } = useSearchProducts();
+
   useEffect(() => {
     setAdmin(user?.fetchLoginUser?.role);
   }, [user]);
@@ -40,13 +41,18 @@ export default function ProductList(props: IProductListUIProps) {
   >(FETCH_PRODUCTS, {
     variables: {
       page: 1,
+      cateId: "",
     },
   });
 
-  const { data: dataProductsCount } = useQuery<
+  const { data: dataProductsCount, refetch: countProduct } = useQuery<
     Pick<IQuery, "fetchProductsCount">,
     IQueryFetchProductsCountArgs
-  >(FETCH_PRODUCTS_COUNT);
+  >(FETCH_PRODUCTS_COUNT, {
+    variables: {
+      cateId: "",
+    },
+  });
 
   console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
   console.log(data?.fetchProducts);
@@ -60,6 +66,14 @@ export default function ProductList(props: IProductListUIProps) {
 
   const onClickProductSubmit = () => {
     router.push("/products/new");
+  };
+
+  const refetchCategory = (cateId: string) => {
+    void refetch({ page: 1, cateId: cateId });
+  };
+
+  const refetchCategoryCount = (cateId: string) => {
+    void countProduct({ cateId: cateId });
   };
 
   useEffect(() => {
@@ -93,7 +107,6 @@ export default function ProductList(props: IProductListUIProps) {
     setList(temp);
   };
 
-
   return (
     <>
       <S.HeaderWrapper>
@@ -115,7 +128,8 @@ export default function ProductList(props: IProductListUIProps) {
             category={category}
             setCategory={(item: string) => setCategory(item)}
             parentFunction={parentFunction}
-            refetchCategory = {refetchCategory}
+            refetchCategory={refetchCategory}
+            refetchCategoryCount={refetchCategoryCount}
             refetchSearch={refetchSearch}
           />
         )}
