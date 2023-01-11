@@ -1,23 +1,58 @@
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useFetchProductCart } from "../../commons/hooks/queries/useFetchProductCart";
+import { MouseEvent, useState } from "react";
+import { PriceReg } from "../../../commons/library/util";
+import {
+  IMutation,
+  IMutationDeleteProductCartArgs,
+} from "../../../commons/types/generated/types";
+import { DELETE_PRODUCT_CART } from "../../commons/hooks/mutation/useDeleteProductsCart";
+import {
+  FETCH_PRODUCTS_CART,
+  useFetchProductCart,
+} from "../../commons/hooks/queries/useFetchProductCart";
+
 import * as S from "./Basket.styles";
 
 export default function Basket() {
   const { data } = useFetchProductCart();
+  console.log(data);
+  console.log(data?.fetchProductCart[0].product);
+  const [deleteProductCart] = useMutation<
+    Pick<IMutation, "deleteProductCart">,
+    IMutationDeleteProductCartArgs
+  >(DELETE_PRODUCT_CART);
   const router = useRouter();
 
   const onClickMoveShopPage = () => {
-    router.push("./");
+    router.push("./products");
   };
 
-  console.log(data);
+  const result = data?.fetchProductCart.map((el) => {
+    return Number(el.quantity) * Number(el.product.price);
+  });
+  const sum = result?.reduce((pv, av) => {
+    return pv + av;
+  }, 0);
+
+  const onClickDeleteCart = (ev: MouseEvent<HTMLButtonElement>) => {
+    deleteProductCart({
+      variables: {
+        productCartId: ev.currentTarget.id,
+      },
+      refetchQueries: [{ query: FETCH_PRODUCTS_CART }],
+    });
+  };
+
   return (
     <div style={{ backgroundColor: "#FCFBFA" }}>
       <S.Wrapper>
         <S.Title>Shopping Bag</S.Title>
         <S.FlexBoxWrap>
           <S.Left>
-            <S.SubTitle>장바구니 상품(2)</S.SubTitle>
+            <S.SubTitle>
+              장바구니 상품 ({data?.fetchProductCart.length})
+            </S.SubTitle>
             <S.Table>
               <colgroup>
                 <col width="42%"></col>
@@ -35,46 +70,71 @@ export default function Basket() {
               </S.Thead>
               <S.Tbody>
                 {data?.fetchProductCart?.map((el, idx) => (
+                  //  for(let i = 0; i < data?.fetchProductCart.length; i++){
+                  //   for(let j = 0; j < el.length ; j++){
+                  //     data.fetchProductCart[i].el[j].price * data~~~.el[j].quantity
+                  //   }
+                  //  }
                   <S.Tr id={el.id} key={idx}>
                     <S.PrdTd>
                       <S.ImgWrap>
-                        <img src="/productDetail/purchase.png" />
+                        <img
+                          src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
+                        />
                       </S.ImgWrap>
                       <S.PrdDetail>
                         <S.Name>{el.product.name}</S.Name>
                         <S.Option>
-                          {el.product.etc1Name}
-                          {el.product.etc1Value}
+                          {el.product.etc1Name}:{el.product.etc1Value}
                         </S.Option>
                       </S.PrdDetail>
                     </S.PrdTd>
                     <S.Td>{el.quantity}</S.Td>
-                    <S.Td>{el.product.price}</S.Td>
                     <S.Td>
-                      <S.Button>삭제 ✕</S.Button>
+                      {PriceReg(Number(el.quantity) * Number(el.product.price))}{" "}
+                      원
+                    </S.Td>
+                    <S.Td>
+                      <S.Button id={el.id} onClick={onClickDeleteCart}>
+                        삭제 ✕
+                      </S.Button>
                     </S.Td>
                   </S.Tr>
                 ))}
               </S.Tbody>
             </S.Table>
-            <S.MobileList>
-              <S.PrdImg>
-                <img src="productDetail/purchase.png" />
-              </S.PrdImg>
-              <S.PrdInfoWrap>
-                <S.PrdInfo>
-                  <S.PrdName>천연소재 파우치</S.PrdName>
-                  <S.PrdOption>옵션: White</S.PrdOption>
-                  <S.Quantity>수량: 1</S.Quantity>
-                  <S.Price>
-                    8,500<span>원</span>
-                  </S.Price>
-                </S.PrdInfo>
-                <S.Delete>✕</S.Delete>
-              </S.PrdInfoWrap>
-            </S.MobileList>
 
-            <S.GoShop>쇼핑 계속하기</S.GoShop>
+            {data?.fetchProductCart?.map((el, idx) => (
+              <S.MobileList id={el.id} key={idx}>
+                <S.PrdImg>
+                  <img
+                    src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
+                  />
+                </S.PrdImg>
+                <S.PrdInfoWrap>
+                  <S.PrdInfo>
+                    <S.PrdName>{el.product.name}</S.PrdName>
+                    <S.PrdOption>
+                      {" "}
+                      {el.product.etc1Name}:{el.product.etc1Value}
+                    </S.PrdOption>
+                    <S.Quantity>수량: {el.quantity}</S.Quantity>
+                    <S.Price>
+                      {" "}
+                      {PriceReg(
+                        Number(el.quantity) * Number(el.product.price)
+                      )}{" "}
+                      원
+                    </S.Price>
+                  </S.PrdInfo>
+                  <S.Delete id={el.id} onClick={onClickDeleteCart}>
+                    ✕
+                  </S.Delete>
+                </S.PrdInfoWrap>
+              </S.MobileList>
+            ))}
+
+            <S.GoShop onClick={onClickMoveShopPage}>쇼핑 계속하기</S.GoShop>
           </S.Left>
           <S.Right>
             <S.RightTitle>주문금액</S.RightTitle>
@@ -82,17 +142,19 @@ export default function Basket() {
               <S.PriceBox>
                 <S.BoxTitle>총 결제 금액</S.BoxTitle>
                 <S.SumPrice>
-                  18,400 <span>원</span>
+                  {PriceReg(sum)} <span>원</span>
                 </S.SumPrice>
               </S.PriceBox>
               <S.PointBox>
                 <S.PointTitle>적립예정 포인트</S.PointTitle>
-                <S.Point>1840 p</S.Point>
+                <S.Point>{sum * 0.1} p</S.Point>
               </S.PointBox>
             </S.PriceWrap>
             <S.PayButton>결제하기</S.PayButton>
             <S.MobileBtnWrap>
-              <S.GoShopMob>쇼핑 계속하기</S.GoShopMob>
+              <S.GoShopMob onClick={onClickMoveShopPage}>
+                쇼핑 계속하기
+              </S.GoShopMob>
               <S.PayButtonMob>결제하기</S.PayButtonMob>
             </S.MobileBtnWrap>
           </S.Right>

@@ -16,6 +16,9 @@ export const FETCH_PRODUCTS_CART = gql`
         etc1Value
         etc2Name
         etc2Value
+        productImages {
+          url
+        }
       }
     }
   }
