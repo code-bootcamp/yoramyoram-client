@@ -20,6 +20,7 @@ import { useMutation } from "@apollo/client";
 import {
   IMutation,
   IMutationCreateProductArgs,
+  IMutationUpdateProductArgs,
   IMutationUploadImageArgs,
 } from "../../../../commons/types/generated/types";
 import { useForm } from "react-hook-form";
@@ -27,9 +28,23 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./product-validation";
 import { v4 as uuidv4 } from "uuid";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.index";
+import { watch } from "fs";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
+
+interface IUpdateProductInput {
+  name?: string;
+  price?: number;
+  description?: string;
+  detailContent?: string;
+  etc1Name?: string;
+  etc1Value?: string;
+  etc2Name?: string;
+  etc2Value?: string;
+  productCategoryId?: string;
+  productImages?: string[];
+}
 
 export default function ProductWrite(props: any) {
   // TAG //
@@ -37,6 +52,8 @@ export default function ProductWrite(props: any) {
   const [tagList, setTagList] = useState<string[]>([]);
   const [tagItemTwo, setTagItemTwo] = useState<string>("");
   const [tagListTwo, setTagListTwo] = useState<string[]>([]);
+
+  const [tagModify, setTagModify] = useState<string[]>([]);
 
   const handleChange = (value: any) => {
     console.log(`selected ${value}`);
@@ -88,12 +105,22 @@ export default function ProductWrite(props: any) {
         e.preventDefault();
       }
     });
-  }, []);
 
+    //============ 태그형식으로 불러오고싶은데?
+
+    // setTagModify(props.data?.fetchProduct?.etc1Value.split(" "));
+    // tagModify.map((el) => setTagItem(el));
+    // let updatedTagList = [...tagList];
+    // updatedTagList.push(tagItem);
+    // setTagList(updatedTagList);
+    // setTagItem("");
+  }, [props.data]);
+
+  console.log(tagModify);
   // TAG END //
 
   const router = useRouter();
-  const [imageUrls, setImageUrls] = useState(["", "", ""]);
+  const [imageUrls, setImageUrls] = useState<string[]>(["", "", ""]);
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
   const [uploadImage] = useMutation<
@@ -101,15 +128,39 @@ export default function ProductWrite(props: any) {
     IMutationUploadImageArgs
   >(UPLOAD_IMAGE);
 
+  const [updateProduct] = useMutation<
+    Pick<IMutation, "updateProduct">,
+    IMutationUpdateProductArgs
+  >(UPDATE_PRODUCT);
+
   const [createProduct] = useMutation<
     Pick<IMutation, "createProduct">,
     IMutationCreateProductArgs
   >(CREATE_PRODUCT);
-  const { register, handleSubmit, setValue, trigger, getValues, formState } =
-    useForm({
-      resolver: yupResolver(schema),
-      mode: "onChange",
-    });
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    trigger,
+    getValues,
+    formState,
+    reset,
+    watch,
+  } = useForm({
+    resolver: yupResolver(schema),
+    mode: "onChange",
+  });
+
+  //=================================
+  const watchAll = Object.values(watch());
+
+  useEffect(() => {
+    if (watchAll.every((el) => el)) {
+    } else {
+    }
+  }, [watchAll]);
+  console.log(watchAll);
+  //===================================
 
   const onChangeContents = (value: string) => {
     console.log(value);
@@ -167,12 +218,97 @@ export default function ProductWrite(props: any) {
     // console.log(newFileUrls[0]);
     setFileUrls(newFileUrls);
   };
+  console.log("fileUrls :", props.data?.fetchProduct?.productImages);
+  console.log(props.data?.fetchProduct?.productImages);
+  // console.log(props.data?.fetchProduct);
+  console.log(props.data?.fetchProduct);
+
+  //상품 수정 onClick Event ============================================
+  // 이걸 살리면 이미지 미리보기가 된다.
+  // useEffect(() => {
+  //   setFileUrls([
+  //     props.data?.fetchProduct?.productImages[0].url,
+  //     props.data?.fetchProduct?.productImages[1].url,
+  //     props.data?.fetchProduct?.productImages[2].url,
+  //   ]);
+  // }, [props.data]);
+
+  const onClickUpdateSubmit = async (data: any) => {
+    const result = await Promise.all(
+      fileUrls.map(async (el) =>
+        el !== undefined
+          ? await uploadImage({ variables: { images: data.images } })
+          : undefined
+      )
+    );
+    // const currentFiles = JSON.stringify(fileUrls);
+    // const defaultFiles = JSON.stringify(fileUrls);
+    // const isChangedFiles = currentFiles !== defaultFiles;
+
+    console.log(result);
+    const resultUrls = result.map((el) =>
+      el !== undefined ? el.data?.uploadImage : ""
+    );
+    setValue("productImages", resultUrls);
+    console.log(resultUrls);
+
+    const updateProductInput: IUpdateProductInput = {};
+    if (data.name) updateProductInput.name = data.name;
+    if (data.price) updateProductInput.price = data.price;
+    if (data.description) updateProductInput.description = data.description;
+    if (data.detailContent)
+      updateProductInput.detailContent = data.detailContent;
+    if (data.etc1Name) updateProductInput.etc1Name = data.etc1Name;
+    if (data.etc1Value) updateProductInput.etc1Value = String(tagList);
+    if (data.etc2Name) updateProductInput.etc2Name = String(tagListTwo);
+    if (data.etc2Value) updateProductInput.etc2Value = data.detailContent;
+    if (data.productCategoryId)
+      updateProductInput.productCategoryId = data.productCategoryId;
+
+    // if (isChangedFiles) updateProductInput.productImages = [...fileUrls];
+
+    console.log(data);
+    try {
+      const result = await updateProduct({
+        variables: {
+          productId: String(router.query.productId),
+          updateProductInput: {
+            name: data.name,
+            price: data.price,
+            description: data.description,
+            etc1Name: data.etc1Name,
+            etc1Value: String(tagList),
+            etc2Name: data.etc1Name,
+            etc2Value: String(tagListTwo),
+            detailContent: data.detailContent,
+            productImages: [...fileUrls],
+            productCategoryId: data.productCategoryId,
+          },
+        },
+      });
+      console.log("result!!! :", result);
+      console.log(result);
+      Modal.success({ content: "상품이 수정되었습니다." });
+      void router.push(`/products/${result.data?.updateProduct?.product_id}`);
+    } catch (error) {
+      Modal.error({ content: "상품수정에 실패했습니다." });
+    }
+  };
+
+  console.log(props.data?.fetchProduct?.productImages);
+  //=======================================================================================
 
   return (
     <div style={{ backgroundColor: "#fcfbfa" }}>
       <S.Wrapper>
         <S.Title>{props.isEdit ? "상품 수정" : "상품 등록"}</S.Title>
-        <S.Form onSubmit={handleSubmit(onClickSubmit)}>
+        <S.Form
+          onSubmit={
+            props.isEdit
+              ? handleSubmit(onClickUpdateSubmit)
+              : handleSubmit(onClickSubmit)
+          }
+        >
           <S.HalfWrapper>
             <S.HalfBox>
               <S.Label>상품명</S.Label>
@@ -180,6 +316,7 @@ export default function ProductWrite(props: any) {
                 type="text"
                 placeholder="상품명을 입력하세요."
                 {...register("name")}
+                defaultValue={props.data?.fetchProduct?.name}
               ></S.Input>
               <S.Error>{formState.errors.name?.message}</S.Error>
             </S.HalfBox>
@@ -189,6 +326,7 @@ export default function ProductWrite(props: any) {
                 type="text"
                 placeholder="가격을 입력하세요."
                 {...register("price")}
+                defaultValue={props.data?.fetchProduct?.price}
               ></S.Input>
               <S.Error>{formState.errors.price?.message}</S.Error>
             </S.HalfBox>
@@ -196,7 +334,12 @@ export default function ProductWrite(props: any) {
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>상품 카테고리</S.Label>
-              <S.SelectBox {...register("productCategoryId")}>
+              <S.SelectBox
+                {...register("productCategoryId")}
+                defaultValue={
+                  props.data?.fetchProduct?.productCategory?.category_id
+                }
+              >
                 <option value="카테고리를 선택하세요." disabled selected>
                   카테고리를 선택하세요.
                 </option>
@@ -223,13 +366,17 @@ export default function ProductWrite(props: any) {
                 type="text"
                 placeholder="상품 요약을 입력하세요."
                 {...register("description")}
+                defaultValue={props.data?.fetchProduct?.description}
               ></S.Input>
             </S.OptionBox>
           </S.HalfWrapper>
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
-              <S.SelectBox {...register("etc1Name")}>
+              <S.SelectBox
+                {...register("etc1Name")}
+                defaultValue={props.data?.fetchProduct?.etc1Name}
+              >
                 <option value="옵션을 선택하세요." disabled selected>
                   옵션을 선택하세요.
                 </option>
@@ -267,7 +414,10 @@ export default function ProductWrite(props: any) {
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
 
-              <S.SelectBox {...register("etc2Name")}>
+              <S.SelectBox
+                {...register("etc2Name")}
+                defaultValue={props.data?.fetchProduct?.etc2Name}
+              >
                 <option value="옵션을 선택하세요." disabled selected>
                   옵션을 선택하세요.
                 </option>
@@ -294,7 +444,7 @@ export default function ProductWrite(props: any) {
                     placeholder="옵션값을 입력하세요."
                     tabIndex={2}
                     onChange={(e) => setTagItemTwo(e.currentTarget.value)}
-                    value={tagItemTwo}
+                    value={tagItemTwo || props.data?.fetchProduct?.etc2Value}
                     onKeyPress={onKeyPressTwo}
                   />
                 </S.TagBox>
@@ -309,6 +459,7 @@ export default function ProductWrite(props: any) {
                 fontSize: "15px",
               }}
               className="quill"
+              defaultValue={props.data?.fetchProduct?.detailContent}
             />
             <S.Error>{formState.errors.contents?.message}</S.Error>
           </S.InputWrapper>
@@ -322,14 +473,17 @@ export default function ProductWrite(props: any) {
                     index={index}
                     fileUrl={el}
                     onChangeFileUrls={onChangeFileUrls}
+                    // defaultUrls={props.data?.fetchProduct?.productImages}
                   />
                 </S.PhotoBox>
               ))}
             </S.PhotoWrapper>
           </S.InputWrapper>
           <S.ButtonBox>
-            <S.Cancel type="button">취소</S.Cancel>
-            <S.Submit>등록</S.Submit>
+            <S.Cancel type="button" onClick={router.back}>
+              취소
+            </S.Cancel>
+            <S.Submit>{props.isEdit ? "수정" : "등록"}</S.Submit>
           </S.ButtonBox>
         </S.Form>
       </S.Wrapper>
