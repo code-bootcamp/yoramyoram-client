@@ -52,7 +52,7 @@ export default function Layout(props: ILayoutProps) {
       ) : (
         <LayoutHeaderMain />
       )}
-      <div>{props.children}</div>
+      <div style={{ backgroundColor: "#fcfbfa" }}>{props.children}</div>
       {!isHiddenFooter && <LayoutFooter />}
     </>
   );

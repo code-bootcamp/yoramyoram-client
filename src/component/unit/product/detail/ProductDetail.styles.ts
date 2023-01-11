@@ -95,6 +95,7 @@ export const SelectBox = styled.select`
   padding: 0 10px;
   border-radius: 5px;
   border: 1px solid #b7b7b7;
+  background-color: transparent;
 `;
 
 export const ProductOptionText = styled.p`
