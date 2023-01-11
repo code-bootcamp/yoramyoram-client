@@ -27,10 +27,13 @@ import { FormOutlined } from "@ant-design/icons";
 import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
 import { CREATE_PRODUCT_CART } from "../../../commons/hooks/mutation/useCreateProductCart";
 import { Modal } from "antd";
+import { useRecoilState } from "recoil";
+import { isSelectedOption } from "../../../../commons/stores";
 //
 export default function ProductDetail() {
   const [isSelected, setIsSelected] = useState("");
-
+  const [isOption, setIsOption] = useRecoilState(isSelectedOption);
+  setIsOption(isSelected);
   const handleSelect = (e: any) => {
     setIsSelected(e.target.value);
   };
