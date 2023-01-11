@@ -277,15 +277,17 @@ export type IQuery = {
   __typename?: 'Query';
   fetchComment: IComment;
   fetchComments: Array<IComment>;
-  fetchCommentsWithDeleted: Array<IComment>;
+  fetchCommentsCount: Scalars['Int'];
+  fetchCommentsMain: Array<IComment>;
   fetchLoginUser: IUser;
   fetchProduct: IProduct;
   fetchProductCart: Array<IProductCart>;
   fetchProducts: Array<IProduct>;
-  fetchProductsWithDeleted: Array<IProduct>;
+  fetchProductsCount: Scalars['Int'];
   fetchmyWishlist: Array<IProductWishlist>;
   findUserEmail: Scalars['String'];
   searchProducts: Array<IProduct>;
+  searchProductsCount: Scalars['Int'];
   sortByCommentsASC: Array<IProduct>;
   sortByCommentsDESC: Array<IProduct>;
   sortByCreatedAtASC: Array<IProduct>;
@@ -300,13 +302,30 @@ export type IQueryFetchCommentArgs = {
 };
 
 
+export type IQueryFetchCommentsArgs = {
+  page: Scalars['Float'];
+  productId: Scalars['String'];
+};
+
+
+export type IQueryFetchCommentsCountArgs = {
+  productId: Scalars['String'];
+};
+
+
 export type IQueryFetchProductArgs = {
   productId: Scalars['String'];
 };
 
 
 export type IQueryFetchProductsArgs = {
+  cateId?: InputMaybe<Scalars['String']>;
   page: Scalars['Float'];
+};
+
+
+export type IQueryFetchProductsCountArgs = {
+  cateId?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -318,6 +337,11 @@ export type IQueryFindUserEmailArgs = {
 
 export type IQuerySearchProductsArgs = {
   page: Scalars['Float'];
+  word: Scalars['String'];
+};
+
+
+export type IQuerySearchProductsCountArgs = {
   word: Scalars['String'];
 };
 

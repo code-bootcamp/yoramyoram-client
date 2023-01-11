@@ -41,7 +41,7 @@ export const useSignIn = () => {
       }
       setAccessToken(accessToken);
       //   localStorage.setItem("accessToken", accessToken);
-      Modal.success({ content: "환영합니다!" });
+      // Modal.success({ content: "환영합니다!" });
       void router.push("/");
     } catch (error) {
       if (error instanceof Error)
