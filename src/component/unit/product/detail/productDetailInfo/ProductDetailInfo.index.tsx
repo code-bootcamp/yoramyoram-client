@@ -1,7 +1,24 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import * as S from "./ProductDetailInfo.styles";
+import { FETCH_PRODUCT } from "../../../../commons/hooks/queries/useFetchProduct";
+import { useQuery } from "@apollo/client";
+import {
+  IQuery,
+  IQueryFetchProductArgs,
+} from "../../../../../commons/types/generated/types";
+import { useRouter } from "next/router";
 //
 export default function ProductDetailInfo() {
+  const router = useRouter();
+  const { data } = useQuery<
+    Pick<IQuery, "fetchProduct">,
+    IQueryFetchProductArgs
+  >(FETCH_PRODUCT, {
+    variables: {
+      productId: String(router.query.productId),
+    },
+  });
+
   return (
     <S.Wrapper>
       <S.ProductImg src="/productDetail/purchase.png" alt="상품이미지" />

@@ -44,10 +44,6 @@ export const UPDATE_PRODUCT = gql`
       etc1Value
       etc2Value
       detailContent
-      createdAt
-      productImages
-      productCategory
-      payment
     }
   }
 `;

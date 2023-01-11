@@ -12,19 +12,38 @@ import { useEffect, useState } from "react";
 import SwiperImg from "./SwiperImg";
 import ProductReview from "./productReview/ProductReview.index";
 import ProductDetailInfo from "./productDetailInfo/ProductDetailInfo.index";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
+  IMutation,
+  IMutationAddWishlistArgs,
+  IMutationCreateProductCartArgs,
   IQuery,
   IQueryFetchProductArgs,
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
 import { PriceReg } from "../../../../commons/library/util";
-import { map } from "jquery";
 import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUser";
 import { FormOutlined } from "@ant-design/icons";
+import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
+import { CREATE_PRODUCT_CART } from "../../../commons/hooks/mutation/useCreateProductCart";
+import { Modal } from "antd";
+import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
+import { useRecoilState } from "recoil";
+import { isSelectedOption } from "../../../../commons/stores";
+
+import { useRecoilState } from "recoil";
+import { isSelectedOption } from "../../../../commons/stores";
+
 //
 export default function ProductDetail() {
+  const [isSelected, setIsSelected] = useState("");
+  const [isOption, setIsOption] = useRecoilState(isSelectedOption);
+  setIsOption(isSelected);
+  const handleSelect = (e: any) => {
+    setIsSelected(e.target.value);
+  };
   const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
   const [admin, setAdmin] = useState<string>("");
   const { data: user } = useQuery(FETCH_LOGIN_USER); // role이 관리자일때만 버튼보이게 ㄱㄱ
   useEffect(() => {
@@ -38,16 +57,62 @@ export default function ProductDetail() {
       productId: String(router.query.productId),
     },
   });
+
+  const [addWishlist] = useMutation<
+    Pick<IMutation, "addWishlist">,
+    IMutationAddWishlistArgs
+  >(ADD_WISHLIST);
+
+  const [createProductCart] = useMutation<
+    Pick<IMutation, "createProductCart">,
+    IMutationCreateProductCartArgs
+  >(CREATE_PRODUCT_CART);
+
+  const onClickCart = async () => {
+    try {
+      await createProductCart({
+        variables: {
+          productId: String(router.query.productId),
+        },
+      });
+      Modal.success({ content: "장바구니에 상품을 담았습니다!" });
+    } catch (error) {
+      Modal.error({ content: "장바구니에 상품을 담지 못했습니다." });
+    }
+  };
+
+  const onClickAddWishlist = async () => {
+    setIsWishList((prev) => !prev);
+    await addWishlist({
+      variables: {
+        createProductWishInput: {
+          productId: String(router.query.productId),
+        },
+      },
+      refetchQueries: [
+        {
+          query: FETCH_PRODUCT,
+          variables: {
+            productId: router.query.productId,
+          },
+        },
+      ],
+    });
+  };
   console.log(router.query.productId);
   console.log(data);
 
-  const [count, setCount] = useState(0);
-  const [isWishList, setIsWishList] = useState(false);
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [count, setCount] = useState(1);
+  const [isWishList, setIsWishList] = useState();
   const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
   const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
   const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
-  // const isActive = selectBtn === value;
+  const productPrice = data?.fetchProduct.price;
+  const [price, setPrice] = useState(0);
+  useEffect(() => {
+    if (data === undefined) return;
+    setPrice(data?.fetchProduct?.price);
+  }, [data]);
 
   const onClickInfoBtn = () => {
     setDetailSelectBtn(true);
@@ -61,24 +126,20 @@ export default function ProductDetail() {
     setSelectInfoBtn(false);
   };
 
-  const onClickWishList = () => {
-    setIsWishList((prev) => !prev);
-  };
-
   const onClickPlus = () => {
     setCount((prev) => prev + 1);
+    if (productPrice !== undefined) {
+      setPrice((prev) => prev + productPrice);
+    }
   };
 
   const onClickMinus = () => {
-    setCount((prev) => prev - 1);
-  };
-
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
-  const onSearch = (value: string) => {
-    console.log("search:", value);
+    setCount((prev) => (prev > 1 ? prev - 1 : 1));
+    if (productPrice !== undefined) {
+      setPrice((prev) =>
+        prev > productPrice ? prev - productPrice : productPrice
+      );
+    }
   };
 
   const etcValue = data?.fetchProduct.etc1Value;
@@ -99,7 +160,11 @@ export default function ProductDetail() {
                 <S.ProductName>{data?.fetchProduct.name}</S.ProductName>
 
                 <S.ModifyBtnBox admin={admin}>
-                  <FormOutlined />
+                  <FormOutlined
+                    onClick={onClickMoveToPage(
+                      `/products/${router.query.productId}/edit`
+                    )}
+                  />
                   <CloseOutlined style={{ paddingLeft: "27px" }} />
                 </S.ModifyBtnBox>
               </S.NameBtnBox>
@@ -115,8 +180,8 @@ export default function ProductDetail() {
               <S.OptionBox>
                 <S.OptionText>{data?.fetchProduct.etc1Name}</S.OptionText>
 
-                <S.SelectBox>
-                  <option value="옵션을 선택하세요." disabled selected>
+                <S.SelectBox onChange={handleSelect} value={isSelected}>
+                  <option selected hidden>
                     옵션을 선택하세요.
                   </option>
                   {etcValueList?.map((el) => (
@@ -128,7 +193,7 @@ export default function ProductDetail() {
 
             <S.BuyAmount>
               <S.OptionText>{data?.fetchProduct.name}</S.OptionText>
-              <S.SeletedOption>- 화이트</S.SeletedOption>
+              <S.SeletedOption>- {isSelected}</S.SeletedOption>
               <S.SeletedAmountBox>
                 <S.SeletedAmount1>
                   <S.SeletedAmount>
@@ -144,37 +209,38 @@ export default function ProductDetail() {
                     </button>
                   </S.SeletedAmount>
                 </S.SeletedAmount1>
-                <S.TotalPrice>
-                  {PriceReg(String(data?.fetchProduct.price))}원
-                </S.TotalPrice>
+                <S.TotalPrice>{PriceReg(String(price))}원</S.TotalPrice>
               </S.SeletedAmountBox>
             </S.BuyAmount>
             <S.TotalPriceBox>
               <S.TotalText>TOTAL</S.TotalText>
               <S.TotalPrice>
-                {PriceReg(String(data?.fetchProduct.price))}원<span>(1개)</span>
+                {PriceReg(String(price))}원 <span>({count}개)</span>
               </S.TotalPrice>
             </S.TotalPriceBox>
             <div>
               <S.NowBuyBtn>바로구매</S.NowBuyBtn>
               <S.BasketBtnBox>
-                <button>장바구니</button>
-                <button onClick={onClickWishList}>
-                  {isWishList ? (
-                    <S.WishListBtn>
+                <button onClick={onClickCart}>장바구니</button>
+                <button onClick={onClickAddWishlist}>
+                  <S.WishListBtn>
+                    {isWishList ? (
                       <HeartFilled
                         style={{ fontSize: "26px", color: " #30640a" }}
                       />
-                      <div>16</div>
-                    </S.WishListBtn>
-                  ) : (
-                    <S.WishListBtn>
-                      <HeartOutlined
-                        style={{ fontSize: "26px", color: " #30640a" }}
+                    ) : (
+                      <HeartFilled
+                        style={{
+                          fontSize: "26px",
+                          color: " #2f640a79",
+                        }}
                       />
-                      <div>16</div>
-                    </S.WishListBtn>
-                  )}
+                    )}
+                    {/* <HeartFilled
+                      style={{ fontSize: "26px", color: " #30640a" }}
+                    /> */}
+                    <div>{data?.fetchProduct.wishListCount}</div>
+                  </S.WishListBtn>
                 </button>
               </S.BasketBtnBox>
             </div>

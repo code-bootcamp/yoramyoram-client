@@ -28,3 +28,8 @@ export const isAdminState = atom({
   key: "isAdminState",
   default: false,
 });
+
+export const isSelectedOption = atom({
+  key: "isOption",
+  default: "",
+});
