@@ -42,8 +42,8 @@ export default function CategoryBarSticky({
         <CategoryItem title="여성용품" />
         <CategoryItem title="반려동물" />
         <S.SearchBox>
-          <S.SearchInput type="text" placeholder="검색" />
-          <S.SearchOutline />
+          {/* <S.SearchInput type="text" placeholder="검색" />
+          <S.SearchOutline /> */}
         </S.SearchBox>
       </S.CategoryBox>
     </S.CategoryBarSticky>

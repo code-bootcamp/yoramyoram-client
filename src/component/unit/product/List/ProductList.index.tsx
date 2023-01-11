@@ -15,12 +15,10 @@ export default function ProductList(props: IProductListUIProps) {
   const [startPage, setStartPage] = useState(1);
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
-  const [category, setCategory] = useState<string>("주방");
+  const [category, setCategory] = useState<string>("전체");
   const [list, setList] = useState([]);
-  const { data } = useFetchProducts();
-  const { onClickPage } = useFetchProducts();
-  const { refetch } = useFetchProducts();
-  
+  const { data , refetchCategory, onClickPage, refetch } = useFetchProducts();
+  const { data:Search ,refetchSearch } = useSearchProducts();
   const onSearch = (value: string) => {
     console.log("search:", value);
   };
@@ -36,7 +34,6 @@ export default function ProductList(props: IProductListUIProps) {
     return () => {
       window.removeEventListener("scroll", handleScroll); //clean up
     };
-    
   }, [data]);
 
   const onLoadList = (data:any) =>{
@@ -73,6 +70,7 @@ export default function ProductList(props: IProductListUIProps) {
     setList(temp);
   };
 
+
   return (
     <>
       <S.HeaderWrapper>
@@ -88,6 +86,8 @@ export default function ProductList(props: IProductListUIProps) {
             category={category}
             setCategory={(item: string) => setCategory(item)}
             parentFunction={parentFunction}
+            refetchCategory = {refetchCategory}
+            refetchSearch={refetchSearch}
           />
         )}
       </S.HeaderWrapper>

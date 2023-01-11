@@ -1,6 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import _ from "lodash";
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { MouseEvent } from "react";
 import {
   IQuery,
   IQuerySearchProductsArgs,
@@ -20,17 +20,27 @@ export const SEARCH_PRODUCTS = gql`
   }
 `;
 
-export const useSearchProducts = (word: string) => {
-  const [startPage, setStartPage] = useState(1);
-  const { data } = useQuery<
+export const useSearchProducts = () => {
+  const { data, refetch } = useQuery<
     Pick<IQuery, "searchProducts">,
     IQuerySearchProductsArgs
   >(SEARCH_PRODUCTS, {
     variables: {
       page: 1,
-      word: word,
+      word: '',
     },
   });
+
+  const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
+    void refetch({ page: Number(event.currentTarget.id) });
+  };
+
+  const refetchSearch = (word : string) => {
+    // console.log(word);
+    void refetch({ page: 1 , word: word });
+    console.log(data);
+  };
+
 
   // const [keyword, setKeyword] = useState("");
   // const getDebounce = _.debounce((value) => {
@@ -46,9 +56,9 @@ export const useSearchProducts = (word: string) => {
   const mySecretCode = uuidv4();
 
   return {
-    // keyword,
     data,
-    // onChangeSearch,
     mySecretCode,
+    onClickPage,
+    refetchSearch
   };
 };
