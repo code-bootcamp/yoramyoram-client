@@ -31,9 +31,6 @@ import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
 import { useRecoilState } from "recoil";
 import { isSelectedOption } from "../../../../commons/stores";
 
-import { useRecoilState } from "recoil";
-import { isSelectedOption } from "../../../../commons/stores";
-
 //
 export default function ProductDetail() {
   const [isSelected, setIsSelected] = useState("");
