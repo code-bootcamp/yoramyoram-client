@@ -27,6 +27,7 @@ import { FormOutlined } from "@ant-design/icons";
 import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
 import { CREATE_PRODUCT_CART } from "../../../commons/hooks/mutation/useCreateProductCart";
 import { Modal } from "antd";
+import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
 //
 export default function ProductDetail() {
   const [isSelected, setIsSelected] = useState("");
@@ -35,6 +36,7 @@ export default function ProductDetail() {
     setIsSelected(e.target.value);
   };
   const router = useRouter();
+  const { onClickMoveToPage } = useMoveToPage();
   const [admin, setAdmin] = useState<string>("");
   const { data: user } = useQuery(FETCH_LOGIN_USER); // role이 관리자일때만 버튼보이게 ㄱㄱ
   useEffect(() => {
@@ -151,7 +153,11 @@ export default function ProductDetail() {
                 <S.ProductName>{data?.fetchProduct.name}</S.ProductName>
 
                 <S.ModifyBtnBox admin={admin}>
-                  <FormOutlined />
+                  <FormOutlined
+                    onClick={onClickMoveToPage(
+                      `/products/${router.query.productId}/edit`
+                    )}
+                  />
                   <CloseOutlined style={{ paddingLeft: "27px" }} />
                 </S.ModifyBtnBox>
               </S.NameBtnBox>
