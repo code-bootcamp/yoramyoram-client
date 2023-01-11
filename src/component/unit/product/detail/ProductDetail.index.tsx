@@ -28,10 +28,17 @@ import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
 import { CREATE_PRODUCT_CART } from "../../../commons/hooks/mutation/useCreateProductCart";
 import { Modal } from "antd";
 import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
+import { useRecoilState } from "recoil";
+import { isSelectedOption } from "../../../../commons/stores";
+
+import { useRecoilState } from "recoil";
+import { isSelectedOption } from "../../../../commons/stores";
+
 //
 export default function ProductDetail() {
   const [isSelected, setIsSelected] = useState("");
-
+  const [isOption, setIsOption] = useRecoilState(isSelectedOption);
+  setIsOption(isSelected);
   const handleSelect = (e: any) => {
     setIsSelected(e.target.value);
   };
