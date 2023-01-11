@@ -17,7 +17,7 @@ import * as S from "./Basket.styles";
 export default function Basket() {
   const { data } = useFetchProductCart();
   console.log(data);
-  console.log(data?.fetchProductCart[0].product);
+
   const [deleteProductCart] = useMutation<
     Pick<IMutation, "deleteProductCart">,
     IMutationDeleteProductCartArgs
