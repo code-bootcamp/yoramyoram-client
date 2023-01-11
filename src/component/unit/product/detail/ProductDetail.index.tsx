@@ -34,6 +34,8 @@ import { isSelectedOption } from "../../../../commons/stores";
 //
 export default function ProductDetail() {
   const [isSelected, setIsSelected] = useState("");
+  const [getOption, setGetOption] = useState("");
+  const [getOptionTwo, setGetOptionTwo] = useState("");
   const [isOption, setIsOption] = useRecoilState(isSelectedOption);
   setIsOption(isSelected);
   const handleSelect = (e: any) => {
@@ -54,7 +56,6 @@ export default function ProductDetail() {
       productId: String(router.query.productId),
     },
   });
-
   const [addWishlist] = useMutation<
     Pick<IMutation, "addWishlist">,
     IMutationAddWishlistArgs
@@ -79,7 +80,7 @@ export default function ProductDetail() {
   };
 
   const onClickAddWishlist = async () => {
-    setIsWishList((prev) => !prev);
+    // setIsWishList((prev) => !prev);
     await addWishlist({
       variables: {
         createProductWishInput: {
@@ -100,15 +101,29 @@ export default function ProductDetail() {
   console.log(data);
 
   const [count, setCount] = useState(1);
-  const [isWishList, setIsWishList] = useState();
+  // const [isWishList, setIsWishList] = useState();
   const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
   const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
   const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
+  const [isGetOption, setIsGetOption] = useState<boolean>(true);
+  const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(true);
   const productPrice = data?.fetchProduct.price;
   const [price, setPrice] = useState(0);
   useEffect(() => {
     if (data === undefined) return;
     setPrice(data?.fetchProduct?.price);
+    setGetOption(data?.fetchProduct?.etc1Name);
+    setGetOptionTwo(data?.fetchProduct?.etc2Name);
+    if (getOption !== undefined) {
+      setIsGetOption(true);
+    } else {
+      setIsGetOption(false);
+    }
+    if (getOptionTwo !== undefined) {
+      setIsGetOptionTwo(true);
+    } else {
+      setIsGetOptionTwo(false);
+    }
   }, [data]);
 
   const onClickInfoBtn = () => {
@@ -141,6 +156,9 @@ export default function ProductDetail() {
 
   const etcValue = data?.fetchProduct.etc1Value;
   const etcValueList = etcValue?.split(",");
+
+  const etcValueTwo = data?.fetchProduct.etc2Value;
+  const etcValueListTwo = etcValueTwo?.split(",");
   return (
     <>
       <S.Wrapper>
@@ -174,7 +192,39 @@ export default function ProductDetail() {
               <S.ProductOptionText>
                 {data?.fetchProduct.description}
               </S.ProductOptionText>
-              <S.OptionBox>
+              {isGetOption ? (
+                <S.OptionBox>
+                  <S.OptionText>{data?.fetchProduct.etc1Name}</S.OptionText>
+
+                  <S.SelectBox onChange={handleSelect} value={isSelected}>
+                    <option selected hidden>
+                      옵션을 선택하세요.
+                    </option>
+                    {etcValueList?.map((el) => (
+                      <option value={el}>{el}</option>
+                    ))}
+                  </S.SelectBox>
+                </S.OptionBox>
+              ) : (
+                ""
+              )}
+              {isGetOptionTwo ? (
+                <S.OptionBox>
+                  <S.OptionText>{data?.fetchProduct.etc2Name}</S.OptionText>
+
+                  <S.SelectBox onChange={handleSelect} value={isSelected}>
+                    <option selected hidden>
+                      옵션을 선택하세요.
+                    </option>
+                    {etcValueListTwo?.map((el) => (
+                      <option value={el}>{el}</option>
+                    ))}
+                  </S.SelectBox>
+                </S.OptionBox>
+              ) : (
+                ""
+              )}
+              {/* <S.OptionBox>
                 <S.OptionText>{data?.fetchProduct.etc1Name}</S.OptionText>
 
                 <S.SelectBox onChange={handleSelect} value={isSelected}>
@@ -185,7 +235,7 @@ export default function ProductDetail() {
                     <option value={el}>{el}</option>
                   ))}
                 </S.SelectBox>
-              </S.OptionBox>
+              </S.OptionBox> */}
             </S.ProductOptionBox>
 
             <S.BuyAmount>
@@ -221,7 +271,7 @@ export default function ProductDetail() {
                 <button onClick={onClickCart}>장바구니</button>
                 <button onClick={onClickAddWishlist}>
                   <S.WishListBtn>
-                    {isWishList ? (
+                    {/* {isWishList ? (
                       <HeartFilled
                         style={{ fontSize: "26px", color: " #30640a" }}
                       />
@@ -232,10 +282,10 @@ export default function ProductDetail() {
                           color: " #2f640a79",
                         }}
                       />
-                    )}
-                    {/* <HeartFilled
+                    )} */}
+                    <HeartFilled
                       style={{ fontSize: "26px", color: " #30640a" }}
-                    /> */}
+                    />
                     <div>{data?.fetchProduct.wishListCount}</div>
                   </S.WishListBtn>
                 </button>

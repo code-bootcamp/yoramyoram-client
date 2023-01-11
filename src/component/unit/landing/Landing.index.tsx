@@ -17,10 +17,7 @@ import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import LayoutFooter from "../../commons/layout/footer/LayoutFooter.index";
 import { useMoveToPage } from "../../commons/custom/useMoveToPage";
-import {
-  FETCH_PRODUCTS,
-  useFetchProducts,
-} from "../../commons/hooks/queries/useFetchProducts";
+import { FETCH_PRODUCTS } from "../../commons/hooks/queries/useFetchProducts";
 import { useQuery } from "@apollo/client";
 import {
   IQuery,
@@ -47,7 +44,11 @@ const dummyData = new Array(10).fill(10);
 
 export default function Landing() {
   const router = useRouter();
-  const { data } = useFetchProducts();
+  const { data } = useQuery(FETCH_PRODUCTS, {
+    variables: {
+      page: 1,
+    },
+  });
 
   const { onClickMoveToPage } = useMoveToPage();
   const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {

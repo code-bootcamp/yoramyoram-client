@@ -159,7 +159,6 @@ export function LayoutHeaderMain() {
   };
   const { onClickMoveToPage } = useMoveToPage();
   const { data } = useQuery(FETCH_LOGIN_USER);
-
   // 반응형 메뉴
 
   const [isOpen, setIsOpen] = useState(false); // 메뉴의 초기값을 false로 설정

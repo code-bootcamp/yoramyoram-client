@@ -74,7 +74,7 @@ export type IMutation = {
   createUser: IUser;
   deleteComment: Scalars['Boolean'];
   deleteProduct: Scalars['Boolean'];
-  deleteProductCart: IProductCart;
+  deleteProductCart: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   findUserPassword: Scalars['String'];
   login: Scalars['String'];
@@ -96,6 +96,8 @@ export type IMutationAddWishlistArgs = {
 
 
 export type IMutationCanclePaymentArgs = {
+  etc1: Scalars['String'];
+  etc2: Scalars['String'];
   impUid: Scalars['String'];
   point: Scalars['Int'];
 };
@@ -113,6 +115,8 @@ export type IMutationCreateCommentArgs = {
 
 
 export type IMutationCreatePaymentArgs = {
+  etc1: Scalars['String'];
+  etc2: Scalars['String'];
   impUid: Scalars['String'];
   point: Scalars['Int'];
 };
@@ -211,11 +215,10 @@ export enum IPayment_Status_Enum {
 
 export type IPayment = {
   __typename?: 'Payment';
-  YoramPoint: Scalars['Int'];
   amount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
-  etc1: Scalars['String'];
-  etc2: Scalars['String'];
+  etc1?: Maybe<Scalars['String']>;
+  etc2?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   impUid: Scalars['String'];
   point: Scalars['Int'];
@@ -277,15 +280,18 @@ export type IQuery = {
   __typename?: 'Query';
   fetchComment: IComment;
   fetchComments: Array<IComment>;
-  fetchCommentsWithDeleted: Array<IComment>;
+  fetchCommentsCount: Scalars['Int'];
+  fetchCommentsMain: Array<IComment>;
   fetchLoginUser: IUser;
   fetchProduct: IProduct;
   fetchProductCart: Array<IProductCart>;
   fetchProducts: Array<IProduct>;
-  fetchProductsWithDeleted: Array<IProduct>;
+  fetchProductsCount: Scalars['Int'];
+  fetchUserPoint: IUser;
   fetchmyWishlist: Array<IProductWishlist>;
   findUserEmail: Scalars['String'];
   searchProducts: Array<IProduct>;
+  searchProductsCount: Scalars['Int'];
   sortByCommentsASC: Array<IProduct>;
   sortByCommentsDESC: Array<IProduct>;
   sortByCreatedAtASC: Array<IProduct>;
@@ -300,13 +306,30 @@ export type IQueryFetchCommentArgs = {
 };
 
 
+export type IQueryFetchCommentsArgs = {
+  page: Scalars['Float'];
+  productId: Scalars['String'];
+};
+
+
+export type IQueryFetchCommentsCountArgs = {
+  productId: Scalars['String'];
+};
+
+
 export type IQueryFetchProductArgs = {
   productId: Scalars['String'];
 };
 
 
 export type IQueryFetchProductsArgs = {
+  cateId?: InputMaybe<Scalars['String']>;
   page: Scalars['Float'];
+};
+
+
+export type IQueryFetchProductsCountArgs = {
+  cateId?: InputMaybe<Scalars['String']>;
 };
 
 
@@ -318,6 +341,11 @@ export type IQueryFindUserEmailArgs = {
 
 export type IQuerySearchProductsArgs = {
   page: Scalars['Float'];
+  word: Scalars['String'];
+};
+
+
+export type IQuerySearchProductsCountArgs = {
   word: Scalars['String'];
 };
 
@@ -378,9 +406,9 @@ export type IUpdateProductInput = {
 
 export type IUser = {
   __typename?: 'User';
-  YoramPoint: Scalars['Int'];
   add_detail: Scalars['String'];
   address: Scalars['String'];
+  amount: Scalars['Int'];
   email: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];

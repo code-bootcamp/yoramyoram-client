@@ -1,26 +1,57 @@
 import { useRouter } from "next/router";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
-import { useFetchProducts } from "../../../commons/hooks/queries/useFetchProducts";
+import { MouseEvent, useEffect, useState } from "react";
+import {
+  FETCH_PRODUCTS,
+  FETCH_PRODUCTS_COUNT,
+} from "../../../commons/hooks/queries/useFetchProducts";
 import CategoryBar from "./CategoryBar";
 import CategoryBarSticky from "./CategoryBarSticky";
 import { PriceReg } from "../../../../commons/library/util";
 
 import * as S from "./ProductList.styles";
-import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
-import _, { isArray } from "lodash";
-import Searchbars01 from "../../../commons/searchbars/01/Searchbars01.container";
+
 import { IProductListUIProps } from "./ProductList.types";
+import Pagination01 from "../../../commons/pagination/01/Pagination01.container";
+import { useQuery } from "@apollo/client";
+import {
+  IQuery,
+  IQueryFetchProductsArgs,
+  IQueryFetchProductsCountArgs,
+} from "../../../../commons/types/generated/types";
+import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUser";
 
 export default function ProductList(props: IProductListUIProps) {
-  const [startPage, setStartPage] = useState(1);
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [category, setCategory] = useState<string>("주방");
   const [list, setList] = useState([]);
-  const { data } = useFetchProducts();
-  const { onClickPage } = useFetchProducts();
-  const { refetch } = useFetchProducts();
-  
+  const [admin, setAdmin] = useState<string>("");
+  const { data: user } = useQuery(FETCH_LOGIN_USER);
+
+  useEffect(() => {
+    setAdmin(user?.fetchLoginUser?.role);
+  }, [user]);
+
+  //PAGINATION
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchProducts">,
+    IQueryFetchProductsArgs
+  >(FETCH_PRODUCTS, {
+    variables: {
+      page: 1,
+    },
+  });
+
+  const { data: dataProductsCount } = useQuery<
+    Pick<IQuery, "fetchProductsCount">,
+    IQueryFetchProductsCountArgs
+  >(FETCH_PRODUCTS_COUNT);
+
+  console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
+  console.log(data?.fetchProducts);
+  console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
+
+  console.log(data);
   const onSearch = (value: string) => {
     console.log("search:", value);
   };
@@ -28,20 +59,18 @@ export default function ProductList(props: IProductListUIProps) {
   const onClickProductSubmit = () => {
     router.push("/products/new");
   };
-  
-  
+
   useEffect(() => {
     onLoadList(data?.fetchProducts);
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll); //clean up
     };
-    
   }, [data]);
 
-  const onLoadList = (data:any) =>{
+  const onLoadList = (data: any) => {
     setList(data);
-  }
+  };
   const handleScroll = () => {
     if (window.scrollY >= 226) {
       setScroll(true);
@@ -50,33 +79,28 @@ export default function ProductList(props: IProductListUIProps) {
     }
   };
 
-  const onClickPrevPage = () => {
-    setStartPage(startPage - 5);
-    void refetch({ page: startPage - 5 });
-  };
-
-  const onClickNextPage = () => {
-    setStartPage(startPage + 5);
-    void refetch({ page: startPage + 5 });
-  };
-
   // 임시용
   const dummyData = new Array(20).fill(0);
   const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
     void router.push(`/products/${event.currentTarget.id}`);
   };
 
-  
-  const parentFunction = (x:any) => {
+  const parentFunction = (x: any) => {
     let temp: any = [...list];
-    temp = x?.searchProducts
+    temp = x?.searchProducts;
     setList(temp);
   };
 
   return (
     <>
       <S.HeaderWrapper>
-        <S.ListBanner>Yoram Yoram Shop</S.ListBanner>
+        <S.ListBanner>
+          <S.BannerTitle>Yoram Yoram Shop</S.BannerTitle>
+          <S.BannerSubTxt>
+            Yoram Yoram과 함께 초록색 소비를 시작해 보세요.
+          </S.BannerSubTxt>
+        </S.ListBanner>
+
         {scroll ? (
           <CategoryBarSticky
             category={category}
@@ -92,21 +116,14 @@ export default function ProductList(props: IProductListUIProps) {
         )}
       </S.HeaderWrapper>
       <S.ListWrapper>
-        <S.ProductWriteBtn onClick={onClickProductSubmit}>
+        <S.ProductWriteBtn onClick={onClickProductSubmit} admin={admin}>
           상품등록
         </S.ProductWriteBtn>
-        {/* <S.SearchBoxMobile>
-          <S.SearchInput type="text" placeholder="검색" onChange={onChangeKeyword}/>
-          <S.SearchOutline />
-        </S.SearchBoxMobile> */}
 
-        {/* <Searchbars01
-          refetch={props.refetch}
-          onChangeKeyword={props.onChangeKeyword}
-        /> */}
         <S.ListHeaderBox>
           <S.ListCount>
-            총 <span>{list?.length}</span>개의 상품이 있습니다.
+            총 <span>{dataProductsCount?.fetchProductsCount}</span>개의 상품이
+            있습니다.
           </S.ListCount>
           <S.SelectBox
             showSearch
@@ -151,6 +168,10 @@ export default function ProductList(props: IProductListUIProps) {
                 <S.ListImg
                   src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
                   alt="상품이미지"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = "/noImage.png";
+                  }}
                 />
               </S.ListImgWrap>
               <S.ListProductInfo>
@@ -174,23 +195,10 @@ export default function ProductList(props: IProductListUIProps) {
           ))}
         </S.ListContentsBox>
 
-        <S.ListPagination>
-          <S.PageNationLeftArrow onClick={onClickPrevPage} />
-          {new Array(5).fill(1).map((_, index) => (
-            <S.Page
-              key={index + startPage}
-              id={String(index + startPage)}
-              onClick={onClickPage}
-            >
-              {index + startPage}
-            </S.Page>
-          ))}
-          {/* <S.Page>2</S.Page>
-          <S.Page>3</S.Page>
-          <S.Page>4</S.Page>
-          <S.Page>5</S.Page> */}
-          <S.PageNationRightArrow onClick={onClickNextPage} />
-        </S.ListPagination>
+        <Pagination01
+          refetch={refetch}
+          count={dataProductsCount?.fetchProductsCount}
+        />
       </S.ListWrapper>
     </>
   );
