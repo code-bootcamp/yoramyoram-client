@@ -74,7 +74,7 @@ export type IMutation = {
   createUser: IUser;
   deleteComment: Scalars['Boolean'];
   deleteProduct: Scalars['Boolean'];
-  deleteProductCart: IProductCart;
+  deleteProductCart: Scalars['Boolean'];
   deleteUser: Scalars['Boolean'];
   findUserPassword: Scalars['String'];
   login: Scalars['String'];
@@ -96,6 +96,8 @@ export type IMutationAddWishlistArgs = {
 
 
 export type IMutationCanclePaymentArgs = {
+  etc1: Scalars['String'];
+  etc2: Scalars['String'];
   impUid: Scalars['String'];
   point: Scalars['Int'];
 };
@@ -113,6 +115,8 @@ export type IMutationCreateCommentArgs = {
 
 
 export type IMutationCreatePaymentArgs = {
+  etc1: Scalars['String'];
+  etc2: Scalars['String'];
   impUid: Scalars['String'];
   point: Scalars['Int'];
 };
@@ -211,11 +215,10 @@ export enum IPayment_Status_Enum {
 
 export type IPayment = {
   __typename?: 'Payment';
-  YoramPoint: Scalars['Int'];
   amount: Scalars['Int'];
   createdAt: Scalars['DateTime'];
-  etc1: Scalars['String'];
-  etc2: Scalars['String'];
+  etc1?: Maybe<Scalars['String']>;
+  etc2?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   impUid: Scalars['String'];
   point: Scalars['Int'];
@@ -284,6 +287,7 @@ export type IQuery = {
   fetchProductCart: Array<IProductCart>;
   fetchProducts: Array<IProduct>;
   fetchProductsCount: Scalars['Int'];
+  fetchUserPoint: IUser;
   fetchmyWishlist: Array<IProductWishlist>;
   findUserEmail: Scalars['String'];
   searchProducts: Array<IProduct>;
@@ -402,9 +406,9 @@ export type IUpdateProductInput = {
 
 export type IUser = {
   __typename?: 'User';
-  YoramPoint: Scalars['Int'];
   add_detail: Scalars['String'];
   address: Scalars['String'];
+  amount: Scalars['Int'];
   email: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];

@@ -444,7 +444,7 @@ export default function ProductWrite(props: any) {
                     placeholder="옵션값을 입력하세요."
                     tabIndex={2}
                     onChange={(e) => setTagItemTwo(e.currentTarget.value)}
-                    value={tagItemTwo || props.data?.fetchProduct?.etc2Value}
+                    value={tagItemTwo}
                     onKeyPress={onKeyPressTwo}
                   />
                 </S.TagBox>

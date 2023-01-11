@@ -1,10 +1,4 @@
-import { gql, useQuery } from "@apollo/client";
-import { useRouter } from "next/router";
-import { MouseEvent } from "react";
-import {
-  IQuery,
-  IQueryFetchProductsArgs,
-} from "../../../../commons/types/generated/types";
+import { gql } from "@apollo/client";
 
 export const FETCH_PRODUCTS = gql`
   query fetchProducts($cateId: String, $page: Float!) {
@@ -28,6 +22,11 @@ export const FETCH_PRODUCTS = gql`
   }
 `;
 
+export const FETCH_PRODUCTS_COUNT = gql`
+  query {
+    fetchProductsCount
+  }
+`;
 export const useFetchProducts = () => {
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchProducts">,
