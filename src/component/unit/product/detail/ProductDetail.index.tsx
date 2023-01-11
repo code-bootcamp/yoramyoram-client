@@ -38,6 +38,7 @@ export default function ProductDetail() {
   const [getOptionTwo, setGetOptionTwo] = useState("");
   const [isOption, setIsOption] = useRecoilState(isSelectedOption);
   setIsOption(isSelected);
+  console.log(isOption);
   const handleSelect = (e: any) => {
     setIsSelected(e.target.value);
   };

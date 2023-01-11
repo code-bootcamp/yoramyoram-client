@@ -23,7 +23,6 @@ export type IComment = {
   payment: IPayment;
   product: IProduct;
   star: Scalars['Int'];
-  title: Scalars['String'];
   user: IUser;
 };
 
@@ -31,7 +30,6 @@ export type ICreateCommentInput = {
   content: Scalars['String'];
   productId: Scalars['String'];
   star: Scalars['Int'];
-  title: Scalars['String'];
 };
 
 export type ICreateProductInput = {
@@ -153,7 +151,7 @@ export type IMutationDeleteProductArgs = {
 
 
 export type IMutationDeleteProductCartArgs = {
-  productId: Scalars['String'];
+  productCartId: Scalars['String'];
 };
 
 
@@ -294,8 +292,6 @@ export type IQuery = {
   searchProductsCount: Scalars['Int'];
   sortByCommentsASC: Array<IProduct>;
   sortByCommentsDESC: Array<IProduct>;
-  sortByCreatedAtASC: Array<IProduct>;
-  sortByCreatedAtDESC: Array<IProduct>;
   sortByPriceASC: Array<IProduct>;
   sortByPriceDESC: Array<IProduct>;
 };
@@ -360,16 +356,6 @@ export type IQuerySortByCommentsDescArgs = {
 };
 
 
-export type IQuerySortByCreatedAtAscArgs = {
-  page: Scalars['Float'];
-};
-
-
-export type IQuerySortByCreatedAtDescArgs = {
-  page: Scalars['Float'];
-};
-
-
 export type IQuerySortByPriceAscArgs = {
   page: Scalars['Float'];
 };
@@ -388,7 +374,6 @@ export type IUpdateCommentInput = {
   content?: InputMaybe<Scalars['String']>;
   productId?: InputMaybe<Scalars['String']>;
   star?: InputMaybe<Scalars['Int']>;
-  title?: InputMaybe<Scalars['String']>;
 };
 
 export type IUpdateProductInput = {
