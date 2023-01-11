@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_PRODUCTS = gql`
-  query fetchProducts($page: Float!) {
-    fetchProducts(page: $page) {
+  query fetchProducts($cateId: String, $page: Float!) {
+    fetchProducts(cateId: $cateId, page: $page) {
       product_id
       name
       price
@@ -18,10 +18,6 @@ export const FETCH_PRODUCTS = gql`
         productImage_id
         url
       }
-      productCategory {
-        category_id
-        category
-      }
     }
   }
 `;
@@ -31,3 +27,29 @@ export const FETCH_PRODUCTS_COUNT = gql`
     fetchProductsCount
   }
 `;
+export const useFetchProducts = () => {
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchProducts">,
+    IQueryFetchProductsArgs
+  >(FETCH_PRODUCTS, {
+    variables: {
+      page: 1,
+      cateId:''
+    },
+  });
+
+  const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
+    void refetch({ page: Number(event.currentTarget.id) });
+  };
+
+  const refetchCategory = (cateId : string) => {
+    void refetch({ page: 1 , cateId: cateId });
+  };
+
+  return {
+    data,
+    refetch,
+    onClickPage,
+    refetchCategory
+  };
+};

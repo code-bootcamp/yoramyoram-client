@@ -23,11 +23,12 @@ import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUs
 export default function ProductList(props: IProductListUIProps) {
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
-  const [category, setCategory] = useState<string>("주방");
+  const [category, setCategory] = useState<string>("전체");
   const [list, setList] = useState([]);
   const [admin, setAdmin] = useState<string>("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
-
+  const { data , refetchCategory, onClickPage, refetch } = useFetchProducts();
+  const { data:Search ,refetchSearch } = useSearchProducts();
   useEffect(() => {
     setAdmin(user?.fetchLoginUser?.role);
   }, [user]);
@@ -52,6 +53,7 @@ export default function ProductList(props: IProductListUIProps) {
   console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
 
   console.log(data);
+
   const onSearch = (value: string) => {
     console.log("search:", value);
   };
@@ -91,6 +93,7 @@ export default function ProductList(props: IProductListUIProps) {
     setList(temp);
   };
 
+
   return (
     <>
       <S.HeaderWrapper>
@@ -112,6 +115,8 @@ export default function ProductList(props: IProductListUIProps) {
             category={category}
             setCategory={(item: string) => setCategory(item)}
             parentFunction={parentFunction}
+            refetchCategory = {refetchCategory}
+            refetchSearch={refetchSearch}
           />
         )}
       </S.HeaderWrapper>
