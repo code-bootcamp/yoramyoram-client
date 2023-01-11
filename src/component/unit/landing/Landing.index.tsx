@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState, Component, MouseEvent } from "react";
 import { FullPage, Slide } from "react-full-page";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
@@ -27,6 +27,7 @@ import {
   IQueryFetchProductsArgs,
 } from "../../../commons/types/generated/types";
 import { PriceReg } from "../../../commons/library/util";
+import { useRouter } from "next/router";
 
 const controlsProps = {
   style: {
@@ -45,14 +46,13 @@ const dummyData = new Array(10).fill(10);
 // 임시용
 
 export default function Landing() {
-  // const { data } = useQuery<
-  //   Pick<IQuery, "fetchProducts">,
-  //   IQueryFetchProductsArgs
-  // >(FETCH_PRODUCTS);
-
+  const router = useRouter();
   const { data } = useFetchProducts();
 
   const { onClickMoveToPage } = useMoveToPage();
+  const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {
+    void router.push(`/products/${event.currentTarget.id}`);
+  };
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     // AOS.init();
@@ -188,14 +188,22 @@ export default function Landing() {
                 <S.SliderCustom {...settings}>
                   {data?.fetchProducts.map((el, index) => (
                     <S.SlideBox key={el.product_id}>
-                      <S.ProductImg src="/productDetail/purchase.png" />
+                      <S.ImgBox>
+                        <S.ProductImg
+                          src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
+                        />
+                      </S.ImgBox>
+
                       <S.InfoBox>
                         <S.ProductInfo>
                           <S.Name>{el.name}</S.Name>
                           <S.Price>{PriceReg(String(el.price))}원</S.Price>
                         </S.ProductInfo>
 
-                        <S.BuyBtn>
+                        <S.BuyBtn
+                          id={el.product_id}
+                          onClick={onClickMoveToDetail}
+                        >
                           구매하러 가기
                           <RightOutlined />
                         </S.BuyBtn>
