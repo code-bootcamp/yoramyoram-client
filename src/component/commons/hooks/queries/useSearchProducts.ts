@@ -13,21 +13,21 @@ export const SEARCH_PRODUCTS = gql`
       product_id
       name
       price
-      productImages{
+      productImages {
         url
       }
     }
   }
 `;
 
-export const useSearchProducts = () => {
+export const useSearchProducts = (word) => {
   const { data, refetch } = useQuery<
     Pick<IQuery, "searchProducts">,
     IQuerySearchProductsArgs
   >(SEARCH_PRODUCTS, {
     variables: {
       page: 1,
-      word: '',
+      word: word,
     },
   });
 
@@ -35,12 +35,11 @@ export const useSearchProducts = () => {
     void refetch({ page: Number(event.currentTarget.id) });
   };
 
-  const refetchSearch = (word : string) => {
+  const refetchSearch = (word: string) => {
     // console.log(word);
-    void refetch({ page: 1 , word: word });
+    void refetch({ page: 1, word: word });
     console.log(data);
   };
-
 
   // const [keyword, setKeyword] = useState("");
   // const getDebounce = _.debounce((value) => {
@@ -59,6 +58,6 @@ export const useSearchProducts = () => {
     data,
     mySecretCode,
     onClickPage,
-    refetchSearch
+    refetchSearch,
   };
 };
