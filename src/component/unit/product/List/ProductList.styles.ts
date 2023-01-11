@@ -268,11 +268,16 @@ export const ProductItemBox = styled.div`
 
 export const ListImgWrap = styled.div`
   height: 70%;
+  overflow: hidden;
+  &:hover img {
+    transform: scale(1.13);
+  }
 `;
 export const ListImg = styled.img`
   width: 100%;
   object-fit: cover;
   height: 100%;
+  transition: all 0.3s;
 `;
 
 export const ListProductInfo = styled.div`
