@@ -71,7 +71,7 @@ export default function ProductDetail() {
     IMutationCreateProductCartArgs
   >(CREATE_PRODUCT_CART);
 
-  const onClickCart = async (data) => {
+  const onClickCart = async () => {
     console.log(isSelected);
     try {
       await createProductCart({
@@ -79,6 +79,7 @@ export default function ProductDetail() {
           productId: String(router.query.productId),
           etc1Value: isSelected,
           etc2Value: isSelectedTwo,
+          quantity: count,
         },
       });
       console.log("카트데이터");
