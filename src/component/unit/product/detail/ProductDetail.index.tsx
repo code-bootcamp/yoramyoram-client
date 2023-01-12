@@ -34,13 +34,17 @@ import { isSelectedOption } from "../../../../commons/stores";
 //
 export default function ProductDetail() {
   const [isSelected, setIsSelected] = useState("");
+  const [isSelectedTwo, setIsSelectedTwo] = useState("");
   const [getOption, setGetOption] = useState("");
   const [getOptionTwo, setGetOptionTwo] = useState("");
-  const [isOption, setIsOption] = useRecoilState(isSelectedOption);
-  setIsOption(isSelected);
-  console.log(isOption);
+  // const [isOption, setIsOption] = useRecoilState(isSelectedOption);
+  // setIsOption(isSelected);
+  // console.log(isOption);
   const handleSelect = (e: any) => {
     setIsSelected(e.target.value);
+  };
+  const handleSelectTwo = (e: any) => {
+    setIsSelectedTwo(e.target.value);
   };
   const router = useRouter();
   const { onClickMoveToPage } = useMoveToPage();
@@ -111,27 +115,34 @@ export default function ProductDetail() {
   const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
   const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
   const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
-  const [isGetOption, setIsGetOption] = useState<boolean>(true);
-  const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(true);
+  const [isGetOption, setIsGetOption] = useState<boolean>(false);
+  const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(false);
   const productPrice = data?.fetchProduct.price;
   const [price, setPrice] = useState(0);
+
+  useEffect(() => {
+    if (data === undefined) return;
+    setGetOption(data?.fetchProduct?.etc1Name);
+    setGetOptionTwo(data?.fetchProduct?.etc2Name);
+
+    if (getOption.length !== 0) {
+      setIsGetOption(true);
+    }
+    if (getOptionTwo.length !== 0) {
+      setIsGetOptionTwo(true);
+    }
+  });
+
   useEffect(() => {
     if (data === undefined) return;
     setPrice(data?.fetchProduct?.price);
-    setGetOption(data?.fetchProduct?.etc1Name);
-    setGetOptionTwo(data?.fetchProduct?.etc2Name);
-    if (getOption !== undefined) {
-      setIsGetOption(true);
-    } else {
-      setIsGetOption(false);
-    }
-    if (getOptionTwo !== undefined) {
-      setIsGetOptionTwo(true);
-    } else {
-      setIsGetOptionTwo(false);
-    }
   }, [data]);
 
+  console.log(getOption);
+  console.log("옵션확인하자");
+  console.log(typeof getOptionTwo);
+  console.log(isGetOption);
+  console.log(isGetOptionTwo);
   const onClickInfoBtn = () => {
     setDetailSelectBtn(true);
     setSelectInfoBtn(true);
@@ -218,7 +229,7 @@ export default function ProductDetail() {
                 <S.OptionBox>
                   <S.OptionText>{data?.fetchProduct.etc2Name}</S.OptionText>
 
-                  <S.SelectBox onChange={handleSelect} value={isSelected}>
+                  <S.SelectBox onChange={handleSelectTwo} value={isSelectedTwo}>
                     <option selected hidden>
                       옵션을 선택하세요.
                     </option>
@@ -230,23 +241,20 @@ export default function ProductDetail() {
               ) : (
                 ""
               )}
-              {/* <S.OptionBox>
-                <S.OptionText>{data?.fetchProduct.etc1Name}</S.OptionText>
-
-                <S.SelectBox onChange={handleSelect} value={isSelected}>
-                  <option selected hidden>
-                    옵션을 선택하세요.
-                  </option>
-                  {etcValueList?.map((el) => (
-                    <option value={el}>{el}</option>
-                  ))}
-                </S.SelectBox>
-              </S.OptionBox> */}
             </S.ProductOptionBox>
 
             <S.BuyAmount>
               <S.OptionText>{data?.fetchProduct.name}</S.OptionText>
-              <S.SeletedOption>- {isSelected}</S.SeletedOption>
+              {isSelected ? (
+                <S.SeletedOption>- {isSelected}</S.SeletedOption>
+              ) : (
+                ""
+              )}
+              {isSelectedTwo ? (
+                <S.SeletedOption>- {isSelectedTwo}</S.SeletedOption>
+              ) : (
+                ""
+              )}
               <S.SeletedAmountBox>
                 <S.SeletedAmount1>
                   <S.SeletedAmount>
