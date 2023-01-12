@@ -32,8 +32,14 @@ import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
 import { useRecoilState } from "recoil";
 import { isSelectedOption } from "../../../../commons/stores";
 import { DELETE_PRODUCT } from "../../../commons/hooks/mutation/useDeleteProduct";
-import { FETCH_PRODUCTS } from "../../../commons/hooks/queries/useFetchProducts";
-import { FETCH_PRODUCTS_CART } from "../../../commons/hooks/queries/useFetchProductCart";
+import {
+  FETCH_PRODUCTS,
+  FETCH_PRODUCTS_COUNT,
+} from "../../../commons/hooks/queries/useFetchProducts";
+import {
+  FETCH_PRODUCTS_CART,
+  FETCH_PRODUCTS_CART_COUNT,
+} from "../../../commons/hooks/queries/useFetchProductCart";
 
 //
 export default function ProductDetail() {
@@ -97,6 +103,9 @@ export default function ProductDetail() {
               page: 1,
             },
           },
+          {
+            query: FETCH_PRODUCTS_CART_COUNT,
+          },
         ],
       });
       console.log("카트데이터");
@@ -123,6 +132,12 @@ export default function ProductDetail() {
             query: FETCH_PRODUCTS,
             variables: {
               page: 1,
+              cateId: "",
+            },
+          },
+          {
+            query: FETCH_PRODUCTS_COUNT,
+            variables: {
               cateId: "",
             },
           },
