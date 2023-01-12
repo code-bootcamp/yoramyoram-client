@@ -29,21 +29,14 @@ export const FETCH_PRODUCTS_CART = gql`
   }
 `;
 
-// export const useFetchProductCart = () => {
-//   const { data, refetch } = useQuery<
-//     Pick<IQuery, "fetchProductCart">,
-//     IQuerySearchProductsArgs
-//   >(FETCH_PRODUCTS_CART, {
-//     variables: {
-//       page: 1,
-//       word: "",
-//     },
-//   });
-//   return { data, refetch };
-// };
-
 export const FETCH_PRODUCTS_CART_COUNT = gql`
   query fetchProductCartCount {
     fetchProductCartCount
+  }
+`;
+
+export const FETCH_PRODUCTS_CART_TOTAL_AMOUNT = gql`
+  query fetchProductCartTotalAmount {
+    fetchProductCartTotalAmount
   }
 `;
