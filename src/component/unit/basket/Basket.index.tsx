@@ -102,7 +102,7 @@ export default function Basket() {
                       <S.PrdDetail>
                         <S.Name>{el.product.name}</S.Name>
                         <S.Option>
-                          {el.product.etc1Name}:{el.product.etc1Value}
+                          {el.product.etc1Name}:{el.etc1Value}
                         </S.Option>
                       </S.PrdDetail>
                     </S.PrdTd>
@@ -133,7 +133,7 @@ export default function Basket() {
                     <S.PrdName>{el.product.name}</S.PrdName>
                     <S.PrdOption>
                       {" "}
-                      {el.product.etc1Name}:{el.product.etc1Value}
+                      {el.product.etc1Name}:{el.etc1Value}
                     </S.PrdOption>
                     <S.Quantity>수량: {el.quantity}</S.Quantity>
                     <S.Price>
