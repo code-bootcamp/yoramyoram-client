@@ -78,7 +78,7 @@ export default function ProductDetail() {
         variables: {
           productId: String(router.query.productId),
           etc1Value: isSelected,
-          // etc2Value: isSelected,
+          etc2Value: isSelectedTwo,
         },
       });
       console.log("카트데이터");
