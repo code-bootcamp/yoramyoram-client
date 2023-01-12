@@ -135,11 +135,7 @@ export default function Basket() {
                             : ""}
                         </S.Option>
                         <S.Option>
-                          {el.etc2Value !== ""
-                            ? el.product.etc2Name
-                            : "" && el.product.etc2Name
-                            ? `${el.product.etc2Name}:`
-                            : ""}
+                          {el.product.etc2Name ? `${el.product.etc2Name}:` : ""}
                           {el.etc2Value !== "," && el.etc2Value
                             ? el.etc2Value
                             : ""}
