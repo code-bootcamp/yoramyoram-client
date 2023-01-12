@@ -1,6 +1,7 @@
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import * as mq from "../../../../../commons/styles/mediaQueries";
+import { Modal } from "antd";
 
 export const ReviewWrapper = styled.div`
   max-width: 1300px;
@@ -149,4 +150,65 @@ export const PageNationLeftArrow = styled(LeftOutlined)`
 
 export const PageNationRightArrow = styled(RightOutlined)`
   cursor: pointer;
+`;
+
+// Modal custom
+
+export const QQQ = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ModalBox = styled(Modal)`
+  width: 648px;
+  min-height: 687px;
+  .ant-modal-content {
+    width: 648px;
+  }
+
+  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-content {
+    position: relative;
+    background-color: #ffffff;
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
+      0 9px 28px 8px rgb(0 0 0 / 5%);
+    pointer-events: auto;
+    padding: 0;
+  }
+
+  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-header {
+    color: rgba(0, 0, 0, 0.88);
+    background: #383c34;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 8px;
+  }
+  .ant-modal-title {
+    height: 56px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 26px;
+    line-height: 22px;
+    word-wrap: break-word;
+    text-align: left;
+    padding: 16px;
+    font-family: "Noto Sans KR";
+  }
+
+  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-footer {
+    text-align: center;
+    background: transparent;
+    margin-top: 10px;
+  }
+`;
+
+export const ContentBox = styled.div`
+  padding: 33px;
+`;
+
+export const CommentInput = styled.input`
+  width: 100%;
+  padding: 200px 0;
 `;
