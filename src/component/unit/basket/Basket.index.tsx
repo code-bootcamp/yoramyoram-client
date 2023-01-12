@@ -12,6 +12,7 @@ import { DELETE_PRODUCT_CART } from "../../commons/hooks/mutation/useDeleteProdu
 import {
   FETCH_PRODUCTS_CART,
   FETCH_PRODUCTS_CART_COUNT,
+  FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
 } from "../../commons/hooks/queries/useFetchProductCart";
 
 import Pagination03 from "../../commons/pagination/03/Pagination03.container";
@@ -34,10 +35,13 @@ export default function Basket() {
   >(DELETE_PRODUCT_CART);
 
   const { data: dataProductsCartCount } = useQuery<
-    Pick<IQuery, "fetchProductCartCount">,
-    IQueryFetchProductCartArgs
+    Pick<IQuery, "fetchProductCartCount">
   >(FETCH_PRODUCTS_CART_COUNT);
-  console.log(dataProductsCartCount);
+
+  const { data: dataProductsCartTotalAmount } = useQuery<
+    Pick<IQuery, "fetchProductCartTotalAmount">
+  >(FETCH_PRODUCTS_CART_TOTAL_AMOUNT);
+  console.log(dataProductsCartTotalAmount);
 
   const router = useRouter();
 
@@ -159,12 +163,17 @@ export default function Basket() {
               <S.PriceBox>
                 <S.BoxTitle>총 결제 금액</S.BoxTitle>
                 <S.SumPrice>
-                  {PriceReg(sum)} <span>원</span>
+                  {dataProductsCartTotalAmount?.fetchProductCartTotalAmount}{" "}
+                  <span>원</span>
                 </S.SumPrice>
               </S.PriceBox>
               <S.PointBox>
                 <S.PointTitle>적립예정 포인트</S.PointTitle>
-                <S.Point>{sum * 0.1} p</S.Point>
+                <S.Point>
+                  {dataProductsCartTotalAmount?.fetchProductCartTotalAmount *
+                    0.1}{" "}
+                  p
+                </S.Point>
               </S.PointBox>
             </S.PriceWrap>
             <S.PayButton>주문하기</S.PayButton>
