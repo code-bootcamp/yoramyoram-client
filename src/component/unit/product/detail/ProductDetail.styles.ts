@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Select } from "antd";
 import * as mq from "../../../../commons/styles/mediaQueries";
-
+import { CloseOutlined } from "@ant-design/icons";
 export const Wrapper = styled.main`
   max-width: 1300px;
   padding: 153px 0;
@@ -360,3 +360,5 @@ export const NameBtnBox = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
+export const DeleteButton = styled(CloseOutlined)``;

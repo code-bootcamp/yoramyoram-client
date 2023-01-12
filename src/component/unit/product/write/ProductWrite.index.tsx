@@ -29,6 +29,7 @@ import { schema } from "./product-validation";
 import { v4 as uuidv4 } from "uuid";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.index";
 import { watch } from "fs";
+import { FETCH_PRODUCTS } from "../../../commons/hooks/queries/useFetchProducts";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
@@ -202,6 +203,15 @@ export default function ProductWrite(props: any) {
             productCategoryId: data.productCategoryId,
           },
         },
+        refetchQueries: [
+          {
+            query: FETCH_PRODUCTS,
+            variables: {
+              page: 1,
+              cateId: "",
+            },
+          },
+        ],
       });
       console.log(result);
       Modal.success({ content: "상품이 등록되었습니다." });
