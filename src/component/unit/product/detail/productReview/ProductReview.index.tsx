@@ -26,6 +26,7 @@ import { useRouter } from "next/router";
 import { Point } from "../../../basket/Basket.styles";
 import { getDate } from "../../../../../commons/library/util";
 import Pagination01 from "../../../../commons/pagination/01/Pagination01.container";
+import Pagination02 from "../../../../commons/pagination/02/Pagination02.container";
 
 interface IData {
   star: number;
@@ -101,7 +102,7 @@ export default function ProductReview(props: IProps) {
     IMutationDeleteCommentArgs
   >(DELETE_COMMENT);
 
-  const onClickComment = (e: MouseEvent<HTMLButtonElement>) => {
+  const onClickComment = (e) => {
     setCommentId(e.currentTarget.id);
     setIsDelete(true);
   };
@@ -293,7 +294,7 @@ export default function ProductReview(props: IProps) {
             </S.ReviewInner>
           </S.ReviewInnerWrapper>
         ))}
-        <Pagination01
+        <Pagination02
           refetch={refetch}
           count={dataCommentsCount?.fetchCommentsCount}
         />
