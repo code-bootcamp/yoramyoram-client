@@ -307,7 +307,11 @@ export default function ProductDetail() {
           구매평{`(${data?.fetchProduct?.commentCount})`}
         </S.Select2Btn>
       </S.BtnBox>
-      {detailSelectBtn ? <ProductDetailInfo /> : <ProductReview />}
+      {detailSelectBtn ? (
+        <ProductDetailInfo />
+      ) : (
+        <ProductReview data={data} user={user} />
+      )}
     </>
   );
 }
