@@ -9,8 +9,10 @@ export const FETCH_PRODUCTS_CART = gql`
     fetchProductCart(page: $page) {
       id
       quantity
+
       etc1Value
       etc2Value
+
       user {
         name
       }

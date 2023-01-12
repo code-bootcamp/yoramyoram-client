@@ -108,11 +108,16 @@ export default function Basket() {
                         <S.Option>
                           {el.product.etc1Name}:{el.etc1Value}
                         </S.Option>
+                        <S.Option>
+                          {el.product.etc2Name}:{el.etc2Value}
+                        </S.Option>
                       </S.PrdDetail>
                     </S.PrdTd>
                     <S.Td>{el.quantity}</S.Td>
                     <S.Td>
-                      {PriceReg(Number(el.quantity) * Number(el.product.price))}
+                      {PriceReg(
+                        String(Number(el.quantity) * Number(el.product.price))
+                      )}
                       원
                     </S.Td>
                     <S.Td>
@@ -139,11 +144,14 @@ export default function Basket() {
                       {" "}
                       {el.product.etc1Name}:{el.etc1Value}
                     </S.PrdOption>
+                    <S.PrdOption>
+                      {el.product.etc2Name}:{el.etc2Value}
+                    </S.PrdOption>
                     <S.Quantity>수량: {el.quantity}</S.Quantity>
                     <S.Price>
                       {" "}
                       {PriceReg(
-                        Number(el.quantity) * Number(el.product.price)
+                        String(Number(el.quantity) * Number(el.product.price))
                       )}{" "}
                       원
                     </S.Price>
@@ -163,15 +171,23 @@ export default function Basket() {
               <S.PriceBox>
                 <S.BoxTitle>총 결제 금액</S.BoxTitle>
                 <S.SumPrice>
-                  {dataProductsCartTotalAmount?.fetchProductCartTotalAmount}{" "}
+                  {PriceReg(
+                    String(
+                      dataProductsCartTotalAmount?.fetchProductCartTotalAmount
+                    )
+                  )}
                   <span>원</span>
                 </S.SumPrice>
               </S.PriceBox>
               <S.PointBox>
                 <S.PointTitle>적립예정 포인트</S.PointTitle>
                 <S.Point>
-                  {dataProductsCartTotalAmount?.fetchProductCartTotalAmount *
-                    0.1}{" "}
+                  {PriceReg(
+                    String(
+                      dataProductsCartTotalAmount?.fetchProductCartTotalAmount *
+                        0.1
+                    )
+                  )}
                   p
                 </S.Point>
               </S.PointBox>
