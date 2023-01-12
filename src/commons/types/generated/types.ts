@@ -126,6 +126,10 @@ export type IMutationCreateProductArgs = {
 
 
 export type IMutationCreateProductCartArgs = {
+  etc1Name?: InputMaybe<Scalars['String']>;
+  etc1Value?: InputMaybe<Scalars['String']>;
+  etc2Name?: InputMaybe<Scalars['String']>;
+  etc2Value?: InputMaybe<Scalars['String']>;
   productId: Scalars['String'];
 };
 
@@ -246,6 +250,10 @@ export type IProduct = {
 export type IProductCart = {
   __typename?: 'ProductCart';
   createdAt: Scalars['DateTime'];
+  etc1Name?: Maybe<Scalars['String']>;
+  etc1Value?: Maybe<Scalars['String']>;
+  etc2Name?: Maybe<Scalars['String']>;
+  etc2Value?: Maybe<Scalars['String']>;
   id: Scalars['String'];
   product: IProduct;
   quantity: Scalars['Int'];
@@ -283,6 +291,7 @@ export type IQuery = {
   fetchLoginUser: IUser;
   fetchProduct: IProduct;
   fetchProductCart: Array<IProductCart>;
+  fetchProductCartCount: Scalars['Int'];
   fetchProducts: Array<IProduct>;
   fetchProductsCount: Scalars['Int'];
   fetchUserPoint: IUser;
@@ -315,6 +324,11 @@ export type IQueryFetchCommentsCountArgs = {
 
 export type IQueryFetchProductArgs = {
   productId: Scalars['String'];
+};
+
+
+export type IQueryFetchProductCartArgs = {
+  page: Scalars['Float'];
 };
 
 
