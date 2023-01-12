@@ -99,7 +99,7 @@ export default function ProductDetail() {
     });
   };
   console.log(router.query.productId);
-  console.log(data);
+  console.log(data?.fetchProduct?.commentCount);
 
   const [count, setCount] = useState(1);
   // const [isWishList, setIsWishList] = useState();
@@ -304,7 +304,7 @@ export default function ProductDetail() {
           value="구매평"
           onClick={onClickReviewBtn}
         >
-          구매평(41)
+          구매평{`(${data?.fetchProduct?.commentCount})`}
         </S.Select2Btn>
       </S.BtnBox>
       {detailSelectBtn ? <ProductDetailInfo /> : <ProductReview />}

@@ -78,7 +78,7 @@ export default function ProductReview(props: IProps) {
     },
   });
 
-  const { data: dataCommentsCount, refetch: countComment } = useQuery<
+  const { data: dataCommentsCount } = useQuery<
     Pick<IQuery, "fetchCommentsCount">,
     IQueryFetchCommentsCountArgs
   >(FETCH_COMMENTS_COUNT, {
