@@ -48,7 +48,7 @@ export default function ProductDetail() {
   const { data: user } = useQuery(FETCH_LOGIN_USER); // role이 관리자일때만 버튼보이게 ㄱㄱ
   useEffect(() => {
     setAdmin(user?.fetchLoginUser?.role);
-  }, []);
+  }, [user]);
   const { data } = useQuery<
     Pick<IQuery, "fetchProduct">,
     IQueryFetchProductArgs
