@@ -68,18 +68,17 @@ export default function ProductDetail() {
   >(CREATE_PRODUCT_CART);
 
   const onClickCart = async (data) => {
+    console.log(isSelected);
     try {
       await createProductCart({
         variables: {
           productId: String(router.query.productId),
-          etc1Name: data.etc1Name,
-          etc2Name: data.etc2Name,
           etc1Value: isSelected,
-          etc2Value: isSelected,
+          // etc2Value: isSelected,
         },
       });
       console.log("카트데이터");
-      console.log(data);
+      // console.log(isSelected);
       Modal.success({ content: "장바구니에 상품을 담았습니다!" });
     } catch (error) {
       Modal.error({ content: "장바구니에 상품을 담지 못했습니다." });
