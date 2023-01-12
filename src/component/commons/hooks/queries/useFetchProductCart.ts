@@ -1,9 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
-import { IQuery } from "../../../../commons/types/generated/types";
+import {
+  IQuery,
+  IQuerySearchProductsArgs,
+} from "../../../../commons/types/generated/types";
 
 export const FETCH_PRODUCTS_CART = gql`
-  query fetchProductCart {
-    fetchProductCart {
+  query fetchProductCart($page: Float!) {
+    fetchProductCart(page: $page) {
       id
       quantity
       user {
@@ -24,8 +27,21 @@ export const FETCH_PRODUCTS_CART = gql`
   }
 `;
 
-export const useFetchProductCart = () => {
-  const { data } =
-    useQuery<Pick<IQuery, "fetchProductCart">>(FETCH_PRODUCTS_CART);
-  return { data };
-};
+// export const useFetchProductCart = () => {
+//   const { data, refetch } = useQuery<
+//     Pick<IQuery, "fetchProductCart">,
+//     IQuerySearchProductsArgs
+//   >(FETCH_PRODUCTS_CART, {
+//     variables: {
+//       page: 1,
+//       word: "",
+//     },
+//   });
+//   return { data, refetch };
+// };
+
+export const FETCH_PRODUCTS_CART_COUNT = gql`
+  query fetchProductCartCount {
+    fetchProductCartCount
+  }
+`;

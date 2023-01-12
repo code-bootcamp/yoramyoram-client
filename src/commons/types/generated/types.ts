@@ -283,6 +283,7 @@ export type IQuery = {
   fetchLoginUser: IUser;
   fetchProduct: IProduct;
   fetchProductCart: Array<IProductCart>;
+  fetchProductCartCount: Scalars['Int'];
   fetchProducts: Array<IProduct>;
   fetchProductsCount: Scalars['Int'];
   fetchUserPoint: IUser;
@@ -315,6 +316,11 @@ export type IQueryFetchCommentsCountArgs = {
 
 export type IQueryFetchProductArgs = {
   productId: Scalars['String'];
+};
+
+
+export type IQueryFetchProductCartArgs = {
+  page: Scalars['Float'];
 };
 
 

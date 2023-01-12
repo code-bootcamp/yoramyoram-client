@@ -1,36 +1,58 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useEffect } from "react";
 import { PriceReg } from "../../../commons/library/util";
 import {
   IMutation,
   IMutationDeleteProductCartArgs,
+  IQuery,
+  IQueryFetchProductCartArgs,
 } from "../../../commons/types/generated/types";
 import { DELETE_PRODUCT_CART } from "../../commons/hooks/mutation/useDeleteProductsCart";
 import {
   FETCH_PRODUCTS_CART,
-  useFetchProductCart,
+  FETCH_PRODUCTS_CART_COUNT,
 } from "../../commons/hooks/queries/useFetchProductCart";
+
+import Pagination03 from "../../commons/pagination/03/Pagination03.container";
 
 import * as S from "./Basket.styles";
 
 export default function Basket() {
-  const { data } = useFetchProductCart();
-  console.log(data);
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchProductCart">,
+    IQueryFetchProductCartArgs
+  >(FETCH_PRODUCTS_CART, {
+    variables: {
+      page: 1,
+    },
+  });
 
   const [deleteProductCart] = useMutation<
     Pick<IMutation, "deleteProductCart">,
     IMutationDeleteProductCartArgs
   >(DELETE_PRODUCT_CART);
+
+  const { data: dataProductsCartCount } = useQuery<
+    Pick<IQuery, "fetchProductCartCount">,
+    IQueryFetchProductCartArgs
+  >(FETCH_PRODUCTS_CART_COUNT);
+  console.log(dataProductsCartCount);
+
   const router = useRouter();
 
   const onClickMoveShopPage = () => {
     router.push("./products");
   };
 
+  // const onClickMoveToDetail = (event: MouseEvent<HTMLTableRowElement>) => {
+  //   void router.push(`/products/${event.currentTarget.id}`);
+
+  // };
   const result = data?.fetchProductCart.map((el) => {
     return Number(el.quantity) * Number(el.product.price);
   });
+  console.log(data?.fetchProductCart);
   const sum = result?.reduce((pv, av) => {
     return pv + av;
   }, 0);
@@ -51,7 +73,7 @@ export default function Basket() {
         <S.FlexBoxWrap>
           <S.Left>
             <S.SubTitle>
-              장바구니 상품 ({data?.fetchProductCart.length})
+              장바구니 상품 ({dataProductsCartCount?.fetchProductCartCount})
             </S.SubTitle>
             <S.Table>
               <colgroup>
@@ -70,11 +92,6 @@ export default function Basket() {
               </S.Thead>
               <S.Tbody>
                 {data?.fetchProductCart?.map((el, idx) => (
-                  //  for(let i = 0; i < data?.fetchProductCart.length; i++){
-                  //   for(let j = 0; j < el.length ; j++){
-                  //     data.fetchProductCart[i].el[j].price * data~~~.el[j].quantity
-                  //   }
-                  //  }
                   <S.Tr id={el.id} key={idx}>
                     <S.PrdTd>
                       <S.ImgWrap>
@@ -91,7 +108,7 @@ export default function Basket() {
                     </S.PrdTd>
                     <S.Td>{el.quantity}</S.Td>
                     <S.Td>
-                      {PriceReg(Number(el.quantity) * Number(el.product.price))}{" "}
+                      {PriceReg(Number(el.quantity) * Number(el.product.price))}
                       원
                     </S.Td>
                     <S.Td>
@@ -150,15 +167,19 @@ export default function Basket() {
                 <S.Point>{sum * 0.1} p</S.Point>
               </S.PointBox>
             </S.PriceWrap>
-            <S.PayButton>결제하기</S.PayButton>
+            <S.PayButton>주문하기</S.PayButton>
             <S.MobileBtnWrap>
               <S.GoShopMob onClick={onClickMoveShopPage}>
                 쇼핑 계속하기
               </S.GoShopMob>
-              <S.PayButtonMob>결제하기</S.PayButtonMob>
+              <S.PayButtonMob>주문하기</S.PayButtonMob>
             </S.MobileBtnWrap>
           </S.Right>
         </S.FlexBoxWrap>
+        <Pagination03
+          count={dataProductsCartCount?.fetchProductCartCount}
+          refetch={refetch}
+        />
       </S.Wrapper>
     </div>
   );
