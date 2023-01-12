@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { MouseEvent, useEffect } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { PriceReg } from "../../../commons/library/util";
 import {
   IMutation,
@@ -20,6 +20,20 @@ import Pagination03 from "../../commons/pagination/03/Pagination03.container";
 import * as S from "./Basket.styles";
 
 export default function Basket() {
+  const [isGetOption, setIsGetOption] = useState<boolean>(false);
+  const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (isGetOption !== false) {
+      setIsGetOption(true);
+    }
+    if (isGetOptionTwo !== false) {
+      setIsGetOptionTwo(true);
+    }
+
+    // console.log(setIsGetName);
+  }, []);
+
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchProductCart">,
     IQueryFetchProductCartArgs
@@ -41,7 +55,7 @@ export default function Basket() {
   const { data: dataProductsCartTotalAmount } = useQuery<
     Pick<IQuery, "fetchProductCartTotalAmount">
   >(FETCH_PRODUCTS_CART_TOTAL_AMOUNT);
-  console.log(dataProductsCartTotalAmount);
+  // console.log(dataProductsCartTotalAmount);
 
   const router = useRouter();
 
@@ -56,17 +70,28 @@ export default function Basket() {
   const result = data?.fetchProductCart.map((el) => {
     return Number(el.quantity) * Number(el.product.price);
   });
-  console.log(data?.fetchProductCart);
+  // console.log(data?.fetchProductCart.map((el) => el.etc1Value));
+  // console.log(data?.fetchProductCart.map((el) => el.etc2Value));
+  // console.log(data?.fetchProductCart.map((el) => el.etc1Name));
+  // console.log(data?.fetchProductCart.map((el) => el.etc2Name));
+
   const sum = result?.reduce((pv, av) => {
     return pv + av;
   }, 0);
 
-  const onClickDeleteCart = (ev: MouseEvent<HTMLButtonElement>) => {
-    deleteProductCart({
+  const onClickDeleteCart = async (ev: MouseEvent<HTMLButtonElement>) => {
+    await deleteProductCart({
       variables: {
         productCartId: ev.currentTarget.id,
       },
-      refetchQueries: [{ query: FETCH_PRODUCTS_CART }],
+      refetchQueries: [
+        {
+          query: FETCH_PRODUCTS_CART,
+          variables: {
+            page: 1,
+          },
+        },
+      ],
     });
   };
 
@@ -83,7 +108,8 @@ export default function Basket() {
               <colgroup>
                 <col width="42%"></col>
                 <col width="10%"></col>
-                <col width="36%"></col>
+                <col width="18%"></col>
+                <col width="18%"></col>
                 <col width="12%"></col>
               </colgroup>
               <S.Thead>
@@ -91,6 +117,7 @@ export default function Basket() {
                   <S.Th>상품정보</S.Th>
                   <S.Th>수량</S.Th>
                   <S.Th>가격</S.Th>
+                  <S.Th>총 가격</S.Th>
                   <S.Th>선택</S.Th>
                 </S.Tr>
               </S.Thead>
@@ -105,15 +132,23 @@ export default function Basket() {
                       </S.ImgWrap>
                       <S.PrdDetail>
                         <S.Name>{el.product.name}</S.Name>
+
                         <S.Option>
-                          {el.product.etc1Name}:{el.etc1Value}
+                          {el.product.etc1Name ? `${el.product.etc1Name}:` : ""}
+                          {el.etc1Value !== "," && el.etc1Value
+                            ? el.etc1Value.slice(0, -1)
+                            : ""}
                         </S.Option>
                         <S.Option>
-                          {el.product.etc2Name}:{el.etc2Value}
+                          {el.product.etc2Name ? `${el.product.etc2Name}:` : ""}
+                          {el.etc2Value !== "," && el.etc2Value
+                            ? el.etc2Value.slice(0, -1)
+                            : ""}
                         </S.Option>
                       </S.PrdDetail>
                     </S.PrdTd>
                     <S.Td>{el.quantity}</S.Td>
+                    <S.Td>{PriceReg(String(el.product.price))}원</S.Td>
                     <S.Td>
                       {PriceReg(
                         String(Number(el.quantity) * Number(el.product.price))
@@ -148,8 +183,9 @@ export default function Basket() {
                       {el.product.etc2Name}:{el.etc2Value}
                     </S.PrdOption>
                     <S.Quantity>수량: {el.quantity}</S.Quantity>
+                    <S.Price>가격: {el.product.price} 원</S.Price>
                     <S.Price>
-                      {" "}
+                      총 가격:{" "}
                       {PriceReg(
                         String(Number(el.quantity) * Number(el.product.price))
                       )}{" "}
