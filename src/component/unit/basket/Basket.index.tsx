@@ -63,17 +63,9 @@ export default function Basket() {
     router.push("./products");
   };
 
-  // const onClickMoveToDetail = (event: MouseEvent<HTMLTableRowElement>) => {
-  //   void router.push(`/products/${event.currentTarget.id}`);
-
-  // };
   const result = data?.fetchProductCart.map((el) => {
     return Number(el.quantity) * Number(el.product.price);
   });
-  // console.log(data?.fetchProductCart.map((el) => el.etc1Value));
-  // console.log(data?.fetchProductCart.map((el) => el.etc2Value));
-  // console.log(data?.fetchProductCart.map((el) => el.etc1Name));
-  // console.log(data?.fetchProductCart.map((el) => el.etc2Name));
 
   const sum = result?.reduce((pv, av) => {
     return pv + av;
@@ -90,6 +82,9 @@ export default function Basket() {
           variables: {
             page: 1,
           },
+        },
+        {
+          query: FETCH_PRODUCTS_CART_COUNT,
         },
       ],
     });
@@ -136,13 +131,17 @@ export default function Basket() {
                         <S.Option>
                           {el.product.etc1Name ? `${el.product.etc1Name}:` : ""}
                           {el.etc1Value !== "," && el.etc1Value
-                            ? el.etc1Value.slice(0, -1)
+                            ? el.etc1Value
                             : ""}
                         </S.Option>
                         <S.Option>
-                          {el.product.etc2Name ? `${el.product.etc2Name}:` : ""}
+                          {el.etc2Value !== ""
+                            ? el.product.etc2Name
+                            : "" && el.product.etc2Name
+                            ? `${el.product.etc2Name}:`
+                            : ""}
                           {el.etc2Value !== "," && el.etc2Value
-                            ? el.etc2Value.slice(0, -1)
+                            ? el.etc2Value
                             : ""}
                         </S.Option>
                       </S.PrdDetail>
