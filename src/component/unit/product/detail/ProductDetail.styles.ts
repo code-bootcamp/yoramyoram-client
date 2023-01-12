@@ -151,13 +151,14 @@ export const BuyAmount = styled.div`
 export const SeletedOption = styled.p`
   font-size: 15px;
   color: #707070;
-  padding: 4px 0 28px;
+  padding: 10px 0 0;
 `;
 
 export const SeletedAmountBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 
 export const SeletedAmount1 = styled.div`
