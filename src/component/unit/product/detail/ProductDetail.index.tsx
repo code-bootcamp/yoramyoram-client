@@ -8,7 +8,7 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { CloseOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import SwiperImg from "./SwiperImg";
 import ProductReview from "./productReview/ProductReview.index";
 import ProductDetailInfo from "./productDetailInfo/ProductDetailInfo.index";
@@ -17,6 +17,7 @@ import {
   IMutation,
   IMutationAddWishlistArgs,
   IMutationCreateProductCartArgs,
+  IMutationDeleteProductArgs,
   IQuery,
   IQueryFetchProductArgs,
 } from "../../../../commons/types/generated/types";
@@ -30,6 +31,9 @@ import { Modal } from "antd";
 import { useMoveToPage } from "../../../commons/custom/useMoveToPage";
 import { useRecoilState } from "recoil";
 import { isSelectedOption } from "../../../../commons/stores";
+import { DELETE_PRODUCT } from "../../../commons/hooks/mutation/useDeleteProduct";
+import { FETCH_PRODUCTS } from "../../../commons/hooks/queries/useFetchProducts";
+import { FETCH_PRODUCTS_CART } from "../../../commons/hooks/queries/useFetchProductCart";
 
 //
 export default function ProductDetail() {
@@ -71,6 +75,11 @@ export default function ProductDetail() {
     IMutationCreateProductCartArgs
   >(CREATE_PRODUCT_CART);
 
+  const [deleteProduct] = useMutation<
+    Pick<IMutation, "deleteProduct">,
+    IMutationDeleteProductArgs
+  >(DELETE_PRODUCT);
+
   const onClickCart = async () => {
     console.log(isSelected);
     try {
@@ -81,15 +90,50 @@ export default function ProductDetail() {
           etc2Value: isSelectedTwo,
           quantity: count,
         },
+        refetchQueries: [
+          {
+            query: FETCH_PRODUCTS_CART,
+            variables: {
+              page: 1,
+            },
+          },
+        ],
       });
       console.log("카트데이터");
-      // console.log(isSelected);
       Modal.success({ content: "장바구니에 상품을 담았습니다!" });
     } catch (error) {
       Modal.error({ content: "장바구니에 상품을 담지 못했습니다." });
     }
   };
 
+  const onClickSuccess = () => {
+    Modal.success({
+      content: "게시물이 삭제되었습니다!",
+    });
+  };
+
+  const onClickDelete = async (ev: MouseEvent<HTMLElement>) => {
+    try {
+      await deleteProduct({
+        variables: {
+          productId: ev.currentTarget.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_PRODUCTS,
+            variables: {
+              page: 1,
+              cateId: "",
+            },
+          },
+        ],
+      });
+      onClickSuccess();
+      router.push("/products");
+    } catch (error) {
+      Modal.error({ content: "상품이 삭제되지 않았습니다!" });
+    }
+  };
   const onClickAddWishlist = async () => {
     // setIsWishList((prev) => !prev);
     await addWishlist({
@@ -109,7 +153,6 @@ export default function ProductDetail() {
     });
   };
   console.log(router.query.productId);
-  console.log(data?.fetchProduct?.commentCount);
 
   const [count, setCount] = useState(1);
   // const [isWishList, setIsWishList] = useState();
@@ -139,11 +182,11 @@ export default function ProductDetail() {
     setPrice(data?.fetchProduct?.price);
   }, [data]);
 
-  console.log(getOption);
-  console.log("옵션확인하자");
-  console.log(typeof getOptionTwo);
-  console.log(isGetOption);
-  console.log(isGetOptionTwo);
+  // console.log(getOption);
+  // console.log("옵션확인하자");
+  // console.log(typeof getOptionTwo);
+  // console.log(isGetOption);
+  // console.log(isGetOptionTwo);
   const onClickInfoBtn = () => {
     setDetailSelectBtn(true);
     setSelectInfoBtn(true);
@@ -198,7 +241,11 @@ export default function ProductDetail() {
                       `/products/${router.query.productId}/edit`
                     )}
                   />
-                  <CloseOutlined style={{ paddingLeft: "27px" }} />
+                  <S.DeleteButton
+                    id={data?.fetchProduct.product_id}
+                    style={{ paddingLeft: "27px" }}
+                    onClick={onClickDelete}
+                  />
                 </S.ModifyBtnBox>
               </S.NameBtnBox>
 
