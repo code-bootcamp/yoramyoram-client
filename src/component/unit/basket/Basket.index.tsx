@@ -15,7 +15,7 @@ import {
   FETCH_PRODUCTS_CART_COUNT,
   FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
 } from "../../commons/hooks/queries/useFetchProductCart";
-
+import InfiniteScrollPage from "../../commons/infinite-scroll/InfiniteScroll.container";
 import Pagination03 from "../../commons/pagination/03/Pagination03.container";
 
 import * as S from "./Basket.styles";
@@ -33,7 +33,7 @@ export default function Basket() {
     }
   }, []);
 
-  const { data, refetch } = useQuery<
+  const { data, refetch, fetchMore } = useQuery<
     Pick<IQuery, "fetchProductCart">,
     IQueryFetchProductCartArgs
   >(FETCH_PRODUCTS_CART, {
@@ -102,26 +102,31 @@ export default function Basket() {
             <S.SubTitle>
               장바구니 상품 ({dataProductsCartCount?.fetchProductCartCount})
             </S.SubTitle>
-            <S.Table>
-              <colgroup>
-                <col width="42%"></col>
-                <col width="10%"></col>
-                <col width="18%"></col>
-                <col width="18%"></col>
-                <col width="12%"></col>
-              </colgroup>
-              <S.Thead>
-                <S.Tr>
-                  <S.Th>상품정보</S.Th>
-                  <S.Th>수량</S.Th>
-                  <S.Th>가격</S.Th>
-                  <S.Th>총 가격</S.Th>
-                  <S.Th>선택</S.Th>
-                </S.Tr>
-              </S.Thead>
-              <S.Tbody>
+            <InfiniteScrollPage
+              fetchMore={fetchMore}
+              data={data}
+              loader={<h4>Loading...</h4>}
+            >
+              <S.Table>
+                <colgroup>
+                  <col width="42%"></col>
+                  <col width="10%"></col>
+                  <col width="18%"></col>
+                  <col width="18%"></col>
+                  <col width="12%"></col>
+                </colgroup>
+                <S.Thead>
+                  <S.Tr>
+                    <S.Th>상품정보</S.Th>
+                    <S.Th>수량</S.Th>
+                    <S.Th>가격</S.Th>
+                    <S.Th>총 가격</S.Th>
+                    <S.Th>선택</S.Th>
+                  </S.Tr>
+                </S.Thead>
+
                 {data?.fetchProductCart?.map((el, idx) => (
-                  <S.Tr id={el.id} key={idx}>
+                  <S.Tr id={el.id} key={el.id}>
                     <S.PrdTd>
                       <S.ImgWrap>
                         <img
@@ -160,9 +165,8 @@ export default function Basket() {
                     </S.Td>
                   </S.Tr>
                 ))}
-              </S.Tbody>
-            </S.Table>
-
+              </S.Table>
+            </InfiniteScrollPage>
             {data?.fetchProductCart?.map((el, idx) => (
               <S.MobileList id={el.id} key={idx}>
                 <S.PrdImg>
@@ -235,10 +239,10 @@ export default function Basket() {
             </S.MobileBtnWrap>
           </S.Right>
         </S.FlexBoxWrap>
-        <Pagination03
+        {/* <Pagination03
           count={dataProductsCartCount?.fetchProductCartCount}
           refetch={refetch}
-        />
+        /> */}
       </S.Wrapper>
     </div>
   );

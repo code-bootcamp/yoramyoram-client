@@ -202,6 +202,15 @@ export default function ProductDetail() {
               cateId: "",
             },
           },
+          {
+            query: FETCH_PRODUCTS_CART,
+            variables: {
+              page: 1,
+            },
+          },
+          {
+            query: FETCH_PRODUCTS_CART_COUNT,
+          },
         ],
       });
       onClickSuccess();
