@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { MouseEvent, useEffect, useState } from "react";
+
 import { PriceReg } from "../../../commons/library/util";
 import {
   IMutation,
@@ -30,8 +31,6 @@ export default function Basket() {
     if (isGetOptionTwo !== false) {
       setIsGetOptionTwo(true);
     }
-
-    // console.log(setIsGetName);
   }, []);
 
   const { data, refetch } = useQuery<
@@ -76,6 +75,7 @@ export default function Basket() {
       variables: {
         productCartId: ev.currentTarget.id,
       },
+      //FIXME: 2페이지에서 삭제하면 Refetch가 안됨
       refetchQueries: [
         {
           query: FETCH_PRODUCTS_CART,
