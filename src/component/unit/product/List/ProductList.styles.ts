@@ -263,7 +263,7 @@ export const ListCount = styled.div`
   }
 `;
 
-export const SelectBox = styled(Select)`
+export const SelectBox = styled.select`
   width: 100px;
 `;
 
