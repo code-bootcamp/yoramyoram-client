@@ -242,6 +242,7 @@ export type IProduct = {
   name: Scalars['String'];
   payment: IPayment;
   price: Scalars['Int'];
+  productCart: IProductCart;
   productCategory: IProductCategory;
   productImages: Array<IProductImage>;
   product_id: Scalars['String'];
@@ -336,7 +337,7 @@ export type IQueryFetchProductCartArgs = {
 
 export type IQueryFetchProductsArgs = {
   cateId?: InputMaybe<Scalars['String']>;
-  page: Scalars['Float'];
+  page?: InputMaybe<Scalars['Float']>;
 };
 
 

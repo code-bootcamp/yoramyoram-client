@@ -8,7 +8,7 @@ import {
   RightOutlined,
 } from "@ant-design/icons";
 import { CloseOutlined } from "@ant-design/icons";
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState, ChangeEvent } from "react";
 import SwiperImg from "./SwiperImg";
 import ProductReview from "./productReview/ProductReview.index";
 import ProductDetailInfo from "./productDetailInfo/ProductDetailInfo.index";
@@ -48,13 +48,10 @@ export default function ProductDetail() {
   const [isSelectedTwo, setIsSelectedTwo] = useState("");
   const [getOption, setGetOption] = useState("");
   const [getOptionTwo, setGetOptionTwo] = useState("");
-  // const [isOption, setIsOption] = useRecoilState(isSelectedOption);
-  // setIsOption(isSelected);
-  // console.log(isOption);
-  const handleSelect = (e: any) => {
-    setIsSelected(e.target.value);
+  const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setIsSelected(e?.target.value);
   };
-  const handleSelectTwo = (e: any) => {
+  const handleSelectTwo = (e: ChangeEvent<HTMLSelectElement>) => {
     setIsSelectedTwo(e.target.value);
   };
   const router = useRouter();
@@ -88,7 +85,6 @@ export default function ProductDetail() {
   >(DELETE_PRODUCT);
 
   const onClickCart = async () => {
-    console.log(isSelected);
     try {
       if (isGetOption === true && isGetOptionTwo === true) {
         if (isSelected?.length !== 0 && isSelectedTwo?.length !== 0) {
@@ -220,7 +216,6 @@ export default function ProductDetail() {
     }
   };
   const onClickAddWishlist = async () => {
-    // setIsWishList((prev) => !prev);
     await addWishlist({
       variables: {
         createProductWishInput: {
@@ -237,10 +232,8 @@ export default function ProductDetail() {
       ],
     });
   };
-  console.log(router.query.productId);
 
   const [count, setCount] = useState(1);
-  // const [isWishList, setIsWishList] = useState();
   const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
   const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
   const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
@@ -251,8 +244,8 @@ export default function ProductDetail() {
 
   useEffect(() => {
     if (data === undefined) return;
-    setGetOption(data?.fetchProduct?.etc1Name);
-    setGetOptionTwo(data?.fetchProduct?.etc2Name);
+    setGetOption(String(data?.fetchProduct?.etc1Name));
+    setGetOptionTwo(String(data?.fetchProduct?.etc2Name));
 
     if (getOption?.length !== 0) {
       setIsGetOption(true);
@@ -267,11 +260,6 @@ export default function ProductDetail() {
     setPrice(data?.fetchProduct?.price);
   }, [data]);
 
-  console.log(getOption);
-  console.log("옵션확인하자");
-  console.log(typeof getOptionTwo);
-  console.log(isGetOption);
-  console.log(isGetOptionTwo);
   const onClickInfoBtn = () => {
     setDetailSelectBtn(true);
     setSelectInfoBtn(true);
@@ -311,7 +299,7 @@ export default function ProductDetail() {
         <S.CategoryWrapper>
           <span>Home</span> <RightOutlined />
           <span>Shop</span> <RightOutlined />
-          <span>주방</span>
+          <span>{data?.fetchProduct.productCategory.category}</span>
         </S.CategoryWrapper>
         <S.DetailWrapper>
           <SwiperImg />
@@ -418,18 +406,6 @@ export default function ProductDetail() {
                 <button onClick={onClickCart}>장바구니</button>
                 <button onClick={onClickAddWishlist}>
                   <S.WishListBtn>
-                    {/* {isWishList ? (
-                      <HeartFilled
-                        style={{ fontSize: "26px", color: " #30640a" }}
-                      />
-                    ) : (
-                      <HeartFilled
-                        style={{
-                          fontSize: "26px",
-                          color: " #2f640a79",
-                        }}
-                      />
-                    )} */}
                     <HeartFilled
                       style={{ fontSize: "26px", color: " #30640a" }}
                     />

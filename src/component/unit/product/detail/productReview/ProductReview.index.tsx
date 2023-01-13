@@ -1,5 +1,5 @@
 import * as S from "./ProductReview.styles";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { Rate } from "antd";
 import { CloseOutlined, FormOutlined } from "@ant-design/icons";
 import { useMutation, useQuery } from "@apollo/client";
@@ -32,11 +32,20 @@ interface IData {
   star: number;
   content: string;
   productId: string;
+  comment_id: string;
+  user?: IUser;
+  createdAt?: Pick<IQuery, "fetchComments">;
+}
+
+interface IUser {
+  name?: string;
+  typename: string;
 }
 
 interface IProps {
   data?: Pick<IQuery, "fetchProduct">;
   user?: Pick<IQuery, "fetchLoginUser">;
+  comments?: Pick<IQuery, "fetchComments">;
 }
 
 export default function ProductReview(props: IProps) {
@@ -46,7 +55,6 @@ export default function ProductReview(props: IProps) {
   const [commentId, setCommentId] = useState("");
   const [isDelete, setIsDelete] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [isEditPrev, setIsEditPrev] = useState(false);
 
   //+=======================모달관련
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -68,7 +76,7 @@ export default function ProductReview(props: IProps) {
       page: 1,
     },
   });
-  console.log(comments);
+  // console.log(comments);
 
   const { data: comment } = useQuery<
     Pick<IQuery, "fetchComment">,
@@ -102,12 +110,12 @@ export default function ProductReview(props: IProps) {
     IMutationDeleteCommentArgs
   >(DELETE_COMMENT);
 
-  const onClickComment = (e) => {
+  const onClickComment = (e: MouseEvent<HTMLButtonElement>) => {
     setCommentId(e.currentTarget.id);
     setIsDelete(true);
   };
 
-  const onClickDelete = async (e: any) => {
+  const onClickDelete = async (e: MouseEvent<HTMLButtonElement>) => {
     try {
       await deleteComment({
         variables: {
@@ -129,9 +137,9 @@ export default function ProductReview(props: IProps) {
       Modal.warning({ content: "삭제오류!" });
     }
   };
-  console.log(comment?.fetchComment?.star);
-  console.log(star);
-  console.log(comment?.fetchComment?.content);
+  // console.log(comment?.fetchComment?.star);
+  // console.log(star);
+  // console.log(comment?.fetchComment?.content);
 
   const onChangeContent = (e: ChangeEvent<HTMLInputElement>) => {
     setContent(e.target.value);
@@ -176,7 +184,7 @@ export default function ProductReview(props: IProps) {
   //   setIsEdit: boolean;
   //   setCommentId: (event: MouseEvent<HTMLButtonElement>) => void;
   // }
-  const onClickIsEdit = (event: any) => {
+  const onClickIsEdit = (event: MouseEvent<HTMLButtonElement>) => {
     setIsEdit(true);
     setCommentId(event.currentTarget.id);
   };
@@ -260,7 +268,7 @@ export default function ProductReview(props: IProps) {
             )}
           </div>
         </S.ReviewHeader>
-        {comments?.fetchComments.map((el, idx) => (
+        {comments?.fetchComments.map((el: IData) => (
           <S.ReviewInnerWrapper key={el.comment_id}>
             <S.ReviewInner>
               <S.ReviewTop>
@@ -284,7 +292,7 @@ export default function ProductReview(props: IProps) {
                 <S.ReviewText>{el.content}</S.ReviewText>
                 <S.ReviewRelatedWrapper>
                   <div>{el.user?.name}</div>
-                  <div>{getDate(el.createdAt)}</div>
+                  <div>{getDate(String(el.createdAt))}</div>
                 </S.ReviewRelatedWrapper>
               </S.ReviewDateWrapper>
 
