@@ -158,6 +158,10 @@ export default function ProductList(props: IProductListUIProps) {
             category={category}
             setCategory={(item: string) => setCategory(item)}
             parentFunction={parentFunction}
+            refetchCategory={refetchCategory}
+            refetchCategoryCount={refetchCategoryCount}
+            refetchSearch={refetchSearch}
+            selected={selected}
           />
         ) : (
           <CategoryBar

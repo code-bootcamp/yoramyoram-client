@@ -38,3 +38,8 @@ export const selectedState = atom({
   key: "select",
   default: "",
 });
+
+export const MoveToPageState = atom({
+  key: "MoveToPage",
+  default: "",
+});
