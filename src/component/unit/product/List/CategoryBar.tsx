@@ -4,7 +4,7 @@ import * as S from "./ProductList.styles";
 import _, { isArray } from "lodash";
 import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
 import { useRecoilState } from "recoil";
-import { selectedState } from "../../../../commons/stores";
+import { MoveToPageState, selectedState } from "../../../../commons/stores";
 
 export default function CategoryBar({
   setCategory,
@@ -113,6 +113,7 @@ export default function CategoryBar({
     refetchCategoryCount: (cateId: string) => void;
   }) {
     const isActive = category === title;
+    const [moveToPage, setMoveToPage] = useRecoilState(MoveToPageState);
 
     // select
     // const [select, setSelect] = useRecoilState(selectedState);
@@ -122,6 +123,31 @@ export default function CategoryBar({
       setCategory(title);
       refetchCategoryCount(id);
     };
+
+    useEffect(() => {
+      if (moveToPage === "Kitchen") {
+        refetchCategory("70710037-9402-4665-aff0-ad3f0c68f364");
+        setCategory("주방");
+        refetchCategoryCount("70710037-9402-4665-aff0-ad3f0c68f364");
+      } else if (moveToPage === "Life") {
+        refetchCategory("fd798d30-4809-4dfa-961f-9ef7620826f4");
+        setCategory("생활");
+        refetchCategoryCount("fd798d30-4809-4dfa-961f-9ef7620826f4");
+      } else if (moveToPage === "Bathroom") {
+        refetchCategory("6a7c5ceb-3440-4878-ac26-d1e8f69c94cc");
+        setCategory("욕실");
+        refetchCategoryCount("6a7c5ceb-3440-4878-ac26-d1e8f69c94cc");
+      } else if (moveToPage === "Woman") {
+        refetchCategory("e1b97aef-5520-4d41-9363-4bf250ddf98a");
+        setCategory("여성용품");
+        refetchCategoryCount("e1b97aef-5520-4d41-9363-4bf250ddf98a");
+      } else if (moveToPage === "Pet") {
+        refetchCategory("a0087668-4deb-4393-ba3c-53064c6908b3");
+        setCategory("반려동물");
+        refetchCategoryCount("a0087668-4deb-4393-ba3c-53064c6908b3");
+      }
+      setMoveToPage("");
+    }, [moveToPage]);
 
     if (isActive) return <S.CategoryBtnActive>{title}</S.CategoryBtnActive>;
     else {
