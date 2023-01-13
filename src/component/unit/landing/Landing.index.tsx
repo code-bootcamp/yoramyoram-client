@@ -190,7 +190,7 @@ export default function Landing() {
                   <RightOutlined />
                 </S.MoreBtn>
                 <S.SliderCustom {...settings}>
-                  {data?.fetchProducts.map((el, index) => (
+                  {data?.fetchProducts.map((el: typeof data, index: string) => (
                     <S.SlideBox key={el.product_id}>
                       <S.ImgBox>
                         <S.ProductImg
@@ -255,7 +255,7 @@ export default function Landing() {
                       },
                     }}
                   >
-                    {commentsData?.fetchCommentsMain.map((el) => (
+                    {commentsData?.fetchCommentsMain.map((el: typeof data) => (
                       <S.Reviews>
                         <S.ReviewContent>{el.content}</S.ReviewContent>
                         <S.CommentInfo>
