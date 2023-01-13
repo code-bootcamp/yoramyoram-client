@@ -1,7 +1,23 @@
+import { ApolloQueryResult } from "@apollo/client";
 import { MouseEvent, useState } from "react";
+import {
+  IQuery,
+  IQueryFetchProductsCountArgs,
+} from "../../../../commons/types/generated/types";
 import Pagination03UI from "./Pagination03.presenter";
 
-export default function Pagination03(props) {
+interface IProps {
+  selected: string;
+  count: number;
+  category: string;
+  refetch: (
+    variables?: Partial<IQueryFetchProductsCountArgs>
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProductCartCount">>>;
+  page: string;
+  // refetch: Partial<IQueryFetchProductsArgs> | undefined) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts" >>>;
+}
+
+export default function Pagination03(props: IProps) {
   const [startPage, setStartPage] = useState(1);
   const [activedPage, setActivedPage] = useState(1);
   const lastPage = props.count != null ? Math.ceil(props.count / 5) : 0;

@@ -20,7 +20,7 @@ export const SEARCH_PRODUCTS = gql`
   }
 `;
 
-export const useSearchProducts = (word) => {
+export const useSearchProducts = (word: string) => {
   const { data, refetch } = useQuery<
     Pick<IQuery, "searchProducts">,
     IQuerySearchProductsArgs
