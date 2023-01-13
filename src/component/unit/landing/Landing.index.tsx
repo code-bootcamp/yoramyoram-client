@@ -23,8 +23,9 @@ import {
   IQuery,
   IQueryFetchProductsArgs,
 } from "../../../commons/types/generated/types";
-import { PriceReg } from "../../../commons/library/util";
+import { PriceReg, getDate } from "../../../commons/library/util";
 import { useRouter } from "next/router";
+import { FETCH_COMMENTS_MAIN } from "../../commons/hooks/queries/useFetchCommentsMain";
 
 const controlsProps = {
   style: {
@@ -49,6 +50,8 @@ export default function Landing() {
       page: 1,
     },
   });
+
+  const { data: commentsData } = useQuery(FETCH_COMMENTS_MAIN);
 
   const { onClickMoveToPage } = useMoveToPage();
   const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {
@@ -252,34 +255,15 @@ export default function Landing() {
                       },
                     }}
                   >
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
+                    {commentsData?.fetchCommentsMain.map((el) => (
+                      <S.Reviews>
+                        <S.ReviewContent>{el.content}</S.ReviewContent>
+                        <S.CommentInfo>
+                          - {el.user.name.replace(/(?<=.{2})./gi, "*")} /{" "}
+                          {getDate(el.createdAt)}
+                        </S.CommentInfo>
+                      </S.Reviews>
+                    ))}
                   </S.SwiperContentWrapper>
                 </S.SwiperContents>
               </S.SwiperWrapper>

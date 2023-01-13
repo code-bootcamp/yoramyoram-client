@@ -518,3 +518,10 @@ export const BeginZeroBtn = styled.button`
     margin-left: 10px;
   }
 `;
+
+export const CommentInfo = styled.p`
+  font-size: 15px;
+  color: #707070;
+`;
+
+export const ReviewContent = styled.p``;
