@@ -43,6 +43,7 @@
     "recoil": "^0.7.6",
     "slick-carousel": "^1.8.1",
     "swiper": "^8.4.5",
+    "ts-node": "^10.9.1",
     "use-timer": "^2.0.1",
     "uuid": "^9.0.0",
     "yup": "^0.32.11",

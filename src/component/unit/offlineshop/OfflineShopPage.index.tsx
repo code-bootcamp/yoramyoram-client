@@ -3,6 +3,7 @@ import axios from "axios";
 import { map } from "jquery";
 
 import {
+  ChangeEvent,
   KeyboardEvent,
   MouseEventHandler,
   ReactNode,
@@ -80,7 +81,7 @@ export default function OfflineShopPageUI() {
     makeMap(x, y);
   };
 
-  const onChangeInputs = (event: any) => {
+  const onChangeInputs = (event: ChangeEvent<HTMLInputElement>) => {
     setWord(event.target.value);
   };
 

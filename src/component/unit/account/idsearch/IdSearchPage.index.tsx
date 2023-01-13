@@ -1,8 +1,6 @@
 import { useApolloClient, useMutation, useQuery } from "@apollo/client";
-import { Modal } from "antd";
 import { useForm } from "react-hook-form";
 import { gql } from "@apollo/client";
-// import { FIND_USER_EMAIL } from "./IdSearchPage.query";
 import * as S from "./IdSearchPage.styles";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
