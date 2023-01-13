@@ -86,6 +86,9 @@ export default function Basket() {
         {
           query: FETCH_PRODUCTS_CART_COUNT,
         },
+        {
+          query: FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
+        },
       ],
     });
   };
