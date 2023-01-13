@@ -30,7 +30,7 @@ export default function WishList() {
                 <span></span>
               </S.ItemPriceBox>
               <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
-              <S.RepurchaseBtnMob></S.RepurchaseBtnMob>
+              <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
             </S.PurchasedItemInfoText>
           </S.PurchasedItemInfo>
           <S.RepurchaseDiv>

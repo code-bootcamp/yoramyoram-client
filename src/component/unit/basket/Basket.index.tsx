@@ -219,8 +219,9 @@ export default function Basket() {
                 <S.Point>
                   {PriceReg(
                     String(
-                      dataProductsCartTotalAmount?.fetchProductCartTotalAmount *
-                        0.1
+                      Number(
+                        dataProductsCartTotalAmount?.fetchProductCartTotalAmount
+                      ) * 0.1
                     )
                   )}
                   p
