@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import {
   FETCH_PRODUCTS,
   FETCH_PRODUCTS_COUNT,
@@ -17,9 +17,17 @@ import {
   IQuery,
   IQueryFetchProductsArgs,
   IQueryFetchProductsCountArgs,
+  IQuerySortByPriceAscArgs,
 } from "../../../../commons/types/generated/types";
 import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUser";
 import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
+import {
+  SORT_BY_PRICE_ASC,
+  usePriceASC,
+} from "../../../commons/hooks/queries/useSortByPriceASC";
+import { useCommentsDESC } from "../../../commons/hooks/queries/useSortByCommentsDESC";
+import { useCommentsASC } from "../../../commons/hooks/queries/useSortByCommentsASC";
+import { usePriceDESC } from "../../../commons/hooks/queries/useSortByPriceDESC";
 
 export default function ProductList(props: IProductListUIProps) {
   const router = useRouter();
@@ -27,12 +35,41 @@ export default function ProductList(props: IProductListUIProps) {
   const [category, setCategory] = useState<string>("전체");
   const [list, setList] = useState([]);
   const [admin, setAdmin] = useState<string>("");
+  const [selected, setSelected] = useState("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
   const { data: Search, refetchSearch } = useSearchProducts();
+
+  //FIXME: sort 기능구현
+  // const { CommentsASC, CommentsASCRefetch } = useCommentsASC();
+  // const { CommentsDESC, CommentsDESCRefetch } = useCommentsDESC();
+  // const { PriceASC, PriceASCRefetch } = usePriceASC();
+  // const { PriceDESC, PriceDESCRefetch } = usePriceDESC();
 
   useEffect(() => {
     setAdmin(user?.fetchLoginUser?.role);
   }, [user]);
+
+  // selectBox
+  // const onChangeSelectBox = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   setSelected(e.currentTarget.value);
+  // };
+
+  // FIXME: sort 기능 구현
+  // useEffect(() => {
+  //   if (selected === "sortByCreatedAtASC") {
+  //     return onLoadList(data?.fetchProducts);
+  //   } else if (selected === "sortByPriceASC") {
+  //     return onLoadList(PriceASC?.sortByPriceASC);
+  //   } else if (selected === "sortByPriceDESC") {
+  //     return onLoadList(PriceDESC?.sortByPriceDESC);
+  //   } else if (selected === "sortByCommentsASC") {
+  //     return onLoadList(CommentsASC?.sortByCommentsASC);
+  //   } else if (selected === "sortByCommentsDESC") {
+  //     return onLoadList(CommentsDESC?.sortByCommentsDESC);
+  //   }
+  // }, [selected]);
+
+  //
 
   //PAGINATION
   const { data, refetch } = useQuery<
@@ -77,7 +114,8 @@ export default function ProductList(props: IProductListUIProps) {
   };
 
   useEffect(() => {
-    onLoadList(data?.fetchProducts);
+    onLoadList(data?.fetchProducts); // 여기서 값이 변해야됨.
+    // 처음엔 data?.fetchProducts가나오고 클릭하면
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll); //clean up
@@ -95,8 +133,6 @@ export default function ProductList(props: IProductListUIProps) {
     }
   };
 
-  // 임시용
-  const dummyData = new Array(20).fill(0);
   const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
     void router.push(`/products/${event.currentTarget.id}`);
   };
@@ -131,6 +167,7 @@ export default function ProductList(props: IProductListUIProps) {
             refetchCategory={refetchCategory}
             refetchCategoryCount={refetchCategoryCount}
             refetchSearch={refetchSearch}
+            selected={selected}
           />
         )}
       </S.HeaderWrapper>
@@ -144,37 +181,14 @@ export default function ProductList(props: IProductListUIProps) {
             총 <span>{dataProductsCount?.fetchProductsCount}</span>개의 상품이
             있습니다.
           </S.ListCount>
-          <S.SelectBox
-            showSearch
-            placeholder="선택"
-            optionFilterProp="children"
-            onSearch={onSearch}
-            filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-            }
-            options={[
-              {
-                value: "sortByPriceASC",
-                label: "낮은가격순",
-              },
-              {
-                value: "sortByPriceDESC",
-                label: "높은가격순",
-              },
-              {
-                value: "sortByCreatedAtASC",
-                label: "최신순",
-              },
-              {
-                value: "sortByCreatedAtDESC",
-                label: "오래된순",
-              },
-              {
-                value: "sortByCommentsDESC",
-                label: "후기많은순",
-              },
-            ]}
-          />
+
+          {/* <S.SelectBox onChange={onChangeSelectBox} value={selected}>
+            <option value="sortByCreatedAtASC">최신순</option>
+            <option value="sortByPriceASC">낮은가격순</option>
+            <option value="sortByPriceDESC">높은가격수</option>
+            <option value="sortByCommentsDESC">후기많은순</option>
+            <option value="sortByCommentsASC">후기낮은순</option>
+          </S.SelectBox> */}
         </S.ListHeaderBox>
         <S.ListContentsBox>
           {list?.map((el, idx) => (
@@ -215,7 +229,13 @@ export default function ProductList(props: IProductListUIProps) {
         </S.ListContentsBox>
 
         <Pagination01
+          selected={selected}
           refetch={refetch}
+          category={category}
+          // commentsASCRefetch={CommentsASCRefetch}
+          // commentsDESCRefetch={CommentsDESCRefetch}
+          // priceASCRefetch={PriceASCRefetch}
+          // priceDESCRefetch={PriceDESCRefetch}
           count={dataProductsCount?.fetchProductsCount}
         />
       </S.ListWrapper>

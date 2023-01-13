@@ -33,3 +33,8 @@ export const isSelectedOption = atom({
   key: "isOption",
   default: "",
 });
+
+export const selectedState = atom({
+  key: "select",
+  default: "",
+});

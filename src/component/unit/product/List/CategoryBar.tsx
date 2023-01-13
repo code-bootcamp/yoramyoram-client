@@ -3,6 +3,8 @@ import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import * as S from "./ProductList.styles";
 import _, { isArray } from "lodash";
 import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
+import { useRecoilState } from "recoil";
+import { selectedState } from "../../../../commons/stores";
 
 export default function CategoryBar({
   setCategory,
@@ -12,17 +14,24 @@ export default function CategoryBar({
   refetchCategory,
   refetchSearch,
   refetchCategoryCount,
-}: {
+}: // selected,
+{
   setCategory: (item: string) => void;
   category: string;
   parentFunction: () => void;
   refetch: any;
   refetchCategory: (cateId: string) => void;
-  refetchSearch: (word: string) => void;
+  Search: (word: string) => void;
   refetchCategoryCount: (cateId: string) => void;
+  // selected?: string;
 }) {
   const [keyword, setKeyword] = useState("");
   const { data: searchResult } = useSearchProducts(keyword);
+
+  // const [select, setSelect] = useRecoilState(selectedState);
+  // useEffect(() => {
+  //   setSelect(selected);
+  // }, [selected]);
 
   const onChangeKeyword = (event: ChangeEvent<HTMLInputElement>) => {
     getDBounce(event.currentTarget.value);
@@ -36,6 +45,7 @@ export default function CategoryBar({
     if (e.key === "Enter") {
       refetchSearch(keyword);
       parentFunction(searchResult);
+      setCategory("전체");
     }
   };
 
@@ -103,6 +113,9 @@ export default function CategoryBar({
     refetchCategoryCount: (cateId: string) => void;
   }) {
     const isActive = category === title;
+
+    // select
+    // const [select, setSelect] = useRecoilState(selectedState);
 
     const onClickCategory = (id: string, title: string) => () => {
       refetchCategory(id);
