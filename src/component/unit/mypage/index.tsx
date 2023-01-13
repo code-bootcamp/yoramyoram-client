@@ -5,6 +5,7 @@ import PurchaseHistory from "./purchaseHistory/PurchaseHistory.index";
 import WishList from "./wishList/WishList.index";
 import { FETCH_LOGIN_USER } from "../../../component/commons/hooks/queries/useFetchLoginUser";
 import { useQuery } from "@apollo/client";
+
 export default function Mypage() {
   const [mypage, setMyPage] = useState(true);
   const { data } = useQuery(FETCH_LOGIN_USER);

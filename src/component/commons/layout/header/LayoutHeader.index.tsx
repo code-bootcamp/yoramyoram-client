@@ -47,8 +47,6 @@ export function LayoutHeader() {
       Modal.error({ content: "로그아웃에 실패했습니다." });
     }
   };
-  const { onClickMoveToPage } = useMoveToPage();
-
   const { data } = useQuery(FETCH_LOGIN_USER);
   console.log(data);
   // 반응형 메뉴
@@ -57,6 +55,11 @@ export function LayoutHeader() {
   // console.log(isOpen);
   const toggleMenu = () => {
     setIsOpen((prev) => !prev); // on,off 개념 boolean
+  };
+
+  const onClickMoveToPage = (path: string) => () => {
+    void router.push(path);
+    setIsOpen(false);
   };
 
   return (
@@ -157,7 +160,6 @@ export function LayoutHeaderMain() {
       Modal.error({ content: "로그아웃에 실패했습니다." });
     }
   };
-  const { onClickMoveToPage } = useMoveToPage();
   const { data } = useQuery(FETCH_LOGIN_USER);
   // 반응형 메뉴
 
@@ -165,6 +167,11 @@ export function LayoutHeaderMain() {
 
   const toggleMenu = () => {
     setIsOpen((prev) => !prev); // on,off 개념 boolean
+  };
+
+  const onClickMoveToPage = (path: string) => () => {
+    void router.push(path);
+    setIsOpen(false);
   };
 
   return (
