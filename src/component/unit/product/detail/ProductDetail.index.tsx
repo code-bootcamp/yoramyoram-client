@@ -39,6 +39,7 @@ import {
 import {
   FETCH_PRODUCTS_CART,
   FETCH_PRODUCTS_CART_COUNT,
+  FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
 } from "../../../commons/hooks/queries/useFetchProductCart";
 
 //
@@ -108,6 +109,9 @@ export default function ProductDetail() {
               {
                 query: FETCH_PRODUCTS_CART_COUNT,
               },
+              {
+                query: FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
+              },
             ],
           });
           return Modal.success({ content: "장바구니에 상품을 담았습니다!" });
@@ -133,6 +137,9 @@ export default function ProductDetail() {
               {
                 query: FETCH_PRODUCTS_CART_COUNT,
               },
+              {
+                query: FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
+              },
             ],
           });
           return Modal.success({ content: "장바구니에 상품을 담았습니다!" });
@@ -156,6 +163,9 @@ export default function ProductDetail() {
             },
             {
               query: FETCH_PRODUCTS_CART_COUNT,
+            },
+            {
+              query: FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
             },
           ],
         });
