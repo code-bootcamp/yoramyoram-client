@@ -5,6 +5,11 @@ import _, { isArray } from "lodash";
 import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
 import { useRecoilState } from "recoil";
 import { MoveToPageState, selectedState } from "../../../../commons/stores";
+import {
+  IQuery,
+  IQueryFetchProductsArgs,
+} from "../../../../commons/types/generated/types";
+import { ApolloQueryResult } from "@apollo/client";
 
 export default function CategoryBar({
   setCategory,
@@ -19,10 +24,13 @@ export default function CategoryBar({
   setCategory: (item: string) => void;
   category: string;
   parentFunction: () => void;
-  refetch: any;
+  refetch: (
+    variables?: Partial<IQueryFetchProductsArgs>
+  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts">>>;
   refetchCategory: (cateId: string) => void;
   Search: (word: string) => void;
   refetchCategoryCount: (cateId: string) => void;
+  refetchSearch: (keyword: string) => void;
   // selected?: string;
 }) {
   const [keyword, setKeyword] = useState("");
@@ -41,7 +49,7 @@ export default function CategoryBar({
     setKeyword(keyword);
   });
 
-  const handleOnKeyPress = (e: any) => {
+  const handleOnKeyPress = (e) => {
     if (e.key === "Enter") {
       refetchSearch(keyword);
       parentFunction(searchResult);

@@ -226,7 +226,11 @@ export const ListWrapper = styled.main`
     padding: 0 18px;
   }
 `;
-export const ProductWriteBtn = styled.button`
+
+interface IAdmin {
+  admin: string;
+}
+export const ProductWriteBtn = styled.button<IAdmin>`
   width: 15%;
   padding: 10px 0;
   color: #ffffff;

@@ -29,15 +29,34 @@ import { useCommentsDESC } from "../../../commons/hooks/queries/useSortByComment
 import { useCommentsASC } from "../../../commons/hooks/queries/useSortByCommentsASC";
 import { usePriceDESC } from "../../../commons/hooks/queries/useSortByPriceDESC";
 
+interface IList {
+  commentCount: number;
+  description: string;
+  detailContent: string;
+  etc1Name: string;
+  etc1Value: string;
+  etc2Name: string;
+  etc2Value: string;
+  price: string;
+  name: string;
+  product_id: string;
+  productImages: IProductImage[];
+  wishListCount: number;
+}
+
+interface IProductImage {
+  url: string;
+}
+
 export default function ProductList(props: IProductListUIProps) {
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [category, setCategory] = useState<string>("전체");
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<never[]>([]);
   const [admin, setAdmin] = useState<string>("");
   const [selected, setSelected] = useState("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
-  const { data: Search, refetchSearch } = useSearchProducts();
+  const { refetchSearch } = useSearchProducts();
 
   //FIXME: sort 기능구현
   // const { CommentsASC, CommentsASCRefetch } = useCommentsASC();
@@ -137,8 +156,8 @@ export default function ProductList(props: IProductListUIProps) {
     void router.push(`/products/${event.currentTarget.id}`);
   };
 
-  const parentFunction = (x: any) => {
-    let temp: any = [...list];
+  const parentFunction = (x) => {
+    let temp = [...list];
     temp = x?.searchProducts;
     setList(temp);
   };
@@ -195,7 +214,7 @@ export default function ProductList(props: IProductListUIProps) {
           </S.SelectBox> */}
         </S.ListHeaderBox>
         <S.ListContentsBox>
-          {list?.map((el, idx) => (
+          {list?.map((el: IList, idx: number) => (
             <S.ProductItemBox
               id={el.product_id}
               onClick={onClickMoveToDetail}
