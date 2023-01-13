@@ -10,7 +10,7 @@ export default function CategoryBarSticky({
   parentFunction,
   refetch,
   refetchCategory,
-  refetchSearch,
+  // refetchSearch,
   refetchCategoryCount,
 }: {
   setCategory: (item: string) => void;
@@ -34,11 +34,11 @@ export default function CategoryBarSticky({
     setKeyword(value);
   });
 
-  const handleOnKeyPress = (e: any) => {
-    if (e.key === "Enter") {
-      parentFunction(searchResult);
-    }
-  };
+  // const handleOnKeyPress = (e: any) => {
+  //   if (e.key === "Enter") {
+  //     parentFunction(searchResult);
+  //   }
+  // };
 
   return (
     <S.CategoryBarSticky>
