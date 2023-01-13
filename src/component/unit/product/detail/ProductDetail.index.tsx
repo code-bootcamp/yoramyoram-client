@@ -89,27 +89,78 @@ export default function ProductDetail() {
   const onClickCart = async () => {
     console.log(isSelected);
     try {
-      await createProductCart({
-        variables: {
-          productId: String(router.query.productId),
-          etc1Value: isSelected,
-          etc2Value: isSelectedTwo,
-          quantity: count,
-        },
-        refetchQueries: [
-          {
-            query: FETCH_PRODUCTS_CART,
+      if (isGetOption === true && isGetOptionTwo === true) {
+        if (isSelected?.length !== 0 && isSelectedTwo?.length !== 0) {
+          await createProductCart({
             variables: {
-              page: 1,
+              productId: String(router.query.productId),
+              etc1Value: isSelected,
+              etc2Value: isSelectedTwo,
+              quantity: count,
             },
+            refetchQueries: [
+              {
+                query: FETCH_PRODUCTS_CART,
+                variables: {
+                  page: 1,
+                },
+              },
+              {
+                query: FETCH_PRODUCTS_CART_COUNT,
+              },
+            ],
+          });
+          return Modal.success({ content: "장바구니에 상품을 담았습니다!" });
+        } else {
+          return Modal.error({ content: "옵션을 선택해주세요." });
+        }
+      } else if (isGetOption === true) {
+        if (isSelected?.length !== 0) {
+          await createProductCart({
+            variables: {
+              productId: String(router.query.productId),
+              etc1Value: isSelected,
+              etc2Value: isSelectedTwo,
+              quantity: count,
+            },
+            refetchQueries: [
+              {
+                query: FETCH_PRODUCTS_CART,
+                variables: {
+                  page: 1,
+                },
+              },
+              {
+                query: FETCH_PRODUCTS_CART_COUNT,
+              },
+            ],
+          });
+          return Modal.success({ content: "장바구니에 상품을 담았습니다!" });
+        } else {
+          return Modal.error({ content: "옵션을 선택해주세요." });
+        }
+      } else if (isGetOption === false) {
+        await createProductCart({
+          variables: {
+            productId: String(router.query.productId),
+            etc1Value: isSelected,
+            etc2Value: isSelectedTwo,
+            quantity: count,
           },
-          {
-            query: FETCH_PRODUCTS_CART_COUNT,
-          },
-        ],
-      });
-      console.log("카트데이터");
-      Modal.success({ content: "장바구니에 상품을 담았습니다!" });
+          refetchQueries: [
+            {
+              query: FETCH_PRODUCTS_CART,
+              variables: {
+                page: 1,
+              },
+            },
+            {
+              query: FETCH_PRODUCTS_CART_COUNT,
+            },
+          ],
+        });
+      }
+      return Modal.success({ content: "장바구니에 상품을 담았습니다!" });
     } catch (error) {
       Modal.error({ content: "장바구니에 상품을 담지 못했습니다." });
     }
@@ -184,10 +235,10 @@ export default function ProductDetail() {
     setGetOption(data?.fetchProduct?.etc1Name);
     setGetOptionTwo(data?.fetchProduct?.etc2Name);
 
-    if (getOption.length !== 0) {
+    if (getOption?.length !== 0) {
       setIsGetOption(true);
     }
-    if (getOptionTwo.length !== 0) {
+    if (getOptionTwo?.length !== 0) {
       setIsGetOptionTwo(true);
     }
   });
@@ -197,11 +248,11 @@ export default function ProductDetail() {
     setPrice(data?.fetchProduct?.price);
   }, [data]);
 
-  // console.log(getOption);
-  // console.log("옵션확인하자");
-  // console.log(typeof getOptionTwo);
-  // console.log(isGetOption);
-  // console.log(isGetOptionTwo);
+  console.log(getOption);
+  console.log("옵션확인하자");
+  console.log(typeof getOptionTwo);
+  console.log(isGetOption);
+  console.log(isGetOptionTwo);
   const onClickInfoBtn = () => {
     setDetailSelectBtn(true);
     setSelectInfoBtn(true);
