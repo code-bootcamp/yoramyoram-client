@@ -1,5 +1,5 @@
 import * as S from "./ProductWrite.styles";
-import { KeyboardEvent, useEffect, useState } from "react";
+import { KeyboardEvent, MouseEvent, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Modal, Select } from "antd";
@@ -30,6 +30,7 @@ import { FETCH_PRODUCT } from "../../../commons/hooks/queries/useFetchProduct";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
+import { innerText } from "react";
 
 export default function ProductWrite(props: any) {
   // TAG //
@@ -62,16 +63,18 @@ export default function ProductWrite(props: any) {
     setTagItemTwo("");
   };
 
-  const deleteTagItem = (e: any) => {
-    const deleteTagItem = e.currentTarget.parentElement.firstChild.innerText;
+  const deleteTagItem = (e: MouseEvent<HTMLButtonElement>) => {
+    const deleteTagItem =
+      e.currentTarget.parentElement?.firstChild?.textContent;
     const filteredTagList = tagList.filter(
       (tagItem) => tagItem !== deleteTagItem
     );
     setTagList(filteredTagList);
     // target객체 의 유형이 이고 TypeScript에서 허용되지 않는( 활성화된 EventTarget | null경우) nullable 유형의 속성에 액세스하려고 하기 때문에 발생합니다. 유형 가드를 통해서만 strictNullChecks유형을 좁혀서 이 오류를 수정할 수 있습니다
   };
-  const deleteTagItemTwo = (e: any) => {
-    const deleteTagItemTwo = e.currentTarget.parentElement.firstChild.innerText;
+  const deleteTagItemTwo = (e: MouseEvent<HTMLButtonElement>) => {
+    const deleteTagItemTwo =
+      e.currentTarget.parentElement?.firstChild?.textContent;
     const filteredTagList = tagListTwo.filter(
       (tagItemTwo) => tagItemTwo !== deleteTagItemTwo
     );
@@ -87,7 +90,6 @@ export default function ProductWrite(props: any) {
   }, [props.data]);
 
   const router = useRouter();
-  const [imageUrls, setImageUrls] = useState<string[]>(["", "", ""]);
   const [files, setFiles] = useState<File[]>([]);
   const [fileUrls, setFileUrls] = useState(["", "", ""]);
   const [uploadImage] = useMutation<
@@ -172,7 +174,7 @@ export default function ProductWrite(props: any) {
       Modal.success({ content: "상품이 등록되었습니다." });
       void router.push(`/products/${result.data?.createProduct.product_id}`);
     } catch (error) {
-      Modal.error({ content: "상품등록에 실패했습니다." });
+      Modal.error({ content: "상품 등록 항목을 다시 확인해주세요." });
     }
   };
 
@@ -191,7 +193,7 @@ export default function ProductWrite(props: any) {
       props.data?.fetchProduct?.productImages[2].url,
     ]);
   }, [props.data]);
-
+  console.log(props.data?.fetchProduct?.etc2Name);
   const onClickUpdateSubmit = async (data: any) => {
     console.log(data);
 
@@ -224,6 +226,7 @@ export default function ProductWrite(props: any) {
     if (data.name) myvariables.updateProductInput.name = data.name;
     if (data.price) myvariables.updateProductInput.price = data.price;
     if (data.etc1Name) myvariables.updateProductInput.etc1Name = data.etc1Name;
+    if (data.etc2Name) myvariables.updateProductInput.etc1Name = data.etc2Name;
     if (data.etc1Value)
       myvariables.updateProductInput.etc1Value = String(tagList);
     if (data.etc2Name) myvariables.updateProductInput.etc2Name = data.etc2Name;
@@ -328,15 +331,21 @@ export default function ProductWrite(props: any) {
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
+              <div>{props.data?.fetchProduct?.etc1Name === "컬러"}</div>
+              <div>{props.data?.fetchProduct?.etc1Name}</div>
               <S.SelectBox
                 {...register("etc1Name")}
-                defaultValue={props.data?.fetchProduct?.etc1Name}
+                defaultValue={
+                  props.data?.fetchProduct?.etc1Name == "컬러"
+                    ? "color1"
+                    : "size1"
+                }
               >
-                <option value="옵션을 선택하세요." disabled selected>
+                <option value="selectoption1" disabled selected>
                   옵션을 선택하세요.
                 </option>
-                <option value="컬러">컬러</option>
-                <option value="사이즈">사이즈</option>
+                <option value="color1">컬러</option>
+                <option value="size1">사이즈</option>
               </S.SelectBox>
             </S.SelectWrap>
             <S.OptionBox>
@@ -367,17 +376,23 @@ export default function ProductWrite(props: any) {
           </S.HalfWrapper>
           <S.HalfWrapper>
             <S.SelectWrap>
+              <div>{props.data?.fetchProduct?.etc2Name}</div>
               <S.Label>옵션명</S.Label>
-
               <S.SelectBox
                 {...register("etc2Name")}
-                defaultValue={props.data?.fetchProduct?.etc2Name}
+                defaultValue={
+                  props.data?.fetchProduct?.etc2Name === ""
+                    ? "selectoption2"
+                    : props.data?.fetchProduct?.etc2Name === "컬러"
+                    ? "color2"
+                    : "size2"
+                }
               >
-                <option value="옵션을 선택하세요." disabled selected>
+                <option value="selectoption2" disabled selected>
                   옵션을 선택하세요.
                 </option>
-                <option value="컬러">컬러</option>
-                <option value="사이즈">사이즈</option>
+                <option value="color2">컬러</option>
+                <option value="size2">사이즈</option>
               </S.SelectBox>
             </S.SelectWrap>
             <S.OptionBox>
