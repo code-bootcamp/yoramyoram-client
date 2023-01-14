@@ -26,24 +26,16 @@ export const UPLOAD_IMAGE = gql`
 
 export const UPDATE_PRODUCT = gql`
   mutation updateProduct(
-    $productId: String
+    $productId: String!
     $updateProductInput: UpdateProductInput!
   ) {
     updateProduct(
       productId: $productId
-      UpdateProductInput: $UpdateProductInput
+      updateProductInput: $updateProductInput
     ) {
       product_id
       name
       price
-      wishListCount
-      commentCount
-      description
-      etc1Name
-      etc2Name
-      etc1Value
-      etc2Value
-      detailContent
     }
   }
 `;
