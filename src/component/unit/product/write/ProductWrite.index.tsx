@@ -120,7 +120,7 @@ export default function ProductWrite(props: any) {
     // setTagItem("");
   }, [props.data]);
 
-  console.log(tagModify);
+  // console.log(tagModify);
   // TAG END //
 
   const router = useRouter();
@@ -163,17 +163,18 @@ export default function ProductWrite(props: any) {
     } else {
     }
   }, [watchAll]);
-  console.log(watchAll);
+  // console.log(watchAll);
   //===================================
 
   const onChangeContents = (value: string) => {
-    console.log(value);
+    // console.log(value);
 
     setValue("detailContent", value === "<p><br></p>" ? "" : value);
     void trigger("detailContent");
   };
 
   const onClickSubmit = async (data: any) => {
+    // console.log(data);
     const result = await Promise.all(
       files.map(async (el) =>
         el !== undefined
@@ -181,13 +182,13 @@ export default function ProductWrite(props: any) {
           : undefined
       )
     );
-    console.log(result);
+    // console.log(result);
     const resultUrls = result.map((el) =>
       el !== undefined ? el.data?.uploadImage : ""
     );
-    console.log(resultUrls);
-    console.log("??");
-    console.log(data);
+    // console.log(resultUrls);
+    // console.log("??");
+    // console.log(data);
     setValue("productImages", resultUrls);
 
     try {
@@ -222,7 +223,7 @@ export default function ProductWrite(props: any) {
           },
         ],
       });
-      console.log(result);
+      // console.log(result);
       Modal.success({ content: "상품이 등록되었습니다." });
       void router.push(`/products/${result.data?.createProduct.product_id}`);
     } catch (error) {
@@ -237,10 +238,10 @@ export default function ProductWrite(props: any) {
     // console.log(newFileUrls[0]);
     setFileUrls(newFileUrls);
   };
-  console.log("fileUrls :", props.data?.fetchProduct?.productImages);
-  console.log(props.data?.fetchProduct?.productImages);
+  // console.log("fileUrls :", props.data?.fetchProduct?.productImages);
+  // console.log(props.data?.fetchProduct?.productImages);
   // console.log(props.data?.fetchProduct);
-  console.log(props.data?.fetchProduct);
+  // console.log(props.data?.fetchProduct);
 
   //상품 수정 onClick Event ============================================
   // 이걸 살리면 이미지 미리보기가 된다.
@@ -252,25 +253,32 @@ export default function ProductWrite(props: any) {
   //   ]);
   // }, [props.data]);
 
+
   const onClickUpdateSubmit = async (data: any) => {
-    const result = await Promise.all(
-      fileUrls.map(async (el) =>
-        el !== undefined
-          ? await uploadImage({ variables: { images: data.images } })
-          : undefined
-      )
-    );
+    console.log('??테스트')
+    
+    
+    // const result = await Promise.all(
+    //   props.data?.fetchProduct.productImages.map(async (el:any) =>
+    //     el !== undefined
+    //       ? await uploadImage({ variables: { images: data.images } })
+    //       : undefined
+    //   )
+    // );
     // const currentFiles = JSON.stringify(fileUrls);
     // const defaultFiles = JSON.stringify(fileUrls);
     // const isChangedFiles = currentFiles !== defaultFiles;
 
-    console.log(result);
-    const resultUrls = result.map((el) =>
-      el !== undefined ? el.data?.uploadImage : ""
-    );
-    setValue("productImages", resultUrls);
-    console.log(resultUrls);
+    // console.log(result);
+    // const resultUrls = result.map((el) =>
+    //   el !== undefined ? el.data?.uploadImage : ""
+    // );
+    // setValue("productImages", resultUrls);
+    // console.log(resultUrls);
 
+    
+    console.log(data);
+    
     const updateProductInput: IUpdateProductInput = {};
     if (data.name) updateProductInput.name = data.name;
     if (data.price) updateProductInput.price = data.price;
@@ -281,27 +289,34 @@ export default function ProductWrite(props: any) {
     if (data.etc1Value) updateProductInput.etc1Value = String(tagList);
     if (data.etc2Name) updateProductInput.etc2Name = String(tagListTwo);
     if (data.etc2Value) updateProductInput.etc2Value = data.detailContent;
-    if (data.productCategoryId)
-      updateProductInput.productCategoryId = data.productCategoryId;
+    if (data.productCategoryId.includes('카테고리')){
+      updateProductInput.productCategoryId = props.data?.fetchProduct?.productCategory?.category_id
+    }
+    console.log(updateProductInput);
+      
 
     // if (isChangedFiles) updateProductInput.productImages = [...fileUrls];
 
-    console.log(data);
+    // console.log('dddd')
+    // console.log(data);
     try {
+      // console.log('updateProductInput');
+      // console.log(updateProductInput);
+      
       const result = await updateProduct({
         variables: {
           productId: String(router.query.productId),
           updateProductInput: {
-            name: data.name,
-            price: data.price,
-            description: data.description,
-            etc1Name: data.etc1Name,
+            name: updateProductInput.name,
+            price: updateProductInput.price,
+            description: updateProductInput.description,
+            etc1Name: updateProductInput.etc1Name,
             etc1Value: String(tagList),
-            etc2Name: data.etc2Name,
+            etc2Name: updateProductInput.etc2Name,
             etc2Value: String(tagListTwo),
-            detailContent: data.detailContent,
+            detailContent: updateProductInput.detailContent,
             productImages: [...fileUrls],
-            productCategoryId: data.productCategoryId,
+            productCategoryId: updateProductInput.productCategoryId,
           },
         },
       });
@@ -314,7 +329,7 @@ export default function ProductWrite(props: any) {
     }
   };
 
-  console.log(props.data?.fetchProduct?.productImages);
+  // console.log(props.data?.fetchProduct?.productImages);
   //=======================================================================================
 
   return (
@@ -358,6 +373,7 @@ export default function ProductWrite(props: any) {
                 defaultValue={
                   props.data?.fetchProduct?.productCategory?.category_id
                 }
+                // value = {props.data?.fetchProduct?.productCategory?.category_id}
               >
                 <option value="카테고리를 선택하세요." disabled selected>
                   카테고리를 선택하세요.
@@ -485,17 +501,32 @@ export default function ProductWrite(props: any) {
           <S.InputWrapper>
             <S.Label>상품 사진</S.Label>
             <S.PhotoWrapper>
-              {fileUrls.map((el, index) => (
-                <S.PhotoBox>
-                  <Uploads01
-                    key={uuidv4()}
-                    index={index}
-                    fileUrl={el}
-                    onChangeFileUrls={onChangeFileUrls}
-                    // defaultUrls={props.data?.fetchProduct?.productImages}
-                  />
-                </S.PhotoBox>
-              ))}
+              {
+                props.isEdit ? 
+                props.data?.fetchProduct?.productImages.map((el:any, index:number) => (
+                  <S.PhotoBox>
+                    <Uploads01
+                      key={uuidv4()}
+                      index={index}
+                      fileUrl={el.url}
+                      onChangeFileUrls={onChangeFileUrls}
+                      defaultFileUrl={el.url}
+                    />
+                  </S.PhotoBox>
+                ))
+                :
+                fileUrls.map((el, index) => (
+                  <S.PhotoBox>
+                    <Uploads01
+                      key={uuidv4()}
+                      index={index}
+                      fileUrl={el}
+                      onChangeFileUrls={onChangeFileUrls}
+                    />
+                  </S.PhotoBox>
+                ))
+              }
+              {}
             </S.PhotoWrapper>
           </S.InputWrapper>
           <S.ButtonBox>
