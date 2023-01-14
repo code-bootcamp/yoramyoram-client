@@ -1,16 +1,26 @@
 import React from "react";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+  useState,
+  KeyboardEvent,
+} from "react";
 import * as S from "./ProductList.styles";
 import _, { isArray } from "lodash";
 import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
 import { useRecoilState } from "recoil";
-import { MoveToPageState, selectedState } from "../../../../commons/stores";
+import {
+  IsSearchState,
+  MoveToPageState,
+  searchProductsState,
+  selectedState,
+} from "../../../../commons/stores";
 import {
   IQuery,
   IQueryFetchProductsArgs,
 } from "../../../../commons/types/generated/types";
 import { ApolloQueryResult } from "@apollo/client";
-import { KeyboardEvent } from "react";
 
 // interface IE {
 //   refetchSearch: (keyword: string) => void;
@@ -52,8 +62,9 @@ export default function CategoryBar({
 }) {
   const [keyword, setKeyword] = useState("");
   const { data: searchResult, refetchSearch } = useSearchProducts(keyword);
-
-  console.log(searchResult?.searchProducts);
+  const [, setSearchProducts] = useRecoilState(searchProductsState);
+  const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
+  console.log(searchResult?.searchProducts.length);
 
   // const [select, setSelect] = useRecoilState(selectedState);
   // useEffect(() => {
@@ -73,6 +84,8 @@ export default function CategoryBar({
       refetchSearch(keyword);
       parentFunction(searchResult);
       setCategory("전체");
+      setSearchProducts(searchResult?.searchProducts.length ?? 0);
+      setIsSearch(true);
     }
   };
 
@@ -141,6 +154,7 @@ export default function CategoryBar({
   }) {
     const isActive = category === title;
     const [moveToPage, setMoveToPage] = useRecoilState(MoveToPageState);
+    const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
 
     // select
     // const [select, setSelect] = useRecoilState(selectedState);
@@ -149,6 +163,7 @@ export default function CategoryBar({
       refetchCategory(id);
       setCategory(title);
       refetchCategoryCount(id);
+      setIsSearch(false);
     };
 
     useEffect(() => {

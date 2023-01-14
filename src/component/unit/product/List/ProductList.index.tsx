@@ -29,6 +29,8 @@ import {
 import { useCommentsDESC } from "../../../commons/hooks/queries/useSortByCommentsDESC";
 import { useCommentsASC } from "../../../commons/hooks/queries/useSortByCommentsASC";
 import { usePriceDESC } from "../../../commons/hooks/queries/useSortByPriceDESC";
+import { IsSearchState, searchProductsState } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
 
 interface IList {
   commentCount: number;
@@ -57,6 +59,9 @@ export default function ProductList(props: IProductListUIProps) {
   const [admin, setAdmin] = useState<string>("");
   const [selected, setSelected] = useState("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
+  const [searchProducts, setSearchProducts] =
+    useRecoilState(searchProductsState);
+  const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
 
   //FIXME: sort 기능구현
   // const { CommentsASC, CommentsASCRefetch } = useCommentsASC();
@@ -109,6 +114,7 @@ export default function ProductList(props: IProductListUIProps) {
       cateId: "",
     },
   });
+  console.log(dataProductsCount?.fetchProductsCount);
 
   console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
   console.log(data?.fetchProducts);
@@ -199,8 +205,14 @@ export default function ProductList(props: IProductListUIProps) {
 
         <S.ListHeaderBox>
           <S.ListCount>
-            총 <span>{dataProductsCount?.fetchProductsCount}</span>개의 상품이
-            있습니다.
+            {/* 총 <span>{dataProductsCount?.fetchProductsCount}</span>개의 상품이 */}
+            총{" "}
+            <span>
+              {isSearch
+                ? searchProducts
+                : dataProductsCount?.fetchProductsCount}
+            </span>
+            개의 상품이 있습니다.
           </S.ListCount>
 
           {/* FIXME: 검색부분 팀플끝나고 구현! */}
