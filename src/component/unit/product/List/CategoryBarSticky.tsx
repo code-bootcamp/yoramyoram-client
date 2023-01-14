@@ -7,18 +7,18 @@ import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProdu
 export default function CategoryBarSticky({
   setCategory,
   category,
-  parentFunction,
-  refetch,
+  // parentFunction,
+  // refetch,
   refetchCategory,
   // refetchSearch,
   refetchCategoryCount,
 }: {
   setCategory: (item: string) => void;
   category: string;
-  parentFunction: () => void;
-  refetch: any;
+  // parentFunction: () => void;
+  // refetch: any;
   refetchCategory: (cateId: string) => void;
-  Search: (word: string) => void;
+  // Search: (word: string) => void;
   refetchCategoryCount: (cateId: string) => void;
   // selected?: string;
 }) {
