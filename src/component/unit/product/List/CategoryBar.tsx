@@ -10,31 +10,50 @@ import {
   IQueryFetchProductsArgs,
 } from "../../../../commons/types/generated/types";
 import { ApolloQueryResult } from "@apollo/client";
+import { KeyboardEvent } from "react";
+
+// interface IE {
+//   refetchSearch: (keyword: string) => void;
+//   parentFunction: () => void;
+//   setCategory: () => void;
+// }
+
+interface ISearchResult {
+  name: string;
+  price: number;
+  productImages: IProductImages;
+  porduct_id: string;
+}
+
+interface IProductImages {
+  url: string;
+}
 
 export default function CategoryBar({
   setCategory,
   category,
   parentFunction,
-  refetch,
+  // refetch,
   refetchCategory,
-  refetchSearch,
+  // refetchSearch,
   refetchCategoryCount,
-}: // selected,
-{
+}: {
   setCategory: (item: string) => void;
   category: string;
-  parentFunction: () => void;
-  refetch: (
-    variables?: Partial<IQueryFetchProductsArgs>
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts">>>;
+  parentFunction: (
+    searchResult: Pick<IQuery, "searchProducts"> | undefined
+  ) => void;
+  // refetch: (
+  //   variables?: Partial<IQueryFetchProductsArgs>
+  // ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts">>>;
   refetchCategory: (cateId: string) => void;
-  Search: (word: string) => void;
+  // Search: (word: string) => void;
   refetchCategoryCount: (cateId: string) => void;
-  refetchSearch: (keyword: string) => void;
-  // selected?: string;
 }) {
   const [keyword, setKeyword] = useState("");
-  const { data: searchResult } = useSearchProducts(keyword);
+  const { data: searchResult, refetchSearch } = useSearchProducts(keyword);
+
+  console.log(searchResult?.searchProducts);
 
   // const [select, setSelect] = useRecoilState(selectedState);
   // useEffect(() => {
@@ -49,7 +68,7 @@ export default function CategoryBar({
     setKeyword(keyword);
   });
 
-  const handleOnKeyPress = (e) => {
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       refetchSearch(keyword);
       parentFunction(searchResult);

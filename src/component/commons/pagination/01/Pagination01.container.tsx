@@ -11,7 +11,7 @@ import Pagination01UI from "./Pagination01.presenter";
 
 interface IProps {
   selected: string;
-  count: number;
+  count: number | undefined;
   category: string;
   refetch: (
     variables?: Partial<IQueryFetchProductsArgs>
