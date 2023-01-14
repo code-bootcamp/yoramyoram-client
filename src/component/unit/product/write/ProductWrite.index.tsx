@@ -1,12 +1,5 @@
 import * as S from "./ProductWrite.styles";
-import {
-  ChangeEvent,
-  KeyboardEvent,
-  MouseEvent,
-  MouseEventHandler,
-  useEffect,
-  useState,
-} from "react";
+import { KeyboardEvent, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Modal, Select } from "antd";
@@ -28,27 +21,15 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./product-validation";
 import { v4 as uuidv4 } from "uuid";
 import Uploads01 from "../../../commons/uploads/01/Uploads01.index";
-import { watch } from "fs";
+
 import {
   FETCH_PRODUCTS,
   FETCH_PRODUCTS_COUNT,
 } from "../../../commons/hooks/queries/useFetchProducts";
+import { FETCH_PRODUCT } from "../../../commons/hooks/queries/useFetchProduct";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
-
-interface IUpdateProductInput {
-  name?: string;
-  price?: number;
-  description?: string;
-  detailContent?: string;
-  etc1Name?: string;
-  etc1Value?: string;
-  etc2Name?: string;
-  etc2Value?: string;
-  productCategoryId?: string;
-  productImages?: string[];
-}
 
 export default function ProductWrite(props: any) {
   // TAG //
@@ -56,12 +37,6 @@ export default function ProductWrite(props: any) {
   const [tagList, setTagList] = useState<string[]>([]);
   const [tagItemTwo, setTagItemTwo] = useState<string>("");
   const [tagListTwo, setTagListTwo] = useState<string[]>([]);
-
-  const [tagModify, setTagModify] = useState<string[]>([]);
-
-  const handleChange = (value: any) => {
-    console.log(`selected ${value}`);
-  };
 
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.currentTarget.value.length !== 0 && e.key === "Enter") {
@@ -109,19 +84,7 @@ export default function ProductWrite(props: any) {
         e.preventDefault();
       }
     });
-
-    //============ 태그형식으로 불러오고싶은데?
-
-    // setTagModify(props.data?.fetchProduct?.etc1Value.split(" "));
-    // tagModify.map((el) => setTagItem(el));
-    // let updatedTagList = [...tagList];
-    // updatedTagList.push(tagItem);
-    // setTagList(updatedTagList);
-    // setTagItem("");
   }, [props.data]);
-
-  // console.log(tagModify);
-  // TAG END //
 
   const router = useRouter();
   const [imageUrls, setImageUrls] = useState<string[]>(["", "", ""]);
@@ -146,9 +109,8 @@ export default function ProductWrite(props: any) {
     handleSubmit,
     setValue,
     trigger,
-    getValues,
     formState,
-    reset,
+
     watch,
   } = useForm({
     resolver: yupResolver(schema),
@@ -174,23 +136,6 @@ export default function ProductWrite(props: any) {
   };
 
   const onClickSubmit = async (data: any) => {
-    // console.log(data);
-    const result = await Promise.all(
-      files.map(async (el) =>
-        el !== undefined
-          ? await uploadImage({ variables: { images: data.images } })
-          : undefined
-      )
-    );
-    // console.log(result);
-    const resultUrls = result.map((el) =>
-      el !== undefined ? el.data?.uploadImage : ""
-    );
-    // console.log(resultUrls);
-    // console.log("??");
-    // console.log(data);
-    setValue("productImages", resultUrls);
-
     try {
       const result = await createProduct({
         variables: {
@@ -234,102 +179,78 @@ export default function ProductWrite(props: any) {
   const onChangeFileUrls = (fileUrl: string, index: number) => {
     const newFileUrls = [...fileUrls];
     newFileUrls[index] = fileUrl[0];
-    // console.log(newFileUrls);
-    // console.log(newFileUrls[0]);
     setFileUrls(newFileUrls);
   };
-  // console.log("fileUrls :", props.data?.fetchProduct?.productImages);
-  // console.log(props.data?.fetchProduct?.productImages);
-  // console.log(props.data?.fetchProduct);
-  // console.log(props.data?.fetchProduct);
 
   //상품 수정 onClick Event ============================================
   // 이걸 살리면 이미지 미리보기가 된다.
-  // useEffect(() => {
-  //   setFileUrls([
-  //     props.data?.fetchProduct?.productImages[0].url,
-  //     props.data?.fetchProduct?.productImages[1].url,
-  //     props.data?.fetchProduct?.productImages[2].url,
-  //   ]);
-  // }, [props.data]);
-
+  useEffect(() => {
+    setFileUrls([
+      props.data?.fetchProduct?.productImages[0].url,
+      props.data?.fetchProduct?.productImages[1].url,
+      props.data?.fetchProduct?.productImages[2].url,
+    ]);
+  }, [props.data]);
 
   const onClickUpdateSubmit = async (data: any) => {
-    console.log('??테스트')
-    
-    
-    // const result = await Promise.all(
-    //   props.data?.fetchProduct.productImages.map(async (el:any) =>
-    //     el !== undefined
-    //       ? await uploadImage({ variables: { images: data.images } })
-    //       : undefined
-    //   )
-    // );
-    // const currentFiles = JSON.stringify(fileUrls);
-    // const defaultFiles = JSON.stringify(fileUrls);
-    // const isChangedFiles = currentFiles !== defaultFiles;
-
-    // console.log(result);
-    // const resultUrls = result.map((el) =>
-    //   el !== undefined ? el.data?.uploadImage : ""
-    // );
-    // setValue("productImages", resultUrls);
-    // console.log(resultUrls);
-
-    
     console.log(data);
-    
-    const updateProductInput: IUpdateProductInput = {};
-    if (data.name) updateProductInput.name = data.name;
-    if (data.price) updateProductInput.price = data.price;
-    if (data.description) updateProductInput.description = data.description;
+
+    // update 수정해볼게요 2022/01/14
+
+    const images = await Promise.all(
+      files.map(async (el) =>
+        el !== undefined
+          ? await uploadImage({ variables: { images: data.images } })
+          : undefined
+      )
+    );
+
+    const myvariables = {
+      productId: String(router.query.productId),
+      updateProductInput: {
+        name: data.name,
+        price: data.price,
+        description: data.description,
+        etc1Name: data.etc1Name,
+        etc1Value: String(tagList),
+        etc2Name: data.etc2Name,
+        etc2Value: String(tagListTwo),
+        detailContent: data.detailContent,
+        productImages: [...fileUrls],
+        productCategoryId: data.productCategoryId,
+      },
+    };
+
+    if (data.name) myvariables.updateProductInput.name = data.name;
+    if (data.price) myvariables.updateProductInput.price = data.price;
+    if (data.etc1Name) myvariables.updateProductInput.etc1Name = data.etc1Name;
+    if (data.etc1Value)
+      myvariables.updateProductInput.etc1Value = String(tagList);
+    if (data.etc2Name) myvariables.updateProductInput.etc2Name = data.etc2Name;
+    if (data.etc2Value)
+      myvariables.updateProductInput.etc2Value = String(tagListTwo);
     if (data.detailContent)
-      updateProductInput.detailContent = data.detailContent;
-    if (data.etc1Name) updateProductInput.etc1Name = data.etc1Name;
-    if (data.etc1Value) updateProductInput.etc1Value = String(tagList);
-    if (data.etc2Name) updateProductInput.etc2Name = String(tagListTwo);
-    if (data.etc2Value) updateProductInput.etc2Value = data.detailContent;
-    if (data.productCategoryId.includes('카테고리')){
-      updateProductInput.productCategoryId = props.data?.fetchProduct?.productCategory?.category_id
-    }
-    console.log(updateProductInput);
-      
+      myvariables.updateProductInput.detailContent = data.detailContent;
+    if (data.productImages)
+      myvariables.updateProductInput.productImages = [...fileUrls];
+    if (data.productCategoryId)
+      myvariables.updateProductInput.productCategoryId = data.productCategoryId;
 
-    // if (isChangedFiles) updateProductInput.productImages = [...fileUrls];
-
-    // console.log('dddd')
-    // console.log(data);
-    try {
-      // console.log('updateProductInput');
-      // console.log(updateProductInput);
-      
-      const result = await updateProduct({
-        variables: {
-          productId: String(router.query.productId),
-          updateProductInput: {
-            name: updateProductInput.name,
-            price: updateProductInput.price,
-            description: updateProductInput.description,
-            etc1Name: updateProductInput.etc1Name,
-            etc1Value: String(tagList),
-            etc2Name: updateProductInput.etc2Name,
-            etc2Value: String(tagListTwo),
-            detailContent: updateProductInput.detailContent,
-            productImages: [...fileUrls],
-            productCategoryId: updateProductInput.productCategoryId,
+    const result = await updateProduct({
+      variables: myvariables,
+      refetchQueries: [
+        {
+          query: FETCH_PRODUCT,
+          variables: {
+            productId: router.query.productId,
           },
         },
-      });
-      console.log("result!!! :", result);
-      console.log(result);
-      Modal.success({ content: "상품이 수정되었습니다." });
-      void router.push(`/products/${result.data?.updateProduct?.product_id}`);
-    } catch (error) {
-      Modal.error({ content: "상품수정에 실패했습니다." });
-    }
+      ],
+    });
+    console.log(result);
+    router.push(`/products/${result.data?.updateProduct.product_id}`);
   };
 
-  // console.log(props.data?.fetchProduct?.productImages);
   //=======================================================================================
 
   return (
@@ -373,7 +294,6 @@ export default function ProductWrite(props: any) {
                 defaultValue={
                   props.data?.fetchProduct?.productCategory?.category_id
                 }
-                // value = {props.data?.fetchProduct?.productCategory?.category_id}
               >
                 <option value="카테고리를 선택하세요." disabled selected>
                   카테고리를 선택하세요.
@@ -501,32 +421,16 @@ export default function ProductWrite(props: any) {
           <S.InputWrapper>
             <S.Label>상품 사진</S.Label>
             <S.PhotoWrapper>
-              {
-                props.isEdit ? 
-                props.data?.fetchProduct?.productImages.map((el:any, index:number) => (
-                  <S.PhotoBox>
-                    <Uploads01
-                      key={uuidv4()}
-                      index={index}
-                      fileUrl={el.url}
-                      onChangeFileUrls={onChangeFileUrls}
-                      defaultFileUrl={el.url}
-                    />
-                  </S.PhotoBox>
-                ))
-                :
-                fileUrls.map((el, index) => (
-                  <S.PhotoBox>
-                    <Uploads01
-                      key={uuidv4()}
-                      index={index}
-                      fileUrl={el}
-                      onChangeFileUrls={onChangeFileUrls}
-                    />
-                  </S.PhotoBox>
-                ))
-              }
-              {}
+              {fileUrls.map((el, index) => (
+                <S.PhotoBox>
+                  <Uploads01
+                    key={uuidv4()}
+                    index={index}
+                    fileUrl={el}
+                    onChangeFileUrls={onChangeFileUrls}
+                  />
+                </S.PhotoBox>
+              ))}
             </S.PhotoWrapper>
           </S.InputWrapper>
           <S.ButtonBox>
