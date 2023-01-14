@@ -18,7 +18,6 @@ import {
 } from "../../commons/hooks/queries/useFetchProductCart";
 import InfiniteScrollPage from "../../commons/infinite-scroll/InfiniteScroll.container";
 import Pagination03 from "../../commons/pagination/03/Pagination03.container";
-
 import * as S from "./Basket.styles";
 
 export default function Basket() {
@@ -106,7 +105,7 @@ export default function Basket() {
             <InfiniteScrollPage
               fetchMore={fetchMore}
               data={data}
-              loader={<h4>Loading...</h4>}
+              // loader={<h4>Loading...</h4>}
             >
               <S.Table>
                 <colgroup>
@@ -223,8 +222,9 @@ export default function Basket() {
                 <S.Point>
                   {PriceReg(
                     String(
-                      dataProductsCartTotalAmount?.fetchProductCartTotalAmount *
-                        0.1
+                      Number(
+                        dataProductsCartTotalAmount?.fetchProductCartTotalAmount
+                      ) * 0.1
                     )
                   )}
                   p

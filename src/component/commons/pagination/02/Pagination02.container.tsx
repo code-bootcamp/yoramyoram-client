@@ -7,9 +7,7 @@ import {
 import Pagination02UI from "./Pagination02.presenter";
 
 interface IProps {
-  selected: string;
-  count: number;
-  category: string;
+  count: number | undefined;
   refetch: (
     variables?: Partial<IQueryFetchCommentsArgs>
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchComments">>>;
