@@ -5,6 +5,10 @@ export const FETCH_MY_WISHLIST = gql`
     fetchmyWishlist {
       productwishlist_id
       isDib
+      user {
+        id
+        name
+      }
       product {
         product_id
         name

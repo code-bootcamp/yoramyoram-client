@@ -41,6 +41,7 @@ import {
   FETCH_PRODUCTS_CART_COUNT,
   FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
 } from "../../../commons/hooks/queries/useFetchProductCart";
+import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWishlist";
 
 //
 export default function ProductDetail() {
@@ -228,6 +229,9 @@ export default function ProductDetail() {
           variables: {
             productId: router.query.productId,
           },
+        },
+        {
+          query: FETCH_MY_WISHLIST,
         },
       ],
     });

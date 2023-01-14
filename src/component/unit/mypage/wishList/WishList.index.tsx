@@ -1,24 +1,27 @@
 import * as S from "./WishList.styles";
-import { RightOutlined } from "@ant-design/icons";
-import { useState } from "react";
+
 import { useQuery } from "@apollo/client";
 import { IQuery } from "../../../../commons/types/generated/types";
 import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWishlist";
 import { PriceReg } from "../../../../commons/library/util";
-
-import { color } from "@mui/system";
+import { MouseEvent } from "react";
+import { useRouter } from "next/router";
 
 export default function WishList() {
+  const router = useRouter();
   const { data, fetchMore } =
     useQuery<Pick<IQuery, "fetchmyWishlist">>(FETCH_MY_WISHLIST);
   console.log(data?.fetchmyWishlist);
 
+  const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {
+    void router.push(`/products/${event.currentTarget.id}`);
+  };
+
   return (
     <S.PurchaseHistoryBox title="위시리스트">
       <S.HistoryText>위시리스트</S.HistoryText>
-
       {data?.fetchmyWishlist?.map((el, idx) => (
-        <S.PurchasedItem key={idx}>
+        <S.PurchasedItem key={el.productwishlist_id}>
           <S.PurchasedItemInfo>
             <S.ProductImg
               src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
@@ -30,12 +33,15 @@ export default function WishList() {
                 <span></span>
               </S.ItemPriceBox>
               <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
-              <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
             </S.PurchasedItemInfoText>
           </S.PurchasedItemInfo>
           <S.RepurchaseDiv>
-            <S.RepurchaseBtn>구매</S.RepurchaseBtn>
-            <S.RepurchaseBtn>삭제</S.RepurchaseBtn>
+            <S.RepurchaseBtn
+              id={el?.product?.product_id}
+              onClick={onClickMoveToDetail}
+            >
+              구매
+            </S.RepurchaseBtn>
           </S.RepurchaseDiv>
         </S.PurchasedItem>
       ))}
