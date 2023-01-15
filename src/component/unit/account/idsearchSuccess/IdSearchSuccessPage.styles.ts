@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const Form = styled.div`
-  height: calc(100vh - 80px);
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,7 +10,7 @@ export const Form = styled.div`
 `;
 
 export const Background = styled.div`
-  padding: 170px 140px;
+  padding-top: 80px;
   ${mq.laptop} {
     padding: 200px 18px 180px 18px;
   }

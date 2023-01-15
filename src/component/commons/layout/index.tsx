@@ -6,11 +6,23 @@ import { LayoutHeader, LayoutHeaderMain } from "./header/LayoutHeader.index";
 interface ILayoutProps {
   children: JSX.Element;
 }
+const HIDDEN_FOOTER = [
+  "/account/id_search/",
+  "/account/id_search_success/",
+  "/account/password_search/",
+  "/account/password_reset/",
+  "/account/search_result/",
+  "/sign_in/",
+  "/join/",
+  "/payment_success/",
+];
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
-
+  router.asPath;
   const [scroll, setScroll] = useState(false);
+
+  const isHiddenFooter = HIDDEN_FOOTER.includes(router.asPath);
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -28,18 +40,6 @@ export default function Layout(props: ILayoutProps) {
       setScroll(false);
     }
   };
-
-  const HIDDEN_FOOTER = [
-    "/",
-    "/account/id_search",
-    "/account/password_search",
-    "/account/id_search_success",
-    "/account/password_reset",
-    "/account/search_result",
-    "/sign_in",
-    "/join",
-  ];
-  const isHiddenFooter = HIDDEN_FOOTER.includes(router.asPath);
 
   return (
     <>

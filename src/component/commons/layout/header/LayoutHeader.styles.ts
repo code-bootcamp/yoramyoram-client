@@ -193,5 +193,6 @@ export const UserPoint = styled.p`
   font-weight: 500;
   & > span {
     font-size: 15px;
+    margin-left: 3px;
   }
 `;
