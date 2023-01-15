@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react";
-import { IQuery } from "../../../commons/types/generated/types";
+import { IQuery } from "../../../../commons/types/generated/types";
 import InfiniteScrollUI from "./InfiniteScroll.presenter";
 
 interface IData {

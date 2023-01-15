@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { Modal } from "antd";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Address } from "react-daum-postcode";
 import { useForm } from "react-hook-form";
 import { optionName, PriceReg } from "../../../commons/library/util";
@@ -18,13 +18,17 @@ import { useFetchUserPoint } from "../../commons/hooks/queries/useFetchUserPoint
 import InfiniteScrollPage from "../../commons/infinite-scroll/01/InfiniteScroll.container";
 import * as S from "./Payment.styles";
 
+interface IData {
+  point?: string;
+}
+
 export default function Payment() {
   const [isOpen, setIsOpen] = useState(false);
   const [zipcode, setZipcode] = useState("");
   const [addressName, setAddressName] = useState("");
   const [restPoint, setRestPoint] = useState(0);
   // const [point, setPoint] = useState(0);
-  const [isPoint, setIsPoint] = useState(true);
+  const [isPoint, setIsPoint] = useState(false);
   const [usePoint, setUsePoint] = useState(0);
 
   useEffect(() => {
@@ -33,6 +37,7 @@ export default function Payment() {
 
   const onClickPointTransition = () => {
     setValue("point", user?.fetchLoginUser?.point);
+    setIsPoint((prev) => !prev);
   };
 
   const { register, handleSubmit, formState, setValue, watch, getValues } =
@@ -51,9 +56,8 @@ export default function Payment() {
   }, [watchAll]);
   console.log(watchAll);
 
-  const onChangeUsePoint = (event) => {
+  const onChangeUsePoint = (event: ChangeEvent<HTMLInputElement>) => {
     setValue("point", event?.target.value);
-    console.log(getValues("point"));
   };
   //===================================
 
@@ -79,16 +83,13 @@ export default function Payment() {
     Pick<IQuery, "fetchProductCartTotalAmount">
   >(FETCH_PRODUCTS_CART_TOTAL_AMOUNT);
 
-  console.log(dataProductsCartTotalAmount?.fetchProductCartTotalAmount);
-
-  console.log(user?.fetchLoginUser?.point);
-  const PhoneFirst = getValues("phoneFirst");
-  const PhoneSecond = getValues("phoneSecond");
-  const PhoneThird = getValues("phoneThird");
-  const phone = PhoneFirst + PhoneSecond + PhoneThird;
+  // const PhoneFirst = getValues("phoneFirst");
+  // const PhoneSecond = getValues("phoneSecond");
+  // const PhoneThird = getValues("phoneThird");
+  // const phone = PhoneFirst + PhoneSecond + PhoneThird;
 
   const { createPayment } = useCreatePayment();
-  const createPaymentSubmit = async (data) => {
+  const createPaymentSubmit = async (data: IData) => {
     try {
       await createPayment({
         variables: {
@@ -136,24 +137,18 @@ export default function Payment() {
                 <S.ShippingInfoBox>
                   <S.RecipientBox>
                     <S.ShippingInfoTitle>받으시는 분</S.ShippingInfoTitle>
-                    <S.RecipientInput type="text" {...register("userName")} />
+                    <S.RecipientInput type="text" />
                   </S.RecipientBox>
                   <S.RecipientBox>
                     <S.ShippingInfoTitle>휴대폰 번호</S.ShippingInfoTitle>
                     <S.PhoneNumberBox>
-                      <S.PhoneNumberSelect {...register("phoneFirst")}>
+                      <S.PhoneNumberSelect>
                         <option value="010">010</option>
                         <option value="011">011</option>
                         <option value="016">016</option>
                       </S.PhoneNumberSelect>
-                      <S.PhoneNumberInput
-                        type="text"
-                        {...register("phoneSecond")}
-                      />
-                      <S.PhoneNumberInput
-                        type="text"
-                        {...register("phoneThird")}
-                      />
+                      <S.PhoneNumberInput type="text" />
+                      <S.PhoneNumberInput type="text" />
                     </S.PhoneNumberBox>
                   </S.RecipientBox>
                   <S.RecipientBox>
@@ -165,7 +160,6 @@ export default function Payment() {
                           value={zipcode}
                           type="text"
                           placeholder="06243"
-                          {...register("zipcode")}
                         />{" "}
                         <S.ZipcodeBtn
                           onClick={onClickAddressSearch}
@@ -180,12 +174,10 @@ export default function Payment() {
                           placeholder="주소"
                           value={addressName}
                           readOnly
-                          {...register("address")}
                         />{" "}
                         <S.AddressDetailInput
                           type="text"
                           placeholder="상세주소"
-                          {...register("addressDetail")}
                         />
                       </div>
                     </S.AddressBox>
@@ -227,13 +219,13 @@ export default function Payment() {
                             <S.Name>{el.product.name}</S.Name>
 
                             <S.Option>
-                              {`${optionName(el.product.etc1Name)}`}
+                              {`${optionName(el.product.etc1Name ?? "")}`}
                               {el.etc1Value !== "," && el.etc1Value
                                 ? el.etc1Value
                                 : ""}
                             </S.Option>
                             <S.Option>
-                              {`${optionName(el.product.etc2Name)}`}
+                              {`${optionName(el.product.etc2Name ?? "")}`}
                               {el.etc2Value !== "," && el.etc2Value
                                 ? el.etc2Value
                                 : ""}
@@ -271,11 +263,11 @@ export default function Payment() {
                         <S.PrdName>{el.product.name}</S.PrdName>
                         <S.PrdOption>
                           {" "}
-                          {optionName(el?.product.etc1Name)}
+                          {optionName(el?.product.etc1Name ?? "")}
                           {el.etc1Value}
                         </S.PrdOption>
                         <S.PrdOption>
-                          {optionName(el?.product.etc2Name)}
+                          {optionName(el?.product.etc2Name ?? "")}
                           {el.etc2Value}
                         </S.PrdOption>
                         <S.Quantity>수량: {el.quantity}</S.Quantity>
@@ -317,7 +309,6 @@ export default function Payment() {
                       <S.YoramPointInput
                         type="text"
                         placeholder="0"
-                        // value={point}
                         {...register("point")}
                         onChange={onChangeUsePoint}
                       />
@@ -329,8 +320,8 @@ export default function Payment() {
                         onClick={onClickPointTransition}
                       />
                       모두 사용하기
-                      <S.RestPoint value={user?.fetchLoginUser?.point}>
-                        보유포인트: {isPoint ? user?.fetchLoginUser?.point : 0}P
+                      <S.RestPoint>
+                        보유포인트: {PriceReg(user?.fetchLoginUser?.point)}P
                       </S.RestPoint>
                     </div>
                   </S.DiscountMobileBox>

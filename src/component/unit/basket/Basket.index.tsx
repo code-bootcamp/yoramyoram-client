@@ -137,13 +137,13 @@ export default function Basket() {
                         <S.Name>{el.product.name}</S.Name>
 
                         <S.Option>
-                          {`${optionName(el.product.etc1Name)}`}
+                          {`${optionName(el.product.etc1Name ?? "")}`}
                           {el.etc1Name !== "," && el.etc1Value
                             ? el.etc1Value
                             : ""}
                         </S.Option>
                         <S.Option>
-                          {`${optionName(el.product.etc2Name)}`}
+                          {`${optionName(el.product.etc2Name ?? "")}`}
                           {el.etc2Value !== "," && el.etc2Value
                             ? el.etc2Value
                             : ""}
@@ -179,11 +179,11 @@ export default function Basket() {
                     <S.PrdName>{el.product.name}</S.PrdName>
                     <S.PrdOption>
                       {" "}
-                      {optionName(el.product.etc1Name)}
+                      {optionName(el.product.etc1Name ?? "")}
                       {el.etc1Value}
                     </S.PrdOption>
                     <S.PrdOption>
-                      {optionName(el.product.etc2Name)}
+                      {optionName(el.product.etc2Name ?? "")}
                       {el.etc2Value}
                     </S.PrdOption>
                     <S.Quantity>수량: {el.quantity}</S.Quantity>
@@ -240,7 +240,9 @@ export default function Basket() {
               <S.GoShopMob onClick={onClickMoveShopPage}>
                 쇼핑 계속하기
               </S.GoShopMob>
-              <S.PayButtonMob>주문하기</S.PayButtonMob>
+              <S.PayButtonMob onClick={onClickMoveToPage("/payment")}>
+                주문하기
+              </S.PayButtonMob>
             </S.MobileBtnWrap>
           </S.Right>
         </S.FlexBoxWrap>
