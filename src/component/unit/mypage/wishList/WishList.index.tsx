@@ -47,22 +47,26 @@ export default function WishList() {
     void router.push(`/products/${event.currentTarget.id}`);
   };
 
-  const onClickAddWishlist = async () => {
+  const onClickAddWishlist = async (idx:number) => {
+    
     await addWishlist({
       variables: {
         createProductWishInput: {
-          productId: String(router.query.productId),
+          productId: String(data?.fetchmyWishlist[idx].product.product_id),
         },
       },
       refetchQueries: [
         {
           query: FETCH_PRODUCT,
           variables: {
-            productId: router.query.productId,
+            productId: String(data?.fetchmyWishlist[idx].product.product_id),
           },
         },
         {
           query: FETCH_MY_WISHLIST,
+          variables: {
+            page:1
+          },
         },
       ],
     });
@@ -101,7 +105,7 @@ export default function WishList() {
               </S.RepurchaseBtn>
               <S.RepurchaseBtn
                 id={el?.product?.product_id}
-                onClick={onClickAddWishlist}
+                onClick={(e) => {onClickAddWishlist(idx)}}
               >
                 삭제
               </S.RepurchaseBtn>
