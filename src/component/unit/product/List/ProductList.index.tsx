@@ -56,7 +56,7 @@ interface IProductImage {
   url: string;
 }
 
-export default function ProductList(props: IProductListUIProps) {
+export default function ProductList() {
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [category, setCategory] = useState<string>("전체");
