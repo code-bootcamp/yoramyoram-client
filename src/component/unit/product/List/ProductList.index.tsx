@@ -64,7 +64,6 @@ export default function ProductList(props: IProductListUIProps) {
   const [admin, setAdmin] = useState<string>("");
   const [selected, setSelected] = useState("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
-  const { refetchSearch } = useSearchProducts();
   const [isWish, setIsWish] = useState(false);
   const [searchProducts, setSearchProducts] =
     useRecoilState(searchProductsState);
@@ -174,23 +173,19 @@ export default function ProductList(props: IProductListUIProps) {
       setScroll(false);
     }
   };
-  const { data: wishList } = useQuery(FETCH_MY_WISHLIST, {
-    variables: {
-      page: 1,
-    },
-  });
-  // console.log(wishList?.fetchmyWishlist[0].product?.product_id);
-  const wishlist = wishList?.fetchmyWishlist?.map(
-    (el) => el.product.product_id
-  );
+  // const { data: wishList } = useQuery(FETCH_MY_WISHLIST, {
+  //   variables: {
+  //     page: 1,
+  //   },
+  // });
+  // // console.log(wishList?.fetchmyWishlist[0].product?.product_id);
+  // const wishlist = wishList?.fetchmyWishlist?.map(
+  //   (el) => el.product.product_id
+  // );
 
-  console.log(wishlist);
+  // console.log(wishlist);
 
-  const onClick = (e) => {
-    console.log(e.currentTarget.id);
-  };
-
-  const onClickAddWishlist = async (e) => {
+  const onClickAddWishlist = async (e: MouseEvent) => {
     try {
       await addWishlist({
         variables: {
