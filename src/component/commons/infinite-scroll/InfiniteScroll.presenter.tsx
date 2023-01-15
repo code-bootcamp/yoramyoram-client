@@ -1,6 +1,11 @@
-import InfiniteScroll from "react-infinite-scroller";
 import * as S from "./InfiniteScroll.styles";
-export default function InfiniteScrollUI(props) {
+
+interface IProps {
+  children: string | JSX.Element | JSX.Element[];
+  onLoadMore: () => void;
+}
+
+export default function InfiniteScrollUI(props: IProps) {
   return (
     <div style={{ height: "500px", overflow: "auto" }}>
       <S.InfiniteBox

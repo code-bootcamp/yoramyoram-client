@@ -1,40 +1,70 @@
 import React from "react";
-import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+  useState,
+  KeyboardEvent,
+} from "react";
 import * as S from "./ProductList.styles";
 import _, { isArray } from "lodash";
 import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
 import { useRecoilState } from "recoil";
-import { MoveToPageState, selectedState } from "../../../../commons/stores";
+import {
+  IsSearchState,
+  MoveToPageState,
+  searchProductsState,
+  selectedState,
+} from "../../../../commons/stores";
 import {
   IQuery,
   IQueryFetchProductsArgs,
 } from "../../../../commons/types/generated/types";
 import { ApolloQueryResult } from "@apollo/client";
 
+// interface IE {
+//   refetchSearch: (keyword: string) => void;
+//   parentFunction: () => void;
+//   setCategory: () => void;
+// }
+
+interface ISearchResult {
+  name: string;
+  price: number;
+  productImages: IProductImages;
+  porduct_id: string;
+}
+
+interface IProductImages {
+  url: string;
+}
+
 export default function CategoryBar({
   setCategory,
   category,
   parentFunction,
-  refetch,
+  // refetch,
   refetchCategory,
-  refetchSearch,
+  // refetchSearch,
   refetchCategoryCount,
-}: // selected,
-{
+}: {
   setCategory: (item: string) => void;
   category: string;
-  parentFunction: () => void;
-  refetch: (
-    variables?: Partial<IQueryFetchProductsArgs>
-  ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts">>>;
+  parentFunction: (
+    searchResult: Pick<IQuery, "searchProducts"> | undefined
+  ) => void;
+  // refetch: (
+  //   variables?: Partial<IQueryFetchProductsArgs>
+  // ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts">>>;
   refetchCategory: (cateId: string) => void;
-  Search: (word: string) => void;
+  // Search: (word: string) => void;
   refetchCategoryCount: (cateId: string) => void;
-  refetchSearch: (keyword: string) => void;
-  // selected?: string;
 }) {
   const [keyword, setKeyword] = useState("");
-  const { data: searchResult } = useSearchProducts(keyword);
+  const { data: searchResult, refetchSearch } = useSearchProducts(keyword);
+  const [, setSearchProducts] = useRecoilState(searchProductsState);
+  const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
+  console.log(searchResult?.searchProducts.length);
 
   // const [select, setSelect] = useRecoilState(selectedState);
   // useEffect(() => {
@@ -49,11 +79,13 @@ export default function CategoryBar({
     setKeyword(keyword);
   });
 
-  const handleOnKeyPress = (e) => {
+  const handleOnKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       refetchSearch(keyword);
       parentFunction(searchResult);
       setCategory("전체");
+      setSearchProducts(searchResult?.searchProducts.length ?? 0);
+      setIsSearch(true);
     }
   };
 
@@ -122,6 +154,7 @@ export default function CategoryBar({
   }) {
     const isActive = category === title;
     const [moveToPage, setMoveToPage] = useRecoilState(MoveToPageState);
+    const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
 
     // select
     // const [select, setSelect] = useRecoilState(selectedState);
@@ -130,6 +163,7 @@ export default function CategoryBar({
       refetchCategory(id);
       setCategory(title);
       refetchCategoryCount(id);
+      setIsSearch(false);
     };
 
     useEffect(() => {

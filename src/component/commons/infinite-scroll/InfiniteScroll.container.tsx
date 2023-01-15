@@ -1,6 +1,20 @@
+import { PropsWithChildren } from "react";
+import { IQuery } from "../../../commons/types/generated/types";
 import InfiniteScrollUI from "./InfiniteScroll.presenter";
 
-export default function InfiniteScrollPage(props) {
+interface IData {
+  fetchMore(arg0: {
+    variables: { page: number };
+    updateQuery: (
+      prev: any,
+      { fetchMoreResult }: { fetchMoreResult: any }
+    ) => { fetchProductCart: any[] };
+  }): unknown;
+  data: Pick<IQuery, "fetchProductCart"> | undefined;
+  children: string | JSX.Element | JSX.Element[];
+}
+
+export default function InfiniteScrollPage(props: IData) {
   // const { data, fetchMore } = useQuery<
   //   Pick<IQuery, "fetchBoardComments">,
   //   IQueryFetchBoardArgs
@@ -9,6 +23,7 @@ export default function InfiniteScrollPage(props) {
     if (props.data === undefined) return;
     if (props.data?.fetchProductCart === undefined) return;
 
+    console.log("인피니티스크롤 :", props.data);
     console.log(
       "props.data?.fetchProductCart.length",
       Math.ceil(props.data?.fetchProductCart.length / 5)

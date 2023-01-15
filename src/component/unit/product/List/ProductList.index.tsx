@@ -16,6 +16,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import {
   IMutation,
   IMutationAddWishlistArgs,
+  IProduct,
   IQuery,
   IQueryFetchProductsArgs,
   IQueryFetchProductsCountArgs,
@@ -33,6 +34,8 @@ import { usePriceDESC } from "../../../commons/hooks/queries/useSortByPriceDESC"
 import { FETCH_PRODUCT } from "../../../commons/hooks/queries/useFetchProduct";
 import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWishlist";
 import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
+import { IsSearchState, searchProductsState } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
 
 interface IList {
   commentCount: number;
@@ -57,12 +60,15 @@ export default function ProductList(props: IProductListUIProps) {
   const router = useRouter();
   const [scroll, setScroll] = useState(false);
   const [category, setCategory] = useState<string>("전체");
-  const [list, setList] = useState<never[]>([]);
+  const [list, setList] = useState([]);
   const [admin, setAdmin] = useState<string>("");
   const [selected, setSelected] = useState("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
   const { refetchSearch } = useSearchProducts();
   const [isWish, setIsWish] = useState(false);
+  const [searchProducts, setSearchProducts] =
+    useRecoilState(searchProductsState);
+  const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
 
   //FIXME: sort 기능구현
   // const { CommentsASC, CommentsASCRefetch } = useCommentsASC();
@@ -126,6 +132,7 @@ export default function ProductList(props: IProductListUIProps) {
       cateId: "",
     },
   });
+  console.log(dataProductsCount?.fetchProductsCount);
 
   console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
   console.log(data?.fetchProducts);
@@ -150,11 +157,10 @@ export default function ProductList(props: IProductListUIProps) {
   };
 
   useEffect(() => {
-    onLoadList(data?.fetchProducts); // 여기서 값이 변해야됨.
-    // 처음엔 data?.fetchProducts가나오고 클릭하면
+    onLoadList(data?.fetchProducts);
     window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll); //clean up
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [data]);
 
@@ -208,9 +214,11 @@ export default function ProductList(props: IProductListUIProps) {
     void router.push(`/products/${event.currentTarget.id}`);
   };
 
-  const parentFunction = (x) => {
-    let temp = [...list];
-    temp = x?.searchProducts;
+  const parentFunction = (
+    value: Pick<IQuery, "searchProducts"> | undefined
+  ) => {
+    let temp: any = [...list];
+    temp = value?.searchProducts;
     setList(temp);
   };
 
@@ -228,11 +236,9 @@ export default function ProductList(props: IProductListUIProps) {
           <CategoryBarSticky
             category={category}
             setCategory={(item: string) => setCategory(item)}
-            parentFunction={parentFunction}
             refetchCategory={refetchCategory}
             refetchCategoryCount={refetchCategoryCount}
-            refetchSearch={refetchSearch}
-            selected={selected}
+            // selected={selected}
           />
         ) : (
           <CategoryBar
@@ -241,8 +247,7 @@ export default function ProductList(props: IProductListUIProps) {
             parentFunction={parentFunction}
             refetchCategory={refetchCategory}
             refetchCategoryCount={refetchCategoryCount}
-            refetchSearch={refetchSearch}
-            selected={selected}
+            // selected={selected}
           />
         )}
       </S.HeaderWrapper>
@@ -253,10 +258,17 @@ export default function ProductList(props: IProductListUIProps) {
 
         <S.ListHeaderBox>
           <S.ListCount>
-            총 <span>{dataProductsCount?.fetchProductsCount}</span>개의 상품이
-            있습니다.
+            {/* 총 <span>{dataProductsCount?.fetchProductsCount}</span>개의 상품이 */}
+            총{" "}
+            <span>
+              {isSearch
+                ? searchProducts
+                : dataProductsCount?.fetchProductsCount}
+            </span>
+            개의 상품이 있습니다.
           </S.ListCount>
 
+          {/* FIXME: 검색부분 팀플끝나고 구현! */}
           {/* <S.SelectBox onChange={onChangeSelectBox} value={selected}>
             <option value="sortByCreatedAtASC">최신순</option>
             <option value="sortByPriceASC">낮은가격순</option>

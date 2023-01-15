@@ -241,8 +241,8 @@ export default function ProductDetail() {
   const [detailSelectBtn, setDetailSelectBtn] = useState<boolean>(true);
   const [selectInfoBtn, setSelectInfoBtn] = useState<boolean>(true);
   const [selectReviewBtn, setSelectReviewBtn] = useState<boolean>(false);
-  const [isGetOption, setIsGetOption] = useState<boolean>(false);
-  const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(false);
+  const [isGetOption, setIsGetOption] = useState<boolean>(true);
+  const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(true);
   const productPrice = data?.fetchProduct.price;
   const [price, setPrice] = useState(0);
 
@@ -251,12 +251,9 @@ export default function ProductDetail() {
     setGetOption(String(data?.fetchProduct?.etc1Name));
     setGetOptionTwo(String(data?.fetchProduct?.etc2Name));
 
-    if (getOption?.length !== 0) {
-      setIsGetOption(true);
-    }
-    if (getOptionTwo?.length !== 0) {
-      setIsGetOptionTwo(true);
-    }
+    if (getOption === 'selectOption1') setIsGetOption(false);
+    if (getOptionTwo === 'selectOption2') setIsGetOptionTwo(false);
+      
   });
 
   useEffect(() => {
@@ -325,7 +322,6 @@ export default function ProductDetail() {
                   />
                 </S.ModifyBtnBox>
               </S.NameBtnBox>
-
               <S.ProductPrice>
                 {PriceReg(String(data?.fetchProduct.price))}원
               </S.ProductPrice>
@@ -336,7 +332,7 @@ export default function ProductDetail() {
               </S.ProductOptionText>
               {isGetOption ? (
                 <S.OptionBox>
-                  <S.OptionText>{data?.fetchProduct.etc1Name}</S.OptionText>
+                  <S.OptionText >{data?.fetchProduct.etc1Name === 'color1' ? '컬러' : '사이즈'}</S.OptionText>
 
                   <S.SelectBox onChange={handleSelect} value={isSelected}>
                     <option selected hidden>
@@ -352,7 +348,7 @@ export default function ProductDetail() {
               )}
               {isGetOptionTwo ? (
                 <S.OptionBox>
-                  <S.OptionText>{data?.fetchProduct.etc2Name}</S.OptionText>
+                  <S.OptionText>{data?.fetchProduct.etc2Name === 'color2' ? '컬러' : '사이즈'}</S.OptionText>
 
                   <S.SelectBox onChange={handleSelectTwo} value={isSelectedTwo}>
                     <option selected hidden>

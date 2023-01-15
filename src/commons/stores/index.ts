@@ -43,3 +43,13 @@ export const MoveToPageState = atom({
   key: "MoveToPage",
   default: "",
 });
+
+export const searchProductsState = atom({
+  key: "searchProducts",
+  default: 0,
+});
+
+export const IsSearchState = atom({
+  key: "IsSearch",
+  default: false,
+});
