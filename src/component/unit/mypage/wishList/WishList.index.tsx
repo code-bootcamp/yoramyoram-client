@@ -47,8 +47,7 @@ export default function WishList() {
     void router.push(`/products/${event.currentTarget.id}`);
   };
 
-  const onClickAddWishlist = async (idx:number) => {
-    
+  const onClickAddWishlist = async (idx: number) => {
     await addWishlist({
       variables: {
         createProductWishInput: {
@@ -65,7 +64,7 @@ export default function WishList() {
         {
           query: FETCH_MY_WISHLIST,
           variables: {
-            page:1
+            page: 1,
           },
         },
       ],
@@ -75,43 +74,43 @@ export default function WishList() {
   return (
     <S.PurchaseHistoryBox title="위시리스트">
       <S.HistoryText>위시리스트</S.HistoryText>
-      <InfiniteScrollPage
-        fetchMore={fetchMore}
-        data={data}
-        loder={<h4>Loading</h4>}
-      >
-        {data?.fetchmyWishlist?.map((el, idx) => (
-          <S.PurchasedItem key={el.productwishlist_id}>
-            <S.PurchasedItemInfo>
-              <S.ProductImg
-                src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
-              />
-              <S.PurchasedItemInfoText>
-                <S.ItemName>{el.product.name}</S.ItemName>
-                <S.ItemPriceBox>
-                  <span>{PriceReg(String(el.product.price))} 원</span>
-                  <span></span>
-                </S.ItemPriceBox>
-                <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
-                <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
-              </S.PurchasedItemInfoText>
-            </S.PurchasedItemInfo>
-            <S.RepurchaseDiv>
-              <S.RepurchaseBtn
-                id={el?.product?.product_id}
-                onClick={onClickMoveToDetail}
-              >
-                구매
-              </S.RepurchaseBtn>
-              <S.RepurchaseBtn
-                id={el?.product?.product_id}
-                onClick={(e) => {onClickAddWishlist(idx)}}
-              >
-                삭제
-              </S.RepurchaseBtn>
-            </S.RepurchaseDiv>
-          </S.PurchasedItem>
-        ))}
+      <InfiniteScrollPage fetchMore={fetchMore} data={data}>
+        <>
+          {data?.fetchmyWishlist?.map((el, idx) => (
+            <S.PurchasedItem key={el.productwishlist_id}>
+              <S.PurchasedItemInfo>
+                <S.ProductImg
+                  src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
+                />
+                <S.PurchasedItemInfoText>
+                  <S.ItemName>{el.product.name}</S.ItemName>
+                  <S.ItemPriceBox>
+                    <span>{PriceReg(String(el.product.price))} 원</span>
+                    <span></span>
+                  </S.ItemPriceBox>
+                  <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
+                  <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
+                </S.PurchasedItemInfoText>
+              </S.PurchasedItemInfo>
+              <S.RepurchaseDiv>
+                <S.RepurchaseBtn
+                  id={el?.product?.product_id}
+                  onClick={onClickMoveToDetail}
+                >
+                  구매
+                </S.RepurchaseBtn>
+                <S.RepurchaseBtn
+                  id={el?.product?.product_id}
+                  onClick={(e) => {
+                    onClickAddWishlist(idx);
+                  }}
+                >
+                  삭제
+                </S.RepurchaseBtn>
+              </S.RepurchaseDiv>
+            </S.PurchasedItem>
+          ))}
+        </>
       </InfiniteScrollPage>
     </S.PurchaseHistoryBox>
   );

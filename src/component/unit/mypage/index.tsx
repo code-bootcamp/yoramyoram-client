@@ -1,7 +1,7 @@
 import { RightOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import * as S from "./index.styles";
-import PurchaseHistory from "./purchaseHistory/PurchaseHistory.index";
+
 import WishList from "./wishList/WishList.index";
 import { FETCH_LOGIN_USER } from "../../../component/commons/hooks/queries/useFetchLoginUser";
 import { useQuery } from "@apollo/client";
@@ -88,7 +88,7 @@ export default function Mypage() {
             </S.RightTextBox>
           </S.MypageBox>
           <S.ContentsBox>
-            <S.MyShopingSelectBox>
+            {/* <S.MyShopingSelectBox>
               <S.SelectBoxText>My쇼핑</S.SelectBoxText>
               <S.BtnBox>
                 <S.SelectBtn onClick={() => setMyPage(true)}>
@@ -98,8 +98,8 @@ export default function Mypage() {
                   위시리스트 <RightOutlined />
                 </S.SelectBtn>
               </S.BtnBox>
-            </S.MyShopingSelectBox>
-            {mypage ? <PurchaseHistory /> : <WishList />}
+            </S.MyShopingSelectBox> */}
+            <WishList />
           </S.ContentsBox>
         </S.innerWrapper>
       </S.Wrapper>

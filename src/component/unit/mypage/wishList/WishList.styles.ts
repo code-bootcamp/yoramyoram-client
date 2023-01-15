@@ -3,9 +3,8 @@ import { LeftOutlined, RightOutlined, SearchOutlined } from "@ant-design/icons";
 import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const PurchaseHistoryBox = styled.div`
-  width: 1070px;
-  max-width: calc(100% - 203px);
-  ${mq.mobile} {
+  width: 100%;
+  max-width: 100% ${mq.mobile} {
     width: 100%;
     max-width: 100%;
     margin-top: 30px;

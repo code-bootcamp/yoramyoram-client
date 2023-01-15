@@ -1,6 +1,19 @@
+import { IQuery } from "../../../../commons/types/generated/types";
 import InfiniteScrollUI from "./InfiniteScroll.presenter";
 
-export default function InfiniteScrollPage(props) {
+interface IProps {
+  fetchMore(arg0: {
+    variables: { page: number };
+    updateQuery: (
+      prev: any,
+      { fetchMoreResult }: { fetchMoreResult: any }
+    ) => { fetchmyWishlist: any[] };
+  }): unknown;
+  data: Pick<IQuery, "fetchmyWishlist"> | undefined;
+  children: string | JSX.Element | JSX.Element[];
+}
+
+export default function InfiniteScrollPage(props: IProps) {
   // const { data, fetchMore } = useQuery<
   //   Pick<IQuery, "fetchBoardComments">,
   //   IQueryFetchBoardArgs
