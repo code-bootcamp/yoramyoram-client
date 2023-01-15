@@ -16,7 +16,7 @@ import {
   FETCH_PRODUCTS_CART_COUNT,
   FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
 } from "../../commons/hooks/queries/useFetchProductCart";
-import InfiniteScrollPage from "../../commons/infinite-scroll/InfiniteScroll.container";
+import InfiniteScrollPage from "../../commons/infinite-scroll/01/InfiniteScroll.container";
 import Pagination03 from "../../commons/pagination/03/Pagination03.container";
 import * as S from "./Basket.styles";
 
@@ -41,7 +41,7 @@ export default function Basket() {
       page: 1,
     },
   });
-
+  console.log(data?.fetchProductCart[0].product.etc1Name);
   const [deleteProductCart] = useMutation<
     Pick<IMutation, "deleteProductCart">,
     IMutationDeleteProductCartArgs

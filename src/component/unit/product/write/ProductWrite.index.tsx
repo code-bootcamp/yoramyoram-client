@@ -1,5 +1,11 @@
 import * as S from "./ProductWrite.styles";
-import { ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  KeyboardEvent,
+  MouseEvent,
+  useEffect,
+  useState,
+} from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Modal, Select } from "antd";
@@ -38,9 +44,8 @@ export default function ProductWrite(props: any) {
   const [tagList, setTagList] = useState<string[]>([]);
   const [tagItemTwo, setTagItemTwo] = useState<string>("");
   const [tagListTwo, setTagListTwo] = useState<string[]>([]);
-  const [ selectValue1, setSelectValue1] = useState('');
-  const [ selectValue2, setSelectValue2] = useState('');
-  
+  const [selectValue1, setSelectValue1] = useState("");
+  const [selectValue2, setSelectValue2] = useState("");
 
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.currentTarget.value.length !== 0 && e.key === "Enter") {
@@ -90,7 +95,6 @@ export default function ProductWrite(props: any) {
         e.preventDefault();
       }
     });
-    
   }, [props.data]);
 
   const router = useRouter();
@@ -190,7 +194,6 @@ export default function ProductWrite(props: any) {
 
   //상품 수정 onClick Event ============================================
   // 이걸 살리면 이미지 미리보기가 된다.
-   
 
   useEffect(() => {
     setFileUrls([
@@ -346,13 +349,20 @@ export default function ProductWrite(props: any) {
               <S.SelectBox
                 {...register("etc1Name")}
                 value={selectValue1}
-                onChange={(v) => { 
-                	setSelectValue1(v.target.value);
+                onChange={(v) => {
+                  setSelectValue1(v.target.value);
                 }}
               >
-                <option value="selectOption1" disabled>
-                  옵션을 선택하세요.
-                </option>
+                {props.isEdit ? (
+                  <option value="selectOption1" disabled>
+                    옵션을 선택하세요.
+                  </option>
+                ) : (
+                  <option value="selectOption1" hidden selected>
+                    옵션을 선택하세요.
+                  </option>
+                )}
+
                 <option value="color1">컬러</option>
                 <option value="size1">사이즈</option>
               </S.SelectBox>
@@ -390,13 +400,22 @@ export default function ProductWrite(props: any) {
               <S.SelectBox
                 {...register("etc2Name")}
                 value={selectValue2}
-                onChange={(v) => { 
-                	setSelectValue2(v.target.value);
+                onChange={(v) => {
+                  setSelectValue2(v.target.value);
                 }}
               >
-                <option value="selectOption2" disabled>
+                {props.isEdit ? (
+                  <option value="selectOption1" disabled>
+                    옵션을 선택하세요.
+                  </option>
+                ) : (
+                  <option value="selectOption1" hidden selected>
+                    옵션을 선택하세요.
+                  </option>
+                )}
+                {/* <option value="selectOption2" hidden selected>
                   옵션을 선택하세요.
-                </option>
+                </option> */}
                 <option value="color2">컬러</option>
                 <option value="size2">사이즈</option>
               </S.SelectBox>
