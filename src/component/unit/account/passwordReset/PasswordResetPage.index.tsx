@@ -24,7 +24,6 @@ export default function PasswordResetPageUI() {
   console.log(UpdataPasswordPhoneState);
 
   const { register, handleSubmit, watch } = useForm<IData>({
-    // resolver: yupResolver(),
     mode: "onChange",
   });
 

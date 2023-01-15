@@ -4,6 +4,7 @@ import { Divider, Select } from "antd";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const HeaderWrapper = styled.div`
@@ -26,6 +27,7 @@ export const ListBanner = styled.div`
   color: #ffffff;
   font-family: "NewYork";
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -35,6 +37,29 @@ export const ListBanner = styled.div`
     padding: 0 18px;
     font-size: 35px;
     height: 200px;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+    font-size: 35px;
+    height: 200px;
+  }
+`;
+export const BannerTitle = styled.h1`
+  display: block;
+  ${mq.mobile} {
+    padding: 0 18px;
+  }
+  ${mq.mobileL} {
+    padding: 0 18px;
+  }
+`;
+export const BannerSubTxt = styled.p`
+  font-size: 15px;
+  display: block;
+  margin-top: 15px;
+  ${mq.mobile} {
+  }
+  ${mq.mobileL} {
   }
 `;
 
@@ -63,6 +88,7 @@ export const CategoryBarSticky = styled.div`
 
 export const CategoryBox = styled.div`
   max-width: 1300px;
+
   margin: 0 auto;
   display: flex;
   flex-direction: row;
@@ -201,7 +227,11 @@ export const ListWrapper = styled.main`
     padding: 0 18px;
   }
 `;
-export const ProductWriteBtn = styled.button`
+
+interface IAdmin {
+  admin: string;
+}
+export const ProductWriteBtn = styled.button<IAdmin>`
   width: 15%;
   padding: 10px 0;
   color: #ffffff;
@@ -209,6 +239,7 @@ export const ProductWriteBtn = styled.button`
   background-color: #30640a;
   border: none;
   cursor: pointer;
+  display: ${(props) => (props.admin === "ADMIN" ? "block" : "none")};
   ${mq.mobile} {
     width: 100%;
   }
@@ -237,7 +268,7 @@ export const ListCount = styled.div`
   }
 `;
 
-export const SelectBox = styled(Select)`
+export const SelectBox = styled.select`
   width: 100px;
 `;
 
@@ -245,7 +276,6 @@ export const ListContentsBox = styled.section`
   display: flex;
   flex-wrap: wrap;
   gap: 2.7em;
-  cursor: pointer;
   ${mq.mobile} {
     gap: 1em;
   }
@@ -257,6 +287,7 @@ export const ListContentsBox = styled.section`
 export const ProductItemBox = styled.div`
   flex-basis: 292px;
   flex-grow: 0;
+  cursor: pointer;
   ${mq.mobile} {
     flex: 0 0 47.5%;
   }
@@ -265,8 +296,24 @@ export const ProductItemBox = styled.div`
   }
 `;
 
+export const ListImgWrap = styled.div`
+  height: 292px;
+  overflow: hidden;
+  ${mq.mobile} {
+    height: 213px;
+  }
+  ${mq.mobileL} {
+    height: 213px;
+  }
+  &:hover img {
+    transform: scale(1.13);
+  }
+`;
 export const ListImg = styled.img`
   width: 100%;
+  object-fit: cover;
+  height: 100%;
+  transition: all 0.3s;
 `;
 
 export const ListProductInfo = styled.div`
@@ -298,6 +345,7 @@ export const ListProductPrice = styled.p`
   margin: 10px 0 20px;
   font-family: "Noto Sans KR";
   font-weight: bold;
+  color: #30640a;
   ${mq.mobile} {
     font-size: 15px;
     margin-top: 6px;
@@ -334,6 +382,11 @@ export const ListWishBtn = styled(FavoriteBorderIcon)`
   cursor: pointer;
 `;
 
+export const ListWishFiledBtn = styled(FavoriteIcon)`
+  font-size: 18px;
+  cursor: pointer;
+`;
+
 export const ListBasketBtn = styled(AddShoppingCartIcon)`
   font-size: 18px;
   cursor: pointer;
@@ -349,10 +402,9 @@ interface IPageProps {
 }
 export const Page = styled.span`
   padding: 0 1%;
-  /* color: ${(props: IPageProps) => (props.isActive ? "blue" : "black")}; */
-  /* font-weight: ${(props: IPageProps) =>
-    props.isActive ? "bold" : "normal"}; */
-  /* cursor: ${(props: IPageProps) => (props.isActive ? "none" : "pointer")}; */
+  color: ${(props: IPageProps) => (props.isActive ? "#000000" : "#30640a")};
+  font-weight: ${(props: IPageProps) => (props.isActive ? "bold" : "normal")};
+  cursor: ${(props: IPageProps) => (props.isActive ? "none" : "pointer")};
   cursor: pointer;
 `;
 

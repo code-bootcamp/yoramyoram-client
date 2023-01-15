@@ -1,5 +1,33 @@
+import { useRouter } from "next/router";
+import { useRecoilState } from "recoil";
+import { MoveToPageState } from "../../../commons/stores";
 import * as S from "./About.styles";
 export default function About() {
+  const router = useRouter();
+  const [moveToPage, setMoveToPage] = useRecoilState(MoveToPageState);
+
+  const onClickMoveToKitchen = () => {
+    void router.push("/products");
+    setMoveToPage("Kitchen");
+  };
+
+  const onClickMoveToLife = () => {
+    void router.push("/products");
+    setMoveToPage("Life");
+  };
+  const onClickMoveToBathroom = () => {
+    void router.push("/products");
+    setMoveToPage("Bathroom");
+  };
+  const onClickMoveToWoman = () => {
+    void router.push("/products");
+    setMoveToPage("Woman");
+  };
+  const onClickMoveToPet = () => {
+    void router.push("/products");
+    setMoveToPage("Pet");
+  };
+
   return (
     <>
       <S.Top>
@@ -49,7 +77,7 @@ export default function About() {
               <S.Card1>
                 <S.CardInner>
                   <S.Name>주방</S.Name>
-                  <S.Button>
+                  <S.Button onClick={onClickMoveToKitchen}>
                     구경가기 <S.RightArrow />
                   </S.Button>
                 </S.CardInner>
@@ -57,7 +85,7 @@ export default function About() {
               <S.Card2>
                 <S.CardInner>
                   <S.Name>생활</S.Name>
-                  <S.Button>
+                  <S.Button onClick={onClickMoveToLife}>
                     구경가기 <S.RightArrow />
                   </S.Button>
                 </S.CardInner>
@@ -65,7 +93,7 @@ export default function About() {
               <S.Card3>
                 <S.CardInner>
                   <S.Name>욕실</S.Name>
-                  <S.Button>
+                  <S.Button onClick={onClickMoveToBathroom}>
                     구경가기 <S.RightArrow />
                   </S.Button>
                 </S.CardInner>
@@ -73,7 +101,7 @@ export default function About() {
               <S.Card4>
                 <S.CardInner>
                   <S.Name>여성용품</S.Name>
-                  <S.Button>
+                  <S.Button onClick={onClickMoveToWoman}>
                     구경가기 <S.RightArrow />
                   </S.Button>
                 </S.CardInner>
@@ -81,7 +109,7 @@ export default function About() {
               <S.Card5>
                 <S.CardInner>
                   <S.Name>반려동물</S.Name>
-                  <S.Button>
+                  <S.Button onClick={onClickMoveToPet}>
                     구경가기 <S.RightArrow />
                   </S.Button>
                 </S.CardInner>

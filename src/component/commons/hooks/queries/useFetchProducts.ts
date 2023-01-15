@@ -1,43 +1,29 @@
-import { gql, useQuery } from "@apollo/client";
-import {
-  IQuery,
-  IQueryFetchProductsArgs,
-} from "../../../../commons/types/generated/types";
+import { gql } from "@apollo/client";
+
 export const FETCH_PRODUCTS = gql`
-  query fetchProducts($page: Float!) {
-    fetchProducts(page: $page) {
+  query fetchProducts($cateId: String, $page: Float!) {
+    fetchProducts(cateId: $cateId, page: $page) {
       product_id
       name
       price
       description
+      commentCount
+      wishListCount
       etc1Name
       etc1Value
       etc2Name
-      etc1Value
+      etc2Value
       detailContent
       productImages {
         productImage_id
         url
       }
-      productCategory {
-        category_id
-        category
-      }
     }
   }
 `;
 
-export const useFetchProducts = () => {
-  const { data } = useQuery<
-    Pick<IQuery, "fetchProducts">,
-    IQueryFetchProductsArgs
-  >(FETCH_PRODUCTS, {
-    variables: {
-      page: 1,
-    },
-  });
-
-  return {
-    data,
-  };
-};
+export const FETCH_PRODUCTS_COUNT = gql`
+  query fetchProductsCount($cateId: String) {
+    fetchProductsCount(cateId: $cateId)
+  }
+`;

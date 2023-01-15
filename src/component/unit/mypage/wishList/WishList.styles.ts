@@ -70,7 +70,7 @@ export const ItemPriceBox = styled.div`
   & > span:first-child {
     font-size: 1.1rem;
     color: #222222;
-    border-right: 1px solid #707070;
+    /* border-right: 1px solid #707070; */
     padding-right: 12px;
     ${mq.mobile} {
       font-size: 15px;
@@ -108,6 +108,7 @@ export const RepurchaseBtn = styled.button`
   display: block;
   width: 93px;
   padding: 7px;
+  margin-left: 8px;
   background: none;
   border: 1px solid #b7b7b7;
   font-size: 18px;

@@ -1,7 +1,9 @@
 import styled from "@emotion/styled";
+import { Modal } from "antd";
 import * as mq from "../../../commons/styles/mediaQueries";
+import DaumPostcode from "react-daum-postcode";
 
-export const Wrapper = styled.section`
+export const Wrapper = styled.form`
   padding: 150px 0;
   max-width: 1300px;
   width: 100%;
@@ -55,6 +57,9 @@ export const Left = styled.div`
 `;
 export const Right = styled.div`
   width: 25%;
+  position: sticky;
+  top: 100px;
+  height: 80px;
   ${mq.mobile} {
     width: 100%;
     position: inherit;
@@ -509,3 +514,7 @@ export const Price = styled.p`
 export const Delete = styled.button`
   justify-content: flex-start;
 `;
+
+export const AddressModal = styled(Modal)``;
+
+export const AddressSearchInput = styled(DaumPostcode)``;

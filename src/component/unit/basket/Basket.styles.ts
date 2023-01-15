@@ -323,6 +323,14 @@ export const Price = styled.p`
     font-size: 14px;
     font-weight: 300;
   }
+  ${mq.mobile} {
+    color: #30640a;
+    font-size: 14px;
+  }
+  ${mq.mobileL} {
+    color: #30640a;
+    font-size: 14px;
+  }
 `;
 
 export const Delete = styled.button`

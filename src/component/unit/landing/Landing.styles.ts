@@ -310,10 +310,19 @@ export const SliderCustom = styled(Slider)`
 export const SlideBox = styled.div``;
 export const ProductImg = styled.img`
   width: 90%;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   border: 1px solid #707070;
   margin: 0 auto;
+`;
+export const ImgBox = styled.div`
+  height: 292px;
+  ${mq.mobile} {
+    height: 153px;
+  }
+  ${mq.mobileL} {
+    height: 153px;
+  }
 `;
 
 export const InfoBox = styled.div`
@@ -335,7 +344,7 @@ export const Name = styled.p`
 `;
 export const Price = styled.p`
   font-size: 16px;
-  color: #222222;
+  color: #30640a;
   font-weight: 500;
 `;
 
@@ -509,3 +518,10 @@ export const BeginZeroBtn = styled.button`
     margin-left: 10px;
   }
 `;
+
+export const CommentInfo = styled.p`
+  font-size: 15px;
+  color: #707070;
+`;
+
+export const ReviewContent = styled.p``;

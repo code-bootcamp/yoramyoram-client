@@ -1,39 +1,118 @@
 import * as S from "./WishList.styles";
-import { RightOutlined } from "@ant-design/icons";
-import { useState } from "react";
+
+import { useMutation, useQuery } from "@apollo/client";
+import { FETCH_PRODUCT } from "../../../commons/hooks/queries/useFetchProduct";
+import {
+  IMutation,
+  IMutationAddWishlistArgs,
+  IProductWishlist,
+  IQuery,
+  IQueryFetchmyWishlistArgs,
+  IQueryFetchProductArgs,
+} from "../../../../commons/types/generated/types";
+import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWishlist";
+import { PriceReg } from "../../../../commons/library/util";
+import { MouseEvent } from "react";
+import { useRouter } from "next/router";
+import InfiniteScrollPage from "../../../commons/infinite-scroll/02/InfiniteScroll.container";
+import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
 
 export default function WishList() {
-  const dummyData = new Array(6).fill(0);
+  const router = useRouter();
+  const { data, fetchMore } = useQuery<
+    Pick<IQuery, "fetchmyWishlist">,
+    IQueryFetchmyWishlistArgs
+  >(FETCH_MY_WISHLIST, {
+    variables: {
+      page: 1,
+    },
+  });
+
+  const [addWishlist] = useMutation<
+    Pick<IMutation, "addWishlist">,
+    IMutationAddWishlistArgs
+  >(ADD_WISHLIST);
+
+  const { data: _data } = useQuery<
+    Pick<IQuery, "fetchProduct">,
+    IQueryFetchProductArgs
+  >(FETCH_PRODUCT, {
+    variables: {
+      productId: String(router.query.productId),
+    },
+  });
+  console.log(data?.fetchmyWishlist);
+
+  const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {
+    void router.push(`/products/${event.currentTarget.id}`);
+  };
+
+  const onClickAddWishlist = async (idx:number) => {
+    
+    await addWishlist({
+      variables: {
+        createProductWishInput: {
+          productId: String(data?.fetchmyWishlist[idx].product.product_id),
+        },
+      },
+      refetchQueries: [
+        {
+          query: FETCH_PRODUCT,
+          variables: {
+            productId: String(data?.fetchmyWishlist[idx].product.product_id),
+          },
+        },
+        {
+          query: FETCH_MY_WISHLIST,
+          variables: {
+            page:1
+          },
+        },
+      ],
+    });
+  };
 
   return (
     <S.PurchaseHistoryBox title="위시리스트">
       <S.HistoryText>위시리스트</S.HistoryText>
-      {dummyData.map((el, idx) => (
-        <S.PurchasedItem key={idx}>
-          <S.PurchasedItemInfo>
-            <S.ProductImg src="/productDetail/purchase.png" />
-            <S.PurchasedItemInfoText>
-              <S.ItemName>구르미 텀블러</S.ItemName>
-              <S.ItemPriceBox>
-                <span>6,510원</span> <span>옵션: 화이트</span>
-              </S.ItemPriceBox>
-              <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
-            </S.PurchasedItemInfoText>
-          </S.PurchasedItemInfo>
-          <S.RepurchaseDiv>
-            <S.RepurchaseBtn>구매</S.RepurchaseBtn>
-          </S.RepurchaseDiv>
-        </S.PurchasedItem>
-      ))}
-      <S.ListPagenation>
-        <S.PageNationLeftArrow />
-        <S.Page>1</S.Page>
-        <S.Page>2</S.Page>
-        <S.Page>3</S.Page>
-        <S.Page>4</S.Page>
-        <S.Page>5</S.Page>
-        <S.PageNationRightArrow />
-      </S.ListPagenation>
+      <InfiniteScrollPage
+        fetchMore={fetchMore}
+        data={data}
+        loder={<h4>Loading</h4>}
+      >
+        {data?.fetchmyWishlist?.map((el, idx) => (
+          <S.PurchasedItem key={el.productwishlist_id}>
+            <S.PurchasedItemInfo>
+              <S.ProductImg
+                src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
+              />
+              <S.PurchasedItemInfoText>
+                <S.ItemName>{el.product.name}</S.ItemName>
+                <S.ItemPriceBox>
+                  <span>{PriceReg(String(el.product.price))} 원</span>
+                  <span></span>
+                </S.ItemPriceBox>
+                <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
+                <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
+              </S.PurchasedItemInfoText>
+            </S.PurchasedItemInfo>
+            <S.RepurchaseDiv>
+              <S.RepurchaseBtn
+                id={el?.product?.product_id}
+                onClick={onClickMoveToDetail}
+              >
+                구매
+              </S.RepurchaseBtn>
+              <S.RepurchaseBtn
+                id={el?.product?.product_id}
+                onClick={(e) => {onClickAddWishlist(idx)}}
+              >
+                삭제
+              </S.RepurchaseBtn>
+            </S.RepurchaseDiv>
+          </S.PurchasedItem>
+        ))}
+      </InfiniteScrollPage>
     </S.PurchaseHistoryBox>
   );
 }

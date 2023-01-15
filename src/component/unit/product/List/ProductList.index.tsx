@@ -1,25 +1,172 @@
-import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
+import {
+  FETCH_PRODUCTS,
+  FETCH_PRODUCTS_COUNT,
+} from "../../../commons/hooks/queries/useFetchProducts";
 import CategoryBar from "./CategoryBar";
 import CategoryBarSticky from "./CategoryBarSticky";
+import { PriceReg } from "../../../../commons/library/util";
+
 import * as S from "./ProductList.styles";
-export default function ProductList() {
+
+import { IProductListUIProps } from "./ProductList.types";
+import Pagination01 from "../../../commons/pagination/01/Pagination01.container";
+import { useMutation, useQuery } from "@apollo/client";
+import {
+  IMutation,
+  IMutationAddWishlistArgs,
+  IProduct,
+  IQuery,
+  IQueryFetchProductsArgs,
+  IQueryFetchProductsCountArgs,
+  IQuerySortByPriceAscArgs,
+} from "../../../../commons/types/generated/types";
+import { FETCH_LOGIN_USER } from "../../../commons/hooks/queries/useFetchLoginUser";
+import { useSearchProducts } from "../../../commons/hooks/queries/useSearchProducts";
+import {
+  SORT_BY_PRICE_ASC,
+  usePriceASC,
+} from "../../../commons/hooks/queries/useSortByPriceASC";
+import { useCommentsDESC } from "../../../commons/hooks/queries/useSortByCommentsDESC";
+import { useCommentsASC } from "../../../commons/hooks/queries/useSortByCommentsASC";
+import { usePriceDESC } from "../../../commons/hooks/queries/useSortByPriceDESC";
+import { FETCH_PRODUCT } from "../../../commons/hooks/queries/useFetchProduct";
+import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWishlist";
+import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
+import { IsSearchState, searchProductsState } from "../../../../commons/stores";
+import { useRecoilState } from "recoil";
+
+interface IList {
+  commentCount: number;
+  description: string;
+  detailContent: string;
+  etc1Name: string;
+  etc1Value: string;
+  etc2Name: string;
+  etc2Value: string;
+  price: string;
+  name: string;
+  product_id: string;
+  productImages: IProductImage[];
+  wishListCount: number;
+}
+
+interface IProductImage {
+  url: string;
+}
+
+export default function ProductList(props: IProductListUIProps) {
+  const router = useRouter();
   const [scroll, setScroll] = useState(false);
-  const [category, setCategory] = useState<string>("주방");
-  const onChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  const [category, setCategory] = useState<string>("전체");
+  const [list, setList] = useState([]);
+  const [admin, setAdmin] = useState<string>("");
+  const [selected, setSelected] = useState("");
+  const { data: user } = useQuery(FETCH_LOGIN_USER);
+  const { refetchSearch } = useSearchProducts();
+  const [isWish, setIsWish] = useState(false);
+  const [searchProducts, setSearchProducts] =
+    useRecoilState(searchProductsState);
+  const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
+
+  //FIXME: sort 기능구현
+  // const { CommentsASC, CommentsASCRefetch } = useCommentsASC();
+  // const { CommentsDESC, CommentsDESCRefetch } = useCommentsDESC();
+  // const { PriceASC, PriceASCRefetch } = usePriceASC();
+  // const { PriceDESC, PriceDESCRefetch } = usePriceDESC();
+
+  useEffect(() => {
+    setAdmin(user?.fetchLoginUser?.role);
+  }, [user]);
+
+  useEffect(() => {
+    setIsWish(false);
+  });
+
+  console.log(user?.fetchLoginUser);
+  // selectBox
+  // const onChangeSelectBox = (e: ChangeEvent<HTMLSelectElement>) => {
+  //   setSelected(e.currentTarget.value);
+  // };
+
+  // FIXME: sort 기능 구현
+  // useEffect(() => {
+  //   if (selected === "sortByCreatedAtASC") {
+  //     return onLoadList(data?.fetchProducts);
+  //   } else if (selected === "sortByPriceASC") {
+  //     return onLoadList(PriceASC?.sortByPriceASC);
+  //   } else if (selected === "sortByPriceDESC") {
+  //     return onLoadList(PriceDESC?.sortByPriceDESC);
+  //   } else if (selected === "sortByCommentsASC") {
+  //     return onLoadList(CommentsASC?.sortByCommentsASC);
+  //   } else if (selected === "sortByCommentsDESC") {
+  //     return onLoadList(CommentsDESC?.sortByCommentsDESC);
+  //   }
+  // }, [selected]);
+
+  //
+
+  //PAGINATION
+
+  const [addWishlist] = useMutation<
+    Pick<IMutation, "addWishlist">,
+    IMutationAddWishlistArgs
+  >(ADD_WISHLIST);
+
+  const { data, refetch } = useQuery<
+    Pick<IQuery, "fetchProducts">,
+    IQueryFetchProductsArgs
+  >(FETCH_PRODUCTS, {
+    variables: {
+      page: 1,
+      cateId: "",
+    },
+  });
+
+  const { data: dataProductsCount, refetch: countProduct } = useQuery<
+    Pick<IQuery, "fetchProductsCount">,
+    IQueryFetchProductsCountArgs
+  >(FETCH_PRODUCTS_COUNT, {
+    variables: {
+      cateId: "",
+    },
+  });
+  console.log(dataProductsCount?.fetchProductsCount);
+
+  console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
+  console.log(data?.fetchProducts);
+  console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
+
+  console.log(data);
 
   const onSearch = (value: string) => {
     console.log("search:", value);
   };
 
+  const onClickProductSubmit = () => {
+    router.push("/products/new");
+  };
+
+  const refetchCategory = (cateId: string) => {
+    void refetch({ page: 1, cateId: cateId });
+  };
+
+  const refetchCategoryCount = (cateId: string) => {
+    void countProduct({ cateId: cateId });
+  };
+
   useEffect(() => {
+    onLoadList(data?.fetchProducts);
     window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener("scroll", handleScroll); //clean up
+      window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [data]);
 
+  const onLoadList = (data: any) => {
+    setList(data);
+  };
   const handleScroll = () => {
     if (window.scrollY >= 226) {
       setScroll(true);
@@ -27,95 +174,184 @@ export default function ProductList() {
       setScroll(false);
     }
   };
+  const { data: wishList } = useQuery(FETCH_MY_WISHLIST, {
+    variables: {
+      page: 1,
+    },
+  });
+  // console.log(wishList?.fetchmyWishlist[0].product?.product_id);
+  const wishlist = wishList?.fetchmyWishlist?.map(
+    (el) => el.product.product_id
+  );
 
-  // 임시용
-  const dummyData = new Array(20).fill(0);
+  console.log(wishlist);
+
+  const onClick = (e) => {
+    console.log(e.currentTarget.id);
+  };
+
+  const onClickAddWishlist = async (e) => {
+    try {
+      await addWishlist({
+        variables: {
+          createProductWishInput: {
+            productId: e.currentTarget.id,
+          },
+        },
+        refetchQueries: [
+          {
+            query: FETCH_PRODUCTS,
+            variables: {
+              page: 1,
+              cateId: "",
+            },
+          },
+          {
+            query: FETCH_PRODUCT,
+            variables: {
+              productId: e.currentTarget.id,
+            },
+          },
+          {
+            query: FETCH_MY_WISHLIST,
+            variables: {
+              page: 1,
+            },
+          },
+        ],
+      });
+
+      // if(list.map(el)=> el.product_id === wishlist){
+      //   console.log("qqq")
+      // }
+    } catch {
+      alert("error");
+    }
+  };
+
+  const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
+    void router.push(`/products/${event.currentTarget.id}`);
+  };
+
+  const parentFunction = (
+    value: Pick<IQuery, "searchProducts"> | undefined
+  ) => {
+    let temp: any = [...list];
+    temp = value?.searchProducts;
+    setList(temp);
+  };
 
   return (
     <>
       <S.HeaderWrapper>
-        <S.ListBanner>Yoram Yoram Shop</S.ListBanner>
+        <S.ListBanner>
+          <S.BannerTitle>Yoram Yoram Shop</S.BannerTitle>
+          <S.BannerSubTxt>
+            Yoram Yoram과 함께 초록색 소비를 시작해 보세요.
+          </S.BannerSubTxt>
+        </S.ListBanner>
+
         {scroll ? (
           <CategoryBarSticky
             category={category}
             setCategory={(item: string) => setCategory(item)}
+            refetchCategory={refetchCategory}
+            refetchCategoryCount={refetchCategoryCount}
+            // selected={selected}
           />
         ) : (
           <CategoryBar
             category={category}
             setCategory={(item: string) => setCategory(item)}
+            parentFunction={parentFunction}
+            refetchCategory={refetchCategory}
+            refetchCategoryCount={refetchCategoryCount}
+            // selected={selected}
           />
         )}
       </S.HeaderWrapper>
       <S.ListWrapper>
-        <S.ProductWriteBtn>상품등록</S.ProductWriteBtn>
-        <S.SearchBoxMobile>
-          <S.SearchInput type="text" placeholder="검색" />
-          <S.SearchOutline />
-        </S.SearchBoxMobile>
+        <S.ProductWriteBtn onClick={onClickProductSubmit} admin={admin}>
+          상품등록
+        </S.ProductWriteBtn>
+
         <S.ListHeaderBox>
           <S.ListCount>
-            총 <span>20</span>개의 상품이 있습니다.
+            {/* 총 <span>{dataProductsCount?.fetchProductsCount}</span>개의 상품이 */}
+            총{" "}
+            <span>
+              {isSearch
+                ? searchProducts
+                : dataProductsCount?.fetchProductsCount}
+            </span>
+            개의 상품이 있습니다.
           </S.ListCount>
-          <S.SelectBox
-            showSearch
-            placeholder="선택"
-            optionFilterProp="children"
-            onSearch={onSearch}
-            filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-            }
-            options={[
-              {
-                value: "jack",
-                label: "등록일",
-              },
-              {
-                value: "lucy",
-                label: "낮은가격",
-              },
-              {
-                value: "tom",
-                label: "높은가격",
-              },
-              {
-                value: "tom",
-                label: "사용후기",
-              },
-            ]}
-          />
+
+          {/* FIXME: 검색부분 팀플끝나고 구현! */}
+          {/* <S.SelectBox onChange={onChangeSelectBox} value={selected}>
+            <option value="sortByCreatedAtASC">최신순</option>
+            <option value="sortByPriceASC">낮은가격순</option>
+            <option value="sortByPriceDESC">높은가격수</option>
+            <option value="sortByCommentsDESC">후기많은순</option>
+            <option value="sortByCommentsASC">후기낮은순</option>
+          </S.SelectBox> */}
         </S.ListHeaderBox>
         <S.ListContentsBox>
-          {dummyData.map((el, idx) => (
-            <S.ProductItemBox key={idx}>
-              <S.ListImg src="/landing/recycle.png" alt="상품이미지" />
+          {list?.map((el: IList, idx: number) => (
+            <S.ProductItemBox>
+              <S.ListImgWrap>
+                <S.ListImg
+                  id={el.product_id}
+                  onClick={onClickMoveToDetail}
+                  key={idx}
+                  src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
+                  alt="상품이미지"
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = "/noImage.png";
+                  }}
+                />
+              </S.ListImgWrap>
               <S.ListProductInfo>
-                <S.ListProductName>천연물방울 수세미(3개입)</S.ListProductName>
-                <S.ListProductPrice>9,900원</S.ListProductPrice>
+                <S.ListProductName>{el.name}</S.ListProductName>
+                <S.ListProductPrice>{PriceReg(el.price)}원</S.ListProductPrice>
                 <S.ListProductBtnBar>
                   <span>
-                    <S.ListChatBtn /> <S.BtnBarText>45</S.BtnBarText>
+                    <S.ListChatBtn />
+                    <S.BtnBarText>{el.commentCount}</S.BtnBarText>
                   </span>
-                  <span>
-                    <S.ListWishBtn /> <S.BtnBarText>28</S.BtnBarText>
+                  {/* {isWish ? ( */}
+                  <span
+                    style={{ cursor: "pointer" }}
+                    id={el.product_id}
+                    onClick={onClickAddWishlist}
+                  >
+                    <S.ListWishBtn />
+                    <S.BtnBarText>{el.wishListCount}</S.BtnBarText>
                   </span>
-                  <span>
+                  {/* ) : ( */}
+                  {/* <S.ListWishFiledBtn></S.ListWishFiledBtn> */}
+                  {/* )} */}
+
+                  {/* <span>
                     <S.ListBasketBtn />
-                  </span>
+                  </span> */}
                 </S.ListProductBtnBar>
               </S.ListProductInfo>
             </S.ProductItemBox>
           ))}
         </S.ListContentsBox>
-        <S.ListPagination>
-          <S.PageNationLeftArrow />
-          <S.Page>1</S.Page>
-          <S.Page>2</S.Page>
-          <S.Page>3</S.Page>
-          <S.Page>4</S.Page>
-          <S.Page>5</S.Page>
-          <S.PageNationRightArrow />
-        </S.ListPagination>
+
+        <Pagination01
+          selected={selected}
+          refetch={refetch}
+          category={category}
+          // commentsASCRefetch={CommentsASCRefetch}
+          // commentsDESCRefetch={CommentsDESCRefetch}
+          // priceASCRefetch={PriceASCRefetch}
+          // priceDESCRefetch={PriceDESCRefetch}
+          count={dataProductsCount?.fetchProductsCount}
+        />
       </S.ListWrapper>
     </>
   );

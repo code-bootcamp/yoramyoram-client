@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Select } from "antd";
 import * as mq from "../../../../commons/styles/mediaQueries";
-
+import { CloseOutlined } from "@ant-design/icons";
 export const Wrapper = styled.main`
   max-width: 1300px;
   padding: 153px 0;
@@ -87,6 +87,17 @@ export const ProductOptionBox = styled.div`
   border-bottom: 1px solid #e8e8e8;
 `;
 
+export const SelectBox = styled.select`
+  width: 80%;
+  height: 50px;
+  outline: none;
+  font-size: 15px;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #b7b7b7;
+  background-color: transparent;
+`;
+
 export const ProductOptionText = styled.p`
   font-size: 15px;
 
@@ -140,13 +151,14 @@ export const BuyAmount = styled.div`
 export const SeletedOption = styled.p`
   font-size: 15px;
   color: #707070;
-  padding: 4px 0 28px;
+  padding: 10px 0 0;
 `;
 
 export const SeletedAmountBox = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 
 export const SeletedAmount1 = styled.div`
@@ -273,13 +285,20 @@ export const BtnBox = styled.div`
   }
 `;
 
-export const SelectBtn = styled.button`
+interface IProps {
+  selectInfoBtn?: boolean;
+  selectReviewBtn?: boolean;
+}
+
+export const SelectBtn = styled.button<IProps>`
   width: 50%;
-  /* padding: 1.8% 0; */
+
   padding: 23px;
   background: none;
   border: 1px solid #b7b7b7;
   cursor: pointer;
+  background-color: ${(props) => (props.selectInfoBtn ? "#30640a" : "none")};
+  color: ${(props) => (props.selectInfoBtn ? "#ffffff" : "none")};
   font-family: "Noto Sans KR";
   font-size: 20px;
   font-weight: 500;
@@ -296,3 +315,50 @@ export const SelectBtn = styled.button`
     padding: 10px;
   }
 `;
+
+export const Select2Btn = styled.button<IProps>`
+  width: 50%;
+
+  padding: 23px;
+  background: none;
+  border: 1px solid #b7b7b7;
+  cursor: pointer;
+  background-color: ${(props) => (props.selectReviewBtn ? "#30640a" : "none")};
+  color: ${(props) => (props.selectReviewBtn ? "#ffffff" : "none")};
+
+  font-family: "Noto Sans KR";
+  font-size: 20px;
+  font-weight: 500;
+  ${mq.mobile} {
+    font-size: 16px;
+    padding: 10px;
+  }
+  ${mq.mobileL} {
+    font-size: 16px;
+    padding: 10px;
+  }
+  ${mq.tablet} {
+    font-size: 16px;
+    padding: 10px;
+  }
+`;
+
+interface IAdmin {
+  admin: string;
+}
+
+export const ModifyBtnBox = styled.div<IAdmin>`
+  color: #8b8b8b;
+  font-size: 20px;
+  display: ${(props) => (props.admin === "ADMIN" ? "" : "none")};
+  * > svg {
+    cursor: pointer;
+  }
+`;
+
+export const NameBtnBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const DeleteButton = styled(CloseOutlined)``;

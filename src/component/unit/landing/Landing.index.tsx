@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState, Component, MouseEvent } from "react";
 import { FullPage, Slide } from "react-full-page";
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/react";
@@ -17,16 +17,15 @@ import "swiper/css/scrollbar";
 import "swiper/css/autoplay";
 import LayoutFooter from "../../commons/layout/footer/LayoutFooter.index";
 import { useMoveToPage } from "../../commons/custom/useMoveToPage";
-import {
-  FETCH_PRODUCTS,
-  useFetchProducts,
-} from "../../commons/hooks/queries/useFetchProducts";
+import { FETCH_PRODUCTS } from "../../commons/hooks/queries/useFetchProducts";
 import { useQuery } from "@apollo/client";
 import {
   IQuery,
   IQueryFetchProductsArgs,
 } from "../../../commons/types/generated/types";
-import { PriceReg } from "../../../commons/library/util";
+import { PriceReg, getDate } from "../../../commons/library/util";
+import { useRouter } from "next/router";
+import { FETCH_COMMENTS_MAIN } from "../../commons/hooks/queries/useFetchCommentsMain";
 
 const controlsProps = {
   style: {
@@ -45,14 +44,19 @@ const dummyData = new Array(10).fill(10);
 // 임시용
 
 export default function Landing() {
-  // const { data } = useQuery<
-  //   Pick<IQuery, "fetchProducts">,
-  //   IQueryFetchProductsArgs
-  // >(FETCH_PRODUCTS);
+  const router = useRouter();
+  const { data } = useQuery(FETCH_PRODUCTS, {
+    variables: {
+      page: 1,
+    },
+  });
 
-  const { data } = useFetchProducts();
+  const { data: commentsData } = useQuery(FETCH_COMMENTS_MAIN);
 
   const { onClickMoveToPage } = useMoveToPage();
+  const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {
+    void router.push(`/products/${event.currentTarget.id}`);
+  };
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     // AOS.init();
@@ -186,16 +190,24 @@ export default function Landing() {
                   <RightOutlined />
                 </S.MoreBtn>
                 <S.SliderCustom {...settings}>
-                  {data?.fetchProducts.map((el, index) => (
+                  {data?.fetchProducts.map((el: typeof data, index: string) => (
                     <S.SlideBox key={el.product_id}>
-                      <S.ProductImg src="/productDetail/purchase.png" />
+                      <S.ImgBox>
+                        <S.ProductImg
+                          src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
+                        />
+                      </S.ImgBox>
+
                       <S.InfoBox>
                         <S.ProductInfo>
                           <S.Name>{el.name}</S.Name>
                           <S.Price>{PriceReg(String(el.price))}원</S.Price>
                         </S.ProductInfo>
 
-                        <S.BuyBtn>
+                        <S.BuyBtn
+                          id={el.product_id}
+                          onClick={onClickMoveToDetail}
+                        >
                           구매하러 가기
                           <RightOutlined />
                         </S.BuyBtn>
@@ -243,34 +255,15 @@ export default function Landing() {
                       },
                     }}
                   >
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
-                    <S.Reviews>
-                      제로웨이스트 제품 후기입니다. 제로웨이스트 제품 후기입
-                      니다. 제로웨이스트 제품 후기입니다. 제로웨이스트 제품
-                      후기입니다. 제로웨이스트 제품 후기입니다. 제로웨이스 트
-                      제품 후기입니다. 제로웨이스트 제품 후기입니다.{" "}
-                      <div>- yoram123 님</div>
-                    </S.Reviews>
+                    {commentsData?.fetchCommentsMain.map((el: typeof data) => (
+                      <S.Reviews>
+                        <S.ReviewContent>{el.content}</S.ReviewContent>
+                        <S.CommentInfo>
+                          - {el.user.name.replace(/(?<=.{2})./gi, "*")} /{" "}
+                          {getDate(el.createdAt)}
+                        </S.CommentInfo>
+                      </S.Reviews>
+                    ))}
                   </S.SwiperContentWrapper>
                 </S.SwiperContents>
               </S.SwiperWrapper>
