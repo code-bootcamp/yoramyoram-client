@@ -245,20 +245,22 @@ export default function ProductDetail() {
   const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(true);
   const productPrice = data?.fetchProduct.price;
   const [price, setPrice] = useState(0);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   useEffect(() => {
     if (data === undefined) return;
     setGetOption(String(data?.fetchProduct?.etc1Name));
     setGetOptionTwo(String(data?.fetchProduct?.etc2Name));
 
-    if (getOption === 'selectOption1') setIsGetOption(false);
-    if (getOptionTwo === 'selectOption2') setIsGetOptionTwo(false);
-      
+    if (getOption === "selectOption1") setIsGetOption(false);
+    if (getOptionTwo === "selectOption2") setIsGetOptionTwo(false);
   });
 
   useEffect(() => {
     if (data === undefined) return;
     setPrice(data?.fetchProduct?.price);
+
+    setIsActive(data?.fetchProduct?.productWishlist[0].isDib);
   }, [data]);
 
   const onClickInfoBtn = () => {
@@ -332,7 +334,11 @@ export default function ProductDetail() {
               </S.ProductOptionText>
               {isGetOption ? (
                 <S.OptionBox>
-                  <S.OptionText >{data?.fetchProduct.etc1Name === 'color1' ? '컬러' : '사이즈'}</S.OptionText>
+                  <S.OptionText>
+                    {data?.fetchProduct.etc1Name === "color1"
+                      ? "컬러"
+                      : "사이즈"}
+                  </S.OptionText>
 
                   <S.SelectBox onChange={handleSelect} value={isSelected}>
                     <option selected hidden>
@@ -348,7 +354,11 @@ export default function ProductDetail() {
               )}
               {isGetOptionTwo ? (
                 <S.OptionBox>
-                  <S.OptionText>{data?.fetchProduct.etc2Name === 'color2' ? '컬러' : '사이즈'}</S.OptionText>
+                  <S.OptionText>
+                    {data?.fetchProduct.etc2Name === "color2"
+                      ? "컬러"
+                      : "사이즈"}
+                  </S.OptionText>
 
                   <S.SelectBox onChange={handleSelectTwo} value={isSelectedTwo}>
                     <option selected hidden>
@@ -406,9 +416,22 @@ export default function ProductDetail() {
                 <button onClick={onClickCart}>장바구니</button>
                 <button onClick={onClickAddWishlist}>
                   <S.WishListBtn>
-                    <HeartFilled
-                      style={{ fontSize: "26px", color: " #30640a" }}
-                    />
+                    {isActive ? (
+                      <HeartFilled
+                        style={{
+                          fontSize: "26px",
+                          color: isActive ? " #30640a" : "#ffffff",
+                        }}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        style={{
+                          fontSize: "26px",
+                          color: isActive ? "" : "#30640a",
+                        }}
+                      />
+                    )}
+
                     <div>{data?.fetchProduct.wishListCount}</div>
                   </S.WishListBtn>
                 </button>

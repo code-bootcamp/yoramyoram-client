@@ -138,7 +138,7 @@ export default function Basket() {
 
                         <S.Option>
                           {el.product.etc1Name ? `${el.product.etc1Name}:` : ""}
-                          {el.etc1Value !== "," && el.etc1Value
+                          {el.etc1Name !== "," && el.etc1Value
                             ? el.etc1Value
                             : ""}
                         </S.Option>
@@ -240,10 +240,6 @@ export default function Basket() {
             </S.MobileBtnWrap>
           </S.Right>
         </S.FlexBoxWrap>
-        {/* <Pagination03
-          count={dataProductsCartCount?.fetchProductCartCount}
-          refetch={refetch}
-        /> */}
       </S.Wrapper>
     </div>
   );

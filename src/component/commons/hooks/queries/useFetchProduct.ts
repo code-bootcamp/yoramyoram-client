@@ -23,6 +23,9 @@ export const FETCH_PRODUCT = gql`
         category_id
         category
       }
+      productWishlist {
+        isDib
+      }
     }
   }
 `;

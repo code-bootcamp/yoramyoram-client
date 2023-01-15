@@ -234,6 +234,7 @@ export type IProduct = {
   productCart: IProductCart;
   productCategory: IProductCategory;
   productImages: Array<IProductImage>;
+  productWishlist: Array<IProductWishlist>;
   product_id: Scalars['String'];
   wishListCount: Scalars['Int'];
 };
