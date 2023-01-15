@@ -312,7 +312,6 @@ export const ProductImg = styled.img`
   width: 90%;
   height: 100%;
   object-fit: cover;
-  border: 1px solid #707070;
   margin: 0 auto;
 `;
 export const ImgBox = styled.div`
