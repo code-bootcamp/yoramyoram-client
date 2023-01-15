@@ -7,7 +7,7 @@ interface IProps {
 
 export default function InfiniteScrollUI(props: IProps) {
   return (
-    <div style={{ height: "500px", overflow: "auto" }}>
+    <S.InfiniteScrollWrapper>
       <S.InfiniteBox
         pageStart={0}
         loadMore={props.onLoadMore}
@@ -16,6 +16,6 @@ export default function InfiniteScrollUI(props: IProps) {
       >
         {props.children}
       </S.InfiniteBox>
-    </div>
+    </S.InfiniteScrollWrapper>
   );
 }

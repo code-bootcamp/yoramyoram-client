@@ -36,7 +36,6 @@ import { FETCH_PRODUCT } from "../../../commons/hooks/queries/useFetchProduct";
 const ReactQuill = dynamic(async () => await import("react-quill"), {
   ssr: false,
 });
-import { innerText } from "react";
 
 export default function ProductWrite(props: any) {
   // TAG //
