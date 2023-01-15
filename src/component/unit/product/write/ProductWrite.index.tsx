@@ -1,5 +1,5 @@
 import * as S from "./ProductWrite.styles";
-import { KeyboardEvent, MouseEvent, useEffect, useState } from "react";
+import { ChangeEvent, KeyboardEvent, MouseEvent, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
 import { Modal, Select } from "antd";
@@ -38,6 +38,9 @@ export default function ProductWrite(props: any) {
   const [tagList, setTagList] = useState<string[]>([]);
   const [tagItemTwo, setTagItemTwo] = useState<string>("");
   const [tagListTwo, setTagListTwo] = useState<string[]>([]);
+  const [ selectValue1, setSelectValue1] = useState('');
+  const [ selectValue2, setSelectValue2] = useState('');
+  
 
   const onKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.currentTarget.value.length !== 0 && e.key === "Enter") {
@@ -87,6 +90,7 @@ export default function ProductWrite(props: any) {
         e.preventDefault();
       }
     });
+    
   }, [props.data]);
 
   const router = useRouter();
@@ -186,14 +190,21 @@ export default function ProductWrite(props: any) {
 
   //상품 수정 onClick Event ============================================
   // 이걸 살리면 이미지 미리보기가 된다.
+   
+
   useEffect(() => {
     setFileUrls([
       props.data?.fetchProduct?.productImages[0].url,
       props.data?.fetchProduct?.productImages[1].url,
       props.data?.fetchProduct?.productImages[2].url,
     ]);
+
+    setSelectValue1(props.data?.fetchProduct?.etc1Name);
+    setSelectValue2(props.data?.fetchProduct?.etc2Name);
   }, [props.data]);
-  console.log(props.data?.fetchProduct?.etc2Name);
+
+  console.log(props.data?.fetchProduct.etc1Name);
+  console.log(props.data?.fetchProduct.etc2Name);
   const onClickUpdateSubmit = async (data: any) => {
     console.log(data);
 
@@ -331,17 +342,15 @@ export default function ProductWrite(props: any) {
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
-              <div>{props.data?.fetchProduct?.etc1Name === "컬러"}</div>
               <div>{props.data?.fetchProduct?.etc1Name}</div>
               <S.SelectBox
                 {...register("etc1Name")}
-                defaultValue={
-                  props.data?.fetchProduct?.etc1Name == "컬러"
-                    ? "color1"
-                    : "size1"
-                }
+                value={selectValue1}
+                onChange={(v) => { 
+                	setSelectValue1(v.target.value);
+                }}
               >
-                <option value="selectoption1" disabled selected>
+                <option value="selectOption1" disabled>
                   옵션을 선택하세요.
                 </option>
                 <option value="color1">컬러</option>
@@ -376,19 +385,16 @@ export default function ProductWrite(props: any) {
           </S.HalfWrapper>
           <S.HalfWrapper>
             <S.SelectWrap>
-              <div>{props.data?.fetchProduct?.etc2Name}</div>
               <S.Label>옵션명</S.Label>
+              <div>{props.data?.fetchProduct?.etc2Name}</div>
               <S.SelectBox
                 {...register("etc2Name")}
-                defaultValue={
-                  props.data?.fetchProduct?.etc2Name === ""
-                    ? "selectoption2"
-                    : props.data?.fetchProduct?.etc2Name === "컬러"
-                    ? "color2"
-                    : "size2"
-                }
+                value={selectValue2}
+                onChange={(v) => { 
+                	setSelectValue2(v.target.value);
+                }}
               >
-                <option value="selectoption2" disabled selected>
+                <option value="selectOption2" disabled>
                   옵션을 선택하세요.
                 </option>
                 <option value="color2">컬러</option>
