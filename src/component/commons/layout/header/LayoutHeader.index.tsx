@@ -2,6 +2,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { PriceReg } from "../../../../commons/library/util";
 import { useMoveToPage } from "../../custom/useMoveToPage";
 import { LOGOUT } from "../../hooks/mutation/useLogout";
 import { FETCH_LOGIN_USER } from "../../hooks/queries/useFetchLoginUser";
@@ -71,8 +72,8 @@ export function LayoutHeader() {
             <img src="/header/logo_gr.png" onClick={onClickMoveToPage("/")} />
           </S.Logo>
           <S.MyMenu>
-            <S.User />
-            <S.Cart />
+            <S.User onClick={onClickMoveToPage("/mypage")} />
+            <S.Cart onClick={onClickMoveToPage("/basket")} />
           </S.MyMenu>
         </S.HeaderWrapper>
         <S.Sidebar isOpen={isOpen}>
@@ -82,7 +83,7 @@ export function LayoutHeader() {
               <S.PointBox>
                 <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
                 <S.UserPoint>
-                  {data?.fetchLoginUser.point}
+                  {PriceReg(data?.fetchLoginUser.point)}
                   <span>P</span>
                 </S.UserPoint>
               </S.PointBox>
@@ -183,8 +184,8 @@ export function LayoutHeaderMain() {
             <img src="/header/logo_gr.png" onClick={onClickMoveToPage("/")} />
           </O.Logo>
           <O.MyMenu>
-            <O.User />
-            <O.Cart />
+            <O.User onClick={onClickMoveToPage("/mypage")} />
+            <O.Cart onClick={onClickMoveToPage("/basket")} />
           </O.MyMenu>
         </O.HeaderWrapper>
         <O.Sidebar isOpen={isOpen}>
@@ -194,7 +195,7 @@ export function LayoutHeaderMain() {
               <S.PointBox>
                 <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
                 <S.UserPoint>
-                  {data?.fetchLoginUser.point}
+                  {PriceReg(data?.fetchLoginUser.point)}
                   <span>P</span>
                 </S.UserPoint>
               </S.PointBox>
@@ -209,11 +210,9 @@ export function LayoutHeaderMain() {
           )}
           <O.Nav>
             <ul>
-              <ul>
-                {menuList.map((el) => (
-                  <li onClick={onClickMoveToPage(el.url)}>{el.name}</li>
-                ))}
-              </ul>
+              {menuList.map((el) => (
+                <li onClick={onClickMoveToPage(el.url)}>{el.name}</li>
+              ))}
             </ul>
           </O.Nav>
         </O.Sidebar>
