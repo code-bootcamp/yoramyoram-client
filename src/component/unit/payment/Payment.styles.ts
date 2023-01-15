@@ -57,6 +57,9 @@ export const Left = styled.div`
 `;
 export const Right = styled.div`
   width: 25%;
+  position: sticky;
+  top: 100px;
+  height: 80px;
   ${mq.mobile} {
     width: 100%;
     position: inherit;
