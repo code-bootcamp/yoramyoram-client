@@ -2,13 +2,14 @@ import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { MouseEvent, useEffect, useState } from "react";
 
-import { PriceReg } from "../../../commons/library/util";
+import { optionName, PriceReg } from "../../../commons/library/util";
 import {
   IMutation,
   IMutationDeleteProductCartArgs,
   IQuery,
   IQueryFetchProductCartArgs,
 } from "../../../commons/types/generated/types";
+import { useMoveToPage } from "../../commons/custom/useMoveToPage";
 
 import { DELETE_PRODUCT_CART } from "../../commons/hooks/mutation/useDeleteProductsCart";
 import {
@@ -17,10 +18,10 @@ import {
   FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
 } from "../../commons/hooks/queries/useFetchProductCart";
 import InfiniteScrollPage from "../../commons/infinite-scroll/01/InfiniteScroll.container";
-import Pagination03 from "../../commons/pagination/03/Pagination03.container";
 import * as S from "./Basket.styles";
 
 export default function Basket() {
+  const { onClickMoveToPage } = useMoveToPage();
   const [isGetOption, setIsGetOption] = useState<boolean>(false);
   const [isGetOptionTwo, setIsGetOptionTwo] = useState<boolean>(false);
 
@@ -54,7 +55,6 @@ export default function Basket() {
   const { data: dataProductsCartTotalAmount } = useQuery<
     Pick<IQuery, "fetchProductCartTotalAmount">
   >(FETCH_PRODUCTS_CART_TOTAL_AMOUNT);
-  // console.log(dataProductsCartTotalAmount);
 
   const router = useRouter();
 
@@ -137,13 +137,13 @@ export default function Basket() {
                         <S.Name>{el.product.name}</S.Name>
 
                         <S.Option>
-                          {el.product.etc1Name ? `${el.product.etc1Name}:` : ""}
+                          {`${optionName(el.product.etc1Name)}`}
                           {el.etc1Name !== "," && el.etc1Value
                             ? el.etc1Value
                             : ""}
                         </S.Option>
                         <S.Option>
-                          {el.product.etc2Name ? `${el.product.etc2Name}:` : ""}
+                          {`${optionName(el.product.etc2Name)}`}
                           {el.etc2Value !== "," && el.etc2Value
                             ? el.etc2Value
                             : ""}
@@ -179,10 +179,12 @@ export default function Basket() {
                     <S.PrdName>{el.product.name}</S.PrdName>
                     <S.PrdOption>
                       {" "}
-                      {el.product.etc1Name}:{el.etc1Value}
+                      {optionName(el.product.etc1Name)}
+                      {el.etc1Value}
                     </S.PrdOption>
                     <S.PrdOption>
-                      {el.product.etc2Name}:{el.etc2Value}
+                      {optionName(el.product.etc2Name)}
+                      {el.etc2Value}
                     </S.PrdOption>
                     <S.Quantity>수량: {el.quantity}</S.Quantity>
                     <S.Price>가격: {el.product.price} 원</S.Price>
@@ -231,7 +233,9 @@ export default function Basket() {
                 </S.Point>
               </S.PointBox>
             </S.PriceWrap>
-            <S.PayButton>주문하기</S.PayButton>
+            <S.PayButton onClick={onClickMoveToPage("/payment")}>
+              주문하기
+            </S.PayButton>
             <S.MobileBtnWrap>
               <S.GoShopMob onClick={onClickMoveShopPage}>
                 쇼핑 계속하기

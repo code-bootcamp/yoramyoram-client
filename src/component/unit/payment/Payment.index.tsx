@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import { useEffect, useState } from "react";
 import { Address } from "react-daum-postcode";
 import { useForm } from "react-hook-form";
-import { PriceReg } from "../../../commons/library/util";
+import { optionName, PriceReg } from "../../../commons/library/util";
 import {
   IQuery,
   IQueryFetchProductCartArgs,
@@ -227,17 +227,13 @@ export default function Payment() {
                             <S.Name>{el.product.name}</S.Name>
 
                             <S.Option>
-                              {el.product.etc1Name
-                                ? `${el.product.etc1Name}:`
-                                : ""}
+                              {`${optionName(el.product.etc1Name)}`}
                               {el.etc1Value !== "," && el.etc1Value
                                 ? el.etc1Value
                                 : ""}
                             </S.Option>
                             <S.Option>
-                              {el.product.etc2Name
-                                ? `${el.product.etc2Name}:`
-                                : ""}
+                              {`${optionName(el.product.etc2Name)}`}
                               {el.etc2Value !== "," && el.etc2Value
                                 ? el.etc2Value
                                 : ""}
@@ -275,10 +271,12 @@ export default function Payment() {
                         <S.PrdName>{el.product.name}</S.PrdName>
                         <S.PrdOption>
                           {" "}
-                          {el.product.etc1Name}:{el.etc1Value}
+                          {optionName(el?.product.etc1Name)}
+                          {el.etc1Value}
                         </S.PrdOption>
                         <S.PrdOption>
-                          {el.product.etc2Name}:{el.etc2Value}
+                          {optionName(el?.product.etc2Name)}
+                          {el.etc2Value}
                         </S.PrdOption>
                         <S.Quantity>수량: {el.quantity}</S.Quantity>
                         <S.Price>가격: {el.product.price} 원</S.Price>
