@@ -4,6 +4,7 @@ import { Divider, Select } from "antd";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import * as mq from "../../../../commons/styles/mediaQueries";
 
 export const HeaderWrapper = styled.div`
@@ -377,6 +378,11 @@ export const ListChatBtn = styled(ChatBubbleOutlineIcon)`
 `;
 
 export const ListWishBtn = styled(FavoriteBorderIcon)`
+  font-size: 18px;
+  cursor: pointer;
+`;
+
+export const ListWishFiledBtn = styled(FavoriteIcon)`
   font-size: 18px;
   cursor: pointer;
 `;

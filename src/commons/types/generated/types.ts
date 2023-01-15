@@ -278,6 +278,7 @@ export type IProductImage = {
 
 export type IProductWishlist = {
   __typename?: 'ProductWishlist';
+  createdAt: Scalars['DateTime'];
   isDib: Scalars['Boolean'];
   product: IProduct;
   productwishlist_id: Scalars['String'];
@@ -343,6 +344,11 @@ export type IQueryFetchProductsArgs = {
 
 export type IQueryFetchProductsCountArgs = {
   cateId?: InputMaybe<Scalars['String']>;
+};
+
+
+export type IQueryFetchmyWishlistArgs = {
+  page: Scalars['Float'];
 };
 
 

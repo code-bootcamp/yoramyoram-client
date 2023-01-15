@@ -12,8 +12,10 @@ import * as S from "./ProductList.styles";
 
 import { IProductListUIProps } from "./ProductList.types";
 import Pagination01 from "../../../commons/pagination/01/Pagination01.container";
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import {
+  IMutation,
+  IMutationAddWishlistArgs,
   IProduct,
   IQuery,
   IQueryFetchProductsArgs,
@@ -29,6 +31,9 @@ import {
 import { useCommentsDESC } from "../../../commons/hooks/queries/useSortByCommentsDESC";
 import { useCommentsASC } from "../../../commons/hooks/queries/useSortByCommentsASC";
 import { usePriceDESC } from "../../../commons/hooks/queries/useSortByPriceDESC";
+import { FETCH_PRODUCT } from "../../../commons/hooks/queries/useFetchProduct";
+import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWishlist";
+import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
 import { IsSearchState, searchProductsState } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
 
@@ -59,6 +64,8 @@ export default function ProductList(props: IProductListUIProps) {
   const [admin, setAdmin] = useState<string>("");
   const [selected, setSelected] = useState("");
   const { data: user } = useQuery(FETCH_LOGIN_USER);
+  const { refetchSearch } = useSearchProducts();
+  const [isWish, setIsWish] = useState(false);
   const [searchProducts, setSearchProducts] =
     useRecoilState(searchProductsState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
@@ -73,6 +80,11 @@ export default function ProductList(props: IProductListUIProps) {
     setAdmin(user?.fetchLoginUser?.role);
   }, [user]);
 
+  useEffect(() => {
+    setIsWish(false);
+  });
+
+  console.log(list);
   // selectBox
   // const onChangeSelectBox = (e: ChangeEvent<HTMLSelectElement>) => {
   //   setSelected(e.currentTarget.value);
@@ -96,6 +108,12 @@ export default function ProductList(props: IProductListUIProps) {
   //
 
   //PAGINATION
+
+  const [addWishlist] = useMutation<
+    Pick<IMutation, "addWishlist">,
+    IMutationAddWishlistArgs
+  >(ADD_WISHLIST);
+
   const { data, refetch } = useQuery<
     Pick<IQuery, "fetchProducts">,
     IQueryFetchProductsArgs
@@ -155,6 +173,41 @@ export default function ProductList(props: IProductListUIProps) {
     } else {
       setScroll(false);
     }
+  };
+
+  const onClick = (e) => {
+    console.log(e.currentTarget.id);
+  };
+
+  const onClickAddWishlist = async (e) => {
+    await addWishlist({
+      variables: {
+        createProductWishInput: {
+          productId: e.currentTarget.id,
+        },
+      },
+      refetchQueries: [
+        {
+          query: FETCH_PRODUCTS,
+          variables: {
+            page: 1,
+            cateId: "",
+          },
+        },
+        {
+          query: FETCH_PRODUCT,
+          variables: {
+            productId: e.currentTarget.id,
+          },
+        },
+        {
+          query: FETCH_MY_WISHLIST,
+          variables: {
+            page: 1,
+          },
+        },
+      ],
+    });
   };
 
   const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
@@ -226,13 +279,12 @@ export default function ProductList(props: IProductListUIProps) {
         </S.ListHeaderBox>
         <S.ListContentsBox>
           {list?.map((el: IList, idx: number) => (
-            <S.ProductItemBox
-              id={el.product_id}
-              onClick={onClickMoveToDetail}
-              key={idx}
-            >
+            <S.ProductItemBox>
               <S.ListImgWrap>
                 <S.ListImg
+                  id={el.product_id}
+                  onClick={onClickMoveToDetail}
+                  key={idx}
                   src={`https://storage.googleapis.com/${el.productImages[0]?.url}`}
                   alt="상품이미지"
                   onError={({ currentTarget }) => {
@@ -246,16 +298,21 @@ export default function ProductList(props: IProductListUIProps) {
                 <S.ListProductPrice>{PriceReg(el.price)}원</S.ListProductPrice>
                 <S.ListProductBtnBar>
                   <span>
-                    <S.ListChatBtn />{" "}
+                    <S.ListChatBtn />
                     <S.BtnBarText>{el.commentCount}</S.BtnBarText>
                   </span>
-                  <span>
-                    <S.ListWishBtn />{" "}
-                    <S.BtnBarText>{el.wishListCount}</S.BtnBarText>
-                  </span>
-                  <span>
+                  {isWish ? (
+                    <span id={el.product_id} onClick={onClickAddWishlist}>
+                      <S.ListWishBtn />
+                      <S.BtnBarText>{el.wishListCount}</S.BtnBarText>
+                    </span>
+                  ) : (
+                    <S.ListWishFiledBtn></S.ListWishFiledBtn>
+                  )}
+
+                  {/* <span>
                     <S.ListBasketBtn />
-                  </span>
+                  </span> */}
                 </S.ListProductBtnBar>
               </S.ListProductInfo>
             </S.ProductItemBox>

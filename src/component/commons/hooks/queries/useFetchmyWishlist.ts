@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const FETCH_MY_WISHLIST = gql`
-  query fetchmyWishlist {
-    fetchmyWishlist {
+  query fetchmyWishlist($page: Float!) {
+    fetchmyWishlist(page: $page) {
       productwishlist_id
       isDib
       user {
