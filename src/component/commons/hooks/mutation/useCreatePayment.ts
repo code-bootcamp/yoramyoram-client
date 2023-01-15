@@ -5,10 +5,9 @@ import {
 } from "../../../../commons/types/generated/types";
 
 const CREATE_PAYMENT = gql`
-  mutation createPayment($point: Int!, $ect1: String!, $ect2: String!) {
-    createPayment(point: $point, ect1: $ect1, ect2: $ect2) {
+  mutation createPayment($point: Int!, $totalAmount: Float!) {
+    createPayment(point: $point, totalAmount: $totalAmount) {
       id
-      user
     }
   }
 `;

@@ -16,8 +16,11 @@ export const Page = styled.button`
     background-color: #30640a24;
   }
 `;
+interface IIsActive {
+  isActive: boolean;
+}
 
-export const PageNum = styled.button`
+export const PageNum = styled.button<IIsActive>`
   color: #707070;
   background-color: ${(props) =>
     props.isActive ? "#30640a24" : "transparent"};

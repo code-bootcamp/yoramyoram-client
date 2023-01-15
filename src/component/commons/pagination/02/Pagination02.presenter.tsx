@@ -1,6 +1,15 @@
 import * as S from "./Pagination02.styles";
 
-export default function Pagination02UI(props) {
+interface IProps {
+  startPage: number;
+  lastPage: number;
+  activedPage: number;
+  onClickPage: any;
+  onClickPrevPage: () => void;
+  onClickNextPage: () => void;
+}
+
+export default function Pagination02UI(props: IProps) {
   return (
     <S.PaginationBox>
       <S.Page
