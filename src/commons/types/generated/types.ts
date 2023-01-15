@@ -62,7 +62,6 @@ export type ICreateUserInput = {
 export type IMutation = {
   __typename?: 'Mutation';
   addWishlist: Scalars['Boolean'];
-  canclePayment: IPayment;
   checkTokenPhone: Scalars['String'];
   createComment: IComment;
   createPayment: IPayment;
@@ -93,14 +92,6 @@ export type IMutationAddWishlistArgs = {
 };
 
 
-export type IMutationCanclePaymentArgs = {
-  etc1: Scalars['String'];
-  etc2: Scalars['String'];
-  impUid: Scalars['String'];
-  point: Scalars['Int'];
-};
-
-
 export type IMutationCheckTokenPhoneArgs = {
   phone: Scalars['String'];
   phoneToken: Scalars['String'];
@@ -113,10 +104,8 @@ export type IMutationCreateCommentArgs = {
 
 
 export type IMutationCreatePaymentArgs = {
-  etc1: Scalars['String'];
-  etc2: Scalars['String'];
-  impUid: Scalars['String'];
   point: Scalars['Int'];
+  totalAmount: Scalars['Float'];
 };
 
 
@@ -223,9 +212,9 @@ export type IPayment = {
   etc1?: Maybe<Scalars['String']>;
   etc2?: Maybe<Scalars['String']>;
   id: Scalars['String'];
-  impUid: Scalars['String'];
   point: Scalars['Int'];
   status: IPayment_Status_Enum;
+  totalAmount: Scalars['Int'];
   user: IUser;
 };
 
@@ -245,6 +234,7 @@ export type IProduct = {
   productCart: IProductCart;
   productCategory: IProductCategory;
   productImages: Array<IProductImage>;
+  productWishlist: Array<IProductWishlist>;
   product_id: Scalars['String'];
   wishListCount: Scalars['Int'];
 };
@@ -416,11 +406,11 @@ export type IUser = {
   __typename?: 'User';
   add_detail: Scalars['String'];
   address: Scalars['String'];
-  amount: Scalars['Int'];
   cartTotal: Scalars['Int'];
   email: Scalars['String'];
   id: Scalars['String'];
   name: Scalars['String'];
+  paid: Scalars['Int'];
   phone: Scalars['String'];
   point: Scalars['Int'];
   role: IUser_Enum;

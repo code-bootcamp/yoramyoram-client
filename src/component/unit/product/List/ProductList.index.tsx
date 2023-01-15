@@ -84,7 +84,7 @@ export default function ProductList(props: IProductListUIProps) {
     setIsWish(false);
   });
 
-  console.log(list);
+  console.log(user?.fetchLoginUser);
   // selectBox
   // const onChangeSelectBox = (e: ChangeEvent<HTMLSelectElement>) => {
   //   setSelected(e.currentTarget.value);
@@ -174,40 +174,59 @@ export default function ProductList(props: IProductListUIProps) {
       setScroll(false);
     }
   };
+  const { data: wishList } = useQuery(FETCH_MY_WISHLIST, {
+    variables: {
+      page: 1,
+    },
+  });
+  // console.log(wishList?.fetchmyWishlist[0].product?.product_id);
+  const wishlist = wishList?.fetchmyWishlist?.map(
+    (el) => el.product.product_id
+  );
+
+  console.log(wishlist);
 
   const onClick = (e) => {
     console.log(e.currentTarget.id);
   };
 
   const onClickAddWishlist = async (e) => {
-    await addWishlist({
-      variables: {
-        createProductWishInput: {
-          productId: e.currentTarget.id,
-        },
-      },
-      refetchQueries: [
-        {
-          query: FETCH_PRODUCTS,
-          variables: {
-            page: 1,
-            cateId: "",
-          },
-        },
-        {
-          query: FETCH_PRODUCT,
-          variables: {
+    try {
+      await addWishlist({
+        variables: {
+          createProductWishInput: {
             productId: e.currentTarget.id,
           },
         },
-        {
-          query: FETCH_MY_WISHLIST,
-          variables: {
-            page: 1,
+        refetchQueries: [
+          {
+            query: FETCH_PRODUCTS,
+            variables: {
+              page: 1,
+              cateId: "",
+            },
           },
-        },
-      ],
-    });
+          {
+            query: FETCH_PRODUCT,
+            variables: {
+              productId: e.currentTarget.id,
+            },
+          },
+          {
+            query: FETCH_MY_WISHLIST,
+            variables: {
+              page: 1,
+            },
+          },
+        ],
+      });
+
+      // if(list.map(el)=> el.product_id === wishlist){
+      //   console.log("qqq")
+      // }
+    } catch {
+      alert("error");
+    }
   };
 
   const onClickMoveToDetail = (event: MouseEvent<HTMLDivElement>) => {
@@ -301,14 +320,18 @@ export default function ProductList(props: IProductListUIProps) {
                     <S.ListChatBtn />
                     <S.BtnBarText>{el.commentCount}</S.BtnBarText>
                   </span>
-                  {isWish ? (
-                    <span id={el.product_id} onClick={onClickAddWishlist}>
-                      <S.ListWishBtn />
-                      <S.BtnBarText>{el.wishListCount}</S.BtnBarText>
-                    </span>
-                  ) : (
-                    <S.ListWishFiledBtn></S.ListWishFiledBtn>
-                  )}
+                  {/* {isWish ? ( */}
+                  <span
+                    style={{ cursor: "pointer" }}
+                    id={el.product_id}
+                    onClick={onClickAddWishlist}
+                  >
+                    <S.ListWishBtn />
+                    <S.BtnBarText>{el.wishListCount}</S.BtnBarText>
+                  </span>
+                  {/* ) : ( */}
+                  {/* <S.ListWishFiledBtn></S.ListWishFiledBtn> */}
+                  {/* )} */}
 
                   {/* <span>
                     <S.ListBasketBtn />
