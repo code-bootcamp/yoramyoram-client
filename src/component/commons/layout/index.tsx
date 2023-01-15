@@ -7,6 +7,7 @@ interface ILayoutProps {
   children: JSX.Element;
 }
 const HIDDEN_FOOTER = [
+  "/",
   "/account/id_search/",
   "/account/id_search_success/",
   "/account/password_search/",
