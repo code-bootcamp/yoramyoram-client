@@ -154,10 +154,10 @@ export const AccumulatePoint = styled.span`
 
 export const ContentsBox = styled.div`
   padding-top: 76px;
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 30px;
+  gap: 30px; */
   ${mq.mobile} {
     display: block;
     padding-top: 0px;
