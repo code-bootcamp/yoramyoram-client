@@ -64,6 +64,7 @@ export default function ProductList() {
   const [list, setList] = useState([]);
   const [admin, setAdmin] = useState<string>("");
   const [selected, setSelected] = useState("");
+  const [activedPage, setActivedPage] = useState(1);
   const { data: user } = useQuery(FETCH_LOGIN_USER);
   const [isWish, setIsWish] = useState(false);
   const [searchProducts, setSearchProducts] =
@@ -119,7 +120,7 @@ export default function ProductList() {
     IQueryFetchProductsArgs
   >(FETCH_PRODUCTS, {
     variables: {
-      page: 1,
+      page: activedPage,
       cateId: "",
     },
   });
@@ -134,9 +135,9 @@ export default function ProductList() {
   });
   console.log(dataProductsCount?.fetchProductsCount);
 
-  console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
-  console.log(data?.fetchProducts);
-  console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
+  // console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
+  // console.log(data?.fetchProducts);
+  // console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
 
   console.log(data);
 
@@ -158,6 +159,7 @@ export default function ProductList() {
 
   useEffect(() => {
     onLoadList(data?.fetchProducts);
+    console.log("111111111111111");
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -189,7 +191,7 @@ export default function ProductList() {
           {
             query: FETCH_PRODUCTS,
             variables: {
-              page: 1,
+              page: activedPage,
               cateId: "",
             },
           },
@@ -323,6 +325,8 @@ export default function ProductList() {
         </S.ListContentsBox>
 
         <Pagination01
+          activedPage={activedPage}
+          setActivedPage={setActivedPage}
           selected={selected}
           refetch={refetch}
           category={category}

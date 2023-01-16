@@ -42,7 +42,7 @@ export default function Basket() {
       page: 1,
     },
   });
-  console.log(data?.fetchProductCart[0].product.etc1Name);
+  // console.log(data?.fetchProductCart[0].product.etc1Name);
   const [deleteProductCart] = useMutation<
     Pick<IMutation, "deleteProductCart">,
     IMutationDeleteProductCartArgs

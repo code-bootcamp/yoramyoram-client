@@ -1,7 +1,13 @@
 import { ApolloQueryResult } from "@apollo/client";
 import { Category, Router } from "@mui/icons-material";
 import { useRouter } from "next/router";
-import { MouseEvent, useEffect, useState } from "react";
+import {
+  Dispatch,
+  MouseEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from "react";
 import {
   IQuery,
   IQueryFetchProductsArgs,
@@ -16,15 +22,17 @@ interface IProps {
   refetch: (
     variables?: Partial<IQueryFetchProductsArgs>
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts">>>;
+  activedPage: number;
+  setActivedPage: Dispatch<SetStateAction<number>>;
   // refetch: Partial<IQueryFetchProductsArgs> | undefined) => Promise<ApolloQueryResult<Pick<IQuery, "fetchProducts" >>>;
 }
 
 export default function Pagination01(props: IProps) {
   const router = useRouter();
   const [startPage, setStartPage] = useState(1);
-  const [activedPage, setActivedPage] = useState(1);
   const lastPage = props.count != null ? Math.ceil(props.count / 12) : 0;
   // const Select = props.selected;
+  const { setActivedPage, activedPage } = props;
 
   useEffect(() => {
     setStartPage(1);
