@@ -18,6 +18,7 @@ import {
   IQuery,
   IQueryFetchCommentArgs,
   IQueryFetchCommentsCountArgs,
+  IQueryFetchProductArgs,
 } from "../../../../../commons/types/generated/types";
 import { Button, Modal } from "antd";
 import { useForm } from "react-hook-form";
@@ -27,6 +28,7 @@ import { Point } from "../../../basket/Basket.styles";
 import { getDate } from "../../../../../commons/library/util";
 import Pagination01 from "../../../../commons/pagination/01/Pagination01.container";
 import Pagination02 from "../../../../commons/pagination/02/Pagination02.container";
+import { FETCH_PRODUCT } from "../../../../commons/hooks/queries/useFetchProduct";
 
 interface IData {
   star: number;
@@ -129,9 +131,21 @@ export default function ProductReview(props: IProps) {
               page: 1,
             },
           },
+          {
+            query: FETCH_PRODUCT,
+            variables: {
+              productId: String(router.query.productId),
+            },
+          },
+          {
+            query: FETCH_COMMENTS_COUNT,
+            variables: {
+              productId: String(router.query.productId),
+            },
+          },
         ],
       });
-      alert("댓글삭제됨!");
+      console.log(String(router.query.productId));
       setIsDelete(false);
     } catch {
       Modal.warning({ content: "삭제오류!" });
@@ -141,7 +155,7 @@ export default function ProductReview(props: IProps) {
   // console.log(star);
   // console.log(comment?.fetchComment?.content);
 
-  const onChangeContent = (e: ChangeEvent<HTMLInputElement>) => {
+  const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
@@ -169,9 +183,21 @@ export default function ProductReview(props: IProps) {
               page: 1,
             },
           },
+          {
+            query: FETCH_PRODUCT,
+            variables: {
+              productId: String(router.query.productId),
+            },
+          },
+          {
+            query: FETCH_COMMENTS_COUNT,
+            variables: {
+              productId: String(router.query.productId),
+            },
+          },
         ],
       });
-      alert("댓글이 등록됨!");
+      setContent("");
       setIsModalOpen(false);
     } catch {
       Modal.warning({ content: "정보를 입력해주세요." });
@@ -217,9 +243,20 @@ export default function ProductReview(props: IProps) {
               page: 1,
             },
           },
+          {
+            query: FETCH_PRODUCT,
+            variables: {
+              productId: String(router.query.productId),
+            },
+          },
+          {
+            query: FETCH_COMMENTS_COUNT,
+            variables: {
+              productId: String(router.query.productId),
+            },
+          },
         ],
       });
-      alert("댓글이 수정됨!");
       setIsEdit(false);
     } catch {
       Modal.warning({ content: "정보를 입력해주세요." });
@@ -255,14 +292,12 @@ export default function ProductReview(props: IProps) {
               >
                 <S.ContentBox>
                   <Rate onChange={setStar} />
-                  <div>{props.data?.fetchProduct.name}</div>
-                  <div>{props.user?.fetchLoginUser.name}</div>
+                  <S.PrdName>{props.data?.fetchProduct.name}</S.PrdName>
+                  <S.PrdUser>{props.user?.fetchLoginUser.name}</S.PrdUser>
                   <S.CommentInput
-                    type="text"
                     placeholder="구매평을 작성해주세요."
                     onChange={onChangeContent}
-                  />
-                  <div></div>
+                  ></S.CommentInput>
                 </S.ContentBox>
               </S.ModalBox>
             )}
@@ -323,12 +358,10 @@ export default function ProductReview(props: IProps) {
             <div>{props.data?.fetchProduct.name}</div>
             <div>{props.user?.fetchLoginUser.name}</div>
             <S.CommentInput
-              type="text"
               placeholder="구매평을 작성해주세요."
               value={content || comment?.fetchComment?.content}
               onChange={onChangeContent}
-            />
-            <div></div>
+            ></S.CommentInput>
           </S.ContentBox>
         </S.ModalBox>
       )}
