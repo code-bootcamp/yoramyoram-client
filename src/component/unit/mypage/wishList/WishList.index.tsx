@@ -81,6 +81,10 @@ export default function WishList() {
               <S.PurchasedItemInfo>
                 <S.ProductImg
                   src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
+                  onError={({ currentTarget }) => {
+                    currentTarget.onerror = null; // prevents looping
+                    currentTarget.src = "/noImage.png";
+                  }}
                 />
                 <S.PurchasedItemInfoText>
                   <S.ItemName>{el.product.name}</S.ItemName>
@@ -88,8 +92,10 @@ export default function WishList() {
                     <span>{PriceReg(String(el.product.price))} 원</span>
                     <span></span>
                   </S.ItemPriceBox>
-                  <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
-                  <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
+                  <S.RepurchaseDivMob>
+                    <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
+                    <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
+                  </S.RepurchaseDivMob>
                 </S.PurchasedItemInfoText>
               </S.PurchasedItemInfo>
               <S.RepurchaseDiv>

@@ -29,6 +29,7 @@ import { getDate } from "../../../../../commons/library/util";
 import Pagination01 from "../../../../commons/pagination/01/Pagination01.container";
 import Pagination02 from "../../../../commons/pagination/02/Pagination02.container";
 import { FETCH_PRODUCT } from "../../../../commons/hooks/queries/useFetchProduct";
+import { FETCH_PRODUCTS } from "../../../../commons/hooks/queries/useFetchProducts";
 
 interface IData {
   star: number;
@@ -193,6 +194,13 @@ export default function ProductReview(props: IProps) {
             },
           },
           {
+            query: FETCH_PRODUCTS,
+            variables: {
+              cateId: "",
+              page: 1,
+            },
+          },
+          {
             query: FETCH_COMMENTS_COUNT,
             variables: {
               productId: String(router.query.productId),
@@ -271,14 +279,17 @@ export default function ProductReview(props: IProps) {
   return (
     <>
       {isDelete && (
-        <Modal
-          title="Basic Modal"
+        <S.ModalDeleteBox
           open={isDelete}
-          onOk={onClickDelete}
+          // onOk={onClickDelete}
           onCancel={handleCancel}
         >
-          <p>정말 삭제하시겠습니까?</p>
-        </Modal>
+          <S.DeleteTxt>정말 삭제 하시겠습니까?</S.DeleteTxt>
+          <S.ButtonBox>
+            <S.Cancel onClick={handleCancel}>취소</S.Cancel>
+            <S.Ok onClick={onClickDelete}>삭제</S.Ok>
+          </S.ButtonBox>
+        </S.ModalDeleteBox>
       )}
       <S.ReviewWrapper>
         <S.ReviewHeader>
@@ -290,19 +301,29 @@ export default function ProductReview(props: IProps) {
             {isModalOpen && (
               <S.ModalBox
                 centered
-                title="구매평 작성"
+                title={
+                  <S.TitleWrap>
+                    <S.WriteIcon />
+                    <S.ModalTitle>구매평 작성</S.ModalTitle>
+                  </S.TitleWrap>
+                }
                 open={isModalOpen}
-                onOk={onClickSubmitForm}
+                // onOk={onClickSubmitForm}
                 onCancel={handleCancel}
               >
                 <S.ContentBox>
-                  <Rate onChange={setStar} />
                   <S.PrdName>{props.data?.fetchProduct.name}</S.PrdName>
                   <S.PrdUser>{props.user?.fetchLoginUser.name}</S.PrdUser>
+                  <Rate onChange={setStar} />
+
                   <S.CommentInput
                     placeholder="구매평을 작성해주세요."
                     onChange={onChangeContent}
                   ></S.CommentInput>
+                  <S.ButtonBox>
+                    <S.Cancel onClick={handleCancel}>취소</S.Cancel>
+                    <S.Ok onClick={onClickSubmitForm}>등록</S.Ok>
+                  </S.ButtonBox>
                 </S.ContentBox>
               </S.ModalBox>
             )}
@@ -331,8 +352,8 @@ export default function ProductReview(props: IProps) {
               <S.ReviewDateWrapper>
                 <S.ReviewText>{el.content}</S.ReviewText>
                 <S.ReviewRelatedWrapper>
-                  <div>{el.user?.name}</div>
-                  <div>{getDate(String(el.createdAt))}</div>
+                  <p>{el.user?.name}</p>
+                  <p>{getDate(String(el.createdAt))}</p>
                 </S.ReviewRelatedWrapper>
               </S.ReviewDateWrapper>
             </S.ReviewInner>
@@ -346,23 +367,33 @@ export default function ProductReview(props: IProps) {
       {isEdit && (
         <S.ModalBox
           centered
-          title="구매평 수정"
+          title={
+            <S.TitleWrap>
+              <S.WriteIcon />
+              <S.ModalTitle>구매평 수정</S.ModalTitle>
+            </S.TitleWrap>
+          }
           open={isEdit}
-          onOk={onClickEditSubmit}
+          // onOk={onClickEditSubmit}
           onCancel={handleCancel}
         >
           <S.ContentBox>
+            <S.PrdName>{props.data?.fetchProduct.name}</S.PrdName>
+            <S.PrdUser>{props.user?.fetchLoginUser.name}</S.PrdUser>
             <Rate
               value={star || comment?.fetchComment?.star}
               onChange={setStar}
             />
-            <div>{props.data?.fetchProduct.name}</div>
-            <div>{props.user?.fetchLoginUser.name}</div>
+
             <S.CommentInput
               placeholder="구매평을 작성해주세요."
               value={content || comment?.fetchComment?.content}
               onChange={onChangeContent}
             ></S.CommentInput>
+            <S.ButtonBox>
+              <S.Cancel onClick={handleCancel}>취소</S.Cancel>
+              <S.Ok onClick={onClickEditSubmit}>수정</S.Ok>
+            </S.ButtonBox>
           </S.ContentBox>
         </S.ModalBox>
       )}

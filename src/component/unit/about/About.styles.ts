@@ -29,6 +29,12 @@ export const Title = styled.h1`
 export const Inner = styled.div`
   max-width: 1300px;
   margin: 0 auto;
+  ${mq.laptop} {
+    max-width: 1000px;
+  }
+  ${mq.tablet} {
+    padding: 0 18px;
+  }
 `;
 export const Subtitle = styled.h5`
   color: #30640a;
@@ -123,6 +129,12 @@ export const LeftImg = styled.img`
 export const RImg = styled.img`
   width: 30%;
   margin-top: -500px;
+  ${mq.laptop} {
+    margin-top: -300px;
+  }
+  ${mq.tablet} {
+    margin-top: -200px;
+  }
   ${mq.mobile} {
     display: none;
   }
@@ -221,7 +233,7 @@ export const Card1 = styled.div`
   position: relative;
   cursor: pointer;
   ${mq.mobile} {
-    width: 47%;
+    width: 46%;
     height: 170px;
   }
   ${mq.mobileL} {
@@ -236,6 +248,15 @@ export const Card1 = styled.div`
     opacity: 0;
     content: "";
     transition: all 0.3s;
+    /* ${mq.mobile} {
+      opacity: 1;
+    }
+    ${mq.mobileL} {
+      opacity: 1;
+    }
+    ${mq.tablet} {
+      opacity: 1;
+    } */
   }
   &:hover div {
     opacity: 1;
@@ -253,7 +274,7 @@ export const Card2 = styled.div`
   cursor: pointer;
   transform: translateY(30px);
   ${mq.mobile} {
-    width: 47%;
+    width: 46%;
     height: 170px;
   }
   ${mq.mobileL} {
@@ -268,6 +289,15 @@ export const Card2 = styled.div`
     opacity: 0;
     content: "";
     transition: all 0.3s;
+    /* ${mq.mobile} {
+      opacity: 1;
+    }
+    ${mq.mobileL} {
+      opacity: 1;
+    }
+    ${mq.tablet} {
+      opacity: 1;
+    } */
   }
   &:hover div {
     opacity: 1;
@@ -284,7 +314,7 @@ export const Card3 = styled.div`
   position: relative;
   cursor: pointer;
   ${mq.mobile} {
-    width: 47%;
+    width: 46%;
     height: 170px;
     background-position: top;
   }
@@ -301,6 +331,15 @@ export const Card3 = styled.div`
     opacity: 0;
     content: "";
     transition: all 0.3s;
+    /* ${mq.mobile} {
+      opacity: 1;
+    }
+    ${mq.mobileL} {
+      opacity: 1;
+    }
+    ${mq.tablet} {
+      opacity: 1;
+    } */
   }
   &:hover div {
     opacity: 1;
@@ -318,7 +357,7 @@ export const Card4 = styled.div`
   cursor: pointer;
   transform: translateY(30px);
   ${mq.mobile} {
-    width: 47%;
+    width: 46%;
     height: 170px;
   }
   ${mq.mobileL} {
@@ -333,6 +372,15 @@ export const Card4 = styled.div`
     opacity: 0;
     content: "";
     transition: all 0.3s;
+    /* ${mq.mobile} {
+      opacity: 1;
+    }
+    ${mq.mobileL} {
+      opacity: 1;
+    }
+    ${mq.tablet} {
+      opacity: 1;
+    } */
   }
   &:hover div {
     opacity: 1;
@@ -349,7 +397,7 @@ export const Card5 = styled.div`
   position: relative;
   cursor: pointer;
   ${mq.mobile} {
-    width: 47%;
+    width: 46%;
     height: 170px;
   }
   ${mq.mobileL} {
@@ -364,6 +412,15 @@ export const Card5 = styled.div`
     opacity: 0;
     content: "";
     transition: all 0.3s;
+    /* ${mq.mobile} {
+      opacity: 1;
+    }
+    ${mq.mobileL} {
+      opacity: 1;
+    }
+    ${mq.tablet} {
+      opacity: 1;
+    } */
   }
   &:hover div {
     opacity: 1;
@@ -379,9 +436,17 @@ export const CardInner = styled.div`
   transform: translate(-50%, -50%);
   opacity: 0;
   z-index: 1;
-  ${mq.mobile} {
+  /* ${mq.mobile} {
+    opacity: 1;
   }
+  ${mq.mobileL} {
+    opacity: 1;
+  }
+  ${mq.tablet} {
+    opacity: 1;
+  } */
 `;
+
 export const Name = styled.p`
   font-size: 20px;
   color: #306415;
