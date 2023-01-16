@@ -12,6 +12,8 @@ export const SEARCH_PRODUCTS = gql`
     searchProducts(page: $page, word: $word) {
       product_id
       name
+      wishListCount
+      commentCount
       price
       productImages {
         url
