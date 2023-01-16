@@ -122,7 +122,7 @@ export default function OfflineShopPageUI() {
         </S.TitleWrapper>
         <S.MapWrapper>
           <S.ButtonBar onClick={toggleMenu} isVisible={isVisible}>
-            {isVisible ? "✕" : "지도보기"}
+            {isVisible ? "✕" : "검색하기"}
           </S.ButtonBar>
           <S.SearchPart isVisible={isVisible}>
             <S.SearchMap>

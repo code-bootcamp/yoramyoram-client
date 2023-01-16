@@ -98,6 +98,9 @@ export const CategoryBox = styled.div`
   align-items: center;
   padding: 15px 0;
   gap: 15px;
+  ${mq.laptop} {
+    max-width: 1000px;
+  }
   ${mq.mobile} {
     padding: 0;
     gap: 0;
@@ -219,6 +222,9 @@ export const ListWrapper = styled.main`
   margin: 0 auto;
   margin-top: 50px;
   margin-bottom: 100px;
+  ${mq.laptop} {
+    max-width: 1000px;
+  }
   ${mq.mobile} {
     padding: 0 18px;
   }

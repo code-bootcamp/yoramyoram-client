@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Modal } from "antd";
 import * as mq from "../../../commons/styles/mediaQueries";
 import DaumPostcode from "react-daum-postcode";
+import { CloseOutlined } from "@ant-design/icons";
 
 export const Wrapper = styled.form`
   padding: 150px 0;
@@ -12,7 +13,7 @@ export const Wrapper = styled.form`
     padding: 0 50px;
   }
   ${mq.tablet} {
-    padding: 0 50px;
+    padding: 100px 50px;
   }
   ${mq.mobileL} {
     padding: 100px 18px;
@@ -45,6 +46,9 @@ export const FlexBoxWrap = styled.div`
   ${mq.mobileL} {
     display: block;
   }
+  ${mq.tablet} {
+    display: block;
+  }
 `;
 export const Left = styled.div`
   width: 75%;
@@ -52,6 +56,9 @@ export const Left = styled.div`
     width: 100%;
   }
   ${mq.mobileL} {
+    width: 100%;
+  }
+  ${mq.tablet} {
     width: 100%;
   }
 `;
@@ -66,6 +73,11 @@ export const Right = styled.div`
     height: auto;
   }
   ${mq.mobileL} {
+    width: 100%;
+    position: inherit;
+    height: auto;
+  }
+  ${mq.tablet} {
     width: 100%;
     position: inherit;
     height: auto;
@@ -469,6 +481,15 @@ export const MobileList = styled.div`
     color: #222;
     padding: 15px;
   }
+  ${mq.tablet} {
+    display: flex;
+    gap: 15px;
+    font-family: "Noto Sans KR";
+    align-items: start;
+    border-top: 1px solid #e8e8e8;
+    color: #222;
+    padding: 15px;
+  }
 `;
 export const PrdImg = styled.div`
   width: 30%;
@@ -518,3 +539,5 @@ export const Delete = styled.button`
 export const AddressModal = styled(Modal)``;
 
 export const AddressSearchInput = styled(DaumPostcode)``;
+
+export const DeletePoint = styled(CloseOutlined)``;

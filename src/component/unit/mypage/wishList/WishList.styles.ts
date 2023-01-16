@@ -45,6 +45,8 @@ export const PurchasedItemInfo = styled.div`
 
 export const ProductImg = styled.img`
   width: 90px;
+  height: 90px;
+  object-fit: cover;
 `;
 
 export const PurchasedItemInfoText = styled.div`
@@ -100,6 +102,17 @@ export const RepurchaseDiv = styled.div`
   }
   ${mq.mobileL} {
     display: none;
+  }
+`;
+export const RepurchaseDivMob = styled.div`
+  display: none;
+  ${mq.mobile} {
+    display: flex;
+    gap: 5px;
+  }
+  ${mq.mobileL} {
+    display: flex;
+    gap: 5px;
   }
 `;
 

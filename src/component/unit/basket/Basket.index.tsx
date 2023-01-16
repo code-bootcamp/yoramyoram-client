@@ -131,6 +131,10 @@ export default function Basket() {
                       <S.ImgWrap>
                         <img
                           src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
+                          onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = "/noImage.png";
+                          }}
                         />
                       </S.ImgWrap>
                       <S.PrdDetail>
@@ -172,6 +176,10 @@ export default function Basket() {
                 <S.PrdImg>
                   <img
                     src={`https://storage.googleapis.com/${el.product.productImages[0]?.url}`}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null; // prevents looping
+                      currentTarget.src = "/noImage.png";
+                    }}
                   />
                 </S.PrdImg>
                 <S.PrdInfoWrap>

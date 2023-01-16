@@ -16,7 +16,7 @@ export const Wrapper = styled.main`
     padding: 153px 18px 153px 18px;
   }
   ${mq.laptop} {
-    padding: 153px 18px 153px 18px;
+    max-width: 1000px;
   }
 `;
 
@@ -283,6 +283,9 @@ export const BtnBox = styled.div`
   }
   ${mq.tablet} {
     padding: 0 18px;
+  }
+  ${mq.laptop} {
+    max-width: 1000px;
   }
 `;
 

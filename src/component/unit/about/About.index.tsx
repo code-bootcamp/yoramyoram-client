@@ -82,6 +82,7 @@ export default function About() {
                   </S.Button>
                 </S.CardInner>
               </S.Card1>
+
               <S.Card2>
                 <S.CardInner>
                   <S.Name>생활</S.Name>
