@@ -23,7 +23,7 @@ interface IData {
   phoneSecond: string;
   phoneThird: string;
   phoneToken: string;
-  role: string;
+  role?: string;
 }
 
 export default function JoinPageUI() {
@@ -163,6 +163,7 @@ export default function JoinPageUI() {
           createUserInput: {
             ...value,
             phone: phone,
+            role: "USER",
           },
         },
       });
