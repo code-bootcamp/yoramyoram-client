@@ -6,7 +6,7 @@ export const Wrapper = styled.section`
   max-width: 1300px;
   margin: 0 auto;
   ${mq.laptop} {
-    padding: 120px 18px 80px 18px;
+    max-width: 1000px;
   }
   ${mq.tablet} {
     padding: 120px 18px 80px 18px;
@@ -42,6 +42,9 @@ export const FlexBoxWrap = styled.div`
   ${mq.mobileL} {
     display: block;
   }
+  ${mq.tablet} {
+    display: block;
+  }
 `;
 export const Left = styled.div`
   width: 75%;
@@ -49,6 +52,9 @@ export const Left = styled.div`
     width: 100%;
   }
   ${mq.mobileL} {
+    width: 100%;
+  }
+  ${mq.tablet} {
     width: 100%;
   }
 `;
@@ -63,6 +69,11 @@ export const Right = styled.div`
     height: auto;
   }
   ${mq.mobileL} {
+    width: 100%;
+    position: inherit;
+    height: auto;
+  }
+  ${mq.tablet} {
     width: 100%;
     position: inherit;
     height: auto;
@@ -124,13 +135,26 @@ export const PrdTd = styled.td`
 export const ImgWrap = styled.div`
   width: 20%;
   margin-right: 30px;
+  height: 72px;
   & > img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    ${mq.mobile} {
+      height: 72px;
+    }
+    ${mq.mobileL} {
+      height: 72px;
+    }
   }
+
   ${mq.mobile} {
     width: 100%;
   }
   ${mq.mobileL} {
+    width: 100%;
+  }
+  ${mq.tablet} {
     width: 100%;
   }
 `;
@@ -214,6 +238,9 @@ export const PayButton = styled.button`
   ${mq.mobileL} {
     display: none;
   }
+  ${mq.tablet} {
+    display: none;
+  }
 `;
 
 export const PayButtonMob = styled.button`
@@ -240,6 +267,9 @@ export const GoShop = styled.button`
   ${mq.mobileL} {
     display: none;
   }
+  ${mq.tablet} {
+    display: none;
+  }
 `;
 export const GoShopMob = styled.button`
   background-color: #222;
@@ -257,6 +287,9 @@ export const MobileBtnWrap = styled.div`
     display: flex;
   }
   ${mq.mobileL} {
+    display: flex;
+  }
+  ${mq.tablet} {
     display: flex;
   }
 `;
@@ -283,11 +316,23 @@ export const MobileList = styled.div`
     color: #222;
     padding: 15px;
   }
+  ${mq.tablet} {
+    display: flex;
+    gap: 15px;
+    font-family: "Noto Sans KR";
+    align-items: start;
+    border-top: 1px solid #e8e8e8;
+    color: #222;
+    padding: 15px;
+  }
 `;
 export const PrdImg = styled.div`
   width: 30%;
+  height: 120px;
   & > img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `;
 

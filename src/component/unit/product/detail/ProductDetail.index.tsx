@@ -192,6 +192,95 @@ export default function ProductDetail() {
     });
   };
 
+  const onClickNowBuy = async () => {
+    if (!user) return Modal.warning({ content: "로그인 해주세요!" });
+
+    try {
+      if (isGetOption === true && isGetOptionTwo === true) {
+        if (isSelected?.length !== 0 && isSelectedTwo?.length !== 0) {
+          await createProductCart({
+            variables: {
+              productId: String(router.query.productId),
+              etc1Value: isSelected,
+              etc2Value: isSelectedTwo,
+              quantity: count,
+            },
+            refetchQueries: [
+              {
+                query: FETCH_PRODUCTS_CART,
+                variables: {
+                  page: 1,
+                },
+              },
+              {
+                query: FETCH_PRODUCTS_CART_COUNT,
+              },
+              {
+                query: FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
+              },
+            ],
+          });
+          void router.push("/payment");
+        } else {
+          return Modal.error({ content: "옵션을 선택해주세요." });
+        }
+      } else if (isGetOption === true) {
+        if (isSelected?.length !== 0) {
+          await createProductCart({
+            variables: {
+              productId: String(router.query.productId),
+              etc1Value: isSelected,
+              etc2Value: isSelectedTwo,
+              quantity: count,
+            },
+            refetchQueries: [
+              {
+                query: FETCH_PRODUCTS_CART,
+                variables: {
+                  page: 1,
+                },
+              },
+              {
+                query: FETCH_PRODUCTS_CART_COUNT,
+              },
+              {
+                query: FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
+              },
+            ],
+          });
+          void router.push("/payment");
+        } else {
+          return Modal.error({ content: "옵션을 선택해주세요." });
+        }
+      } else if (isGetOption === false) {
+        await createProductCart({
+          variables: {
+            productId: String(router.query.productId),
+            etc1Value: isSelected,
+            etc2Value: isSelectedTwo,
+            quantity: count,
+          },
+          refetchQueries: [
+            {
+              query: FETCH_PRODUCTS_CART,
+              variables: {
+                page: 1,
+              },
+            },
+            {
+              query: FETCH_PRODUCTS_CART_COUNT,
+            },
+            {
+              query: FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
+            },
+          ],
+        });
+      }
+      void router.push("/payment");
+    } catch (error) {
+      Modal.error({ content: "장바구니에 상품을 담지 못했습니다." });
+    }
+  };
   const onClickDelete = async (ev: MouseEvent<HTMLElement>) => {
     try {
       await deleteProduct({
@@ -274,8 +363,10 @@ export default function ProductDetail() {
   useEffect(() => {
     if (data === undefined) return;
     setPrice(data?.fetchProduct?.price);
-
-    setIsActive(data?.fetchProduct?.productWishlist[0].isDib);
+    if (!data?.fetchProduct?.productWishlist[0]) return;
+    else if (data?.fetchProduct?.productWishlist) {
+      setIsActive(data?.fetchProduct?.productWishlist[0].isDib);
+    }
   }, [data]);
 
   const onClickInfoBtn = () => {
@@ -426,7 +517,7 @@ export default function ProductDetail() {
               </S.TotalPrice>
             </S.TotalPriceBox>
             <div>
-              <S.NowBuyBtn>바로구매</S.NowBuyBtn>
+              <S.NowBuyBtn onClick={onClickNowBuy}>바로구매</S.NowBuyBtn>
               <S.BasketBtnBox>
                 <button onClick={onClickCart}>장바구니</button>
                 <button onClick={onClickAddWishlist}>

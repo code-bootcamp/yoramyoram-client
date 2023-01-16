@@ -6,10 +6,13 @@ export const InfiniteScrollWrapper = styled.div`
   height: 500px;
   overflow: auto;
   ${mq.mobile} {
-    height: 0;
+    display: none;
   }
   ${mq.mobileL} {
-    height: 0;
+    display: none;
+  }
+  ${mq.tablet} {
+    display: none;
   }
 `;
 

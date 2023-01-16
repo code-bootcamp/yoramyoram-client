@@ -7,11 +7,27 @@ export const Wrapper = styled.div`
   ${mq.mobile} {
     padding: 120px 18px;
   }
+  ${mq.mobileL} {
+    padding: 120px 0;
+  }
 `;
 
 export const innerWrapper = styled.div`
   margin: 0 auto;
   max-width: 1300px;
+  ${mq.laptop} {
+    max-width: 1000px;
+  }
+  ${mq.mobile} {
+    padding: 0 18px;
+  }
+
+  ${mq.mobileL} {
+    padding: 0 18px;
+  }
+  ${mq.tablet} {
+    padding: 0 18px;
+  }
 `;
 
 export const MypageTitle = styled.div`
@@ -28,6 +44,7 @@ export const MypageBox = styled.div`
   justify-content: space-between;
   padding: 26px;
   border-bottom: 1px solid #30640a;
+  margin-bottom: 30px;
   ${mq.mobile} {
     display: block;
     padding: 20px;
@@ -56,6 +73,7 @@ export const UserInfoBox = styled.div`
   display: flex;
   flex-direction: column;
   padding-left: 49px;
+
   justify-content: center;
   font-family: "Noto Sans KR";
   ${mq.mobile} {

@@ -1,4 +1,4 @@
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { FormOutlined, LeftOutlined, RightOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import * as mq from "../../../../../commons/styles/mediaQueries";
 import { Modal } from "antd";
@@ -16,12 +16,12 @@ export const ReviewWrapper = styled.div`
     padding: 0 18px;
   }
   ${mq.laptop} {
-    padding: 0 18px;
+    max-width: 1000px;
   }
 `;
 
 export const ReviewHeader = styled.header`
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid #d9d9d9;
 `;
 
 export const HeaderText = styled.div`
@@ -45,7 +45,7 @@ export const ReviewWriteBtn = styled.button`
 
 export const ReviewInnerWrapper = styled.div`
   padding: 22px 0 20px;
-  border-bottom: 1px solid #aaaaaa;
+  border-bottom: 1px solid #d9d9d9;
   display: flex;
   flex-direction: row;
   font-family: "Noto Sans KR";
@@ -122,8 +122,12 @@ export const ReviewDateWrapper = styled.div`
 export const ReviewRelatedWrapper = styled.div`
   color: #222222;
 
-  & > div:first-child {
-    padding-bottom: 7px;
+  & > p:first-child {
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  & > p:last-child {
+    color: #707070;
   }
 `;
 
@@ -180,15 +184,15 @@ export const ModalBox = styled(Modal)`
     margin-bottom: 8px;
   }
   .ant-modal-title {
-    height: 56px;
     color: #30640a;
     font-weight: 400;
     font-size: 20px;
-    line-height: 22px;
     word-wrap: break-word;
     text-align: left;
-    padding: 25px;
+    padding: 15px 20px;
     font-family: "Noto Sans KR";
+    border-bottom: 1px solid #e7e6e6;
+    margin-bottom: 20px;
   }
 
   &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-footer {
@@ -199,21 +203,78 @@ export const ModalBox = styled(Modal)`
   &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-header {
     background-color: transparent;
   }
+  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-footer {
+    display: none;
+  }
 `;
 
 export const ContentBox = styled.div`
-  padding: 0 30px;
+  padding: 0 30px 30px 30px;
 `;
 
 export const CommentInput = styled.textarea`
   width: 100%;
   height: 300px;
+  resize: none;
+  padding: 10px;
+  border: 1px solid #b6b6b6;
+  margin: 10px 0;
+  outline: none;
 `;
 
 export const PrdName = styled.p`
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: 500;
 `;
 
 export const PrdUser = styled.p`
   font-size: 15px;
+  color: #707070;
+`;
+
+export const ButtonBox = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+`;
+
+export const Cancel = styled.button`
+  border: 1px solid #b7b7b7;
+  width: 100px;
+  padding: 5px 0;
+  font-size: 15px;
+  cursor: pointer;
+`;
+export const Ok = styled.button`
+  background-color: #30640a;
+  color: #fcfbfa;
+  width: 100px;
+  padding: 5px 0;
+  font-size: 15px;
+  cursor: pointer;
+`;
+
+export const TitleWrap = styled.div`
+  display: flex;
+  align-items: center;
+`;
+export const WriteIcon = styled(FormOutlined)`
+  margin-right: 10px;
+`;
+export const ModalTitle = styled.h3``;
+
+export const DeleteTxt = styled.p`
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 30px;
+`;
+
+export const ModalDeleteBox = styled(Modal)`
+  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-footer {
+    display: none;
+  }
+  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal {
+    width: 500px !important;
+  }
 `;

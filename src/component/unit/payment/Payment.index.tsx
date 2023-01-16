@@ -2,6 +2,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
+import { Router, useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Address } from "react-daum-postcode";
 import { useForm } from "react-hook-form";
@@ -96,6 +97,7 @@ export default function Payment() {
   // const PhoneSecond = getValues("phoneSecond");
   // const PhoneThird = getValues("phoneThird");
   // const phone = PhoneFirst + PhoneSecond + PhoneThird;
+  const router = useRouter();
 
   const { createPayment } = useCreatePayment();
   const createPaymentSubmit = async (data: IData) => {
@@ -108,7 +110,9 @@ export default function Payment() {
             Number(data.point),
         },
       });
+
       Modal.success({ content: "결제가 완료되었습니다!" });
+      router.push("/payment_success");
     } catch {
       Modal.error({ content: "결제를 실패했습니다." });
     }
@@ -321,7 +325,7 @@ export default function Payment() {
                         {...register("point")}
                         onChange={onChangeUsePoint}
                       />
-                      <CloseOutlined
+                      <S.DeletePoint
                         type="button"
                         value="checkbox"
                         onClick={DeletePoint}
