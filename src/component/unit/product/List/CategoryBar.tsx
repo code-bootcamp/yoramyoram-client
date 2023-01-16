@@ -64,7 +64,6 @@ export default function CategoryBar({
   const { data: searchResult, refetchSearch } = useSearchProducts(keyword);
   const [, setSearchProducts] = useRecoilState(searchProductsState);
   const [isSearch, setIsSearch] = useRecoilState(IsSearchState);
-  console.log(searchResult?.searchProducts.length);
 
   // const [select, setSelect] = useRecoilState(selectedState);
   // useEffect(() => {
