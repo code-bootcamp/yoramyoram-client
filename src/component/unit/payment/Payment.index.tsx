@@ -1,4 +1,6 @@
+import { CloseOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Modal } from "antd";
 import { ChangeEvent, useEffect, useState } from "react";
 import { Address } from "react-daum-postcode";
@@ -17,6 +19,7 @@ import {
 import { useFetchUserPoint } from "../../commons/hooks/queries/useFetchUserPoint";
 import InfiniteScrollPage from "../../commons/infinite-scroll/01/InfiniteScroll.container";
 import * as S from "./Payment.styles";
+import { paymentSchema } from "./Payment.validation";
 
 interface IData {
   point?: string;
@@ -37,11 +40,17 @@ export default function Payment() {
 
   const onClickPointTransition = () => {
     setValue("point", user?.fetchLoginUser?.point);
-    setIsPoint((prev) => !prev);
+    setIsPoint(true);
+  };
+
+  const DeletePoint = () => {
+    setValue("point", 0);
+    setIsPoint(false);
   };
 
   const { register, handleSubmit, formState, setValue, watch, getValues } =
     useForm({
+      resolver: yupResolver(paymentSchema),
       mode: "onChange",
     });
 
@@ -312,12 +321,18 @@ export default function Payment() {
                         {...register("point")}
                         onChange={onChangeUsePoint}
                       />
+                      <CloseOutlined
+                        type="button"
+                        value="checkbox"
+                        onClick={DeletePoint}
+                      />
                       <S.YoramPointUnit>P</S.YoramPointUnit>{" "}
                     </S.DiscountPointBox>
                     <div>
                       <S.UsePointCheck
                         type="checkbox"
                         onClick={onClickPointTransition}
+                        value="checkbox"
                       />
                       모두 사용하기
                       <S.RestPoint>

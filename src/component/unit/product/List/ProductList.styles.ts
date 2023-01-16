@@ -52,6 +52,7 @@ export const BannerTitle = styled.h1`
   ${mq.mobileL} {
     padding: 0 18px;
   }
+  cursor: default;
 `;
 export const BannerSubTxt = styled.p`
   font-size: 15px;
@@ -61,6 +62,7 @@ export const BannerSubTxt = styled.p`
   }
   ${mq.mobileL} {
   }
+  cursor: default;
 `;
 
 export const CategoryBar = styled.div`

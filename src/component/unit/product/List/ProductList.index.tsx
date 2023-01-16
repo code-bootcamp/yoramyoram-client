@@ -36,6 +36,7 @@ import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWish
 import { ADD_WISHLIST } from "../../../commons/hooks/mutation/useAddWishlist";
 import { IsSearchState, searchProductsState } from "../../../../commons/stores";
 import { useRecoilState } from "recoil";
+import { Modal } from "antd";
 
 interface IList {
   commentCount: number;
@@ -173,19 +174,10 @@ export default function ProductList() {
       setScroll(false);
     }
   };
-  // const { data: wishList } = useQuery(FETCH_MY_WISHLIST, {
-  //   variables: {
-  //     page: 1,
-  //   },
-  // });
-  // // console.log(wishList?.fetchmyWishlist[0].product?.product_id);
-  // const wishlist = wishList?.fetchmyWishlist?.map(
-  //   (el) => el.product.product_id
-  // );
-
-  // console.log(wishlist);
 
   const onClickAddWishlist = async (e: MouseEvent) => {
+    if (!user) return Modal.warning({ content: "로그인해주세요!" });
+
     try {
       await addWishlist({
         variables: {
@@ -315,7 +307,7 @@ export default function ProductList() {
                     <S.ListChatBtn />
                     <S.BtnBarText>{el.commentCount}</S.BtnBarText>
                   </span>
-                  {/* {isWish ? ( */}
+
                   <span
                     style={{ cursor: "pointer" }}
                     id={el.product_id}
@@ -324,13 +316,6 @@ export default function ProductList() {
                     <S.ListWishBtn />
                     <S.BtnBarText>{el.wishListCount}</S.BtnBarText>
                   </span>
-                  {/* ) : ( */}
-                  {/* <S.ListWishFiledBtn></S.ListWishFiledBtn> */}
-                  {/* )} */}
-
-                  {/* <span>
-                    <S.ListBasketBtn />
-                  </span> */}
                 </S.ListProductBtnBar>
               </S.ListProductInfo>
             </S.ProductItemBox>
