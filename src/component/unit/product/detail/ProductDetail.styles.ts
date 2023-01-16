@@ -24,6 +24,7 @@ export const CategoryWrapper = styled.div`
   font-size: 16px;
   color: #c4c4c4;
   font-family: "Noto Sans KR";
+  cursor: default;
 
   & > span {
     padding: 0 13px 0 0;
