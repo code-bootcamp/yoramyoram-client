@@ -19,6 +19,7 @@ import {
   IMutationCreateProductCartArgs,
   IMutationDeleteProductArgs,
   IQuery,
+  IQueryFetchCommentsCountArgs,
   IQueryFetchProductArgs,
 } from "../../../../commons/types/generated/types";
 import { useRouter } from "next/router";
@@ -42,6 +43,7 @@ import {
   FETCH_PRODUCTS_CART_TOTAL_AMOUNT,
 } from "../../../commons/hooks/queries/useFetchProductCart";
 import { FETCH_MY_WISHLIST } from "../../../commons/hooks/queries/useFetchmyWishlist";
+import { FETCH_COMMENTS_COUNT } from "./productReview/ProductReview.queries";
 
 //
 export default function ProductDetail() {
@@ -84,6 +86,15 @@ export default function ProductDetail() {
     Pick<IMutation, "deleteProduct">,
     IMutationDeleteProductArgs
   >(DELETE_PRODUCT);
+
+  const { data: dataCommentsCount } = useQuery<
+    Pick<IQuery, "fetchCommentsCount">,
+    IQueryFetchCommentsCountArgs
+  >(FETCH_COMMENTS_COUNT, {
+    variables: {
+      productId: String(router.query.productId),
+    },
+  });
 
   const onClickCart = async () => {
     if (!user) return Modal.warning({ content: "로그인해주세요!" });
@@ -453,7 +464,8 @@ export default function ProductDetail() {
           value="구매평"
           onClick={onClickReviewBtn}
         >
-          구매평{`(${data?.fetchProduct?.commentCount})`}
+          {/* 구매평{`(${data?.fetchProduct?.commentCount})`} */}
+          구매평{`(${dataCommentsCount?.fetchCommentsCount})`}
         </S.Select2Btn>
       </S.BtnBox>
       {detailSelectBtn ? (

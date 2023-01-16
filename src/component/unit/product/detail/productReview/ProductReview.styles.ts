@@ -161,12 +161,6 @@ export const QQQ = styled.div`
 `;
 
 export const ModalBox = styled(Modal)`
-  width: 648px;
-  min-height: 687px;
-  .ant-modal-content {
-    width: 648px;
-  }
-
   &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-content {
     position: relative;
     background-color: #ffffff;
@@ -187,13 +181,13 @@ export const ModalBox = styled(Modal)`
   }
   .ant-modal-title {
     height: 56px;
-    color: #ffffff;
-    font-weight: 500;
-    font-size: 26px;
+    color: #30640a;
+    font-weight: 400;
+    font-size: 20px;
     line-height: 22px;
     word-wrap: break-word;
     text-align: left;
-    padding: 16px;
+    padding: 25px;
     font-family: "Noto Sans KR";
   }
 
@@ -202,13 +196,24 @@ export const ModalBox = styled(Modal)`
     background: transparent;
     margin-top: 10px;
   }
+  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-header {
+    background-color: transparent;
+  }
 `;
 
 export const ContentBox = styled.div`
-  padding: 33px;
+  padding: 0 30px;
 `;
 
-export const CommentInput = styled.input`
+export const CommentInput = styled.textarea`
   width: 100%;
-  padding: 200px 0;
+  height: 300px;
+`;
+
+export const PrdName = styled.p`
+  font-size: 15px;
+`;
+
+export const PrdUser = styled.p`
+  font-size: 15px;
 `;
