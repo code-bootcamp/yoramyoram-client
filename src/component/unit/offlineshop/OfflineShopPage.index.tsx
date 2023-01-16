@@ -28,7 +28,7 @@ export default function OfflineShopPageUI() {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?&libraries=services&autoload=false&appkey=970dde8de2e190016127944a08aacc10";
+      "//dapi.kakao.com/v2/maps/sdk.js?&libraries=services&autoload=false&appkey=f35a51c8c3697a64576bbb9f231c93f4";
     document.head.appendChild(script);
 
     script.onload = () => {
