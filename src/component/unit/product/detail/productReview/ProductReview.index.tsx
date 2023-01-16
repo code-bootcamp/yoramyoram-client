@@ -60,6 +60,7 @@ export default function ProductReview(props: IProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
+    if (!props.user) return Modal.warning({ content: "로그인해주세요!" });
     setIsModalOpen((prev) => !prev);
   };
 
@@ -111,6 +112,8 @@ export default function ProductReview(props: IProps) {
   >(DELETE_COMMENT);
 
   const onClickComment = (e: MouseEvent<HTMLButtonElement>) => {
+    if (!props.user) return Modal.warning({ content: "로그인해주세요!" });
+
     setCommentId(e.currentTarget.id);
     setIsDelete(true);
   };
@@ -185,6 +188,8 @@ export default function ProductReview(props: IProps) {
   //   setCommentId: (event: MouseEvent<HTMLButtonElement>) => void;
   // }
   const onClickIsEdit = (event: MouseEvent<HTMLButtonElement>) => {
+    if (!props.user) return Modal.warning({ content: "로그인해주세요!" });
+
     setIsEdit(true);
     setCommentId(event.currentTarget.id);
   };
@@ -295,10 +300,6 @@ export default function ProductReview(props: IProps) {
                   <div>{getDate(String(el.createdAt))}</div>
                 </S.ReviewRelatedWrapper>
               </S.ReviewDateWrapper>
-
-              {/* <S.ReviewCommentBtn>
-              <button>댓글</button>1
-            </S.ReviewCommentBtn> */}
             </S.ReviewInner>
           </S.ReviewInnerWrapper>
         ))}

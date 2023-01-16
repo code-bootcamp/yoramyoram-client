@@ -86,6 +86,8 @@ export default function ProductDetail() {
   >(DELETE_PRODUCT);
 
   const onClickCart = async () => {
+    if (!user) return Modal.warning({ content: "로그인해주세요!" });
+
     try {
       if (isGetOption === true && isGetOptionTwo === true) {
         if (isSelected?.length !== 0 && isSelectedTwo?.length !== 0) {
@@ -217,6 +219,8 @@ export default function ProductDetail() {
     }
   };
   const onClickAddWishlist = async () => {
+    if (!user) return Modal.warning({ content: "로그인해주세요!" });
+
     await addWishlist({
       variables: {
         createProductWishInput: {
