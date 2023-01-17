@@ -344,7 +344,6 @@ export default function ProductWrite(props: any) {
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
-              <div>{props.data?.fetchProduct?.etc1Name}</div>
               <S.SelectBox
                 {...register("etc1Name")}
                 value={selectValue1}
@@ -395,7 +394,6 @@ export default function ProductWrite(props: any) {
           <S.HalfWrapper>
             <S.SelectWrap>
               <S.Label>옵션명</S.Label>
-              <div>{props.data?.fetchProduct?.etc2Name}</div>
               <S.SelectBox
                 {...register("etc2Name")}
                 value={selectValue2}

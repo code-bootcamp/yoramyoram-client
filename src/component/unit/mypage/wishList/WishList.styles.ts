@@ -19,8 +19,9 @@ export const HistoryText = styled.div`
   width: 100%;
   padding-bottom: 26px;
   border-bottom: 1px solid #aaaaaa;
-  font-size: 26px;
-  font-family: "Noto Sans KR";
+  font-size: 30px;
+  font-family: "NewYork";
+  color: #222222;
   ${mq.mobile} {
     font-size: 18px;
   }
@@ -123,10 +124,17 @@ export const RepurchaseBtn = styled.button`
   margin-left: 8px;
   background: none;
   border: 1px solid #b7b7b7;
+
   font-size: 18px;
   color: #222222;
   /* font-family: NotoSansKR-Medium */
   cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #30640a;
+    color: #fcfbfa;
+    border: 1px solid #30640a;
+  }
 `;
 
 export const RepurchaseBtnMob = styled.button`
