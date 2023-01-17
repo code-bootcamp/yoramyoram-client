@@ -73,7 +73,7 @@ export default function WishList() {
 
   return (
     <S.PurchaseHistoryBox title="위시리스트">
-      <S.HistoryText>위시리스트</S.HistoryText>
+      <S.HistoryText>Wishlist</S.HistoryText>
       <InfiniteScrollPage fetchMore={fetchMore} data={data}>
         <>
           {data?.fetchmyWishlist?.map((el, idx) => (

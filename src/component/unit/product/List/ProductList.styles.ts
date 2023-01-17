@@ -209,12 +209,19 @@ export const SearchInput = styled.input`
   border-bottom: 1px solid #b7b7b7;
   padding: 10px;
   font-size: 1rem;
+  outline: none;
+  &::placeholder {
+    color: #b7b7b7;
+  }
 `;
 
 export const SearchOutline = styled(SearchOutlined)`
   position: absolute;
   top: 19px;
   right: 6px;
+  & > svg {
+    color: #b7b7b7;
+  }
 `;
 
 export const ListWrapper = styled.main`
