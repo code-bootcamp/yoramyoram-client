@@ -68,8 +68,8 @@ export function LayoutHeader() {
       <S.MobileHeader>
         <S.HeaderWrapper>
           <S.Hamburger onClick={toggleMenu} />
-          <S.Logo>
-            <img src="/header/logo_gr.png" onClick={onClickMoveToPage("/")} />
+          <S.Logo onClick={onClickMoveToPage("/")}>
+            <img src="/header/logo_gr.png" />
           </S.Logo>
           <S.MyMenu>
             <S.User onClick={onClickMoveToPage("/mypage")} />
@@ -80,12 +80,14 @@ export function LayoutHeader() {
           {data?.fetchLoginUser.name ? (
             <S.UserInfoWrapper>
               <S.UserHi>{data?.fetchLoginUser.name}님, 안녕하세요.</S.UserHi>
+
               <S.PointBox>
                 <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
                 <S.UserPoint>
                   {PriceReg(data?.fetchLoginUser.point)}
                   <span>P</span>
                 </S.UserPoint>
+                <S.GoLogout onClick={onClickLogout}>Logout</S.GoLogout>
               </S.PointBox>
             </S.UserInfoWrapper>
           ) : (
@@ -180,8 +182,8 @@ export function LayoutHeaderMain() {
       <O.MobileHeader>
         <O.HeaderWrapper>
           <O.Hamburger onClick={toggleMenu} />
-          <O.Logo>
-            <img src="/header/logo_gr.png" onClick={onClickMoveToPage("/")} />
+          <O.Logo onClick={onClickMoveToPage("/")}>
+            <img src="/header/logo_gr.png" />
           </O.Logo>
           <O.MyMenu>
             <O.User onClick={onClickMoveToPage("/mypage")} />
@@ -192,12 +194,14 @@ export function LayoutHeaderMain() {
           {data?.fetchLoginUser.name ? (
             <S.UserInfoWrapper>
               <S.UserHi>{data?.fetchLoginUser.name}님, 안녕하세요.</S.UserHi>
+
               <S.PointBox>
                 <S.UserPointTxt>YORAM POINT</S.UserPointTxt>
                 <S.UserPoint>
                   {PriceReg(data?.fetchLoginUser.point)}
                   <span>P</span>
                 </S.UserPoint>
+                <S.GoLogout onClick={onClickLogout}>Logout</S.GoLogout>
               </S.PointBox>
             </S.UserInfoWrapper>
           ) : (

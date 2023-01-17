@@ -121,7 +121,7 @@ export const Nav = styled.nav`
     margin-bottom: 20px;
   }
 `;
-export const Logo = styled.div`
+export const Logo = styled.button`
   margin-left: 37px;
   & > img {
     width: 100%;
@@ -162,6 +162,15 @@ export const GoLoginTxt = styled.h5`
   color: #fcfbfa;
 `;
 export const GoLogin = styled.button`
+  color: #fcfbfa;
+  font-family: "NewYork";
+  border: 1px solid #fcfbfa;
+  padding: 3px 8px;
+  font-size: 18px;
+  margin-top: 10px;
+  cursor: pointer;
+`;
+export const GoLogout = styled.button`
   color: #fcfbfa;
   font-family: "NewYork";
   border: 1px solid #fcfbfa;
