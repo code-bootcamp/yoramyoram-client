@@ -129,7 +129,7 @@ export default function Landing() {
           </S.Scroll>
           <Slide>
             <S.SlideFirst>
-              <S.Video autoPlay loop muted>
+              <S.Video autoPlay loop muted playsInline>
                 <source src="/landing/ocean.mp4" type="video/mp4" />
               </S.Video>
               <S.VideoPageTextBox>
@@ -277,7 +277,7 @@ export default function Landing() {
           </Slide>
           <Slide>
             <S.BrushBox>
-              <S.Video autoPlay loop muted>
+              <S.Video autoPlay loop muted playsInline>
                 <source src="/landing/zero.mp4" type="video/mp4" />
               </S.Video>
               <S.BrushText>
