@@ -358,6 +358,7 @@ export default function ProductDetail() {
 
     if (getOption === "selectOption1") setIsGetOption(false);
     if (getOptionTwo === "selectOption2") setIsGetOptionTwo(false);
+    if (getOptionTwo === "selectOption1") setIsGetOption(false);
   });
 
   useEffect(() => {
