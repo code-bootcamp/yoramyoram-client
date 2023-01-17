@@ -30,6 +30,7 @@ import Pagination01 from "../../../../commons/pagination/01/Pagination01.contain
 import Pagination02 from "../../../../commons/pagination/02/Pagination02.container";
 import { FETCH_PRODUCT } from "../../../../commons/hooks/queries/useFetchProduct";
 import { FETCH_PRODUCTS } from "../../../../commons/hooks/queries/useFetchProducts";
+import { FETCH_COMMENTS_MAIN } from "../../../../commons/hooks/queries/useFetchCommentsMain";
 
 interface IData {
   star: number;
@@ -205,6 +206,9 @@ export default function ProductReview(props: IProps) {
             variables: {
               productId: String(router.query.productId),
             },
+          },
+          {
+            query: FETCH_COMMENTS_MAIN,
           },
         ],
       });
