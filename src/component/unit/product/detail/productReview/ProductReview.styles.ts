@@ -165,36 +165,6 @@ export const QQQ = styled.div`
 `;
 
 export const ModalBox = styled(Modal)`
-  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-content {
-    position: relative;
-    background-color: #ffffff;
-    background-clip: padding-box;
-    border: 0;
-    border-radius: 8px;
-    box-shadow: 0 6px 16px 0 rgb(0 0 0 / 8%), 0 3px 6px -4px rgb(0 0 0 / 12%),
-      0 9px 28px 8px rgb(0 0 0 / 5%);
-    pointer-events: auto;
-    padding: 0;
-  }
-
-  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-header {
-    color: rgba(0, 0, 0, 0.88);
-    background: #383c34;
-    border-radius: 8px 8px 0 0;
-    margin-bottom: 8px;
-  }
-  .ant-modal-title {
-    color: #30640a;
-    font-weight: 400;
-    font-size: 20px;
-    word-wrap: break-word;
-    text-align: left;
-    padding: 15px 20px;
-    font-family: "Noto Sans KR";
-    border-bottom: 1px solid #e7e6e6;
-    margin-bottom: 20px;
-  }
-
   &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-footer {
     text-align: center;
     background: transparent;
@@ -202,9 +172,6 @@ export const ModalBox = styled(Modal)`
   }
   &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-header {
     background-color: transparent;
-  }
-  &:where(.css-dev-only-do-not-override-9ntgx0).ant-modal .ant-modal-footer {
-    display: none;
   }
 `;
 

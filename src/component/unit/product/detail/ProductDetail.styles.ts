@@ -84,7 +84,7 @@ export const ProductPrice = styled.p`
 
 // 옵션박스
 export const ProductOptionBox = styled.div`
-  padding: 44px 0 27px;
+  padding: 30px 0;
   border-bottom: 1px solid #e8e8e8;
 `;
 
@@ -103,6 +103,8 @@ export const ProductOptionText = styled.p`
   font-size: 15px;
 
   color: #222222;
+  line-height: 1.5;
+  word-break: keep-all;
 `;
 
 export const OptionBox = styled.div`

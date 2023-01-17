@@ -518,9 +518,28 @@ export const BeginZeroBtn = styled.button`
   }
 `;
 
-export const CommentInfo = styled.p`
+export const CommentInfo = styled.div``;
+
+export const ReviewContent = styled.p``;
+
+export const CommentPrd = styled.p`
+  font-weight: 500;
+  font-size: 16px;
+  color: #30640a;
+  margin-bottom: 5px;
+  background-color: transparent;
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 50px;
+  border: 1px solid #30640a;
+  cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #30640a;
+    color: #fcfbfa;
+  }
+`;
+export const CommentUser = styled.p`
   font-size: 15px;
   color: #707070;
 `;
-
-export const ReviewContent = styled.p``;

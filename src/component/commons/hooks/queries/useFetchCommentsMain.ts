@@ -8,6 +8,10 @@ export const FETCH_COMMENTS_MAIN = gql`
       user {
         name
       }
+      product {
+        product_id
+        name
+      }
     }
   }
 `;

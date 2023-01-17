@@ -33,6 +33,16 @@ export const ListBanner = styled.div`
 
   background: url("/productList/shopbanner.jpg") no-repeat center;
   background-size: cover;
+  position: relative;
+  &::before {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000021;
+    content: "";
+    z-index: 0;
+  }
   ${mq.mobile} {
     padding: 0 18px;
     font-size: 35px;
@@ -46,21 +56,32 @@ export const ListBanner = styled.div`
 `;
 export const BannerTitle = styled.h1`
   display: block;
+  font-size: 50px;
   ${mq.mobile} {
     padding: 0 18px;
+    font-size: 34px;
   }
   ${mq.mobileL} {
     padding: 0 18px;
+    font-size: 34px;
   }
   cursor: default;
+  z-index: 1;
 `;
 export const BannerSubTxt = styled.p`
-  font-size: 15px;
+  font-size: 17px;
   display: block;
   margin-top: 15px;
+  z-index: 1;
+  word-break: keep-all;
+  cursor: default;
+  text-align: center;
+  line-height: 1.3;
   ${mq.mobile} {
+    font-size: 16px;
   }
   ${mq.mobileL} {
+    font-size: 16px;
   }
   cursor: default;
 `;
@@ -75,8 +96,9 @@ export const CategoryBarSticky = styled.div`
   border-bottom: 1px solid #b7b7b7;
   position: fixed;
   top: 80px;
-  background-color: #ffffff;
+  background-color: #fcfbfa;
   z-index: 3;
+
   ${mq.mobile} {
     top: 70px;
   }

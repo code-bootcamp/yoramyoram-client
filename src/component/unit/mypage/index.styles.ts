@@ -8,7 +8,10 @@ export const Wrapper = styled.div`
     padding: 120px 18px;
   }
   ${mq.mobileL} {
-    padding: 120px 0;
+    padding: 120px 18px;
+  }
+  ${mq.tablet} {
+    padding: 120px 18px;
   }
 `;
 
@@ -17,16 +20,6 @@ export const innerWrapper = styled.div`
   max-width: 1300px;
   ${mq.laptop} {
     max-width: 1000px;
-  }
-  ${mq.mobile} {
-    padding: 0 18px;
-  }
-
-  ${mq.mobileL} {
-    padding: 0 18px;
-  }
-  ${mq.tablet} {
-    padding: 0 18px;
   }
 `;
 
@@ -64,6 +57,12 @@ export const UserImgBox = styled.div`
   border: 1px solid #30640a;
   border-radius: 50%;
   padding: 10px;
+  ${mq.mobile} {
+    width: 25%;
+  }
+  ${mq.mobileL} {
+    width: 25%;
+  }
 `;
 export const MypageImg = styled.img`
   width: 100%;
@@ -103,6 +102,7 @@ export const RatingText = styled.div`
   & > p {
     margin-bottom: 6px;
     line-height: 1.3;
+    word-break: keep-all;
   }
 
   ${mq.mobile} {

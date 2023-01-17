@@ -283,6 +283,7 @@ export default function ProductReview(props: IProps) {
           open={isDelete}
           // onOk={onClickDelete}
           onCancel={handleCancel}
+          className="DeleteModal"
         >
           <S.DeleteTxt>정말 삭제 하시겠습니까?</S.DeleteTxt>
           <S.ButtonBox>
@@ -307,6 +308,7 @@ export default function ProductReview(props: IProps) {
                     <S.ModalTitle>구매평 작성</S.ModalTitle>
                   </S.TitleWrap>
                 }
+                className="ReviewModal"
                 open={isModalOpen}
                 // onOk={onClickSubmitForm}
                 onCancel={handleCancel}
@@ -373,6 +375,7 @@ export default function ProductReview(props: IProps) {
               <S.ModalTitle>구매평 수정</S.ModalTitle>
             </S.TitleWrap>
           }
+          className="ReviewModal"
           open={isEdit}
           // onOk={onClickEditSubmit}
           onCancel={handleCancel}
