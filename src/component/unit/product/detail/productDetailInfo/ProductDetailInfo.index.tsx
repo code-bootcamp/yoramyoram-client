@@ -32,6 +32,11 @@ export default function ProductDetailInfo() {
             }}
           ></S.ProductInfo>
         )}
+        <img src="/det1.png" />
+        <img src="/det2.png" />
+        <img src="/det3.png" />
+        <img src="/det4.png" />
+        <img src="/det5.png" />
       </S.ProductInfoBox>
     </S.Wrapper>
   );

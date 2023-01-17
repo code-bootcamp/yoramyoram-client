@@ -28,6 +28,12 @@ export const ProductInfoBox = styled.div`
   word-break: keep-all;
   text-align: center;
   font-family: "Noto Sans KR";
+  & > img {
+    width: 100%;
+    &:first-of-type {
+      margin-top: 30px;
+    }
+  }
 `;
 
 export const ProductInfo = styled.div`
