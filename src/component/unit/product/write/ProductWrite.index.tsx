@@ -404,11 +404,11 @@ export default function ProductWrite(props: any) {
                 }}
               >
                 {props.isEdit ? (
-                  <option value="selectOption1" disabled>
+                  <option value="selectOption2" disabled>
                     옵션을 선택하세요.
                   </option>
                 ) : (
-                  <option value="selectOption1" hidden selected>
+                  <option value="selectOption2" hidden selected>
                     옵션을 선택하세요.
                   </option>
                 )}
