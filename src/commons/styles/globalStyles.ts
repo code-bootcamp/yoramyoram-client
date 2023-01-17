@@ -157,4 +157,31 @@ export const globalStyles = css`
   .footerSlide {
     height: 32% !important;
   }
+
+  .ReviewModal .ant-modal-footer,
+  .DeleteModal .ant-modal-footer {
+    display: none;
+  }
+
+  .ReviewModal .ant-modal-content {
+    padding: 0 !important;
+  }
+  .ReviewModal .ant-modal .ant-modal-header {
+    color: rgba(0, 0, 0, 0.88);
+    background: #383c34;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 8px;
+  }
+
+  .ReviewModal .ant-modal-title {
+    color: #30640a;
+    font-weight: 400;
+    font-size: 20px;
+    word-wrap: break-word;
+    text-align: left;
+    padding: 15px 20px;
+    font-family: "Noto Sans KR";
+    border-bottom: 1px solid #e7e6e6;
+    margin-bottom: 20px;
+  }
 `;

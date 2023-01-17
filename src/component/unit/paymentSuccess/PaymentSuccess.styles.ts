@@ -89,14 +89,18 @@ export const Button = styled.button`
     border: none;
     color: #fcfbfa;
   }
-  &:last-of-type {
-    margin-top: 10px;
-  }
+
   ${mq.mobileL} {
     font-size: 18px;
+    &:last-of-type {
+      margin-top: 10px;
+    }
   }
   ${mq.mobile} {
     font-size: 18px;
+    &:last-of-type {
+      margin-top: 10px;
+    }
   }
 `;
 

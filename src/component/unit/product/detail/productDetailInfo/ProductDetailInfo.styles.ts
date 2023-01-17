@@ -3,7 +3,7 @@ import * as mq from "../../../../../commons/styles/mediaQueries";
 //
 export const Wrapper = styled.div`
   max-width: 700px;
-  margin: 86px auto;
+  margin: 80px auto;
   ${mq.mobile} {
     padding: 0 18px;
     margin: 30px auto;
@@ -24,23 +24,13 @@ export const ProductImg = styled.img`
   object-fit: cover;
 `;
 export const ProductInfoBox = styled.div`
-  max-width: 576px;
+  max-width: 1000px;
   word-break: keep-all;
   text-align: center;
-  margin: 45px auto 0;
   font-family: "Noto Sans KR";
 `;
 
-export const ProductInfo = styled.div``;
-
-export const CautionText = styled.div`
-  max-width: 444px;
-  margin: 45px auto 0;
-  word-break: keep-all;
-  & > div {
-    padding-bottom: 45px;
-  }
-  & > div:first-child {
-    padding-bottom: 0;
-  }
+export const ProductInfo = styled.div`
+  line-height: 1.5;
+  font-size: 17px;
 `;

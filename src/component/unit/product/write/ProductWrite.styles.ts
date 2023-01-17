@@ -12,6 +12,12 @@ export const Wrapper = styled.section`
   ${mq.mobileL} {
     padding: 120px 18px 80px 18px;
   }
+  ${mq.tablet} {
+    padding: 120px 18px 80px 18px;
+  }
+  ${mq.laptop} {
+    max-width: 1000px;
+  }
 `;
 export const Title = styled.h3`
   font-size: 35px;
