@@ -101,8 +101,10 @@ export function LayoutHeader() {
 
           <S.Nav>
             <ul>
-              {menuList.map((el) => (
-                <li onClick={onClickMoveToPage(el.url)}>{el.name}</li>
+              {menuList.map((el: typeof data) => (
+                <li key={el.url} onClick={onClickMoveToPage(el.url)}>
+                  {el.name}
+                </li>
               ))}
             </ul>
           </S.Nav>
@@ -214,8 +216,10 @@ export function LayoutHeaderMain() {
           )}
           <O.Nav>
             <ul>
-              {menuList.map((el) => (
-                <li onClick={onClickMoveToPage(el.url)}>{el.name}</li>
+              {menuList.map((el: typeof data) => (
+                <li key={el.url} onClick={onClickMoveToPage(el.url)}>
+                  {el.name}
+                </li>
               ))}
             </ul>
           </O.Nav>

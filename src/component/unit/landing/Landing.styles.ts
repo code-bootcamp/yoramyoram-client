@@ -283,6 +283,12 @@ export const SliderCustom = styled(Slider)`
     ${mq.mobile} {
       display: none;
     }
+    ${mq.mobileL} {
+      display: none;
+    }
+    ${mq.tablet} {
+      display: none;
+    }
   }
   .slick-next:before {
     color: black;
@@ -340,6 +346,24 @@ export const Name = styled.p`
   color: #222222;
   font-weight: 400;
   margin-bottom: 8px;
+  ${mq.mobile} {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  ${mq.mobileL} {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  ${mq.tablet} {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 `;
 export const Price = styled.p`
   font-size: 16px;
@@ -369,6 +393,9 @@ export const BuyBtn = styled.button`
     width: 100%;
   }
   ${mq.mobileL} {
+    width: 100%;
+  }
+  ${mq.tablet} {
     width: 100%;
   }
 `;
@@ -440,8 +467,10 @@ export const SwiperContentWrapper = styled(Swiper)`
 export const Reviews = styled(SwiperSlide)`
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.51);
-  font-size: 20px;
-  line-height: 1.3;
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 300;
+  word-break: keep-all;
   color: #222222;
   padding: 30px;
   display: flex;
@@ -450,10 +479,16 @@ export const Reviews = styled(SwiperSlide)`
   gap: 40px;
   font-family: "Noto Sans KR";
   ${mq.mobile} {
-    font-size: 18px;
+    font-size: 15px;
   }
   ${mq.mobileL} {
-    font-size: 18px;
+    font-size: 15px;
+  }
+  ${mq.tablet} {
+    font-size: 15px;
+  }
+  ${mq.laptop} {
+    font-size: 15px;
   }
 `;
 

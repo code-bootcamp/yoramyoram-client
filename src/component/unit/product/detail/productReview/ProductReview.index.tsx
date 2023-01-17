@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { string } from "yup/lib/locale";
 import { useRouter } from "next/router";
 import { Point } from "../../../basket/Basket.styles";
-import { getDate } from "../../../../../commons/library/util";
+import { getDate, NameMask } from "../../../../../commons/library/util";
 import Pagination01 from "../../../../commons/pagination/01/Pagination01.container";
 import Pagination02 from "../../../../commons/pagination/02/Pagination02.container";
 import { FETCH_PRODUCT } from "../../../../commons/hooks/queries/useFetchProduct";
@@ -354,7 +354,7 @@ export default function ProductReview(props: IProps) {
               <S.ReviewDateWrapper>
                 <S.ReviewText>{el.content}</S.ReviewText>
                 <S.ReviewRelatedWrapper>
-                  <p>{el.user?.name}</p>
+                  <p>{NameMask(String(el.user?.name))}</p>
                   <p>{getDate(String(el.createdAt))}</p>
                 </S.ReviewRelatedWrapper>
               </S.ReviewDateWrapper>

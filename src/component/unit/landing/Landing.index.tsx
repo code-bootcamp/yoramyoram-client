@@ -1,15 +1,13 @@
-import React, { useEffect, useState, Component, MouseEvent } from "react";
+import React, { useEffect, useState, MouseEvent } from "react";
 import { FullPage, Slide } from "react-full-page";
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/react";
+
 // import AOS from "aos";
-import "aos/dist/aos.css";
+// import "aos/dist/aos.css";
 import * as S from "./Landing.styles";
-import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import { RightOutlined } from "@ant-design/icons";
-import SwiperCore, { Autoplay } from "swiper";
+import { Autoplay } from "swiper";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -19,11 +17,7 @@ import LayoutFooter from "../../commons/layout/footer/LayoutFooter.index";
 import { useMoveToPage } from "../../commons/custom/useMoveToPage";
 import { FETCH_PRODUCTS } from "../../commons/hooks/queries/useFetchProducts";
 import { useQuery } from "@apollo/client";
-import {
-  IQuery,
-  IQueryFetchProductsArgs,
-} from "../../../commons/types/generated/types";
-import { PriceReg, getDate } from "../../../commons/library/util";
+import { PriceReg, getDate, NameMask } from "../../../commons/library/util";
 import { useRouter } from "next/router";
 import { FETCH_COMMENTS_MAIN } from "../../commons/hooks/queries/useFetchCommentsMain";
 
@@ -39,9 +33,6 @@ const controlsProps = {
 const slideDuration = {
   duration: 1200,
 };
-
-const dummyData = new Array(10).fill(10);
-// 임시용
 
 export default function Landing() {
   const router = useRouter();
@@ -62,9 +53,9 @@ export default function Landing() {
     void router.push(`/products/${event.currentTarget.id}`);
   };
   const [scroll, setScroll] = useState(false);
-  useEffect(() => {
-    // AOS.init();
-  });
+  // useEffect(() => {
+  //   // AOS.init();
+  // });
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
@@ -271,8 +262,9 @@ export default function Landing() {
                             #{el.product.name}
                           </S.CommentPrd>
                           <S.CommentUser>
-                            {el.user.name.replace(/(?<=.{2})./gi, "*")}&nbsp; /
-                            &nbsp;
+                            {/* {el.user.name.replace(/(?<=.{2})./gi, "*")}&nbsp; /
+                            &nbsp; */}
+                            {NameMask(el.user.name)}&nbsp; / &nbsp;
                             {getDate(el.createdAt)}
                           </S.CommentUser>
                         </S.CommentInfo>
