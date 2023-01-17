@@ -17,7 +17,7 @@ import LayoutFooter from "../../commons/layout/footer/LayoutFooter.index";
 import { useMoveToPage } from "../../commons/custom/useMoveToPage";
 import { FETCH_PRODUCTS } from "../../commons/hooks/queries/useFetchProducts";
 import { useQuery } from "@apollo/client";
-import { PriceReg, getDate } from "../../../commons/library/util";
+import { PriceReg, getDate, NameMask } from "../../../commons/library/util";
 import { useRouter } from "next/router";
 import { FETCH_COMMENTS_MAIN } from "../../commons/hooks/queries/useFetchCommentsMain";
 
@@ -262,8 +262,9 @@ export default function Landing() {
                             #{el.product.name}
                           </S.CommentPrd>
                           <S.CommentUser>
-                            {el.user.name.replace(/(?<=.{2})./gi, "*")}&nbsp; /
-                            &nbsp;
+                            {/* {el.user.name.replace(/(?<=.{2})./gi, "*")}&nbsp; /
+                            &nbsp; */}
+                            {NameMask(el.user.name)}&nbsp; / &nbsp;
                             {getDate(el.createdAt)}
                           </S.CommentUser>
                         </S.CommentInfo>

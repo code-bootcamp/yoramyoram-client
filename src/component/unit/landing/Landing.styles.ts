@@ -440,8 +440,10 @@ export const SwiperContentWrapper = styled(Swiper)`
 export const Reviews = styled(SwiperSlide)`
   border-radius: 20px;
   background-color: rgba(255, 255, 255, 0.51);
-  font-size: 20px;
-  line-height: 1.3;
+  font-size: 18px;
+  line-height: 1.6;
+  font-weight: 300;
+  word-break: keep-all;
   color: #222222;
   padding: 30px;
   display: flex;
