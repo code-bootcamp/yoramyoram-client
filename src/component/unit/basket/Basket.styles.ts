@@ -182,6 +182,12 @@ export const Button = styled.button`
   padding: 5px;
   font-size: 15px;
   cursor: pointer;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #30640a;
+    border: 1px solid #30640a;
+    color: #fcfbfa;
+  }
 `;
 
 export const RightTitle = styled.h5`
