@@ -1,10 +1,29 @@
-export const PriceReg = (value: string) => {
-  if (value === undefined || value === null) return;
+// export const PriceReg = (value: string) => {
+//   if (value === undefined || value === null) return;
 
-  const regExp = /\B(?=(\d{3})+(?!\d))/g;
-  const result = value.toString().replace(regExp, ",");
+//   const regExp = /\B(?=(\d{3})+(?!\d))/g;
+//   const result = value.toString().replace(regExp, ",");
 
-  return result;
+//   return result;
+// };
+
+export const PriceReg = (num: string) => {
+  let len;
+  let point;
+  let str;
+
+  num = num + "";
+  point = num.length % 3;
+  len = num.length;
+
+  str = num.substring(0, point);
+
+  while (point < len) {
+    if (str != "") str += ",";
+    str += num.substring(point, point + 3);
+    point += 3;
+  }
+  return str;
 };
 
 export const getDate = (value: string) => {

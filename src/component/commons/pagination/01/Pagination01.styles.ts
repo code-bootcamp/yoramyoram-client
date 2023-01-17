@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 
-export const Page = styled.button`
+export const Page = styled.button<IIsActive>`
   color: #707070;
-  background-color: #30640a24;
+  background-color: ${(props) =>
+    props.isActive ? "#30640a24" : "transparent"};
   font-family: "Poppins", sans-serif;
   border: none;
   border-radius: 50%;
