@@ -283,6 +283,12 @@ export const SliderCustom = styled(Slider)`
     ${mq.mobile} {
       display: none;
     }
+    ${mq.mobileL} {
+      display: none;
+    }
+    ${mq.tablet} {
+      display: none;
+    }
   }
   .slick-next:before {
     color: black;
@@ -340,6 +346,24 @@ export const Name = styled.p`
   color: #222222;
   font-weight: 400;
   margin-bottom: 8px;
+  ${mq.mobile} {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  ${mq.mobileL} {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  ${mq.tablet} {
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
 `;
 export const Price = styled.p`
   font-size: 16px;
@@ -369,6 +393,9 @@ export const BuyBtn = styled.button`
     width: 100%;
   }
   ${mq.mobileL} {
+    width: 100%;
+  }
+  ${mq.tablet} {
     width: 100%;
   }
 `;
