@@ -123,7 +123,7 @@ export const Nav = styled.nav`
     margin-bottom: 20px;
   }
 `;
-export const Logo = styled.div`
+export const Logo = styled.button`
   margin-left: 37px;
   & > img {
     width: 100%;
