@@ -51,6 +51,20 @@ export default function ProductDetail() {
   const [isSelectedTwo, setIsSelectedTwo] = useState("");
   const [getOption, setGetOption] = useState("");
   const [getOptionTwo, setGetOptionTwo] = useState("");
+
+  useEffect(() => {
+    if (data === undefined) return;
+    setGetOption(String(data?.fetchProduct?.etc1Name));
+    setGetOptionTwo(String(data?.fetchProduct?.etc2Name));
+
+    if (getOption === "selectOption1") setIsGetOption(false);
+    if (getOptionTwo === "selectOption2") setIsGetOptionTwo(false);
+    console.log(isGetOption);
+    console.log(isGetOptionTwo);
+    console.log(getOptionTwo);
+    console.log(data?.fetchProduct?.etc1Name);
+    console.log(data?.fetchProduct?.etc2Name);
+  });
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setIsSelected(e?.target.value);
   };
@@ -350,16 +364,6 @@ export default function ProductDetail() {
   const productPrice = data?.fetchProduct.price;
   const [price, setPrice] = useState(0);
   const [isActive, setIsActive] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (data === undefined) return;
-    setGetOption(String(data?.fetchProduct?.etc1Name));
-    setGetOptionTwo(String(data?.fetchProduct?.etc2Name));
-
-    if (getOption === "selectOption1") setIsGetOption(false);
-    if (getOptionTwo === "selectOption2") setIsGetOptionTwo(false);
-    if (getOptionTwo === "selectOption1") setIsGetOption(false);
-  });
 
   useEffect(() => {
     if (data === undefined) return;
