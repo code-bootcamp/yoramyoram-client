@@ -93,8 +93,20 @@ export default function WishList() {
                     <span></span>
                   </S.ItemPriceBox>
                   <S.RepurchaseDivMob>
-                    <S.RepurchaseBtnMob>구매</S.RepurchaseBtnMob>
-                    <S.RepurchaseBtnMob>삭제</S.RepurchaseBtnMob>
+                    <S.RepurchaseBtnMob
+                      id={el?.product?.product_id}
+                      onClick={onClickMoveToDetail}
+                    >
+                      구매
+                    </S.RepurchaseBtnMob>
+                    <S.RepurchaseBtnMob
+                      id={el?.product?.product_id}
+                      onClick={(e) => {
+                        onClickAddWishlist(idx);
+                      }}
+                    >
+                      삭제
+                    </S.RepurchaseBtnMob>
                   </S.RepurchaseDivMob>
                 </S.PurchasedItemInfoText>
               </S.PurchasedItemInfo>
