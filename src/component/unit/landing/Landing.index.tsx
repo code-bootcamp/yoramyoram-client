@@ -57,6 +57,10 @@ export default function Landing() {
   const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {
     void router.push(`/products/${event.currentTarget.id}`);
   };
+
+  const onClickMoveToPrd = (event: MouseEvent<HTMLParagraphElement>) => {
+    void router.push(`/products/${event.currentTarget.id}`);
+  };
   const [scroll, setScroll] = useState(false);
   useEffect(() => {
     // AOS.init();
@@ -258,9 +262,19 @@ export default function Landing() {
                     {commentsData?.fetchCommentsMain.map((el: typeof data) => (
                       <S.Reviews>
                         <S.ReviewContent>{el.content}</S.ReviewContent>
+
                         <S.CommentInfo>
-                          - {el.user.name.replace(/(?<=.{2})./gi, "*")} /{" "}
-                          {getDate(el.createdAt)}
+                          <S.CommentPrd
+                            id={el.product?.product_id}
+                            onClick={onClickMoveToPrd}
+                          >
+                            #{el.product.name}
+                          </S.CommentPrd>
+                          <S.CommentUser>
+                            {el.user.name.replace(/(?<=.{2})./gi, "*")}&nbsp; /
+                            &nbsp;
+                            {getDate(el.createdAt)}
+                          </S.CommentUser>
                         </S.CommentInfo>
                       </S.Reviews>
                     ))}

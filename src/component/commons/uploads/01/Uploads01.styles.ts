@@ -19,12 +19,12 @@ export const UploadImage = styled.img`
 export const UploadButton = styled.button`
   width: 140px;
   height: 140px;
-  background-color: #30640a;
+  background-color: transparent;
   margin-right: 15px;
   outline: none;
-  border: none;
+  border: 1px dashed #30640a;
   cursor: pointer;
-  color: #ffffffa6;
+  color: #30640ab0;
   font-size: 30px;
   ${mq.mobile} {
     width: 80px;
