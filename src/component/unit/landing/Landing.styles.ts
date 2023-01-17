@@ -452,10 +452,16 @@ export const Reviews = styled(SwiperSlide)`
   gap: 40px;
   font-family: "Noto Sans KR";
   ${mq.mobile} {
-    font-size: 18px;
+    font-size: 15px;
   }
   ${mq.mobileL} {
-    font-size: 18px;
+    font-size: 15px;
+  }
+  ${mq.tablet} {
+    font-size: 15px;
+  }
+  ${mq.laptop} {
+    font-size: 15px;
   }
 `;
 
