@@ -140,6 +140,13 @@ export const globalStyles = css`
     background-color: transparent;
   }
 
+  input,
+  textarea,
+  button {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+  }
+
   @font-face {
     font-family: "NewYork";
     src: url("/font/NewYork_PERSONAL_USE.otf");
