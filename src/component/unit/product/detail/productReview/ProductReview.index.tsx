@@ -17,6 +17,7 @@ import {
   IMutationDeleteCommentArgs,
   IQuery,
   IQueryFetchCommentArgs,
+  IQueryFetchCommentsArgs,
   IQueryFetchCommentsCountArgs,
   IQueryFetchProductArgs,
 } from "../../../../../commons/types/generated/types";
@@ -44,6 +45,7 @@ interface IData {
 interface IUser {
   name?: string;
   typename: string;
+  id?: string;
 }
 
 interface IProps {
@@ -75,7 +77,10 @@ export default function ProductReview(props: IProps) {
   };
   //====================================
 
-  const { data: comments, refetch } = useQuery(FETCH_COMMENTS, {
+  const { data: comments, refetch } = useQuery<
+    Pick<IQuery, "fetchComments">,
+    IQueryFetchCommentsArgs
+  >(FETCH_COMMENTS, {
     variables: {
       productId: String(router.query.productId),
       page: 1,
@@ -116,8 +121,10 @@ export default function ProductReview(props: IProps) {
   >(DELETE_COMMENT);
 
   const onClickComment = (e: MouseEvent<HTMLButtonElement>) => {
+    let useID = e.currentTarget.className;
     if (!props.user) return Modal.warning({ content: "로그인해주세요!" });
-
+    if (props.user?.fetchLoginUser?.id !== useID.split(" ")[2])
+      return Modal.warning({ content: "작성자만 삭제할 수 있습니다!" });
     setCommentId(e.currentTarget.id);
     setIsDelete(true);
   };
@@ -156,9 +163,6 @@ export default function ProductReview(props: IProps) {
       Modal.warning({ content: "삭제오류!" });
     }
   };
-  // console.log(comment?.fetchComment?.star);
-  // console.log(star);
-  // console.log(comment?.fetchComment?.content);
 
   const onChangeContent = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
@@ -226,8 +230,10 @@ export default function ProductReview(props: IProps) {
   //   setCommentId: (event: MouseEvent<HTMLButtonElement>) => void;
   // }
   const onClickIsEdit = (event: MouseEvent<HTMLButtonElement>) => {
+    let useID = event.currentTarget.className;
     if (!props.user) return Modal.warning({ content: "로그인해주세요!" });
-
+    if (props.user?.fetchLoginUser?.id !== useID.split(" ")[2])
+      return Modal.warning({ content: "작성자만 수정할 수 있습니다!" });
     setIsEdit(true);
     setCommentId(event.currentTarget.id);
   };
@@ -335,7 +341,7 @@ export default function ProductReview(props: IProps) {
             )}
           </div>
         </S.ReviewHeader>
-        {comments?.fetchComments.map((el: IData) => (
+        {comments?.fetchComments.map((el) => (
           <S.ReviewInnerWrapper key={el.comment_id}>
             <S.ReviewInner>
               <S.ReviewTop>
@@ -345,8 +351,13 @@ export default function ProductReview(props: IProps) {
                 </S.ReviewTopLeft>
                 <S.ReviewTopRight>
                   <S.ReviewBtnWrapper>
-                    <FormOutlined id={el.comment_id} onClick={onClickIsEdit} />
+                    <FormOutlined
+                      className={el?.user?.id}
+                      id={el.comment_id}
+                      onClick={onClickIsEdit}
+                    />
                     <CloseOutlined
+                      className={el?.user?.id}
                       id={el.comment_id}
                       onClick={onClickComment}
                       style={{ paddingLeft: "27px" }}
