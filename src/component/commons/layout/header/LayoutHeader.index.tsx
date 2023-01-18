@@ -49,7 +49,7 @@ export function LayoutHeader() {
     }
   };
   const { data } = useQuery(FETCH_LOGIN_USER);
-  console.log(data);
+  // console.log(data);
   // 반응형 메뉴
 
   const [isOpen, setIsOpen] = useState<boolean>(false); // 메뉴의 초기값을 false로 설정

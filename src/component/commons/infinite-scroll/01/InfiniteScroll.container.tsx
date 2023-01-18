@@ -23,19 +23,19 @@ export default function InfiniteScrollPage(props: IData) {
     if (props.data === undefined) return;
     if (props.data?.fetchProductCart === undefined) return;
 
-    console.log("인피니티스크롤 :", props.data);
-    console.log(
-      "props.data?.fetchProductCart.length",
-      Math.ceil(props.data?.fetchProductCart.length / 5)
-    );
+    // console.log("인피니티스크롤 :", props.data);
+    // console.log(
+    //   "props.data?.fetchProductCart.length",
+    //   Math.ceil(props.data?.fetchProductCart.length / 5)
+    // );
     await props.fetchMore({
       variables: {
         page: Math.ceil(props.data?.fetchProductCart.length / 5) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        console.log("fetchMoreResult", fetchMoreResult);
+        // console.log("fetchMoreResult", fetchMoreResult);
         if (fetchMoreResult.fetchProductCart === undefined) {
-          console.log(prev, fetchMoreResult);
+          // console.log(prev, fetchMoreResult);
           return {
             fetchProductCart: [...prev.fetchProductCart],
           };

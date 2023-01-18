@@ -62,7 +62,7 @@ export default function OfflineShopPageUI() {
             temp.push(...res.data.body);
           })
           .catch((e) => {
-            console.log(e);
+            // console.log(e);
           });
       }
       setX(temp[0].COT_COORD_X);
@@ -107,7 +107,7 @@ export default function OfflineShopPageUI() {
           setShopList(res.data.body);
         })
         .catch((e) => {
-          console.log(e);
+          // console.log(e);
         });
     }
   };

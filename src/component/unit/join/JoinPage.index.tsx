@@ -49,7 +49,7 @@ export default function JoinPageUI() {
     } else {
     }
   }, [watchAll]);
-  console.log(watchAll);
+  // console.log(watchAll);
   //===================================
 
   const onClickUSERType = (e: ChangeEvent<HTMLInputElement>) => {

@@ -64,7 +64,7 @@ export default function Payment() {
     } else {
     }
   }, [watchAll]);
-  console.log(watchAll);
+  // console.log(watchAll);
 
   const onChangeUsePoint = (event: ChangeEvent<HTMLInputElement>) => {
     setValue("point", event?.target.value);
@@ -72,7 +72,7 @@ export default function Payment() {
   //===================================
 
   const { data: userPoint } = useFetchUserPoint();
-  console.log(userPoint?.fetchUserPoint?.point);
+  // console.log(userPoint?.fetchUserPoint?.point);
 
   const { data: user } = useQuery(FETCH_LOGIN_USER);
 

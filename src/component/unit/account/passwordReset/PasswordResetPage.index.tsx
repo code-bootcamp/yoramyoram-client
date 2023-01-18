@@ -21,7 +21,7 @@ export default function PasswordResetPageUI() {
   const { onClickMoveToPage } = useMoveToPage();
   const [updatePassword] = useMutation(UPDATE_PASSWORD);
   const [UpdataPasswordPhoneState] = useRecoilState(updataPasswordPhoneState);
-  console.log(UpdataPasswordPhoneState);
+  // console.log(UpdataPasswordPhoneState);
 
   const { register, handleSubmit, watch } = useForm<IData>({
     mode: "onChange",
@@ -34,7 +34,7 @@ export default function PasswordResetPageUI() {
     } else {
     }
   }, [watchAll]);
-  console.log(watchAll);
+  // console.log(watchAll);
 
   const onClickPasswordReset = async (data: IData) => {
     try {
