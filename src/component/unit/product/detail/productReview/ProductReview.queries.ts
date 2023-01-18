@@ -39,6 +39,7 @@ export const FETCH_COMMENTS = gql`
       createdAt
       user {
         name
+        id
       }
     }
   }
