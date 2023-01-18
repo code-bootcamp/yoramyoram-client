@@ -85,7 +85,7 @@ export default function ProductList() {
     setIsWish(false);
   });
 
-  console.log(user?.fetchLoginUser);
+  // console.log(user?.fetchLoginUser);
   // selectBox
   // const onChangeSelectBox = (e: ChangeEvent<HTMLSelectElement>) => {
   //   setSelected(e.currentTarget.value);
@@ -133,16 +133,16 @@ export default function ProductList() {
       cateId: "",
     },
   });
-  console.log(dataProductsCount?.fetchProductsCount);
+  // console.log(dataProductsCount?.fetchProductsCount);
 
   // console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
   // console.log(data?.fetchProducts);
   // console.log("======="); // 데이터가 두 번 실행되는 것을 보여주기 위해 콘솔을 넣음
 
-  console.log(data);
+  // console.log(data);
 
   const onSearch = (value: string) => {
-    console.log("search:", value);
+    // console.log("search:", value);
   };
 
   const onClickProductSubmit = () => {
@@ -159,7 +159,7 @@ export default function ProductList() {
 
   useEffect(() => {
     onLoadList(data?.fetchProducts);
-    console.log("111111111111111");
+    // console.log("111111111111111");
     window.addEventListener("scroll", handleScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);

@@ -33,15 +33,14 @@ export const useSignIn = () => {
           ...data,
         },
       });
-      //   console.log(result);
+
       const accessToken = result.data?.login;
       if (accessToken === undefined) {
         Modal.error({ content: "로그인에 실패했습니다." });
         return;
       }
       setAccessToken(accessToken);
-      //   localStorage.setItem("accessToken", accessToken);
-      // Modal.success({ content: "환영합니다!" });
+
       void router.push("/");
     } catch (error) {
       if (error instanceof Error)

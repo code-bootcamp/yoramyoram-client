@@ -39,7 +39,7 @@ export default function PaSearchPageUI() {
     } else {
     }
   }, [watchAll]);
-  console.log(watchAll);
+  // console.log(watchAll);
 
   const PhoneFirst = getValues("phoneFirst");
   const PhoneSecond = getValues("phoneSecond");
@@ -106,7 +106,7 @@ export default function PaSearchPageUI() {
         },
       });
       setUpdataPasswordPhoneState(phone);
-      console.log(result);
+      // console.log(result);
       void router.push("/account/password_reset");
     } catch (error) {
       Modal.warning({ content: "입력하신 정보를 다시한번 확인해주세요." });

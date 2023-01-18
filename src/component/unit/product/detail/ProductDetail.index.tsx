@@ -59,11 +59,11 @@ export default function ProductDetail() {
 
     if (getOption === "selectOption1") setIsGetOption(false);
     if (getOptionTwo === "selectOption2") setIsGetOptionTwo(false);
-    console.log(isGetOption);
-    console.log(isGetOptionTwo);
-    console.log(getOptionTwo);
-    console.log(data?.fetchProduct?.etc1Name);
-    console.log(data?.fetchProduct?.etc2Name);
+    // console.log(isGetOption);
+    // console.log(isGetOptionTwo);
+    // console.log(getOptionTwo);
+    // console.log(data?.fetchProduct?.etc1Name);
+    // console.log(data?.fetchProduct?.etc2Name);
   });
   const handleSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setIsSelected(e?.target.value);

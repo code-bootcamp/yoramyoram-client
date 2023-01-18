@@ -41,7 +41,7 @@ export default function WishList() {
       productId: String(router.query.productId),
     },
   });
-  console.log(data?.fetchmyWishlist);
+  // console.log(data?.fetchmyWishlist);
 
   const onClickMoveToDetail = (event: MouseEvent<HTMLButtonElement>) => {
     void router.push(`/products/${event.currentTarget.id}`);

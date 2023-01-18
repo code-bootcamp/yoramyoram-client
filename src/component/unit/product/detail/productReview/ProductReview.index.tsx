@@ -106,7 +106,7 @@ export default function ProductReview(props: IProps) {
     },
   });
 
-  console.log(dataCommentsCount);
+  // console.log(dataCommentsCount);
 
   const [createComment] = useMutation<
     Pick<IMutation, "createComment">,
@@ -157,7 +157,7 @@ export default function ProductReview(props: IProps) {
           },
         ],
       });
-      console.log(String(router.query.productId));
+      // console.log(String(router.query.productId));
       setIsDelete(false);
     } catch {
       Modal.warning({ content: "삭제오류!" });

@@ -22,18 +22,18 @@ export default function InfiniteScrollPage(props: IProps) {
     if (props.data === undefined) return;
     if (props.data?.fetchmyWishlist === undefined) return;
 
-    console.log(
-      "props.data?.fetchProductCart.length",
-      Math.ceil(props.data?.fetchmyWishlist.length / 5)
-    );
+    // console.log(
+    //   "props.data?.fetchProductCart.length",
+    //   Math.ceil(props.data?.fetchmyWishlist.length / 5)
+    // );
     await props.fetchMore({
       variables: {
         page: Math.ceil(props.data?.fetchmyWishlist.length / 5) + 1,
       },
       updateQuery: (prev, { fetchMoreResult }) => {
-        console.log("fetchMoreResult", fetchMoreResult);
+        // console.log("fetchMoreResult", fetchMoreResult);
         if (fetchMoreResult.fetchmyWishlist === undefined) {
-          console.log(prev, fetchMoreResult);
+          // console.log(prev, fetchMoreResult);
           return {
             fetchmyWishlist: [...prev.fetchmyWishlist],
           };
