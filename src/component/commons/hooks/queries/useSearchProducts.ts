@@ -40,7 +40,6 @@ export const useSearchProducts = (word: string) => {
   const refetchSearch = (word: string) => {
     // console.log(word);
     void refetch({ page: 1, word: word });
-    console.log(data);
   };
 
   // const [keyword, setKeyword] = useState("");

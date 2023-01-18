@@ -43,7 +43,7 @@ export default function IdSearchPageUI() {
     } else {
     }
   }, [watchAll]);
-  console.log(watchAll);
+  // console.log(watchAll);
 
   const PhoneFirst = getValues("phoneFirst");
   const PhoneSecond = getValues("phoneSecond");

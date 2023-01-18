@@ -64,7 +64,7 @@ export default function Pagination01(props: IProps) {
     setStartPage(startPage - 5);
     setActivedPage(startPage - 5);
     void props.refetch({ page: startPage - 5 });
-    console.log("이전");
+    // console.log("이전");
   };
 
   const onClickNextPage = () => {
@@ -73,7 +73,7 @@ export default function Pagination01(props: IProps) {
       setActivedPage(startPage + 5);
       void props.refetch({ page: startPage + 5 });
     }
-    console.log("다음");
+    // console.log("다음");
   };
 
   return (

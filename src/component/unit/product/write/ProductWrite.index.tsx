@@ -205,10 +205,10 @@ export default function ProductWrite(props: any) {
     setSelectValue2(props.data?.fetchProduct?.etc2Name);
   }, [props.data]);
 
-  console.log(props.data?.fetchProduct.etc1Name);
-  console.log(props.data?.fetchProduct.etc2Name);
+  // console.log(props.data?.fetchProduct.etc1Name);
+  // console.log(props.data?.fetchProduct.etc2Name);
   const onClickUpdateSubmit = async (data: any) => {
-    console.log(data);
+    // console.log(data);
 
     // update 수정해볼게요 2022/01/14
 
@@ -263,7 +263,7 @@ export default function ProductWrite(props: any) {
         },
       ],
     });
-    console.log(result);
+    // console.log(result);
     router.push(`/products/${result.data?.updateProduct.product_id}`);
   };
 
