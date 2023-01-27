@@ -1,5 +1,5 @@
 
-## YORAMYORAM
+## 🌱YORAMYORAM
 
 📌최근 매장 내 빨대 없애기, 편의점 비닐봉투 사용금지 등 많은 기업들도 환경보호에 관심을 가지면서
 
@@ -17,10 +17,10 @@
 
 제로웨이스팅 상품들을 온라인에서도 거래할 수 있는 온라인 샵을 마련함으로써 소비자들의 제로웨이스팅 생활화를 도모하고자 합니다.
 
-## 팀원소개
+## 🌱팀원소개
 ![다운로드](https://user-images.githubusercontent.com/114714566/212860285-5c187191-7d6e-4fc9-949d-67ca06c04f78.png)
 
-## FrontEnd 소개
+## 🌱FrontEnd 소개
 
 ### 백송희
 📧songhee176@gmail.com<br/>
@@ -43,10 +43,10 @@
 - 댓글(등록,수정,삭제)
 - Git 관리[FE]
 
-## 기술스택
+## 🌱기술스택
 ![다운로드](https://user-images.githubusercontent.com/114714566/212859981-99d21754-286b-4e15-8fcf-0110058da6f5.png)
 
-## Wireframe
+## 🌱Wireframe
 
 ![Wireframe](https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F6233fed1-3dc7-4732-8ff3-e4ea8d8c6a1a%2FUntitled.jpg?id=54ff0d7b-5bce-45a2-b085-a92c034e10c9&table=block&spaceId=9c9b02bc-6cb6-4924-bf38-dad25e0fe77b&width=2000&userId=bedbd936-0df0-4470-a390-1e12397596f3&cache=v2)
 
